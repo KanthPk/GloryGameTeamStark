@@ -5,6 +5,7 @@
  */
 package Client.Controller;
 
+import glory_schema.Bag;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -59,12 +60,30 @@ public class GameController implements Initializable {
     @FXML
     private Button btnHome;
 
+    @FXML
+    private TextField txtRandom_1;
+
+    @FXML
+    private TextField txtRandom_2;
+
+    @FXML
+    private TextField txtRandom_3;
+
+    private Bag bag;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        //value initialization
+        //inject bag object
+        bag = new Bag();
+        for (int i = 1; i <= 3; i++) {
+            txtRandom_1.setText(Character.toString(bag.randomGen()));
+            txtRandom_2.setText(Character.toString(bag.randomGen()));
+            txtRandom_3.setText(Character.toString(bag.randomGen()));
+        }
     }
 
     @FXML
