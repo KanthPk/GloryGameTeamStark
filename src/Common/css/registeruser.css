@@ -1,0 +1,11 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+
+.registerUI-background{
+    -fx-background-image: url("/resources/Login.jpg");
+}

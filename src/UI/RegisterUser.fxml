@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="654.0" prefWidth="1197.0" styleClass="registerUI-background" stylesheets="@../Common/css/registeruser.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.RegisterUserController">
+   <children>
+      <AnchorPane layoutX="287.0" layoutY="73.0" opacity="0.95" prefHeight="569.0" prefWidth="626.0" style="-fx-background-color: #FFFFFF;">
+         <effect>
+            <InnerShadow />
+         </effect>
+         <children>
+            <Label layoutX="198.0" layoutY="14.0" prefHeight="39.0" prefWidth="207.0" style="-fx-font-style: bold;" text="Account Creation">
+               <font>
+                  <Font size="27.0" />
+               </font>
+               <effect>
+                  <Glow level="0.56" />
+               </effect>
+            </Label>
+            <Separator layoutX="42.0" layoutY="53.0" prefHeight="4.0" prefWidth="547.0">
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Glow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant color="#2f2f2f" elevation="250.12" />
+                     </light>
+                  </Lighting>
+               </effect>
+            </Separator>
+            <Label layoutX="102.0" layoutY="79.0" prefHeight="30.0" prefWidth="104.0" text="User Name">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <effect>
+                  <Glow level="0.81" />
+               </effect>
+            </Label>
+            <TextField fx:id="txtUserName" layoutX="126.0" layoutY="117.0" prefHeight="39.0" prefWidth="379.0" promptText="Your user name here">
+               <font>
+                  <Font size="17.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </TextField>
+            <Label layoutX="102.0" layoutY="173.0" prefHeight="30.0" prefWidth="54.0" text="Email">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <effect>
+                  <Glow level="0.81" />
+               </effect>
+            </Label>
+            <TextField fx:id="txtEmail" layoutX="123.0" layoutY="212.0" prefHeight="39.0" prefWidth="379.0" promptText="Your user email here">
+               <font>
+                  <Font size="17.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </TextField>
+            <Label layoutX="102.0" layoutY="270.0" prefHeight="30.0" prefWidth="90.0" text="Password">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <effect>
+                  <Glow level="0.81" />
+               </effect>
+            </Label>
+            <Label layoutX="102.0" layoutY="367.0" prefHeight="30.0" prefWidth="167.0" text="Confirm password">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <effect>
+                  <Glow level="0.81" />
+               </effect>
+            </Label>
+            <Button fx:id="btnSave" layoutX="121.0" layoutY="482.0" mnemonicParsing="false" onAction="#btnSaveClcked" prefHeight="39.0" prefWidth="120.0" style="-fx-cursor: HAND;" text="Save">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Button>
+            <Button fx:id="btnBack" layoutX="256.0" layoutY="482.0" mnemonicParsing="false" onAction="#btnBackClicked" prefHeight="39.0" prefWidth="120.0" style="-fx-cursor: HAND;" text="Back">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Button>
+            <PasswordField fx:id="txtPassword" layoutX="121.0" layoutY="308.0" prefHeight="39.0" prefWidth="379.0" promptText="Your password here">
+               <font>
+                  <Font size="17.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </PasswordField>
+            <PasswordField fx:id="txtConfirmPassword" layoutX="121.0" layoutY="404.0" prefHeight="39.0" prefWidth="379.0" promptText="Your confirm password here">
+               <font>
+                  <Font size="17.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </PasswordField>
+         </children>
+      </AnchorPane>
+      <Label layoutX="348.0" layoutY="14.0" prefHeight="48.0" prefWidth="490.0" text="YOUR GLORY GAME STARTS HERE" textFill="#d39b00">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+         <effect>
+            <Glow level="0.66" />
+         </effect>
+      </Label>
+   </children>
+</AnchorPane>

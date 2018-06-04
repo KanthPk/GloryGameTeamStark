@@ -1,0 +1,30 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+
+.login-panel{
+    background-color: blue !important;
+}
+
+.login-background{
+    -fx-background-image: url("/resources/Login.jpg");
+}
+
+
+.common-color{
+    background-color: #FFFFFF;   
+}
+
+.close-icon{
+    -fx-background-image: url("/resources/icons/close.png");    
+    -fx-cursor:hand;
+}
+
+.minimize-icon{
+    -fx-background-image: url("/resources/icons/minimize.png");
+    -fx-cursor:hand;
+}

@@ -1,0 +1,19 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+
+.login-background{
+    -fx-background-image: url("/resources/Login.jpg");
+}
+
+.profile-ownerbackground{
+    -fx-background-image: url("/resources.profile.icons/Gnar_Poro_Icon.jpg");
+}
+
+.textArea{
+    -fx-background-color:  #00184B;
+}
