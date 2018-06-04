@@ -5,6 +5,7 @@
  */
 package Client.Controller;
 
+import glory_services.MessageService;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.URL;
@@ -12,11 +13,16 @@ import java.net.URLConnection;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -48,7 +54,27 @@ public class RegisterUserController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
+        txtEmail.focusedProperty().addListener((ov, oldV, newV) -> {
+            if (!txtEmail.getText().isEmpty()) {               
+                if (!newV) {
+                    try {
+                        AnchorPane layout;
+                        Stage stage;
+                        String header = "MAIL CONFIRMATION";
+                        String body = "Please enter your confirmation code to verify your email";
+                        MessageService.setMakeMessageUI("mail", header, body);
+                        layout = FXMLLoader.load(getClass().getResource("/UI/CommenMessage.fxml"));
+                        stage = new Stage();
+                        stage.setScene(new Scene(layout));
+                        stage.setResizable(false);
+                        stage.initStyle(StageStyle.UNDECORATED);
+                        stage.show();
+                    } catch (Exception e) {
+                    }
+                }
+            }
+        });
 
     }
 
@@ -62,7 +88,7 @@ public class RegisterUserController implements Initializable {
     }
 
     @FXML
-    private void btnSaveClcked(ActionEvent event) {    
+    private void btnSaveClcked(ActionEvent event) {
         try {
             //save the data
             // open a connection to the site
@@ -79,6 +105,11 @@ public class RegisterUserController implements Initializable {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+    }
+
+    @FXML
+    void txtEmailPressed(MouseEvent event) {
+        /// no needed
     }
 
 }

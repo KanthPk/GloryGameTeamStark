@@ -58,20 +58,6 @@ public class CommenMessageController implements Initializable {
             lblMsgBody.setText(MessageService.msgValue);
             btnOK.setText("Ok");
             btnCancel.setText("Cancel");
-
-            txtInfo.focusedProperty().addListener((ov, oldV, newV) -> {
-                if (!newV) {
-                    // focus lost
-                    // Your code
-                    value = txtInfo.getText();
-                    System.out.println("" + value);
-                    if (!value.isEmpty()) {
-                        Stage stage = (Stage) btnCancel.getScene().getWindow();
-                        stage.close();
-                    }
-                }
-            });
-
         } catch (Exception e) {
             e.getStackTrace();
         }
@@ -89,9 +75,16 @@ public class CommenMessageController implements Initializable {
     @FXML
     void btnOKClicked(ActionEvent event) {
         try {
-            // you code goes here
-            //for email validation
-
+            //if needed
+            value = txtInfo.getText();
+            System.out.println("" + value);
+            if (!value.isEmpty()) {
+                txtInfo.setStyle("-fx-border-color: BLACK;");
+                Stage stage = (Stage) btnCancel.getScene().getWindow();
+                stage.close();
+            } else {
+                txtInfo.setStyle("-fx-border-color: RED;");
+            }
         } catch (Exception e) {
         }
     }
