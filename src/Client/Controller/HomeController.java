@@ -5,7 +5,10 @@
  */
 package Client.Controller;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -38,6 +41,27 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+         try {
+            URL oracle = new URL("https://kanthpk.000webhostapp.com/sample.php");
+            URLConnection yc = oracle.openConnection();
+            BufferedReader in = new BufferedReader(new InputStreamReader(
+                    yc.getInputStream()));
+            String inputLine;
+                  
+            while ((inputLine = in.readLine()) != null) {
+                System.out.println("pk............."+inputLine);
+                String[] animals = inputLine.split("\\s");
+                int animalIndex = 1;
+                for (String animal : animals) {
+                System.out.println(animalIndex + ". " + animal);
+                animalIndex++;
+                }
+            }
+            in.close();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @FXML
