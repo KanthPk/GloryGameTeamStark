@@ -8,30 +8,30 @@ import java.util.Hashtable;
  */
 public class Bag {
 
-    private Hashtable<String, Integer> letters = new Hashtable<String, Integer>();
+    public static Hashtable<String, Integer> letters = new Hashtable<String, Integer>();
 
     public Bag() {
-        letters.put("A", 9);
+        letters.put("A", 9);//vovel
         letters.put("B", 2);
         letters.put("C", 2);
         letters.put("D", 4);
-        letters.put("E", 12);
+        letters.put("E", 12);//vovel
         letters.put("F", 2);
         letters.put("G", 3);
         letters.put("H", 2);
-        letters.put("I", 9);
+        letters.put("I", 9);//vovel
         letters.put("J", 1);
         letters.put("K", 1);
         letters.put("L", 4);
         letters.put("M", 2);
         letters.put("N", 6);
-        letters.put("O", 8);
+        letters.put("O", 8);//vovel
         letters.put("P", 2);
         letters.put("Q", 1);
         letters.put("R", 6);
         letters.put("S", 4);
         letters.put("T", 6);
-        letters.put("U", 4);
+        letters.put("U", 4);//vovel
         letters.put("V", 2);
         letters.put("W", 2);
         letters.put("X", 1);
@@ -64,6 +64,5 @@ public class Bag {
             randomGen();
         }
         return s.charAt(0);
-
     }
 }

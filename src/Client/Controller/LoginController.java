@@ -6,6 +6,8 @@
 package Client.Controller;
 
 import animation.TransitionService;
+import glory_services.MessageService;
+import glory_services.ValidatorService;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -69,16 +71,19 @@ public class LoginController implements Initializable {
 
     @FXML
     private ImageView lblTeamLogo;
-    
+
     TransitionService service;
+
+    private ValidatorService serviceValidater;
 
     /**
      * Initializes the controller class.
      */
-    
     public LoginController() {
         service = new TransitionService();
+        serviceValidater = new ValidatorService();
     }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.lblForgotPassword.setOnMouseClicked(event -> {
@@ -93,6 +98,7 @@ public class LoginController implements Initializable {
             this.route("RegisterUser", "/UI/RegisterUser.fxml");
         });
     }
+
     @FXML
     private void btnLoginClicked(ActionEvent event) throws IOException {
         // get user name and password from here
@@ -102,29 +108,34 @@ public class LoginController implements Initializable {
         String Denied = "Denied";
         try {
             // open a connection to the site
-            URL url = new URL("https://kanthpk.000webhostapp.com/login.php");
-            URLConnection con = url.openConnection();
-            con.setDoOutput(true);
-            PrintStream ps = new PrintStream(con.getOutputStream());
-            ps.print("&username=" + txtUserName.getText());
-            ps.print("&password=" + pwdPassword.getText());
-            con.getInputStream();
-            ps.close();
-            DataInputStream inStream = new DataInputStream(con.getInputStream());
-            String inputLine = inStream.readLine();
-            System.out.println("Pk Testing    " + inputLine);
-            if (inputLine.equals(Access)) {
-                Parent parentHome = FXMLLoader.load(getClass().getResource("/UI/Home.fxml"));
-                Scene home_page_scene = new Scene(parentHome);
-                Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                app_stage.setScene(home_page_scene);
-                app_stage.show();
+            if (!txtUserName.getText().isEmpty() && !pwdPassword.getText().isEmpty()) {
+                URL url = new URL("https://kanthpk.000webhostapp.com/login.php");
+                URLConnection con = url.openConnection();
+                con.setDoOutput(true);
+                PrintStream ps = new PrintStream(con.getOutputStream());
+                ps.print("&username=" + txtUserName.getText());
+                ps.print("&password=" + pwdPassword.getText());
+                con.getInputStream();
+                ps.close();
+                DataInputStream inStream = new DataInputStream(con.getInputStream());
+                String inputLine = inStream.readLine();
+                System.out.println("Pk Testing    " + inputLine);
+                if (inputLine.equals(Access)) {
+                    Parent parentHome = FXMLLoader.load(getClass().getResource("/UI/Home.fxml"));
+                    Scene home_page_scene = new Scene(parentHome);
+                    Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    app_stage.setScene(home_page_scene);
+                    app_stage.show();
+                }
+                if (inputLine.equals(Denied)) {
+                    serviceValidater.getValidaterMessage("AUTHENTICATION FAILED", "Invalid user name or password", false, false, false, true);
+                }
+                inStream.close();
+            } else if (((!txtUserName.getText().isEmpty()) && (pwdPassword.getText().isEmpty())) || (txtUserName.getText().isEmpty()) && (!pwdPassword.getText().isEmpty())) {
+                serviceValidater.getValidaterMessage("CHECK INPUTS", "Please check your inputs", false, false, false, true);
+            } else {
+                serviceValidater.getValidaterMessage("CHECK INPUTS", "Please check your inputs", false, false, false, true);
             }
-            if (inputLine.equals(Denied)) {
-                //dummy messagebox need to change it
-                JOptionPane.showMessageDialog(null, "That password/username is incorrect. Try again.", "InfoBox: " + "InValid Login", JOptionPane.INFORMATION_MESSAGE);
-            }
-            inStream.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -184,11 +195,13 @@ public class LoginController implements Initializable {
             e.getStackTrace();
         }
     }
+
     @FXML
     private void closeApplication() {
         Platform.exit();
         System.exit(0);
     }
+
     @FXML
     private void imgMinimizeApplication() {
         Stage stage = (Stage) root.getScene().getWindow();

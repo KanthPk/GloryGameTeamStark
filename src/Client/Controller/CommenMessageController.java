@@ -8,12 +8,17 @@ package Client.Controller;
 import glory_services.MessageService;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -45,15 +50,30 @@ public class CommenMessageController implements Initializable {
     @FXML
     private TextField txtInfo;
 
+    @FXML
+    private RadioButton rtbnVovel;
+
+    @FXML
+    private RadioButton rbtnConsonant;
+
     private String value;
+
+    final ToggleGroup group = new ToggleGroup();
+    public GameController controller;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
+            controller = new GameController();
 
             imgMsgType.setImage(MessageService.getMakeMessageUI());
-            txtInfo.setVisible(true);
-            txtInfo.setEditable(true);
+            //add to the group
+            rtbnVovel.setToggleGroup(group);
+            rbtnConsonant.setToggleGroup(group);
+            rtbnVovel.setVisible(MessageService.visiblityForRadioButton);
+            rbtnConsonant.setVisible(MessageService.visiblityForRadioButton);
+            txtInfo.setVisible(MessageService.visiblityForTextField);
+            txtInfo.setEditable(MessageService.visiblityForTextField);
             lblMsgHeader.setText(MessageService.headerName);
             lblMsgBody.setText(MessageService.msgValue);
             btnOK.setText("Ok");
@@ -75,15 +95,36 @@ public class CommenMessageController implements Initializable {
     @FXML
     void btnOKClicked(ActionEvent event) {
         try {
-            //if needed
-            value = txtInfo.getText();
-            System.out.println("" + value);
-            if (!value.isEmpty()) {
-                txtInfo.setStyle("-fx-border-color: BLACK;");
-                Stage stage = (Stage) btnCancel.getScene().getWindow();
+            if (MessageService.forEmailConfirmation) {
+                value = txtInfo.getText();
+                System.out.println("" + value);
+                if (!value.isEmpty()) {
+                    txtInfo.setStyle("-fx-border-color: BLACK;");
+                    Stage stage = (Stage) btnOK.getScene().getWindow();
+                    stage.close();
+                } else {
+                    txtInfo.setStyle("-fx-border-color: RED;");
+                }
+            } else if (MessageService.forRandomSelectionFromTheBag) {
+                TextField txtRef = new TextField();
+                if (rtbnVovel.isSelected()) {
+                    controller.verifyInputFromBagForConsonent = false;
+                    controller.verifyInputFromBagForVovel = true;
+                    txtRef.setText("A");
+                    controller.processSelectBagOperation("V", txtRef);
+                    Stage stage = (Stage) btnOK.getScene().getWindow();
+                    stage.close();
+                } else if (rbtnConsonant.isSelected()) {
+                    controller.verifyInputFromBagForVovel = false;
+                    controller.verifyInputFromBagForConsonent = true;
+                    txtRef.setText("B");
+                    controller.processSelectBagOperation("C", txtRef);
+                    Stage stage = (Stage) btnOK.getScene().getWindow();
+                    stage.close();
+                }
+            } else if (MessageService.forceToClose) {
+                Stage stage = (Stage) btnOK.getScene().getWindow();
                 stage.close();
-            } else {
-                txtInfo.setStyle("-fx-border-color: RED;");
             }
         } catch (Exception e) {
         }

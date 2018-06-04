@@ -56,16 +56,20 @@ public class RegisterUserController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         txtEmail.focusedProperty().addListener((ov, oldV, newV) -> {
-            if (!txtEmail.getText().isEmpty()) {               
+            if (!txtEmail.getText().isEmpty()) {
                 if (!newV) {
                     try {
                         AnchorPane layout;
                         Stage stage;
                         String header = "MAIL CONFIRMATION";
                         String body = "Please enter your confirmation code to verify your email";
+                        MessageService.forEmailConfirmation = true;
+                        MessageService.visiblityForRadioButton = false;
+                        MessageService.visiblityForTextField = true;
                         MessageService.setMakeMessageUI("mail", header, body);
                         layout = FXMLLoader.load(getClass().getResource("/UI/CommenMessage.fxml"));
                         stage = new Stage();
+                        stage.centerOnScreen();
                         stage.setScene(new Scene(layout));
                         stage.setResizable(false);
                         stage.initStyle(StageStyle.UNDECORATED);

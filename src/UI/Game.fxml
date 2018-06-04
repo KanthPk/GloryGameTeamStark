@@ -12,14 +12,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="673.0" prefWidth="1307.0" styleClass="game-background" stylesheets="@../Common/css/common.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.GameController">
+<AnchorPane id="AnchorPane" fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="673.0" prefWidth="1307.0" styleClass="game-background" stylesheets="@../Common/css/common.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.GameController">
    <children>
       <Button fx:id="btnPause" layoutX="21.0" layoutY="497.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="109.0" style="-fx-cursor: hand;" text="PAUSE" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="1177.0">
          <effect>
             <DropShadow spread="0.47" />
          </effect>
          <font>
-            <Font size="20.0" />
+            <Font name="System Bold" size="20.0" />
          </font>
       </Button>
       <AnchorPane layoutX="148.0" layoutY="79.0" opacity="0.85" prefHeight="559.0" prefWidth="968.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="79.0">
@@ -256,7 +256,7 @@
                   <DropShadow spread="0.53" />
                </effect>
             </AnchorPane>
-            <ImageView fx:id="userImageView112" fitHeight="180.0" fitWidth="225.0" layoutX="797.0" layoutY="314.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgBagView" fitHeight="180.0" fitWidth="225.0" layoutX="797.0" layoutY="314.0" onMousePressed="#imgBagView" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: HAND;">
                <image>
                   <Image url="@../resources/money_bag.png" />
                </image>
@@ -372,7 +372,7 @@
             <DropShadow spread="0.47" />
          </effect>
          <font>
-            <Font size="20.0" />
+            <Font name="System Bold" size="20.0" />
          </font>
       </Button>
       <Label alignment="CENTER" layoutX="1121.0" layoutY="165.0" prefHeight="35.0" prefWidth="186.0" text="ASHAN PERERA">

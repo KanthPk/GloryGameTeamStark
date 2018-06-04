@@ -21,13 +21,19 @@ public class MessageService {
     static Image img = null;
     static ImageView imgView = new ImageView();
 
+    public static boolean visiblityForTextField;
+    public static boolean visiblityForRadioButton;
+
+    public static boolean forEmailConfirmation;
+    public static boolean forRandomSelectionFromTheBag;
+    public static boolean forceToClose;
+
     public MessageService() {
     }
 
     public static Image getMakeMessageUI() {
         return img;
     }
-
     public static void setMakeMessageUI(String msgType, String header, String value) throws Exception {
         try {
 
@@ -49,7 +55,7 @@ public class MessageService {
                     img = new Image("/resources/icons/warning.png");
                     headerName = header;
                     msgValue = value;
-                    break;              
+                    break;
                 case "Live":
                     img = null;
                     img = new Image("/resources/icons/live_err.png");
@@ -77,6 +83,12 @@ public class MessageService {
                 case "successFlag":
                     img = null;
                     img = new Image("/resources/icons/glory_sucess.png");
+                    headerName = header;
+                    msgValue = value;
+                    break;
+                case "question":
+                    img = null;
+                    img = new Image("/resources/icons/question.png");
                     headerName = header;
                     msgValue = value;
                     break;

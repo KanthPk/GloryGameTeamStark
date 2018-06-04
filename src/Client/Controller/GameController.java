@@ -6,16 +6,21 @@
 package Client.Controller;
 
 import glory_schema.Bag;
+import glory_services.MessageService;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -23,6 +28,9 @@ import javafx.stage.Stage;
  * @author AshanPerera
  */
 public class GameController implements Initializable {
+
+    @FXML
+    private AnchorPane root;
 
     @FXML
     private Button btnPause;
@@ -70,13 +78,15 @@ public class GameController implements Initializable {
     private TextField txtRandom_3;
 
     private Bag bag;
+    public boolean verifyInputFromBagForVovel;
+    public boolean verifyInputFromBagForConsonent;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //value initialization
+        //value initialization  
         //inject bag object
         bag = new Bag();
         for (int i = 1; i <= 3; i++) {
@@ -84,6 +94,8 @@ public class GameController implements Initializable {
             txtRandom_2.setText(Character.toString(bag.randomGen()));
             txtRandom_3.setText(Character.toString(bag.randomGen()));
         }
+
+        //processSelectBagOperation("V");
     }
 
     @FXML
@@ -92,4 +104,54 @@ public class GameController implements Initializable {
         System.exit(0);
     }
 
+    @FXML
+    void imgBagView(MouseEvent event) {
+        try {
+            AnchorPane layout;
+            Stage stage;
+            String header = "CHARACTER SELECTION";
+            String body = "Do you need consonant or vovel ?";
+            MessageService.forRandomSelectionFromTheBag = true;
+            MessageService.visiblityForRadioButton = true;
+            MessageService.visiblityForTextField = false;
+            MessageService.setMakeMessageUI("question", header, body);
+            layout = FXMLLoader.load(getClass().getResource("/UI/CommenMessage.fxml"));
+            stage = new Stage();
+            stage.setScene(new Scene(layout));
+            stage.centerOnScreen();
+            stage.setResizable(false);
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.show();
+        } catch (Exception e) {
+        }
+    }
+
+    public void processSelectBagOperation(String caseID, TextField txtref) {
+        try {
+            switch (caseID) {
+                case "V":
+                    if (verifyInputFromBagForVovel) {
+                        //logic later  
+                        //should have to create a pattern for it
+                        txt_3 = new TextField();
+                        txt_3.setText(txtref.getText());
+                        System.out.println("" + txt_3.getText());
+                        System.out.println("For vovel selection");
+                    }
+                    break;
+                case "C":
+                    if (verifyInputFromBagForConsonent) {
+                        //logic later         
+                        //should have to create a pattern for it
+                        txt_3 = new TextField();
+                        txt_3.setText(txtref.getText());
+                        System.out.println("" + txt_3.getText());
+                        System.out.println("For Consonent selection");
+                    }
+                    break;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 }
