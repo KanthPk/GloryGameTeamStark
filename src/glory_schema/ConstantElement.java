@@ -5,10 +5,7 @@
  */
 package glory_schema;
 
-/**
- *
- * @author AshanPerera
- */
+//Team Stark
 public class ConstantElement {
 
     private int no_of_players;
@@ -48,6 +45,22 @@ public class ConstantElement {
 
     public static String IsFieldClicked;
 
+    public void set_userId(String userId) {
+        this.UserName = userId;
+    }
+
+    public String get_userId() {
+        return this.UserName;
+    }
+    
+    public void set_password(String pw) {
+        this.Password = pw;
+    }
+
+    public String get_password() {
+        return this.Password;
+    }
+    
     public ConstantElement() {
 
     }
