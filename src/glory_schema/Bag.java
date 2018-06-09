@@ -8,7 +8,7 @@ import java.util.Hashtable;
  */
 public class Bag {
 
-    public static Hashtable<String, Integer> letters = new Hashtable<String, Integer>();
+    public Hashtable<String, Integer> letters = new Hashtable<String, Integer>();
 
     public Bag() {
         letters.put("A", 9);//vovel
@@ -64,5 +64,10 @@ public class Bag {
             randomGen();
         }
         return s.charAt(0);
+    }
+
+    public String getCharacterVal(int id) {
+//        return letters.elements()..toString();
+        return null;
     }
 }

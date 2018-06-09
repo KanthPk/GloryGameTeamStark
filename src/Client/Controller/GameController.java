@@ -5,18 +5,24 @@
  */
 package Client.Controller;
 
+import animation.TransitionService;
 import glory_schema.Bag;
 import glory_services.MessageService;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -77,9 +83,20 @@ public class GameController implements Initializable {
     @FXML
     private TextField txtRandom_3;
 
+    @FXML
+    private AnchorPane anchQuestion;
+
+    @FXML
+    private RadioButton radio_vovel;
+
+    @FXML
+    private RadioButton radio_consonent;
+
     private Bag bag;
     public boolean verifyInputFromBagForVovel;
     public boolean verifyInputFromBagForConsonent;
+    final ToggleGroup group = new ToggleGroup();
+    private TransitionService transitionService;
 
     /**
      * Initializes the controller class.
@@ -89,13 +106,26 @@ public class GameController implements Initializable {
         //value initialization  
         //inject bag object
         bag = new Bag();
+        //inject transition service
+        transitionService = new TransitionService();
+        anchQuestion.setVisible(false);
+        radio_vovel.setToggleGroup(group);
+        radio_consonent.setToggleGroup(group);
+
         for (int i = 1; i <= 3; i++) {
             txtRandom_1.setText(Character.toString(bag.randomGen()));
             txtRandom_2.setText(Character.toString(bag.randomGen()));
             txtRandom_3.setText(Character.toString(bag.randomGen()));
         }
-
         //processSelectBagOperation("V");
+
+        radio_vovel.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                fireRadioButtonVovelChange(newValue);
+            }
+        });
+
     }
 
     @FXML
@@ -107,21 +137,7 @@ public class GameController implements Initializable {
     @FXML
     void imgBagView(MouseEvent event) {
         try {
-            AnchorPane layout;
-            Stage stage;
-            String header = "CHARACTER SELECTION";
-            String body = "Do you need consonant or vovel ?";
-            MessageService.forRandomSelectionFromTheBag = true;
-            MessageService.visiblityForRadioButton = true;
-            MessageService.visiblityForTextField = false;
-            MessageService.setMakeMessageUI("question", header, body);
-            layout = FXMLLoader.load(getClass().getResource("/UI/CommenMessage.fxml"));
-            stage = new Stage();
-            stage.setScene(new Scene(layout));
-            stage.centerOnScreen();
-            stage.setResizable(false);
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.show();
+            anchQuestion.setVisible(true);
         } catch (Exception e) {
         }
     }
@@ -152,6 +168,17 @@ public class GameController implements Initializable {
             }
         } catch (Exception e) {
             System.out.println(e);
+        }
+    }
+
+    private void fireRadioButtonVovelChange(boolean boolVal) {
+        try {
+            if (boolVal) {
+                FadeTransition transition = transitionService.MakeFadeOut(anchQuestion);
+                txt_1.setText(bag.getCharacterVal(9));
+                transition.play();
+            }
+        } catch (Exception e) {
         }
     }
 }

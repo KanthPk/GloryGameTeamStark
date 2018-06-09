@@ -17,15 +17,14 @@ import javafx.stage.StageStyle;
  */
 public class ValidatorService {
 
-    public void getValidaterMessage(String heading,String value,boolean confirmation,boolean radioButtonVisi,boolean textVisi,boolean force) {
+    public void getValidaterMessage(String heading,String value,boolean confirmation,boolean textVisi,boolean force) {
         try {
             AnchorPane layout;
             Stage stage;
             String header = heading;
             String body = value;
             MessageService.forceToClose = force;
-            MessageService.forEmailConfirmation = confirmation;
-            MessageService.visiblityForRadioButton = radioButtonVisi;
+            MessageService.forEmailConfirmation = confirmation;            
             MessageService.visiblityForTextField = textVisi;
             MessageService.setMakeMessageUI("Error", header, body);
             layout = FXMLLoader.load(getClass().getResource("/UI/CommenMessage.fxml"));

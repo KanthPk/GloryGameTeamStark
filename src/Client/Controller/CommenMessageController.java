@@ -50,28 +50,13 @@ public class CommenMessageController implements Initializable {
     @FXML
     private TextField txtInfo;
 
-    @FXML
-    private RadioButton rtbnVovel;
-
-    @FXML
-    private RadioButton rbtnConsonant;
-
     private String value;
-
-    final ToggleGroup group = new ToggleGroup();
-    public GameController controller;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            controller = new GameController();
-
+        try {          
             imgMsgType.setImage(MessageService.getMakeMessageUI());
-            //add to the group
-            rtbnVovel.setToggleGroup(group);
-            rbtnConsonant.setToggleGroup(group);
-            rtbnVovel.setVisible(MessageService.visiblityForRadioButton);
-            rbtnConsonant.setVisible(MessageService.visiblityForRadioButton);
+            //add to the group         
             txtInfo.setVisible(MessageService.visiblityForTextField);
             txtInfo.setEditable(MessageService.visiblityForTextField);
             lblMsgHeader.setText(MessageService.headerName);
@@ -107,24 +92,10 @@ public class CommenMessageController implements Initializable {
                 }
             } else if (MessageService.forRandomSelectionFromTheBag) {
                 TextField txtRef = new TextField();
-                if (rtbnVovel.isSelected()) {
-                    controller.verifyInputFromBagForConsonent = false;
-                    controller.verifyInputFromBagForVovel = true;
-                    txtRef.setText("A");
-                    controller.processSelectBagOperation("V", txtRef);
-                    Stage stage = (Stage) btnOK.getScene().getWindow();
-                    stage.close();
-                } else if (rbtnConsonant.isSelected()) {
-                    controller.verifyInputFromBagForVovel = false;
-                    controller.verifyInputFromBagForConsonent = true;
-                    txtRef.setText("B");
-                    controller.processSelectBagOperation("C", txtRef);
+                if (MessageService.forceToClose) {
                     Stage stage = (Stage) btnOK.getScene().getWindow();
                     stage.close();
                 }
-            } else if (MessageService.forceToClose) {
-                Stage stage = (Stage) btnOK.getScene().getWindow();
-                stage.close();
             }
         } catch (Exception e) {
         }

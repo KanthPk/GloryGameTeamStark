@@ -22,12 +22,24 @@ public class TransitionService {
         fadeTransition = new FadeTransition();
     }
 
-    public FadeTransition makeFadeOut(AnchorPane layout) {
+    public FadeTransition MakeFadeOut(AnchorPane layout) {
         try {
             fadeTransition.setDuration(Duration.millis(1000.0));
             fadeTransition.setNode((Node) layout);
             fadeTransition.setFromValue(1);
-            fadeTransition.setToValue(.5);
+            fadeTransition.setToValue(.0);
+            return fadeTransition;
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public FadeTransition MakeFadeIn(AnchorPane layout) {
+        try {
+            fadeTransition.setDuration(Duration.millis(1000.0));
+            fadeTransition.setNode((Node) layout);
+            fadeTransition.setFromValue(.0);
+            fadeTransition.setToValue(1);
             return fadeTransition;
         } catch (Exception e) {
         }
