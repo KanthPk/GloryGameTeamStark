@@ -47,6 +47,7 @@ import javax.swing.JOptionPane;
  * @author AshanPerera
  */
 public class LoginController implements Initializable {
+
     //Global Variable,begin
     ConstantElement Const;
     MiddleTier ServerCall = new MiddleTier();
@@ -110,12 +111,13 @@ public class LoginController implements Initializable {
         // get user name and password from here
         // validate the user and then navidate to the home
         // TocheckAuthentication
+        //guid
         String Access = "Access";
         String Denied = "Denied";
-        String Check  = null;
+        String Check = null;
 
         try {
-            // open a connection to the site
+            // open a connection to the site           
             Check = ServerCall.Login(txtUserName.getText(), pwdPassword.getText());
             if (Check.equals(Access)) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/Home.fxml"));
@@ -129,22 +131,18 @@ public class LoginController implements Initializable {
                 Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 app_stage.setScene(home_page_scene);
                 app_stage.show();
-            }
-            if (Check.equals(Denied)) {
-                serviceValidater.getValidaterMessage("AUTHENTICATION FAILED", "Invalid user name or password", false, false, false, true);
+            } 
+            else if (Check.equals(Denied)) {
+                serviceValidater.getValidaterMessage("AUTHENTICATION FAILED", "Invalid user name or password", false, false, true);
             }
             if (((!txtUserName.getText().isEmpty()) && (pwdPassword.getText().isEmpty())) || (txtUserName.getText().isEmpty()) && (!pwdPassword.getText().isEmpty())) {
-                serviceValidater.getValidaterMessage("CHECK INPUTS", "Please check your inputs", false, false, false, true);
-            } else {
-                serviceValidater.getValidaterMessage("CHECK INPUTS", "Please check your inputs", false, false, false, true);
+                serviceValidater.getValidaterMessage("CHECK INPUTS", "Please check your inputs", false, false, true);
             }
-        }           
-    catch (IOException e)
-           {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
-    }
+        }
 
-}
+    }
 
     private void route(String caseID, String path) {
         AnchorPane layout;

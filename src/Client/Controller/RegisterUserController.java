@@ -8,6 +8,7 @@ package Client.Controller;
 import Server.Controller.MiddleTier;
 import glory_schema.ConstantElement;
 import glory_services.MessageService;
+import glory_services.ValidatorService;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -33,6 +34,7 @@ import javafx.stage.StageStyle;
  * @author AshanPerera
  */
 public class RegisterUserController implements Initializable {
+
     //Global Variable,begin   
     MiddleTier ServerCall = new MiddleTier();
     //Global Variable,end
@@ -53,6 +55,7 @@ public class RegisterUserController implements Initializable {
 
     @FXML
     private PasswordField txtConfirmPassword;
+    private ValidatorService validatorService;
 
     /**
      * Initializes the controller class.
@@ -60,25 +63,14 @@ public class RegisterUserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        //inject validator service
+        validatorService = new ValidatorService();
+        
         txtEmail.focusedProperty().addListener((ov, oldV, newV) -> {
             if (!txtEmail.getText().isEmpty()) {
                 if (!newV) {
-                    try {
-                        AnchorPane layout;
-                        Stage stage;
-                        String header = "MAIL CONFIRMATION";
-                        String body = "Please enter your confirmation code to verify your email";
-                        MessageService.forEmailConfirmation = true;
-                        MessageService.visiblityForRadioButton = false;
-                        MessageService.visiblityForTextField = true;
-                        MessageService.setMakeMessageUI("mail", header, body);
-                        layout = FXMLLoader.load(getClass().getResource("/UI/CommenMessage.fxml"));
-                        stage = new Stage();
-                        stage.centerOnScreen();
-                        stage.setScene(new Scene(layout));
-                        stage.setResizable(false);
-                        stage.initStyle(StageStyle.UNDECORATED);
-                        stage.show();
+                    try {                        
+                        validatorService.getValidaterMessage("MAIL CONFIRMATION", "Please enter your confirmation code to verify your email", true, true, false);
                     } catch (Exception e) {
                     }
                 }

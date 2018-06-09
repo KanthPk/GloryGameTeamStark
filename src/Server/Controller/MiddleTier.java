@@ -20,15 +20,15 @@ import java.net.URLConnection;
  */
 public class MiddleTier {
 
-    public Boolean Logout(String user_id,String password) {
+    public Boolean Logout(String user_id, String password) {
         try {
             URL url = new URL("https://kanthpk.000webhostapp.com/logout.php");
             URLConnection con = url.openConnection();
             con.setDoOutput(true);
-            PrintStream ps = new PrintStream(con.getOutputStream());         
-            ps.print("&username=" + user_id);            
-            ps.print("&password=" + password); 
-            con.getInputStream();           
+            PrintStream ps = new PrintStream(con.getOutputStream());
+            ps.print("&username=" + user_id);
+            ps.print("&password=" + password);
+            con.getInputStream();
             ps.close();
 
         } catch (IOException e) {
@@ -36,6 +36,7 @@ public class MiddleTier {
         }
         return true;
     }
+
     public String[] onlineUsers() {
         String[] animals = null;
         try {
@@ -46,7 +47,7 @@ public class MiddleTier {
             String inputLine;
 
             while ((inputLine = in.readLine()) != null) {
-                animals = inputLine.split("\\s");               
+                animals = inputLine.split("\\s");
             }
             in.close();
 
@@ -55,9 +56,9 @@ public class MiddleTier {
         }
         return animals;
     }
-    
-    public String Login(String userName,String pasword) {
 
+    public String Login(String userName, String pasword) {
+        String inputLine = null;
         try {
             if (!userName.isEmpty() && !pasword.isEmpty()) {
                 URL url = new URL("https://kanthpk.000webhostapp.com/login.php");
@@ -65,19 +66,20 @@ public class MiddleTier {
                 con.setDoOutput(true);
                 PrintStream ps = new PrintStream(con.getOutputStream());
                 ps.print("&username=" + userName);
-                ps.print("&password=" + pasword);                
+                ps.print("&password=" + pasword);
                 con.getInputStream();
                 ps.close();
                 DataInputStream inStream = new DataInputStream(con.getInputStream());
-                String inputLine = inStream.readLine();
+                inputLine = inStream.readLine();
                 System.out.println("Pk Testing    " + inputLine);
                 inStream.close();
             }
         } catch (Exception ex) {
         }
-        
-        return "";
-}
+
+        return inputLine;
+    }
+
     public void registerUser(String userName, String email, String password, String confirmpwd) {
         try {
             //save the data
