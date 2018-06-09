@@ -5,10 +5,9 @@
  */
 package Client.Controller;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import Server.Controller.MiddleTier;
+import glory_schema.ConstantElement;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -19,7 +18,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -29,10 +27,11 @@ import javafx.stage.Stage;
  * @author AshanPerera
  */
 public class HomeController implements Initializable {
-
-    /**
-     * Initializes the controller class.
-     */
+    //Global Variable,begin
+    ConstantElement Const;
+    MiddleTier ServerCall = new MiddleTier();
+    //Global Variable,end
+    
     @FXML
     private AnchorPane homeRoot;
 
@@ -41,27 +40,17 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         try {
-            URL oracle = new URL("https://kanthpk.000webhostapp.com/sample.php");
-            URLConnection yc = oracle.openConnection();
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-                    yc.getInputStream()));
-            String inputLine;
-                  
-            while ((inputLine = in.readLine()) != null) {
-                System.out.println("pk............."+inputLine);
-                String[] animals = inputLine.split("\\s");
-                int animalIndex = 1;
-                for (String animal : animals) {
-                System.out.println(animalIndex + ". " + animal);
-                animalIndex++;
-                }
-            }
-            in.close();
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        String[] users = null;
+        users = ServerCall.onlineUsers();
+        int userIndex = 1;
+        for (String user : users) {
+            System.out.println(userIndex + ". " + user);
+            userIndex++;
         }
+    }
+
+    public void getObject(ConstantElement login) {
+        Const = login;
     }
 
     @FXML
@@ -83,7 +72,10 @@ public class HomeController implements Initializable {
 
     @FXML
     private void closeApplication() {
+        Boolean output;//needed for further implement      
         Platform.exit();
+        //serverCallToLogout
+        output = ServerCall.Logout(Const.get_userId(), Const.get_password());
         System.exit(0);
     }
 

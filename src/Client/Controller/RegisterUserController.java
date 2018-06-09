@@ -5,7 +5,10 @@
  */
 package Client.Controller;
 
+import Server.Controller.MiddleTier;
+import glory_schema.ConstantElement;
 import glory_services.MessageService;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.URL;
@@ -30,7 +33,9 @@ import javafx.stage.StageStyle;
  * @author AshanPerera
  */
 public class RegisterUserController implements Initializable {
-
+    //Global Variable,begin   
+    MiddleTier ServerCall = new MiddleTier();
+    //Global Variable,end
     @FXML
     private Button btnBack;
 
@@ -93,22 +98,7 @@ public class RegisterUserController implements Initializable {
 
     @FXML
     private void btnSaveClcked(ActionEvent event) {
-        try {
-            //save the data
-            // open a connection to the site
-            URL url = new URL("https://kanthpk.000webhostapp.com/insert.php");
-            URLConnection con = url.openConnection();
-            con.setDoOutput(true);
-            PrintStream ps = new PrintStream(con.getOutputStream());
-            ps.print("&username=" + txtUserName.getText());
-            ps.print("&email=" + txtEmail.getText());
-            ps.print("&password=" + txtPassword.getText());
-            ps.print("&confirmpassword=" + txtConfirmPassword.getText());
-            con.getInputStream();
-            ps.close();
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
+        ServerCall.registerUser(txtUserName.getText(), txtEmail.getText(), txtPassword.getText(), txtConfirmPassword.getText());
     }
 
     @FXML
