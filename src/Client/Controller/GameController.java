@@ -23,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -92,6 +93,9 @@ public class GameController implements Initializable {
     @FXML
     private RadioButton radio_consonent;
 
+    @FXML
+    private ImageView imgBagView;
+
     private Bag bag;
     public boolean verifyInputFromBagForVovel;
     public boolean verifyInputFromBagForConsonent;
@@ -122,7 +126,14 @@ public class GameController implements Initializable {
         radio_vovel.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                fireRadioButtonVovelChange(newValue);
+                fireRadioButtonVowelChange(newValue);
+            }
+        });
+
+        radio_consonent.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                fireRadioButtonForConsonent(newValue);
             }
         });
 
@@ -138,47 +149,178 @@ public class GameController implements Initializable {
     void imgBagView(MouseEvent event) {
         try {
             anchQuestion.setVisible(true);
+            FadeTransition transServ = transitionService.MakeFadeIn(anchQuestion);
+            transServ.play();
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+    }
+
+    private void fireRadioButtonVowelChange(boolean liveValue) {
+        try {
+            if (liveValue) {
+                validatingVowels(1, transitionService.MakeFadeOut(anchQuestion));
+                radio_vovel.setSelected(false);
+            }
         } catch (Exception e) {
         }
     }
 
-    public void processSelectBagOperation(String caseID, TextField txtref) {
+    private void fireRadioButtonForConsonent(boolean liveValue) {
         try {
-            switch (caseID) {
-                case "V":
-                    if (verifyInputFromBagForVovel) {
-                        //logic later  
-                        //should have to create a pattern for it
-                        txt_3 = new TextField();
-                        txt_3.setText(txtref.getText());
-                        System.out.println("" + txt_3.getText());
-                        System.out.println("For vovel selection");
-                    }
-                    break;
-                case "C":
-                    if (verifyInputFromBagForConsonent) {
-                        //logic later         
-                        //should have to create a pattern for it
-                        txt_3 = new TextField();
-                        txt_3.setText(txtref.getText());
-                        System.out.println("" + txt_3.getText());
-                        System.out.println("For Consonent selection");
-                    }
-                    break;
+            if (liveValue) {
+                validatingVowels(1, transitionService.MakeFadeOut(anchQuestion));
+                radio_consonent.setSelected(false);
             }
         } catch (Exception e) {
-            System.out.println(e);
         }
     }
 
-    private void fireRadioButtonVovelChange(boolean boolVal) {
+    //just send the id and transition for the moment 
+    //need to add some more further conditions in later
+    private void validatingVowels(int id, FadeTransition transition) throws Exception {
         try {
-            if (boolVal) {
-                FadeTransition transition = transitionService.MakeFadeOut(anchQuestion);
-                txt_1.setText(bag.getCharacterVal(9));
-                transition.play();
+            switch (id) {
+                case 1:
+                    if (txt_1.getText().isEmpty()) {
+                        txt_1.setText(Character.toString(bag.takeVowelsRandomically()));
+                        transition.play();
+                    } else if (!txt_1.getText().isEmpty()) {
+                        validatingVowels(id + 1, transition);
+                    }
+                    break;
+                case 2:
+                    if (txt_2.getText().isEmpty()) {
+                        txt_2.setText(Character.toString(bag.takeVowelsRandomically()));
+                        transition.play();
+                    } else if (!txt_2.getText().isEmpty()) {
+                        validatingVowels(id + 1, transition);
+                    }
+                    break;
+                case 3:
+                    if (txt_3.getText().isEmpty()) {
+                        txt_3.setText(Character.toString(bag.takeVowelsRandomically()));
+                        transition.play();
+                    } else if (!txt_3.getText().isEmpty()) {
+                        validatingVowels(id + 1, transition);
+                    }
+                    break;
+                case 4:
+                    if (txt_4.getText().isEmpty()) {
+                        txt_4.setText(Character.toString(bag.takeVowelsRandomically()));
+                        transition.play();
+                    } else if (!txt_4.getText().isEmpty()) {
+                        validatingVowels(id + 1, transition);
+                    }
+                    break;
+                case 5:
+                    if (txt_5.getText().isEmpty()) {
+                        txt_5.setText(Character.toString(bag.takeVowelsRandomically()));
+                        transition.play();
+                    } else if (!txt_5.getText().isEmpty()) {
+                        validatingVowels(id + 1, transition);
+                    }
+                    break;
+                case 6:
+                    if (txt_6.getText().isEmpty()) {
+                        txt_6.setText(Character.toString(bag.takeVowelsRandomically()));
+                        transition.play();
+                    } else if (!txt_6.getText().isEmpty()) {
+                        validatingVowels(id + 1, transition);
+                    }
+                    break;
+                case 7:
+                    if (txt_7.getText().isEmpty()) {
+                        txt_7.setText(Character.toString(bag.takeVowelsRandomically()));
+                        transition.play();
+                    } else if (!txt_7.getText().isEmpty()) {
+                        validatingVowels(id + 1, transition);
+                    }
+                    break;
+                case 8:
+                    if (txt_8.getText().isEmpty()) {
+                        txt_8.setText(Character.toString(bag.takeVowelsRandomically()));
+                        transition.play();
+                    } else if (!txt_8.getText().isEmpty()) {
+                        validatingVowels(id + 1, transition);
+                    }
+                    break;
+                default:
+                    throw new Exception("Exce");
             }
         } catch (Exception e) {
+        }
+    }
+
+    private void validatingConsonents(int id, FadeTransition fadeTransition) throws Exception {
+        switch (id) {
+            case 1:
+                if (txt_1.getText().isEmpty()) {
+                    txt_1.setText(Character.toString(bag.takeConsonentsRandmoically()));
+                    fadeTransition.play();
+                } else if (!txt_1.getText().isEmpty()) {
+                    validatingVowels(id + 1, fadeTransition);
+                }
+                break;
+            case 2:
+                if (txt_2.getText().isEmpty()) {
+                    txt_2.setText(Character.toString(bag.takeConsonentsRandmoically()));
+                    fadeTransition.play();
+                } else if (!txt_2.getText().isEmpty()) {
+                    validatingVowels(id + 1, fadeTransition);
+                }
+                break;
+            case 3:
+                if (txt_3.getText().isEmpty()) {
+                    txt_3.setText(Character.toString(bag.takeConsonentsRandmoically()));
+                    fadeTransition.play();
+                } else if (!txt_3.getText().isEmpty()) {
+                    validatingVowels(id + 1, fadeTransition);
+                }
+                break;
+            case 4:
+                if (txt_4.getText().isEmpty()) {
+                    txt_4.setText(Character.toString(bag.takeConsonentsRandmoically()));
+                    fadeTransition.play();
+                } else if (!txt_4.getText().isEmpty()) {
+                    validatingVowels(id + 1, fadeTransition);
+                }
+                break;
+            case 5:
+                if (txt_5.getText().isEmpty()) {
+                    txt_5.setText(Character.toString(bag.takeConsonentsRandmoically()));
+                    fadeTransition.play();
+                } else if (!txt_5.getText().isEmpty()) {
+                    validatingVowels(id + 1, fadeTransition);
+                }
+                break;
+            case 6:
+                if (txt_6.getText().isEmpty()) {
+                    txt_6.setText(Character.toString(bag.takeConsonentsRandmoically()));
+                    fadeTransition.play();
+                } else if (!txt_6.getText().isEmpty()) {
+                    validatingVowels(id + 1, fadeTransition);
+                }
+                break;
+            case 7:
+                if (txt_7.getText().isEmpty()) {
+                    txt_7.setText(Character.toString(bag.takeConsonentsRandmoically()));
+                    fadeTransition.play();
+                } else if (!txt_7.getText().isEmpty()) {
+                    validatingVowels(id + 1, fadeTransition);
+                }
+                break;
+            case 8:
+                if (txt_8.getText().isEmpty()) {
+                    txt_8.setText(Character.toString(bag.takeConsonentsRandmoically()));
+                    fadeTransition.play();
+                } else if (!txt_8.getText().isEmpty()) {
+                    validatingVowels(id + 1, fadeTransition);
+                }
+                break;
+            default:
+                fadeTransition.play();
+                throw new Exception("Exce");
         }
     }
 }

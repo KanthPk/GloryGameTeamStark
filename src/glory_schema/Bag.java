@@ -66,8 +66,26 @@ public class Bag {
         return s.charAt(0);
     }
 
-    public String getCharacterVal(int id) {
-//        return letters.elements()..toString();
-        return null;
+    public char takeVowelsRandomically() {
+        String Vowels = "AEIOU";
+        int character = (int) (Math.random() * 5);
+        String s = Vowels.substring(character, character + 1);
+        boolean none = removeLetter(s);
+        if (!none) {
+            randomGen();
+        }
+        return s.charAt(0);
     }
+
+    public char takeConsonentsRandmoically() {
+        String alphabet = "BCDFGHJKLMNPQRSTVWXYZ";
+        int character = (int) (Math.random() * 26);
+        String s = alphabet.substring(character, character + 1);
+        boolean none = removeLetter(s);
+        if (!none) {
+            randomGen();
+        }
+        return s.charAt(0);
+    }
+
 }

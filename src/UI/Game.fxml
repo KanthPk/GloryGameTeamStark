@@ -23,7 +23,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <AnchorPane layoutX="148.0" layoutY="79.0" opacity="0.85" prefHeight="559.0" prefWidth="968.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="79.0">
+      <AnchorPane layoutX="148.0" layoutY="79.0" opacity="0.85" prefHeight="585.0" prefWidth="972.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="187.0" AnchorPane.topAnchor="79.0">
          <children>
             <TextField fx:id="txt_1" alignment="CENTER" editable="false" layoutX="24.0" layoutY="455.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #FFFFFF; -fx-border-color: Black; -fx-cursor: HAND;">
                <font>
@@ -105,7 +105,7 @@
                   <Font name="Bodoni MT Bold" size="29.0" />
                </font>
             </Button>
-            <TextField fx:id="txt_81" alignment="CENTER" editable="false" layoutX="770.0" layoutY="497.0" prefHeight="43.0" prefWidth="186.0" style="-fx-border-color: Black; -fx-background-color: #F4FF0D; -fx-cursor: HAND;" text="0">
+            <TextField fx:id="txt_81" alignment="CENTER" editable="false" layoutX="723.0" layoutY="498.0" prefHeight="43.0" prefWidth="186.0" style="-fx-border-color: Black; -fx-background-color: #F4FF0D; -fx-cursor: HAND;" text="0">
                <font>
                   <Font name="Bell MT Bold" size="19.0" />
                </font>
@@ -117,7 +117,7 @@
                   </DropShadow>
                </effect>
             </TextField>
-            <Label alignment="CENTER" layoutX="782.0" layoutY="543.0" prefHeight="35.0" prefWidth="161.0" text="YOUR SCORE">
+            <Label alignment="CENTER" layoutX="727.0" layoutY="541.0" prefHeight="35.0" prefWidth="179.0" text="YOUR SCORE">
                <font>
                   <Font size="27.0" />
                </font>
@@ -257,7 +257,7 @@
                   <DropShadow spread="0.53" />
                </effect>
             </AnchorPane>
-            <ImageView fx:id="imgBagView" fitHeight="180.0" fitWidth="225.0" layoutX="797.0" layoutY="314.0" onMousePressed="#imgBagView" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: HAND;">
+            <ImageView fx:id="imgBagView" fitHeight="180.0" fitWidth="225.0" layoutX="823.0" layoutY="297.0" onMousePressed="#imgBagView" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: HAND;">
                <image>
                   <Image url="@../resources/money_bag.png" />
                </image>
@@ -319,19 +319,19 @@
                   <DropShadow spread="0.53" />
                </effect>
             </AnchorPane>
-            <AnchorPane fx:id="anchQuestion" layoutX="273.0" layoutY="306.0" prefHeight="129.0" prefWidth="513.0">
+            <AnchorPane fx:id="anchQuestion" layoutX="312.0" layoutY="328.0" prefHeight="94.0" prefWidth="455.0">
                <children>
-                  <Label layoutX="14.0" layoutY="14.0" prefHeight="39.0" prefWidth="429.0" text="Do you want vovel or consonent">
+                  <Label layoutX="7.0" layoutY="14.0" prefHeight="39.0" prefWidth="447.0" text="Do you want vowel or consonent ?">
                      <font>
                         <Font name="System Bold" size="27.0" />
                      </font>
                   </Label>
-                  <RadioButton fx:id="radio_vovel" layoutX="14.0" layoutY="65.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="76.0" style="-fx-cursor: HAND;" text="Vovel">
+                  <RadioButton fx:id="radio_vovel" layoutX="240.0" layoutY="56.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="76.0" style="-fx-cursor: HAND;" text="Vowel">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </RadioButton>
-                  <RadioButton fx:id="radio_consonent" layoutX="107.0" layoutY="65.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="129.0" style="-fx-cursor: HAND;" text="Consonent">
+                  <RadioButton fx:id="radio_consonent" layoutX="332.0" layoutY="56.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="109.0" style="-fx-cursor: HAND;" text="Consonent">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
