@@ -5,7 +5,9 @@
  */
 package Client.Controller;
 
+import Server.Controller.MiddleTier;
 import animation.TransitionService;
+import glory_schema.ConstantElement;
 import glory_services.MessageService;
 import glory_services.ValidatorService;
 import java.awt.event.MouseEvent;
@@ -32,6 +34,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputMethodRequests;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -44,7 +47,10 @@ import javax.swing.JOptionPane;
  * @author AshanPerera
  */
 public class LoginController implements Initializable {
-
+    //Global Variable,begin
+    ConstantElement Const;
+    MiddleTier ServerCall = new MiddleTier();
+    //Global Variable,end
     @FXML
     AnchorPane root;
 
@@ -106,41 +112,39 @@ public class LoginController implements Initializable {
         // TocheckAuthentication
         String Access = "Access";
         String Denied = "Denied";
+        String Check  = null;
+
         try {
             // open a connection to the site
-            if (!txtUserName.getText().isEmpty() && !pwdPassword.getText().isEmpty()) {
-                URL url = new URL("https://kanthpk.000webhostapp.com/login.php");
-                URLConnection con = url.openConnection();
-                con.setDoOutput(true);
-                PrintStream ps = new PrintStream(con.getOutputStream());
-                ps.print("&username=" + txtUserName.getText());
-                ps.print("&password=" + pwdPassword.getText());
-                con.getInputStream();
-                ps.close();
-                DataInputStream inStream = new DataInputStream(con.getInputStream());
-                String inputLine = inStream.readLine();
-                System.out.println("Pk Testing    " + inputLine);
-                if (inputLine.equals(Access)) {
-                    Parent parentHome = FXMLLoader.load(getClass().getResource("/UI/Home.fxml"));
-                    Scene home_page_scene = new Scene(parentHome);
-                    Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    app_stage.setScene(home_page_scene);
-                    app_stage.show();
-                }
-                if (inputLine.equals(Denied)) {
-                    serviceValidater.getValidaterMessage("AUTHENTICATION FAILED", "Invalid user name or password", false, false, false, true);
-                }
-                inStream.close();
-            } else if (((!txtUserName.getText().isEmpty()) && (pwdPassword.getText().isEmpty())) || (txtUserName.getText().isEmpty()) && (!pwdPassword.getText().isEmpty())) {
+            Check = ServerCall.Login(txtUserName.getText(), pwdPassword.getText());
+            if (Check.equals(Access)) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/Home.fxml"));
+                Parent parentHome = (Parent) fxmlLoader.load();
+                HomeController controller = fxmlLoader.<HomeController>getController();
+                ConstantElement s = new ConstantElement();
+                s.set_password(pwdPassword.getText());
+                s.set_userId(txtUserName.getText());
+                controller.getObject(s);
+                Scene home_page_scene = new Scene(parentHome);
+                Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                app_stage.setScene(home_page_scene);
+                app_stage.show();
+            }
+            if (Check.equals(Denied)) {
+                serviceValidater.getValidaterMessage("AUTHENTICATION FAILED", "Invalid user name or password", false, false, false, true);
+            }
+            if (((!txtUserName.getText().isEmpty()) && (pwdPassword.getText().isEmpty())) || (txtUserName.getText().isEmpty()) && (!pwdPassword.getText().isEmpty())) {
                 serviceValidater.getValidaterMessage("CHECK INPUTS", "Please check your inputs", false, false, false, true);
             } else {
                 serviceValidater.getValidaterMessage("CHECK INPUTS", "Please check your inputs", false, false, false, true);
             }
-        } catch (IOException e) {
+        }           
+    catch (IOException e)
+           {
             System.out.println(e.getMessage());
-        }
-
     }
+
+}
 
     private void route(String caseID, String path) {
         AnchorPane layout;
