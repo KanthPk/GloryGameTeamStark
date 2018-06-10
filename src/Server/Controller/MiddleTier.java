@@ -5,6 +5,8 @@
  */
 package Server.Controller;
 
+import animation.TransitionService;
+import glory_services.ValidatorService;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -19,6 +21,16 @@ import java.net.URLConnection;
  */
 public class MiddleTier {
 
+    //Variables,begin
+    TransitionService service;
+    private ValidatorService serviceValidater;
+    //Variables,end
+    
+    public MiddleTier()
+    {
+    service = new TransitionService();
+    serviceValidater = new ValidatorService();
+    }
     public Boolean Logout(String user_id, String password) {
         try {
             URL url = new URL("https://kanthpk.000webhostapp.com/logout.php");
@@ -80,6 +92,7 @@ public class MiddleTier {
     }
 
     public void registerUser(String userName, String email, String password, String confirmpwd) {
+        String inputLine = null;
         try {
             //save the data
             // open a connection to the site
@@ -92,6 +105,12 @@ public class MiddleTier {
                 ps.print("&password=" + password);
                 ps.print("&confirmpassword=" + confirmpwd);
                 con.getInputStream();
+                try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
+                    inputLine = inStream.readLine();
+                    if(inputLine.equals("User exist")){
+                    serviceValidater.getValidaterMessage("CHECK User Name", "User name is already existing", false, false, true);
+                    System.out.println("User Name Existing Already    " + inputLine); }
+                }
             }
         } catch (IOException e) {
             System.err.println(e.getMessage());

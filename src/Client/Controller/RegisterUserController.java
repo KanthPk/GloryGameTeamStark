@@ -6,27 +6,17 @@
 package Client.Controller;
 
 import Server.Controller.MiddleTier;
-import glory_schema.ConstantElement;
-import glory_services.MessageService;
 import glory_services.ValidatorService;
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.PrintStream;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
