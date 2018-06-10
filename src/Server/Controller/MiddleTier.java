@@ -5,7 +5,6 @@
  */
 package Server.Controller;
 
-import glory_schema.ConstantElement;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -25,11 +24,11 @@ public class MiddleTier {
             URL url = new URL("https://kanthpk.000webhostapp.com/logout.php");
             URLConnection con = url.openConnection();
             con.setDoOutput(true);
-            PrintStream ps = new PrintStream(con.getOutputStream());
-            ps.print("&username=" + user_id);
-            ps.print("&password=" + password);
-            con.getInputStream();
-            ps.close();
+            try (PrintStream ps = new PrintStream(con.getOutputStream())) {
+                ps.print("&username=" + user_id);
+                ps.print("&password=" + password);
+                con.getInputStream();
+            }
 
         } catch (IOException e) {
             System.err.println(e.getMessage());
@@ -42,16 +41,16 @@ public class MiddleTier {
         try {
             URL oracle = new URL("https://kanthpk.000webhostapp.com/sample.php");
             URLConnection yc = oracle.openConnection();
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-                    yc.getInputStream()));
-            String inputLine;
-
-            while ((inputLine = in.readLine()) != null) {
-                animals = inputLine.split("\\s");
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(
+                    yc.getInputStream()))) {
+                String inputLine;
+                
+                while ((inputLine = in.readLine()) != null) {
+                    animals = inputLine.split("\\s");
+                }
             }
-            in.close();
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
         return animals;
@@ -64,17 +63,17 @@ public class MiddleTier {
                 URL url = new URL("https://kanthpk.000webhostapp.com/login.php");
                 URLConnection con = url.openConnection();
                 con.setDoOutput(true);
-                PrintStream ps = new PrintStream(con.getOutputStream());
-                ps.print("&username=" + userName);
-                ps.print("&password=" + pasword);
-                con.getInputStream();
-                ps.close();
-                DataInputStream inStream = new DataInputStream(con.getInputStream());
-                inputLine = inStream.readLine();
-                System.out.println("Pk Testing    " + inputLine);
-                inStream.close();
+                try (PrintStream ps = new PrintStream(con.getOutputStream())) {
+                    ps.print("&username=" + userName);
+                    ps.print("&password=" + pasword);
+                    con.getInputStream();
+                }
+                try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
+                    inputLine = inStream.readLine();
+                    System.out.println("Pk Testing    " + inputLine);
+                }
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
         }
 
         return inputLine;
@@ -87,13 +86,13 @@ public class MiddleTier {
             URL url = new URL("https://kanthpk.000webhostapp.com/insert.php");
             URLConnection con = url.openConnection();
             con.setDoOutput(true);
-            PrintStream ps = new PrintStream(con.getOutputStream());
-            ps.print("&username=" + userName);
-            ps.print("&email=" + email);
-            ps.print("&password=" + password);
-            ps.print("&confirmpassword=" + confirmpwd);
-            con.getInputStream();
-            ps.close();
+            try (PrintStream ps = new PrintStream(con.getOutputStream())) {
+                ps.print("&username=" + userName);
+                ps.print("&email=" + email);
+                ps.print("&password=" + password);
+                ps.print("&confirmpassword=" + confirmpwd);
+                con.getInputStream();
+            }
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
