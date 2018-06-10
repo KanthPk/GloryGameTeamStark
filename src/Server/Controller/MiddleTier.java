@@ -107,9 +107,9 @@ public class MiddleTier {
                 con.getInputStream();
                 try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
                     inputLine = inStream.readLine();
-                    if(inputLine.equals("User exist")){
-                    serviceValidater.getValidaterMessage("CHECK User Name", "User name is already existing", false, false, true);
-                    System.out.println("User Name Existing Already    " + inputLine); }
+                    if (inputLine.equals("User exist")) {
+                        serviceValidater.getValidaterMessage("CHECK User Name", "User name is already existing", false, false, true);
+                    }
                 }
             }
         } catch (IOException e) {
