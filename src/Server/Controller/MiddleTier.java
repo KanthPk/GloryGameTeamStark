@@ -117,4 +117,65 @@ public class MiddleTier {
         }
 
     }
+    
+    public void DisplayInitialLetter(String User, String letter_1, String letter_2, String letter_3) {
+
+        String inputLine = null;
+        try {
+            //save the data
+            // open a connection to the site
+            URL url = new URL("https://kanthpk.000webhostapp.com/LetterValue.php");
+            URLConnection con = url.openConnection();
+            con.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(con.getOutputStream())) {
+                ps.print("&User=" + User);
+                ps.print("&Letter1=" + letter_1+letter_2+letter_3);
+                ps.print("&Letter2=" + letter_2);
+                ps.print("&Letter3=" + letter_3);
+                con.getInputStream();
+                try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
+                    inputLine = inStream.readLine();
+                    System.out.println("LetterValue"+inputLine);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    public void deleteLetter() {
+        try {
+            URL oracle = new URL("https://kanthpk.000webhostapp.com/Obsolete.php");                                           
+            URLConnection yc = oracle.openConnection();
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(
+                    yc.getInputStream()))) {
+                System.out.println(""+in.readLine());
+            }                        
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+    }
+    
+    
+    public String[] getLetter()
+    {
+    String[] animals = null;
+        try {
+            URL oracle = new URL("https://kanthpk.000webhostapp.com/getLetterValue.php");
+            URLConnection yc = oracle.openConnection();
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(
+                    yc.getInputStream()))) {
+                String inputLine;
+                
+                while ((inputLine = in.readLine()) != null) {
+                    animals = inputLine.split("\\s");
+                }
+            }
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return animals;
+      
+    }
 }

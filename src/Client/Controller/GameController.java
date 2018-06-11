@@ -97,6 +97,14 @@ public class GameController implements Initializable {
     @FXML
     private ImageView imgBagView;
 
+    @FXML
+    private TextField txt_111;
+    @FXML
+    private TextField txt_211;
+    @FXML
+    private TextField txt_311;
+    
+    
     private Bag bag;
     public boolean verifyInputFromBagForVovel;
     public boolean verifyInputFromBagForConsonent;
@@ -106,6 +114,9 @@ public class GameController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    
+    
+        
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //value initialization  
@@ -137,7 +148,24 @@ public class GameController implements Initializable {
                 fireRadioButtonForConsonent(newValue);
             }
         });
-
+        
+        //Save the Initial Number into Databse
+        ServerCall.DisplayInitialLetter(ConstantElement.GlobalUserName, txtRandom_1.getText(), txtRandom_2.getText(), txtRandom_3.getText());
+        System.out.println("                         "+ConstantElement.GlobalUserName);
+        
+        String[] users1 = null;
+        users1 = ServerCall.getLetter();
+        int userIndex = 1;
+        for (String user : users1) {
+            System.out.println(userIndex + ". " + user);
+            if(userIndex==1)
+            {
+            txt_111.setText(user);
+            txt_211.setText(user);
+            txt_311.setText(user);
+            }
+            userIndex++;
+        }      
     }
 
     @FXML
@@ -146,6 +174,8 @@ public class GameController implements Initializable {
         Platform.exit();
         //serverCallToLogout
         output = ServerCall.Logout(Const.get_userId(), Const.get_password());
+        //serverCallToDeleteLetters
+        ServerCall.deleteLetter();
         System.exit(0);
     }
 
