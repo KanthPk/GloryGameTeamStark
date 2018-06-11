@@ -7,6 +7,7 @@ package Client.Controller;
 
 import Server.Controller.MiddleTier;
 import glory_schema.ConstantElement;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -57,8 +58,11 @@ public class HomeController implements Initializable {
     void btnPlayClicked(ActionEvent event) {
         try {
             //should be validated
-            //before play the game
-            Parent parentObject = FXMLLoader.load(getClass().getResource("/UI/Game.fxml"));
+            //before play the game                     
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/Game.fxml"));
+            Parent parentObject = (Parent) fxmlLoader.load();
+            GameController gameObject= fxmlLoader.<GameController>getController();
+            gameObject.getObject(Const);
             Scene sceneObject = new Scene(parentObject);
             Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             app_stage.setScene(sceneObject);
@@ -66,7 +70,7 @@ public class HomeController implements Initializable {
             app_stage.centerOnScreen();
             app_stage.show();
 
-        } catch (Exception e) {
+        } catch (IOException e) {
         }
     }
 

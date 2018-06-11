@@ -5,9 +5,10 @@
  */
 package Client.Controller;
 
+import Server.Controller.MiddleTier;
 import animation.TransitionService;
 import glory_schema.Bag;
-import glory_services.MessageService;
+import glory_schema.ConstantElement;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
@@ -15,27 +16,27 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
  *
- * @author AshanPerera
+ * @author Team Stark
  */
 public class GameController implements Initializable {
 
+    //Global Variable,begin
+    ConstantElement Const;
+    MiddleTier ServerCall = new MiddleTier();
+    //Global Variable,end
+    
     @FXML
     private AnchorPane root;
 
@@ -96,6 +97,14 @@ public class GameController implements Initializable {
     @FXML
     private ImageView imgBagView;
 
+    @FXML
+    private TextField txt_111;
+    @FXML
+    private TextField txt_211;
+    @FXML
+    private TextField txt_311;
+    
+    
     private Bag bag;
     public boolean verifyInputFromBagForVovel;
     public boolean verifyInputFromBagForConsonent;
@@ -105,6 +114,9 @@ public class GameController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    
+    
+        
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //value initialization  
@@ -136,12 +148,34 @@ public class GameController implements Initializable {
                 fireRadioButtonForConsonent(newValue);
             }
         });
-
+        
+        //Save the Initial Number into Databse
+        ServerCall.DisplayInitialLetter(ConstantElement.GlobalUserName, txtRandom_1.getText(), txtRandom_2.getText(), txtRandom_3.getText());
+        System.out.println("                         "+ConstantElement.GlobalUserName);
+        
+        String[] users1 = null;
+        users1 = ServerCall.getLetter();
+        int userIndex = 1;
+        for (String user : users1) {
+            System.out.println(userIndex + ". " + user);
+            if(userIndex==1)
+            {
+            txt_111.setText(user);
+            txt_211.setText(user);
+            txt_311.setText(user);
+            }
+            userIndex++;
+        }      
     }
 
     @FXML
     void closeApplication(MouseEvent event) {
+        Boolean output;//needed for further implement      
         Platform.exit();
+        //serverCallToLogout
+        output = ServerCall.Logout(Const.get_userId(), Const.get_password());
+        //serverCallToDeleteLetters
+        ServerCall.deleteLetter();
         System.exit(0);
     }
 
@@ -323,4 +357,10 @@ public class GameController implements Initializable {
                 throw new Exception("Exce");
         }
     }
+    
+    public void getObject(ConstantElement val)
+    {
+        Const = val;
+    }
+    
 }
