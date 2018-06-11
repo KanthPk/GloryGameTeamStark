@@ -7,13 +7,12 @@ package glory_services;
 
 import glory_schema.ConstantElement;
 import glory_schema.ScoreElement;
-import java.sql.Time;
 
 /**
  *
  * @author AshanPerera
  */
-public class RoundService {
+public class RoundScoreService {
 
     //this service will manage all 5 rounds
     public int getScoreFromEachRound(int round, String fullQualifiedEnglishWord) {
@@ -78,5 +77,4 @@ public class RoundService {
         }
         return 0;
     }
-
 }
