@@ -9,6 +9,10 @@ import java.util.Hashtable;
 public class Bag {
 
     public Hashtable<String, Integer> letters = new Hashtable<String, Integer>();
+    private String vowels = "AEIOU";
+    private int vowelLength = 5;
+    private String consonents = "BCDFGHJKLMNPQRSTVWXYZ";
+    private int consonentLength = 21;
 
     public Bag() {
         letters.put("A", 9);//vovel
@@ -67,25 +71,44 @@ public class Bag {
     }
 
     public char takeVowelsRandomically() {
-        String Vowels = "AEIOU";
-        int character = (int) (Math.random() * 5);
-        String s = Vowels.substring(character, character + 1);
+        int character = (int) (Math.random() * vowelLength);
+        String s = vowels.substring(character, character + 1);
         boolean none = removeLetter(s);
         if (!none) {
-            randomGen();
+            takeVowelsRandomically();
         }
         return s.charAt(0);
     }
 
-    public char takeConsonentsRandmoically() {
-        String alphabet = "BCDFGHJKLMNPQRSTVWXYZ";
-        int character = (int) (Math.random() * 26);
-        String s = alphabet.substring(character, character + 1);
+    public char takeConsonentsDinamiically() {
+        int character = (int) (Math.random() * consonentLength);
+        String s = consonents.substring(character, character + 1);
         boolean none = removeLetter(s);
         if (!none) {
-            randomGen();
+            takeConsonentsDinamiically();
         }
         return s.charAt(0);
     }
 
+    public String takeVowelString() {
+        return vowels;
+    }
+
+    public void setNewVowelString(String characterToBeRemoved) {
+        vowelLength -= 1;
+        vowels = vowels.replace(characterToBeRemoved, "").trim();
+    }
+
+    public String takeFilterString() {
+        return vowels;
+    }
+
+    public String takeConsonentString() {
+        return consonents;
+    }
+
+    public void setNewConsonent(String value) {
+        consonentLength -= 1;
+        consonents = consonents.replace(value, "").trim();
+    }
 }

@@ -24,7 +24,7 @@ public class TransitionService {
 
     public FadeTransition MakeFadeOut(AnchorPane layout) {
         try {
-            fadeTransition.setDuration(Duration.millis(1000.0));
+            fadeTransition.setDuration(Duration.millis(300.0));
             fadeTransition.setNode((Node) layout);
             fadeTransition.setFromValue(1);
             fadeTransition.setToValue(.0);
@@ -36,7 +36,7 @@ public class TransitionService {
 
     public FadeTransition MakeFadeIn(AnchorPane layout) {
         try {
-            fadeTransition.setDuration(Duration.millis(1000.0));
+            fadeTransition.setDuration(Duration.millis(300.0));
             fadeTransition.setNode((Node) layout);
             fadeTransition.setFromValue(.0);
             fadeTransition.setToValue(1);
