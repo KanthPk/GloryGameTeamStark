@@ -5,7 +5,6 @@
  */
 package Client.Controller;
 
-import glory_schema.ConstantElement;
 import glory_services.MessageService;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -55,7 +54,7 @@ public class CommenMessageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
+        try {          
             imgMsgType.setImage(MessageService.getMakeMessageUI());
             //add to the group         
             txtInfo.setVisible(MessageService.visiblityForTextField);
@@ -97,7 +96,7 @@ public class CommenMessageController implements Initializable {
                     Stage stage = (Stage) btnOK.getScene().getWindow();
                     stage.close();
                 }
-            } 
+            }
         } catch (Exception e) {
         }
     }

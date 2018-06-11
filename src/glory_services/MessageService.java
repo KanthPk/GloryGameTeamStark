@@ -34,7 +34,6 @@ public class MessageService {
     public static Image getMakeMessageUI() {
         return img;
     }
-
     public static void setMakeMessageUI(String msgType, String header, String value) throws Exception {
         try {
 
@@ -90,12 +89,6 @@ public class MessageService {
                 case "question":
                     img = null;
                     img = new Image("/resources/icons/question.png");
-                    headerName = header;
-                    msgValue = value;
-                    break;
-                case "pause":
-                    img = null;
-                    img = new Image("/resources/icons/pause.png");
                     headerName = header;
                     msgValue = value;
                     break;

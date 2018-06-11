@@ -5,7 +5,6 @@
  */
 package glory_services;
 
-import glory_schema.ConstantElement;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -18,14 +17,14 @@ import javafx.stage.StageStyle;
  */
 public class ValidatorService {
 
-    public void getValidaterMessage(String heading, String value, boolean confirmation, boolean textVisi, boolean force) {
+    public void getValidaterMessage(String heading,String value,boolean confirmation,boolean textVisi,boolean force) {
         try {
             AnchorPane layout;
             Stage stage;
             String header = heading;
             String body = value;
             MessageService.forceToClose = force;
-            MessageService.forEmailConfirmation = confirmation;
+            MessageService.forEmailConfirmation = confirmation;            
             MessageService.visiblityForTextField = textVisi;
             MessageService.setMakeMessageUI("Error", header, body);
             layout = FXMLLoader.load(getClass().getResource("/UI/CommenMessage.fxml"));
@@ -38,23 +37,5 @@ public class ValidatorService {
 
         } catch (Exception e) {
         }
-    }
-
-    public void getPauseMessage(String heading, String value, boolean confirmation, boolean textVisi, boolean force) throws Exception {
-        AnchorPane layout;
-        Stage stage;
-        String header = heading;
-        String body = value;
-        MessageService.forceToClose = force;
-        MessageService.forEmailConfirmation = confirmation;
-        MessageService.visiblityForTextField = textVisi;
-        MessageService.setMakeMessageUI("pause", header, body);
-        layout = FXMLLoader.load(getClass().getResource("/UI/CommenMessage.fxml"));
-        stage = new Stage();
-        stage.centerOnScreen();
-        stage.setScene(new Scene(layout));
-        stage.setResizable(false);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.show();        
     }
 }
