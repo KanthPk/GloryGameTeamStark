@@ -41,7 +41,7 @@ public class WordAutoGenerate {
     /**
      * HashMAp to Store frequencies
      */
-    HashMap<String,Integer> frequancy = new HashMap<String,Integer>();
+    HashMap<String,Integer> frequency = new HashMap<String,Integer>();
 
     /**
      * Longest word
@@ -66,7 +66,7 @@ public class WordAutoGenerate {
      */
     public void calculateHashMap(String word) {
         for (String l : letters) {
-            this.frequancy.put(l, StringUtils.countMatches(word, l));
+            this.frequency.put(l, StringUtils.countMatches(word, l));
         }
     }
     /**
@@ -95,8 +95,8 @@ public class WordAutoGenerate {
      * Check Frequencies return false if word have wrong frequencies
      */
     public boolean checkFrequency(String word) {
-        for (String key:this.frequancy.keySet()){
-           if(!(StringUtils.countMatches(word, key)<=this.frequancy.get(key))){
+        for (String key:this.frequency.keySet()){
+           if(!(StringUtils.countMatches(word, key)<=this.frequency.get(key))){
                return false;
            } 
         }
