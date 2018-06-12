@@ -9,9 +9,11 @@ import Server.Controller.MiddleTier;
 import animation.TransitionService;
 import glory_schema.Bag;
 import glory_schema.ConstantElement;
+import glory_schema.WordElement;
 import glory_services.MessageService;
 import glory_services.RoundScoreService;
 import glory_services.ValidatorService;
+import glory_services.WordAutoGenerate;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -417,14 +419,30 @@ public class GameController implements Initializable {
     @FXML
     void btnCreateClicked(ActionEvent event) {
         try {
+            //String[] myStringArray = new String[3];
+            String[] myStringArray = {"a","p","c","P","l","l","e"};
+            //String[] myStringArray = new String[]{"a","b","c"};
             //basties code goes here
             //just return a boolean and validate it
 
             //my codes goes after basties validation
             //1 Para : round
             //2 para : ture validate worded with proper validation
-            int test = roundScoreService.getScoreFromEachRound(1, txtWordFIeld.getText());
-            txtScore.setText(Integer.toString(test));
+            WordElement we = new WordElement();
+            boolean result = we.validateWord(txtWordFIeld.getText());
+            if (result == true) {
+                System.out.println("this is a word");
+                int test = roundScoreService.getScoreFromEachRound(1, txtWordFIeld.getText());
+                txtScore.setText(Integer.toString(test));
+                WordAutoGenerate v = new WordAutoGenerate(myStringArray);
+                v.Autogenerator();
+                System.out.println("sss"+v.getLongestWord());
+                
+            } else {
+                System.out.println("this is not a word");
+                serviceValidater.getValidaterMessage("INVALID", "Invalid Longest English Word", false, false, true);               
+            }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
