@@ -8,18 +8,10 @@ package Client.Controller;
 import Server.Controller.MiddleTier;
 import animation.TransitionService;
 import glory_schema.ConstantElement;
-import glory_services.MessageService;
 import glory_services.ValidatorService;
-import java.awt.event.MouseEvent;
-import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ResourceBundle;
-import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,12 +26,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputMethodRequests;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Duration;
-import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
