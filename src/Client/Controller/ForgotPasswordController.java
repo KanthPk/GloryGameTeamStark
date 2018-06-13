@@ -5,8 +5,10 @@
  */
 package Client.Controller;
 
+import glory_schema.ConstantElement;
 import glory_services.MessageService;
 import glory_services.SendEmailService;
+import glory_services.ValidatorService;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -33,8 +35,10 @@ public class ForgotPasswordController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    
+    ConstantElement userData = new ConstantElement();
     @FXML
-    private TextField txtEmail;
+    private TextField txtUserName;
 
     @FXML
     private PasswordField txtOldpassword;
@@ -50,14 +54,40 @@ public class ForgotPasswordController implements Initializable {
     @FXML
     private Button btnBack;
     @FXML
-    private Button btnSendCode;
+ 
+    private ValidatorService validatorService;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        btnSendCode.setVisible(true);
-        //txtNewPassword.setVisible(false);
-       // txtConfirmpassword.setVisible(false);
+      
+
+//inject validator service
+        validatorService = new ValidatorService();
+        
+        txtUserName.focusedProperty().addListener((ov, oldV, newV) -> {
+            if (!txtUserName.getText().isEmpty()) {
+                if (!newV) {
+                    try {  
+
+                       validatorService.getValidaterMessage("MAIL CONFIRMATION", "Please enter your confirmation code to verify your User name", true, true, false);
+                       String usarMail = "maduperera106@gmail.com";
+                        //Set the current genarated code
+                        //setUserRecievedCode(id); 
+                        //Genarate randome number and send email
+                    Random random = new Random();
+                    String id = String.format("%04d", random.nextInt(10000));
+                    SendEmailService sc = new SendEmailService();            
+                    sc.sendVerificationCode(id,usarMail);
+                    userData.RandomeNo=id;
+                    userData.UserMail= usarMail;
+                    
+                                 
+                    } catch (Exception e) {
+                    }
+                }
+            }
+        });
+
         
     }
 

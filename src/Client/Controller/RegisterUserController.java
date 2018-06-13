@@ -6,17 +6,28 @@
 package Client.Controller;
 
 import Server.Controller.MiddleTier;
+import glory_schema.ConstantElement;
+import glory_services.MessageService;
+import glory_services.SendEmailService;
 import glory_services.ValidatorService;
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javax.swing.JOptionPane;
+
 
 /**
  * FXML Controller class
@@ -27,6 +38,7 @@ public class RegisterUserController implements Initializable {
 
     //Global Variable,begin   
     MiddleTier ServerCall = new MiddleTier();
+    ConstantElement userData = new ConstantElement();
     //Global Variable,end
     @FXML
     private Button btnBack;
@@ -59,8 +71,21 @@ public class RegisterUserController implements Initializable {
         txtEmail.focusedProperty().addListener((ov, oldV, newV) -> {
             if (!txtEmail.getText().isEmpty()) {
                 if (!newV) {
-                    try {                        
-                        validatorService.getValidaterMessage("MAIL CONFIRMATION", "Please enter your confirmation code to verify your email", true, true, false);
+                    try {  
+
+                       validatorService.getValidaterMessage("MAIL CONFIRMATION", "Please enter your confirmation code to verify your email", true, true, false);
+                       String usarMail = txtEmail.getText().toString().trim();
+                        //Set the current genarated code
+                        //setUserRecievedCode(id); 
+                        //Genarate randome number and send email
+                    Random random = new Random();
+                    String id = String.format("%04d", random.nextInt(10000));
+                    SendEmailService sc = new SendEmailService();            
+                    sc.sendVerificationCode(id,usarMail);
+                    userData.RandomeNo=id;
+                    userData.UserMail= usarMail;
+                    
+                                 
                     } catch (Exception e) {
                     }
                 }

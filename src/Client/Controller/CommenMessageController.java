@@ -7,8 +7,12 @@ package Client.Controller;
 
 import glory_schema.ConstantElement;
 import glory_services.MessageService;
+import glory_services.SendEmailService;
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -22,6 +26,7 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -33,6 +38,8 @@ public class CommenMessageController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    
+    ConstantElement ce = new ConstantElement();
     @FXML
     private Button btnOK;
 
@@ -52,6 +59,10 @@ public class CommenMessageController implements Initializable {
     private TextField txtInfo;
 
     private String value;
+    
+    //To get the verification code genarated
+    public String genaratedCode;
+    public String Recievermail;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -77,28 +88,142 @@ public class CommenMessageController implements Initializable {
         } catch (Exception e) {
         }
     }
+    
+    @FXML
+    void setGenaratedCode( String Code){
+        genaratedCode = Code;
+        
+    }
+    
+    void setRecievermail( String mail){
+        Recievermail = mail;
+        
+    }
+    
+    void getCode(String UserVerificationCode)
+ {
+     genaratedCode =  UserVerificationCode;  
+ }
 
     @FXML
     void btnOKClicked(ActionEvent event) {
         try {
             if (MessageService.forEmailConfirmation) {
-                value = txtInfo.getText();
-                System.out.println("" + value);
-                if (!value.isEmpty()) {
-                    txtInfo.setStyle("-fx-border-color: BLACK;");
-                    Stage stage = (Stage) btnOK.getScene().getWindow();
-                    stage.close();
-                } else {
-                    txtInfo.setStyle("-fx-border-color: RED;");
+               try {
+          value = txtInfo.getText();
+            if (!value.isEmpty()) {
+                txtInfo.setStyle("-fx-border-color: BLACK;");
+                if(value.equals(ce.RandomeNo) )
+                {
+                JOptionPane.showMessageDialog(null, "Email successfully verified" , "InfoBox: " + "Email verification", JOptionPane.INFORMATION_MESSAGE);
+                Stage stage = (Stage) btnCancel.getScene().getWindow();
+                stage.close();
                 }
-            } else if (MessageService.forRandomSelectionFromTheBag) {
+                else{
+                    
+                txtInfo.clear();
+               
+                }
+               
+            } else {
+                txtInfo.setStyle("-fx-border-color: RED;");
+            }
+        }
+        catch (Exception e) {
+        }
+        catch (Throwable ex) {
+            Logger.getLogger(CommenMessageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        } else if (MessageService.forRandomSelectionFromTheBag) {
                 TextField txtRef = new TextField();
                 if (MessageService.forceToClose) {
                     Stage stage = (Stage) btnOK.getScene().getWindow();
                     stage.close();
                 }
             } 
+            
+        else if(MessageService.forCahangePassword){
+            try {
+          value = txtInfo.getText();
+            if (!value.isEmpty()) {
+                txtInfo.setStyle("-fx-border-color: BLACK;");
+                if(value.equals(ce.RandomeNo) )
+                {
+                JOptionPane.showMessageDialog(null, "Email successfully verified" , "InfoBox: " + "Email verification", JOptionPane.INFORMATION_MESSAGE);
+                Stage stage = (Stage) btnCancel.getScene().getWindow();
+                stage.close();
+                }
+                else{
+                    
+                txtInfo.clear();
+               
+                }
+               
+            } else {
+                txtInfo.setStyle("-fx-border-color: RED;");
+            }
+        }
+        catch (Exception e) {
+        }
+        catch (Throwable ex) {
+            Logger.getLogger(CommenMessageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+        }
+        else if(MessageService.forCahangeUserName)
+        {
+            
+                        try {
+          value = txtInfo.getText();
+            if (!value.isEmpty()) {
+                txtInfo.setStyle("-fx-border-color: BLACK;");
+                if(value.equals(ce.RandomeNo) )
+                {
+                JOptionPane.showMessageDialog(null, "Email successfully verified" , "InfoBox: " + "Email verification", JOptionPane.INFORMATION_MESSAGE);
+                Stage stage = (Stage) btnCancel.getScene().getWindow();
+                stage.close();
+                }
+                else{
+                    
+                txtInfo.clear();
+               
+                }
+               
+            } else {
+                txtInfo.setStyle("-fx-border-color: RED;");
+            }
+        }
+        catch (Exception e) {
+        }
+        catch (Throwable ex) {
+            Logger.getLogger(CommenMessageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        }
+        
+            
         } catch (Exception e) {
         }
+    }
+    
+    @FXML
+    void btnSendmailClicked(ActionEvent event) {
+        try {
+           
+                    Random random = new Random();
+                    String id = String.format("%04d", random.nextInt(10000));
+                    SendEmailService sc = new SendEmailService();            
+                    sc.sendVerificationCode(id,ce.UserMail);
+                    setGenaratedCode(id);
+        }
+        
+             
+         catch (Exception e) 
+        {}
+            
+       
     }
 }
