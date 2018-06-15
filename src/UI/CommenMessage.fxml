@@ -37,7 +37,7 @@
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <TextField fx:id="txtInfo" layoutX="190.0" layoutY="120.0" prefHeight="28.0" prefWidth="311.0">
+      <TextField fx:id="txtInfo" layoutX="136.0" layoutY="89.0" prefHeight="28.0" prefWidth="311.0">
          <effect>
             <DropShadow />
          </effect>

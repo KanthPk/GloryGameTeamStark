@@ -27,8 +27,6 @@ public class MessageService {
     public static boolean forEmailConfirmation;
     public static boolean forRandomSelectionFromTheBag;
     public static boolean forceToClose;
-    public static boolean forCahangePassword;
-    public static boolean forCahangeUserName;
 
     public MessageService() {
     }

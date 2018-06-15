@@ -28,9 +28,6 @@ public class ConstantElement {
     public static final int UnusedLetters = 2;
     public static String GlobalUserName;
     
-    public static String RandomeNo;
-    public static String UserMail;
-    
     private int Plagetyers;
     private String Timer;
     private boolean IsOnline;
