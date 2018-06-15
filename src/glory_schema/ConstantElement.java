@@ -8,26 +8,32 @@ package glory_schema;
 //Team Stark
 public class ConstantElement {
 
+    public static boolean isPause;
+    public static boolean isSwap = false;
+    public static boolean isEditVowel = false;
+    public static boolean isEditConstant = false;
+    public static boolean isValidToDisableCharFieldsInVowel = false;
+    public static boolean isValidToDisableCharFieldsInConst = false;
     private int no_of_players;
-
+    public static boolean manageTexFields;
     public static final int BlueEssenceForFirstClassEnglishWord = 50;
     public static final int BlueEssenceForSecondClassEnglishWord = 35;
     public static final int BlueEssenceForThirdClassEnglishWord = 20;
-    
+
     //scoring rules
     public static final int MaxEnglishWordLength = 11;
     public static final int StandardWordLength = 8;
-    
+
     //deduct points
     public static final int StandardDeductPoints = 1;
-    
+
     //length is 11
     public static final int ExtraPointsForWord = 8;
-    
+
     //unused letters
     public static final int UnusedLetters = 2;
     public static String GlobalUserName;
-    
+
     private int Plagetyers;
     private String Timer;
     private boolean IsOnline;
@@ -52,7 +58,7 @@ public class ConstantElement {
     public String get_userId() {
         return this.UserName;
     }
-    
+
     public void set_password(String pw) {
         this.Password = pw;
     }
@@ -60,7 +66,7 @@ public class ConstantElement {
     public String get_password() {
         return this.Password;
     }
-    
+
     public ConstantElement() {
 
     }

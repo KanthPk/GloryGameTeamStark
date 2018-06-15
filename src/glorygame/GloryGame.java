@@ -23,13 +23,18 @@ public class GloryGame extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
-        Parent root = FXMLLoader.load(getClass().getResource("/UI/Login.fxml"));
-        Scene scene = new Scene(root);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();       
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/UI/Login.fxml"));
+            Scene scene = new Scene(root);
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

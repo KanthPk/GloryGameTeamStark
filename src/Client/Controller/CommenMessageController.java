@@ -62,8 +62,15 @@ public class CommenMessageController implements Initializable {
             txtInfo.setEditable(MessageService.visiblityForTextField);
             lblMsgHeader.setText(MessageService.headerName);
             lblMsgBody.setText(MessageService.msgValue);
+            btnOK.setDisable(MessageService.isNeedBtnOK);
+            if (!MessageService.isNeedBtnOK) {
+                btnCancel.setText("OK");
+            } else if (MessageService.isNeedBtnOK) {
+                btnCancel.setText("Cancel");
+            }
+            btnOK.setVisible(MessageService.isNeedBtnOK);
             btnOK.setText("Ok");
-            btnCancel.setText("Cancel");
+
         } catch (Exception e) {
             e.getStackTrace();
         }
@@ -97,7 +104,7 @@ public class CommenMessageController implements Initializable {
                     Stage stage = (Stage) btnOK.getScene().getWindow();
                     stage.close();
                 }
-            } 
+            }
         } catch (Exception e) {
         }
     }

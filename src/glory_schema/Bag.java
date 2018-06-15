@@ -10,8 +10,11 @@ public class Bag {
 
     public Hashtable<String, Integer> letters = new Hashtable<String, Integer>();
     private String vowels = "AEIOU";
+    private String vowelValidationPerpose = "AEIOU";
     private int vowelLength = 5;
     private String consonents = "BCDFGHJKLMNPQRSTVWXYZ";
+    private String consValidationPurpose = "BCDFGHJKLMNPQRSTVWXYZ";
+    private String consonentsValidationPerpose = "BCDFGHJKLMNPQRSTVWXYZ";
     private int consonentLength = 21;
 
     public Bag() {
@@ -110,5 +113,23 @@ public class Bag {
     public void setNewConsonent(String value) {
         consonentLength -= 1;
         consonents = consonents.replace(value, "").trim();
+    }
+
+    public boolean isVowel(String keyEle) {
+        if (vowelValidationPerpose.contains(keyEle)) {
+            vowels = vowelValidationPerpose;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isConstant(String keyEle) {
+        if (consValidationPurpose.contains(keyEle)) {
+            consonents = consValidationPurpose;
+            return true;
+        } else {
+            return false;
+        }
     }
 }

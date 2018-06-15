@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.Glow?>
-<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="673.0" prefWidth="1307.0" styleClass="game-background" stylesheets="@../Common/css/common.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.GameController">
+<AnchorPane id="AnchorPane" fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="672.0" prefWidth="1306.0" styleClass="game-background" stylesheets="@../Common/css/common.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.GameController">
    <children>
-      <Button fx:id="btnPause" layoutX="21.0" layoutY="497.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="109.0" style="-fx-cursor: hand;" text="PAUSE" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="1177.0">
+      <Button fx:id="btnPause" layoutX="23.0" layoutY="375.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="109.0" style="-fx-cursor: hand;" text="PAUSE" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="1175.0">
          <effect>
             <DropShadow spread="0.47" />
          </effect>
@@ -22,7 +24,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <AnchorPane layoutX="149.0" layoutY="71.0" opacity="0.85" prefHeight="585.0" prefWidth="972.0" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="149.0" AnchorPane.rightAnchor="186.0" AnchorPane.topAnchor="71.0">
+      <AnchorPane layoutX="149.0" layoutY="71.0" opacity="0.85" prefHeight="589.0" prefWidth="975.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="149.0" AnchorPane.rightAnchor="182.0" AnchorPane.topAnchor="71.0">
          <children>
             <TextField fx:id="txt_1" alignment="CENTER" editable="false" layoutX="24.0" layoutY="455.0" onMousePressed="#mousePressedOnCharFields" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #FFFFFF; -fx-border-color: Black; -fx-cursor: HAND;">
                <font>
@@ -104,7 +106,7 @@
                   <Font name="Bodoni MT Bold" size="29.0" />
                </font>
             </Button>
-            <TextField fx:id="txtScore" alignment="CENTER" editable="false" layoutX="723.0" layoutY="488.0" prefHeight="55.0" prefWidth="186.0" style="-fx-border-color: BLACK; -fx-background-color: #F4FF0D; -fx-cursor: HAND;" text="0">
+            <TextField fx:id="txtScore" alignment="CENTER" editable="false" layoutX="705.0" layoutY="500.0" prefHeight="55.0" prefWidth="220.0" style="-fx-border-color: BLACK; -fx-background-color: #F4FF0D; -fx-cursor: HAND;" text="0">
                <font>
                   <Font name="Californian FB Bold" size="27.0" />
                </font>
@@ -116,7 +118,7 @@
                   </DropShadow>
                </effect>
             </TextField>
-            <Label alignment="CENTER" layoutX="727.0" layoutY="541.0" prefHeight="35.0" prefWidth="179.0" text="YOUR SCORE">
+            <Label alignment="CENTER" layoutX="727.0" layoutY="555.0" prefHeight="35.0" prefWidth="179.0" text="YOUR SCORE">
                <font>
                   <Font size="27.0" />
                </font>
@@ -340,56 +342,36 @@
                   <DropShadow blurType="ONE_PASS_BOX" color="WHITE" spread="1.0" />
                </effect>
             </AnchorPane>
+            <AnchorPane fx:id="anchorEditBack" layoutX="450.0" layoutY="527.0" prefHeight="39.0" prefWidth="35.0" visible="false">
+               <children>
+                  <CheckBox fx:id="chkEdit" layoutX="6.0" layoutY="3.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <DropShadow spread="0.47" />
+                     </effect>
+                  </CheckBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="subCheckBoxAncher" layoutX="18.0" layoutY="307.0" prefHeight="43.0" prefWidth="751.0" visible="false">
+               <children>
+                  <CheckBox fx:id="checkBoxForPuaseSwap" layoutY="8.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="744.0" style="-fx-cursor: HAND;" text="DO YOU WANT TO SWAP CHARACTERS  ?">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                     <effect>
+                        <DropShadow blurType="TWO_PASS_BOX" color="#8fb6ff" height="11.87" radius="5.494999999999999" spread="1.0" width="12.11" />
+                     </effect>
+                  </CheckBox>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane focusTraversable="true" layoutX="1133.0" layoutY="250.0" opacity="0.6" prefHeight="406.0" prefWidth="161.0" style="-fx-border-color: black; -fx-background-color: #A5A4A5;">
-         <effect>
-            <DropShadow height="15.07" radius="8.5175" spread="0.41" />
-         </effect>
-         <children>
-            <Label alignment="CENTER" layoutX="15.0" layoutY="18.0" prefHeight="67.0" prefWidth="131.0" style="-fx-border-color: Black;" text="Round 1" textAlignment="CENTER" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="16.0">
-               <font>
-                  <Font name="Bell MT Bold" size="32.0" />
-               </font>
-               <effect>
-                  <InnerShadow />
-               </effect>
-            </Label>
-            <Label alignment="CENTER" layoutX="16.0" layoutY="93.0" prefHeight="67.0" prefWidth="131.0" style="-fx-border-color: Black;" text="Round 2" textAlignment="CENTER">
-               <font>
-                  <Font name="Bell MT Bold" size="32.0" />
-               </font>
-               <effect>
-                  <InnerShadow />
-               </effect>
-            </Label>
-            <Label alignment="CENTER" layoutX="16.0" layoutY="173.0" prefHeight="67.0" prefWidth="131.0" style="-fx-border-color: Black;" text="Round 3" textAlignment="CENTER">
-               <font>
-                  <Font name="Bell MT Bold" size="32.0" />
-               </font>
-               <effect>
-                  <InnerShadow />
-               </effect>
-            </Label>
-            <Label alignment="CENTER" layoutX="16.0" layoutY="249.0" prefHeight="67.0" prefWidth="131.0" style="-fx-border-color: Black;" text="Round 4" textAlignment="CENTER">
-               <font>
-                  <Font name="Bell MT Bold" size="32.0" />
-               </font>
-               <effect>
-                  <InnerShadow />
-               </effect>
-            </Label>
-            <Label alignment="CENTER" layoutX="15.0" layoutY="327.0" prefHeight="67.0" prefWidth="131.0" style="-fx-border-color: Black;" text="Round 5" textAlignment="CENTER">
-               <font>
-                  <Font name="Bell MT Bold" size="32.0" />
-               </font>
-               <effect>
-                  <InnerShadow />
-               </effect>
-            </Label>
-         </children>
-      </AnchorPane>
-      <Button fx:id="btnHome" disable="true" layoutX="21.0" layoutY="570.0" mnemonicParsing="false" onAction="#btnHomeClicked" prefHeight="55.0" prefWidth="109.0" style="-fx-cursor: hand;" text="HOME" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="1177.0">
+      <Button fx:id="btnHome" disable="true" layoutX="23.0" layoutY="453.0" mnemonicParsing="false" onAction="#btnHomeClicked" prefHeight="55.0" prefWidth="109.0" style="-fx-cursor: hand;" text="HOME" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="1175.0">
          <effect>
             <DropShadow spread="0.47" />
          </effect>
@@ -397,7 +379,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Label alignment="CENTER" layoutX="1121.0" layoutY="165.0" prefHeight="35.0" prefWidth="186.0" text="ASHAN PERERA">
+      <Label alignment="CENTER" layoutX="1130.0" layoutY="130.0" prefHeight="35.0" prefWidth="172.0" text="ASHAN PERERA">
          <font>
             <Font size="20.0" />
          </font>
@@ -405,7 +387,7 @@
             <DropShadow blurType="TWO_PASS_BOX" color="WHITE" spread="1.0" />
          </effect>
       </Label>
-      <Label alignment="CENTER" layoutX="1164.0" layoutY="192.0" prefHeight="35.0" prefWidth="102.0" text="ONLINE">
+      <Label alignment="CENTER" layoutX="1165.0" layoutY="165.0" prefHeight="28.0" prefWidth="102.0" text="ONLINE">
          <font>
             <Font size="20.0" />
          </font>
@@ -413,7 +395,7 @@
             <DropShadow blurType="ONE_PASS_BOX" color="#00ff5e" spread="1.0" />
          </effect>
       </Label>
-      <Label alignment="CENTER" layoutX="21.0" layoutY="88.0" prefHeight="43.0" prefWidth="102.0" text="TIME">
+      <Label fx:id="lblTimer" alignment="CENTER" layoutX="27.0" layoutY="87.0" prefHeight="43.0" prefWidth="102.0" text="TIME">
          <font>
             <Font size="27.0" />
          </font>
@@ -429,7 +411,7 @@
             <DropShadow blurType="ONE_PASS_BOX" color="WHITE" spread="1.0" />
          </effect>
       </Label>
-      <ImageView fx:id="userImageView1112" fitHeight="129.0" fitWidth="186.0" layoutX="1150.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="userImageView1112" fitHeight="98.0" fitWidth="94.0" layoutX="1169.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../resources/default.png" />
          </image>
@@ -442,13 +424,229 @@
             <Image url="@../resources/close.png" />
          </image>        
       </ImageView>
-      <ImageView fx:id="userImageView112" fitHeight="147.0" fitWidth="109.0" layoutX="21.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgSearch" fitHeight="98.0" fitWidth="102.0" layoutX="29.0" layoutY="536.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: HAND;">
          <image>
-            <Image url="@../resources/icons/pause.png" />
+            <Image url="@../resources/icons/search.png" />
          </image>
          <effect>
             <DropShadow spread="0.56" />
          </effect>
       </ImageView>
+      <AnchorPane fx:id="ancherPause" layoutX="13.0" layoutY="136.0" prefHeight="138.0" prefWidth="129.0" visible="false">
+         <children>
+            <ImageView fx:id="userImageView112" fitHeight="147.0" fitWidth="109.0" layoutX="10.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: HAND;">
+               <image>
+                  <Image url="@../resources/icons/pause.png" />
+               </image>
+               <effect>
+                  <DropShadow spread="0.56" />
+               </effect>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="1123.0" layoutY="199.0" prefHeight="480.0" prefWidth="186.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="84.0" layoutX="13.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="161.0">
+               <effect>
+                  <DropShadow spread="0.36" />
+               </effect>
+            </Rectangle>
+            <Label layoutX="21.0" layoutY="14.0" prefHeight="30.0" prefWidth="143.0" text="ROUND ONE" textOverrun="CLIP" underline="true" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="38.0" text="PRAVEEN">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="103.0" layoutY="38.0" prefHeight="17.0" prefWidth="65.0" text="250">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="84.0" layoutX="13.0" layoutY="105.0" stroke="BLACK" strokeType="INSIDE" width="161.0">
+               <effect>
+                  <DropShadow spread="0.36" />
+               </effect>
+            </Rectangle>
+            <Label layoutX="21.0" layoutY="105.0" prefHeight="30.0" prefWidth="143.0" text="ROUND TWO" textOverrun="CLIP" underline="true" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="21.0" layoutY="130.0" text="PRAVEEN">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="104.0" layoutY="130.0" prefHeight="17.0" prefWidth="65.0" text="150">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="84.0" layoutX="13.0" layoutY="198.0" stroke="BLACK" strokeType="INSIDE" width="161.0">
+               <effect>
+                  <DropShadow spread="0.36" />
+               </effect>
+            </Rectangle>
+            <Label layoutX="21.0" layoutY="198.0" prefHeight="30.0" prefWidth="143.0" text="ROUND THREE" textOverrun="CLIP" underline="true" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="223.0" text="PRAVEEN">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="103.0" layoutY="223.0" prefHeight="17.0" prefWidth="65.0" text="300">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="84.0" layoutX="13.0" layoutY="290.0" stroke="BLACK" strokeType="INSIDE" width="161.0">
+               <effect>
+                  <DropShadow spread="0.36" />
+               </effect>
+            </Rectangle>
+            <Label layoutX="21.0" layoutY="290.0" prefHeight="30.0" prefWidth="143.0" text="ROUND FOUR" textOverrun="CLIP" underline="true" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="21.0" layoutY="315.0" text="PRAVEEN">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="104.0" layoutY="315.0" prefHeight="17.0" prefWidth="65.0" text="140">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="84.0" layoutX="13.0" layoutY="382.0" stroke="BLACK" strokeType="INSIDE" width="161.0">
+               <effect>
+                  <DropShadow spread="0.36" />
+               </effect>
+            </Rectangle>
+            <Label layoutX="21.0" layoutY="382.0" prefHeight="30.0" prefWidth="143.0" text="ROUND FIVE" textOverrun="CLIP" underline="true" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="21.0" layoutY="407.0" text="PRAVEEN">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="104.0" layoutY="407.0" prefHeight="17.0" prefWidth="65.0" text="1500">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="55.0" text="YASAS">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="103.0" layoutY="55.0" prefHeight="17.0" prefWidth="65.0" text="250">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="73.0" text="SUBASH">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="103.0" layoutY="73.0" prefHeight="17.0" prefWidth="65.0" text="250">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="21.0" layoutY="148.0" text="YASAS">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="104.0" layoutY="148.0" prefHeight="17.0" prefWidth="65.0" text="150">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="22.0" layoutY="165.0" text="SUBASH">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="105.0" layoutY="165.0" prefHeight="17.0" prefWidth="65.0" text="150">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="240.0" text="YASAS">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="103.0" layoutY="240.0" prefHeight="17.0" prefWidth="65.0" text="300">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="258.0" text="SUBASH">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="103.0" layoutY="258.0" prefHeight="17.0" prefWidth="65.0" text="300">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="21.0" layoutY="332.0" text="YASAS">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="104.0" layoutY="332.0" prefHeight="17.0" prefWidth="65.0" text="140">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="21.0" layoutY="350.0" text="SUBASH">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="104.0" layoutY="350.0" prefHeight="17.0" prefWidth="65.0" text="140">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="21.0" layoutY="424.0" text="YASAS">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="104.0" layoutY="424.0" prefHeight="17.0" prefWidth="65.0" text="1500">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="22.0" layoutY="442.0" text="SUBASH">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="105.0" layoutY="442.0" prefHeight="17.0" prefWidth="65.0" text="1500">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

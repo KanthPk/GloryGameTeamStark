@@ -97,9 +97,9 @@ public class LoginController implements Initializable {
 
     @FXML
     private void btnLoginClicked(ActionEvent event) throws IOException {
-        // get user name and password from here
-        // validate the user and then navidate to the home
-        // TocheckAuthentication
+        //get user name and password from here
+        //validate the user and then navidate to the home
+        //TocheckAuthentication
         //guid
         String Access = "Access";
         String Denied = "Denied";
@@ -107,31 +107,38 @@ public class LoginController implements Initializable {
 
         try {
             // open a connection to the site           
-            Check = ServerCall.Login(txtUserName.getText(), pwdPassword.getText());
-            if (Check.equals(Access)) {               
-                ConstantElement.GlobalUserName=txtUserName.getText();//setGlobalUserValue
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/Home.fxml"));
-                Parent parentHome = (Parent) fxmlLoader.load();
-                HomeController controller = fxmlLoader.<HomeController>getController();
-                ConstantElement s = new ConstantElement();
-                s.set_password(pwdPassword.getText());
-                s.set_userId(txtUserName.getText());
-                controller.getObject(s);
-                Scene home_page_scene = new Scene(parentHome);
-                Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                app_stage.setScene(home_page_scene);
-                app_stage.show();
-            } 
-            else if (Check.equals(Denied)) {
-                serviceValidater.getValidaterMessage("AUTHENTICATION FAILED", "Invalid user name or password", false, false, true);
+            if (!txtUserName.getText().isEmpty() && !pwdPassword.getText().isEmpty()) {
+                Check = ServerCall.Login(txtUserName.getText(), pwdPassword.getText());
+                if (Check.equals(Access)) {
+                    ConstantElement.GlobalUserName = txtUserName.getText();//setGlobalUserValue
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/Home.fxml"));
+                    Parent parentHome = (Parent) fxmlLoader.load();
+                    HomeController controller = fxmlLoader.<HomeController>getController();
+                    ConstantElement s = new ConstantElement();
+                    s.set_password(pwdPassword.getText());
+                    s.set_userId(txtUserName.getText());
+                    controller.getObject(s);
+                    Scene home_page_scene = new Scene(parentHome);
+                    Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    app_stage.setScene(home_page_scene);
+                    app_stage.show();
+                } else if (Check.equals(Denied)) {
+                    serviceValidater.validateConditionErrors("AUTHENTICATION FAILED", "Please recheck your credentials", false, false, true, false);
+                }
+            } else if (txtUserName.getText().isEmpty() && pwdPassword.getText().isEmpty()) {
+                serviceValidater.validateConditionErrors("CHECK INPUTS", "Please check your inputs", false, false, true, false);
+            } else if (!txtUserName.getText().isEmpty() && pwdPassword.getText().isEmpty()) {
+                serviceValidater.validateConditionErrors("CHECK INPUTS", "Please enter your password", false, false, true, false);
+            } else if (txtUserName.getText().isEmpty() && !pwdPassword.getText().isEmpty()) {
+                serviceValidater.validateConditionErrors("CHECK INPUTS", "Please enter your user name", false, false, true, false);
             }
-            if (((!txtUserName.getText().isEmpty()) && (pwdPassword.getText().isEmpty())) || (txtUserName.getText().isEmpty()) && (!pwdPassword.getText().isEmpty())) {
-                serviceValidater.getValidaterMessage("CHECK INPUTS", "Please check your inputs", false, false, true);
-            }
+        } catch (SecurityException e) {
+            serviceValidater.validateLiveError("CONNECTION FAILED", "Something wrong with the server, Please try again", false, false, true, false, "Live");
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
 
     private void route(String caseID, String path) {

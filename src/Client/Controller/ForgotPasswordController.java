@@ -5,18 +5,6 @@
  */
 package Client.Controller;
 
-
-
-import glory_schema.ConstantElement;
-import glory_services.MessageService;
-import glory_services.SendEmailService;
-import glory_services.ValidatorService;
-
-
-
-import glory_services.MessageService;
-import glory_services.SendEmailService;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -54,22 +42,9 @@ public class ForgotPasswordController implements Initializable {
     @FXML
     private Button btnBack;
 
-    @FXML
-    private Button btnSendCode;
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        btnSendCode.setVisible(true);
-        //txtNewPassword.setVisible(false);
-       // txtConfirmpassword.setVisible(false);
-        
-
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-
     }
 
     @FXML

@@ -18,7 +18,7 @@ import javafx.stage.StageStyle;
  */
 public class ValidatorService {
 
-    public void getValidaterMessage(String heading, String value, boolean confirmation, boolean textVisi, boolean force) {
+    public void validateConditionErrors(String heading, String value, boolean confirmation, boolean textVisi, boolean force, boolean btnOK) {
         try {
             AnchorPane layout;
             Stage stage;
@@ -28,6 +28,7 @@ public class ValidatorService {
             MessageService.forEmailConfirmation = confirmation;
             MessageService.visiblityForTextField = textVisi;
             MessageService.setMakeMessageUI("Error", header, body);
+            MessageService.isNeedBtnOK = btnOK;
             layout = FXMLLoader.load(getClass().getResource("/UI/CommenMessage.fxml"));
             stage = new Stage();
             stage.centerOnScreen();
@@ -35,7 +36,28 @@ public class ValidatorService {
             stage.setResizable(false);
             stage.initStyle(StageStyle.UNDECORATED);
             stage.show();
+        } catch (Exception e) {
+        }
+    }
 
+    public void validateLiveError(String heading, String value, boolean confirmation, boolean textVisi, boolean force, boolean btnOK, String iconField) {
+        try {
+            AnchorPane layout;
+            Stage stage;
+            String header = heading;
+            String body = value;
+            MessageService.forceToClose = force;
+            MessageService.forEmailConfirmation = confirmation;
+            MessageService.visiblityForTextField = textVisi;
+            MessageService.setMakeMessageUI(iconField, header, body);
+            MessageService.isNeedBtnOK = btnOK;
+            layout = FXMLLoader.load(getClass().getResource("/UI/CommenMessage.fxml"));
+            stage = new Stage();
+            stage.centerOnScreen();
+            stage.setScene(new Scene(layout));
+            stage.setResizable(false);
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.show();
         } catch (Exception e) {
         }
     }
@@ -55,6 +77,6 @@ public class ValidatorService {
         stage.setScene(new Scene(layout));
         stage.setResizable(false);
         stage.initStyle(StageStyle.UNDECORATED);
-        stage.show();        
+        stage.show();
     }
 }

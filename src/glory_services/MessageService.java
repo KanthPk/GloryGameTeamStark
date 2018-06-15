@@ -27,6 +27,7 @@ public class MessageService {
     public static boolean forEmailConfirmation;
     public static boolean forRandomSelectionFromTheBag;
     public static boolean forceToClose;
+    public static boolean isNeedBtnOK;
 
     public MessageService() {
     }

@@ -25,12 +25,12 @@ public class MiddleTier {
     TransitionService service;
     private ValidatorService serviceValidater;
     //Variables,end
-    
-    public MiddleTier()
-    {
-    service = new TransitionService();
-    serviceValidater = new ValidatorService();
+
+    public MiddleTier() {
+        service = new TransitionService();
+        serviceValidater = new ValidatorService();
     }
+
     public Boolean Logout(String user_id, String password) {
         try {
             URL url = new URL("https://kanthpk.000webhostapp.com/logout.php");
@@ -56,7 +56,7 @@ public class MiddleTier {
             try (BufferedReader in = new BufferedReader(new InputStreamReader(
                     yc.getInputStream()))) {
                 String inputLine;
-                
+
                 while ((inputLine = in.readLine()) != null) {
                     animals = inputLine.split("\\s");
                 }
@@ -108,16 +108,18 @@ public class MiddleTier {
                 try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
                     inputLine = inStream.readLine();
                     if (inputLine.equals("User exist")) {
-                        serviceValidater.getValidaterMessage("CHECK User Name", "User name is already existing", false, false, true);
+                        serviceValidater.validateConditionErrors("CHECK User Name", "User name is already existing", false, false, true, false);
                     }
                 }
             }
+        } catch (SecurityException e) {
+            serviceValidater.validateLiveError("CONNECTION FAILED", "Something wrong with the server, Please try again", false, false, true, false, "Live");
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
 
     }
-    
+
     public void DisplayInitialLetter(String User, String letter_1, String letter_2, String letter_3) {
 
         String inputLine = null;
@@ -129,44 +131,43 @@ public class MiddleTier {
             con.setDoOutput(true);
             try (PrintStream ps = new PrintStream(con.getOutputStream())) {
                 ps.print("&User=" + User);
-                ps.print("&Letter1=" + letter_1+letter_2+letter_3);
+                ps.print("&Letter1=" + letter_1 + letter_2 + letter_3);
                 ps.print("&Letter2=" + letter_2);
                 ps.print("&Letter3=" + letter_3);
                 con.getInputStream();
                 try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
                     inputLine = inStream.readLine();
-                    System.out.println("LetterValue"+inputLine);
+                    System.out.println("LetterValue" + inputLine);
                 }
             }
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }
+
     public void deleteLetter() {
         try {
-            URL oracle = new URL("https://kanthpk.000webhostapp.com/Obsolete.php");                                           
+            URL oracle = new URL("https://kanthpk.000webhostapp.com/Obsolete.php");
             URLConnection yc = oracle.openConnection();
             try (BufferedReader in = new BufferedReader(new InputStreamReader(
                     yc.getInputStream()))) {
-                System.out.println(""+in.readLine());
-            }                        
+                System.out.println("" + in.readLine());
+            }
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
 
     }
-    
-    
-    public String[] getLetter()
-    {
-    String[] animals = null;
+
+    public String[] getLetter() {
+        String[] animals = null;
         try {
             URL oracle = new URL("https://kanthpk.000webhostapp.com/getLetterValue.php");
             URLConnection yc = oracle.openConnection();
             try (BufferedReader in = new BufferedReader(new InputStreamReader(
                     yc.getInputStream()))) {
                 String inputLine;
-                
+
                 while ((inputLine = in.readLine()) != null) {
                     animals = inputLine.split("\\s");
                 }
@@ -176,6 +177,6 @@ public class MiddleTier {
             System.out.println(e.getMessage());
         }
         return animals;
-      
+
     }
 }

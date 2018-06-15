@@ -55,12 +55,12 @@ public class RegisterUserController implements Initializable {
 
         //inject validator service
         validatorService = new ValidatorService();
-        
+
         txtEmail.focusedProperty().addListener((ov, oldV, newV) -> {
             if (!txtEmail.getText().isEmpty()) {
                 if (!newV) {
-                    try {                        
-                        validatorService.getValidaterMessage("MAIL CONFIRMATION", "Please enter your confirmation code to verify your email", true, true, false);
+                    try {
+                        validatorService.validateConditionErrors("MAIL CONFIRMATION", "Please enter your confirmation code to verify your email", true, true, false, false);
                     } catch (Exception e) {
                     }
                 }

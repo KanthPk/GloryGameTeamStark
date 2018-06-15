@@ -5,8 +5,12 @@
  */
 package animation;
 
+import java.awt.Color;
 import javafx.animation.FadeTransition;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Node;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
@@ -16,7 +20,7 @@ import javafx.util.Duration;
  */
 public class TransitionService {
 
-    private FadeTransition fadeTransition;
+    private final FadeTransition fadeTransition;
 
     public TransitionService() {
         fadeTransition = new FadeTransition();
@@ -45,4 +49,5 @@ public class TransitionService {
         }
         return null;
     }
+
 }
