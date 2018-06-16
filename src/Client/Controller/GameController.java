@@ -892,15 +892,15 @@ public class GameController implements Initializable {
                 System.out.println(ary[q]);
 
             }
+            //dummy location
             WordAutoGenerate v = new WordAutoGenerate(ary);
-            v.Autogenerator();
-            System.out.println("sss" + v.getLongestWord());
-            //end
+            v.Autogenerator();           
+            System.out.println("Autogenrate word" + v.getLongestWord());
+            //end           
             if (result == true) {
                 System.out.println("this is a word");
                 int test = roundScoreService.getScoreFromEachRound(1, txtWordFIeld.getText());
-                txtScore.setText(Integer.toString(test));
-                System.out.println("sss" + v.getLongestWord());
+                txtScore.setText(Integer.toString(test));              
 
             } else {
                 System.out.println("this is not a word");

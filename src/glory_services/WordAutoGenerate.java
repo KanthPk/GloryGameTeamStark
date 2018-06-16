@@ -15,6 +15,7 @@ import java.io.FileReader;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.apache.commons.lang3.StringUtils;
 
 //import org.apache.commons.lang3.StringUtils;
 
@@ -66,7 +67,7 @@ public class WordAutoGenerate {
      */
     public void calculateHashMap(String word) {
         for (String l : letters) {
-           // this.frequency.put(l, StringUtils.countMatches(word, l));
+            this.frequency.put(l, StringUtils.countMatches(word, l));
         }
     }
     /**
@@ -96,9 +97,9 @@ public class WordAutoGenerate {
      */
     public boolean checkFrequency(String word) {
         for (String key:this.frequency.keySet()){
-//           if(!(StringUtils.countMatches(word, key)<=this.frequency.get(key))){
-//               return false;
-//           } 
+           if(!(StringUtils.countMatches(word, key)<=this.frequency.get(key))){
+               return false;
+           } 
         }
         return true;
     }
