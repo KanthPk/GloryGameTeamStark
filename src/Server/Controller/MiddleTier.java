@@ -14,6 +14,9 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.URL;
 import java.net.URLConnection;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
@@ -179,4 +182,55 @@ public class MiddleTier {
         return animals;
 
     }
+    public void setGroup(String groupName, String nickName, String member) {
+        String inputLine = null;
+        try {
+            //save the data
+            // open a connection to the site
+            URL url = new URL("https://kanthpk.000webhostapp.com/group.php");
+            URLConnection con = url.openConnection();
+            con.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(con.getOutputStream())) {
+                ps.print("&GroupName=" + groupName);
+                ps.print("&UserName=" + nickName);
+                ps.print("&Players=" + member);
+                con.getInputStream();
+                try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
+                    inputLine = inStream.readLine();
+                }
+            }
+            getGroup();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    public JSONArray getGroup() {
+        String[] members = null;
+        JSONArray array = null;
+        try {
+            URL oracle = new URL("https://kanthpk.000webhostapp.com/getgroup.php");
+            URLConnection yc = oracle.openConnection();
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(
+                    yc.getInputStream()))) {
+                JSONParser parser =new JSONParser();
+                array =(JSONArray)parser.parse(in.readLine());
+                int n = array.size();            
+                for (int i = 0; i < n; i++) {
+                // GET INDIVIDUAL JSON OBJECT FROM JSON ARRAY
+                JSONObject jo = (JSONObject)array.get(i);      
+                String GroupName = (String) jo.get("GroupName");
+                String UserName = (String) jo.get("UserName");
+                String Players = (String) jo.get("Players");
+                System.out.println("outputyss"+GroupName+UserName+Players);                
+            }                                                                       
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return array;
+
+    }
+    
+    
 }

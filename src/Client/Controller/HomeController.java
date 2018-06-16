@@ -78,7 +78,7 @@ public class HomeController implements Initializable {
         Boolean output;//needed for further implement      
         Platform.exit();
         //serverCallToLogout
-        output = ServerCall.Logout(Const.get_userId(), Const.get_password());
+        output = ServerCall.Logout(ConstantElement.GlobalUserName, ConstantElement.GlobalPassowrd);
         System.exit(0);
     }
 

@@ -5,6 +5,7 @@
  */
 package Client.Controller;
 
+import Server.Controller.MiddleTier;
 import glory_schema.ConstantElement;
 import glory_services.NavigationService;
 import java.net.URL;
@@ -28,6 +29,11 @@ public class CreateGroupController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    //global variable,begin
+    MiddleTier obj =new MiddleTier();
+    ConstantElement Const= new ConstantElement();
+    //end
+    
     @FXML
     private AnchorPane AnchrcreateGroup;
 
@@ -69,6 +75,7 @@ public class CreateGroupController implements Initializable {
     private void btnCreateClicked(ActionEvent event) {
         try {
             navigationService.OneDropNavigation(event);
+            obj.setGroup(txtGroupName.getText(), Const.GlobalUserName, txtNoOfPlayers.getText());                       
         } catch (Exception e) {
         }
     }

@@ -36,7 +36,7 @@ public class ConstantElement {
     //unused letters
     public static final int UnusedLetters = 2;
     public static String GlobalUserName;
-
+    public static String GlobalPassowrd;
     private int Plagetyers;
     private String Timer;
     private boolean IsOnline;

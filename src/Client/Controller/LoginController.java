@@ -111,6 +111,7 @@ public class LoginController implements Initializable {
                 Check = ServerCall.Login(txtUserName.getText(), pwdPassword.getText());
                 if (Check.equals(Access)) {
                     ConstantElement.GlobalUserName = txtUserName.getText();//setGlobalUserValue
+                    ConstantElement.GlobalPassowrd = pwdPassword.getText();
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/Home.fxml"));
                     Parent parentHome = (Parent) fxmlLoader.load();
                     HomeController controller = fxmlLoader.<HomeController>getController();

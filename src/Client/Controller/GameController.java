@@ -380,7 +380,7 @@ public class GameController implements Initializable {
         Boolean output;//needed for further implement      
         Platform.exit();
         //serverCallToLogout
-        output = ServerCall.Logout(Const.get_userId(), Const.get_password());
+        output = ServerCall.Logout(ConstantElement.GlobalUserName, ConstantElement.GlobalPassowrd);
         //serverCallToDeleteLetters
         ServerCall.deleteLetter();
         System.exit(0);
@@ -885,12 +885,21 @@ public class GameController implements Initializable {
             //2 para : ture validate worded with proper validation
             WordElement we = new WordElement();
             boolean result = we.validateWord(txtWordFIeld.getText());
+
+            //autogenerate,begin
+            String[] ary = getLetterArray();
+            for (int q = 0; q < 11; q++) {
+                System.out.println(ary[q]);
+
+            }
+            WordAutoGenerate v = new WordAutoGenerate(ary);
+            v.Autogenerator();
+            System.out.println("sss" + v.getLongestWord());
+            //end
             if (result == true) {
                 System.out.println("this is a word");
                 int test = roundScoreService.getScoreFromEachRound(1, txtWordFIeld.getText());
                 txtScore.setText(Integer.toString(test));
-                WordAutoGenerate v = new WordAutoGenerate(myStringArray);
-                v.Autogenerator();
                 System.out.println("sss" + v.getLongestWord());
 
             } else {
@@ -945,5 +954,10 @@ public class GameController implements Initializable {
         );
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
+    }
+
+    public String[] getLetterArray() {
+        String[] ary = new String[]{txt_1.getText().toLowerCase(), txt_2.getText().toLowerCase(), txt_3.getText().toLowerCase(), txt_4.getText().toLowerCase(), txt_5.getText().toLowerCase(), txt_6.getText().toLowerCase(), txt_7.getText().toLowerCase(), txt_8.getText().toLowerCase(), txtRandom_1.getText().toLowerCase(), txtRandom_2.getText().toLowerCase(), txtRandom_3.getText().toLowerCase()};
+        return ary;
     }
 }
