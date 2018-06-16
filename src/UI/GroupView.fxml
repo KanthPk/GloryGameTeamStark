@@ -7,21 +7,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="625.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="Client.Controller.GroupViewController">
+<AnchorPane id="AnchorPane" fx:id="ancherGropuView" opacity="0.77" prefHeight="350.0" prefWidth="535.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.GroupViewController">
    <children>
       <Label layoutX="14.0" layoutY="14.0" prefHeight="40.0" prefWidth="264.0" text="GROUP NAME">
          <font>
             <Font name="Nirmala UI" size="28.0" />
          </font>
       </Label>
-      <ListView layoutX="10.0" layoutY="59.0" prefHeight="292.0" prefWidth="453.0" />
-      <Label layoutX="10.0" layoutY="359.0" prefHeight="28.0" prefWidth="453.0" text="Please wait for other players">
+      <ListView fx:id="listGroupMembers" layoutX="10.0" layoutY="59.0" prefHeight="254.0" prefWidth="387.0" />
+      <Label layoutX="10.0" layoutY="313.0" prefHeight="31.0" prefWidth="415.0" text="Please wait for other players">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <Button fx:id="btnCreateGroup" alignment="CENTER" layoutX="484.0" layoutY="59.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="117.0" text="PROCEED">
+      <Button fx:id="btnProceed" alignment="CENTER" layoutX="407.0" layoutY="59.0" mnemonicParsing="false" onAction="#btnProceedClicked" prefHeight="49.0" prefWidth="117.0" style="-fx-cursor: HAND;" text="PROCEED">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -29,7 +28,7 @@
             <DropShadow spread="0.37" />
          </effect>
       </Button>
-      <Button fx:id="btnCreateGroup1" alignment="CENTER" layoutX="484.0" layoutY="130.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="117.0" text="LEAVE">
+      <Button fx:id="btnLeave" alignment="CENTER" layoutX="407.0" layoutY="126.0" mnemonicParsing="false" onAction="#btnLeaveClicked" prefHeight="49.0" prefWidth="117.0" style="-fx-cursor: HAND;" text="LEAVE">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>

@@ -19,28 +19,37 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
  *
- * @author TeamStark
+ * @author AshanPerera
  */
 public class HomeController implements Initializable {
+
     //Global Variable,begin
     ConstantElement Const;
     MiddleTier ServerCall = new MiddleTier();
     //Global Variable,end
-    
+
     @FXML
     private AnchorPane homeRoot;
 
     @FXML
     private Button btnPlay;
 
+    @FXML
+    private ImageView imgSettings;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        btnPlay.setDisable(ConstantElement.isDisableBtnPlay);
         String[] users = null;
         users = ServerCall.onlineUsers();
         int userIndex = 1;
@@ -57,19 +66,9 @@ public class HomeController implements Initializable {
     @FXML
     void btnPlayClicked(ActionEvent event) {
         try {
-            //should be validated
-            //before play the game                     
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/Game.fxml"));
-            Parent parentObject = (Parent) fxmlLoader.load();
-            GameController gameObject= fxmlLoader.<GameController>getController();
-            gameObject.getObject(Const);
-            Scene sceneObject = new Scene(parentObject);
-            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            app_stage.setScene(sceneObject);
-            //app_stage.setMaximized(true);
-            app_stage.centerOnScreen();
-            app_stage.show();
-
+            if (!ConstantElement.isDisableBtnPlay && !ConstantElement.isPopedUp) {
+                route("group", "/UI/Group.fxml");
+            }
         } catch (IOException e) {
         }
     }
@@ -87,5 +86,28 @@ public class HomeController implements Initializable {
     private void imgMinimizeApplication() {
         Stage stage = (Stage) homeRoot.getScene().getWindow();
         stage.setIconified(true);
+    }
+
+    @FXML
+    void imgSettingsOnPress(MouseEvent event) {
+        System.out.println("Hello");
+    }
+
+    private void route(String id, String path) throws IOException {
+        AnchorPane layout;
+        Stage stage;
+        switch (id) {
+            case "group":
+                layout = null;
+                stage = null;
+                layout = FXMLLoader.load(getClass().getResource(path));
+                stage = new Stage();
+                stage.centerOnScreen();
+                stage.setScene(new Scene(layout));
+                stage.setResizable(false);
+                stage.initStyle(StageStyle.UNDECORATED);
+                stage.show();
+                break;
+        }
     }
 }
