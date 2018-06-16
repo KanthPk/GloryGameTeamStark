@@ -30,10 +30,10 @@ public class CreateGroupController implements Initializable {
      * Initializes the controller class.
      */
     //global variable,begin
-    MiddleTier obj =new MiddleTier();
-    ConstantElement Const= new ConstantElement();
+    MiddleTier obj = new MiddleTier();
+    ConstantElement Const = new ConstantElement();
     //end
-    
+
     @FXML
     private AnchorPane AnchrcreateGroup;
 
@@ -52,7 +52,7 @@ public class CreateGroupController implements Initializable {
     private NavigationService navigationService;
 
     public CreateGroupController() {
-        navigationService = new NavigationService("/UI/GroupView.fxml");
+     
     }
 
     @Override
@@ -73,9 +73,12 @@ public class CreateGroupController implements Initializable {
 
     @FXML
     private void btnCreateClicked(ActionEvent event) {
-        try {
+        try {          
+            obj.setGroup(txtGroupName.getText(), Const.GlobalUserName, txtNoOfPlayers.getText());
+            ConstantElement.GroupName = txtGroupName.getText();
+            ConstantElement.no_of_players = Integer.parseInt(txtNoOfPlayers.getText());
+            navigationService = new NavigationService("/UI/GroupView.fxml");
             navigationService.OneDropNavigation(event);
-            obj.setGroup(txtGroupName.getText(), Const.GlobalUserName, txtNoOfPlayers.getText());                       
         } catch (Exception e) {
         }
     }

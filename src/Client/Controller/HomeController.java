@@ -19,6 +19,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -37,6 +40,7 @@ public class HomeController implements Initializable {
     MiddleTier ServerCall = new MiddleTier();
     //Global Variable,end
 
+   
     @FXML
     private AnchorPane homeRoot;
 
@@ -44,8 +48,42 @@ public class HomeController implements Initializable {
     private Button btnPlay;
 
     @FXML
+    private ImageView userImageView1;
+
+    @FXML
+    private ImageView userImageView11;
+
+    @FXML
+    private ImageView userImageView111;
+
+    @FXML
+    private ImageView userImageView1111;
+
+    @FXML
+    private ImageView userImageView11111;
+
+    @FXML
+    private ImageView userImageView111111;
+
+    @FXML
     private ImageView imgSettings;
 
+    @FXML
+    private ImageView imgMinimize;
+
+    @FXML
+    private AnchorPane ancherGroupLoader;
+
+    @FXML
+    private ProgressBar progressGameLoader;
+
+    @FXML
+    private ListView<?> listGroupMembers;
+
+    @FXML
+    private Label lblGroupName;
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 

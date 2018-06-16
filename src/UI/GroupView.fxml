@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="ancherGropuView" opacity="0.77" prefHeight="350.0" prefWidth="535.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.GroupViewController">
    <children>
-      <Label layoutX="14.0" layoutY="14.0" prefHeight="40.0" prefWidth="264.0" text="GROUP NAME">
+      <Label fx:id="lblGroupName" layoutX="14.0" layoutY="14.0" prefHeight="40.0" prefWidth="264.0" text="GROUP NAME">
          <font>
             <Font name="Nirmala UI" size="28.0" />
          </font>

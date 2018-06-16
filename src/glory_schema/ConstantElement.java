@@ -16,8 +16,9 @@ public class ConstantElement {
     public static boolean isValidToDisableCharFieldsInConst = false;
     public static boolean isDisableBtnPlay = false;
     public static boolean isPopedUp = false;
-
-    private int no_of_players;
+    public static String GroupName;
+    public static int no_of_players;  
+    
     public static boolean manageTexFields;
     public static final int BlueEssenceForFirstClassEnglishWord = 50;
     public static final int BlueEssenceForSecondClassEnglishWord = 35;
