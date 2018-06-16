@@ -138,7 +138,7 @@ public class LoginController implements Initializable {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         } catch (Exception e) {
-            e.printStackTrace();
+            serviceValidater.validateLiveError("CONNECTION FAILED", "Something wrong with the server, Please try again", false, false, true, false, "Live");
         }
     }
 

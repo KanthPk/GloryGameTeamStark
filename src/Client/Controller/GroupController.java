@@ -39,7 +39,7 @@ public class GroupController implements Initializable {
     NavigationService navigationService;
 
     public GroupController() {
-        navigationService = new NavigationService("/UI/CreateGroup.fxml");
+
     }
 
     @Override
@@ -50,6 +50,7 @@ public class GroupController implements Initializable {
     @FXML
     void btnCreateGroupClicked(ActionEvent event) {
         try {
+            navigationService = new NavigationService("/UI/CreateGroup.fxml");
             navigationService.OneDropNavigation(event);
         } catch (Exception e) {
         }
@@ -58,8 +59,8 @@ public class GroupController implements Initializable {
     @FXML
     void btnJoinGroupClicked(ActionEvent event) {
         try {
-            Stage stage = (Stage) btnJoinGroup.getScene().getWindow();
-            stage.close();
+            navigationService = new NavigationService("/UI/JoinOnline.fxml");
+            navigationService.OneDropNavigation(event);
         } catch (Exception e) {
         }
     }

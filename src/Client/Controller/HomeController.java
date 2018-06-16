@@ -40,30 +40,11 @@ public class HomeController implements Initializable {
     MiddleTier ServerCall = new MiddleTier();
     //Global Variable,end
 
-   
     @FXML
     private AnchorPane homeRoot;
 
     @FXML
     private Button btnPlay;
-
-    @FXML
-    private ImageView userImageView1;
-
-    @FXML
-    private ImageView userImageView11;
-
-    @FXML
-    private ImageView userImageView111;
-
-    @FXML
-    private ImageView userImageView1111;
-
-    @FXML
-    private ImageView userImageView11111;
-
-    @FXML
-    private ImageView userImageView111111;
 
     @FXML
     private ImageView imgSettings;
@@ -82,8 +63,7 @@ public class HomeController implements Initializable {
 
     @FXML
     private Label lblGroupName;
-    
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -113,11 +93,13 @@ public class HomeController implements Initializable {
 
     @FXML
     private void closeApplication() {
-        Boolean output;//needed for further implement      
-        Platform.exit();
-        //serverCallToLogout
-        output = ServerCall.Logout(ConstantElement.GlobalUserName, ConstantElement.GlobalPassowrd);
-        System.exit(0);
+        if (!ConstantElement.isDisableBtnPlay && !ConstantElement.isPopedUp) {
+            Boolean output;//needed for further implement      
+            Platform.exit();
+            //serverCallToLogout
+            output = ServerCall.Logout(ConstantElement.GlobalUserName, ConstantElement.GlobalPassowrd);
+            System.exit(0);
+        }
     }
 
     @FXML

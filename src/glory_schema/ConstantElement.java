@@ -17,8 +17,11 @@ public class ConstantElement {
     public static boolean isDisableBtnPlay = false;
     public static boolean isPopedUp = false;
     public static String GroupName;
-    public static int no_of_players;  
+    public static int no_of_players;
+    public static boolean isJoin;    
+    public static String[] userArray = new String[4];
     
+
     public static boolean manageTexFields;
     public static final int BlueEssenceForFirstClassEnglishWord = 50;
     public static final int BlueEssenceForSecondClassEnglishWord = 35;
@@ -38,6 +41,7 @@ public class ConstantElement {
     public static final int UnusedLetters = 2;
     public static String GlobalUserName;
     public static String GlobalPassowrd;
+
     private int Plagetyers;
     private String Timer;
     private boolean IsOnline;
