@@ -52,10 +52,9 @@ public class HomeController implements Initializable {
     ConstantElement Const;
     MiddleTier ServerCall = new MiddleTier();
     MiddleTier obj;
-    
+    ArrayList<String> users;
     private int returnedNoOfUsers = 0;
-    
-    
+
     private ArrayList<String> listOfGroups = new ArrayList<String>();
     //Global Variable,end
 
@@ -83,7 +82,6 @@ public class HomeController implements Initializable {
     @FXML
     private Label lblGroupName;
 
-    //GroupController
     @FXML
     private AnchorPane GroupAncher;
 
@@ -92,9 +90,7 @@ public class HomeController implements Initializable {
 
     @FXML
     private Button btnJoinGroup;
-    //
 
-    //create group
     @FXML
     private AnchorPane AnchrcreateGroup;
 
@@ -109,9 +105,7 @@ public class HomeController implements Initializable {
 
     @FXML
     private Button btnLeave;
-    //
 
-    //Group View
     @FXML
     private Label lblGroupViewHeading;
     @FXML
@@ -125,9 +119,7 @@ public class HomeController implements Initializable {
 
     @FXML
     private AnchorPane ancherGroupView;
-    //Group View
 
-    //Join Group
     @FXML
     private AnchorPane AnchorForJoinLive;
 
@@ -139,7 +131,6 @@ public class HomeController implements Initializable {
 
     @FXML
     private Button btnJoinToLIve;
-    //Join Group
 
     NavigationService navigationService;
 
@@ -169,6 +160,11 @@ public class HomeController implements Initializable {
             return t;
         }));
 
+        Runnable task = () -> {
+            String threadName = Thread.currentThread().getName();
+            System.out.println("Hello " + threadName);
+        };
+
     }
 
     public void getObject(ConstantElement login) {
@@ -177,10 +173,6 @@ public class HomeController implements Initializable {
 
     @FXML
     void btnPlayClicked(ActionEvent event) throws IOException {
-        // if (!ConstantElement.isDisableBtnPlay && !ConstantElement.isPopedUp) {
-        // route("group", "/UI/Group.fxml");
-        //ancherGroupLoader.setVisible(true);
-        // }
         commonBehaviour("Group");
     }
 
@@ -206,13 +198,10 @@ public class HomeController implements Initializable {
         System.out.println("Hello");
     }
 
-    ///Group Controller Events
     @FXML
     void btnCreateGroupClicked(ActionEvent event) {
         try {
             commonBehaviour("CreateGroup");
-            //navigationService = new NavigationService("/UI/CreateGroup.fxml");
-            //navigationService.OneDropNavigation(event);
         } catch (Exception e) {
         }
     }
@@ -221,24 +210,18 @@ public class HomeController implements Initializable {
     void btnJoinGroupClicked(ActionEvent event) {
         try {
             commonBehaviour("JoinGroup");
-//            navigationService = new NavigationService("/UI/JoinOnline.fxml");
-//            navigationService.OneDropNavigation(event);
         } catch (Exception e) {
         }
     }
 
-    ///Group Controller Events
-    ///Create Group Controller events
     @FXML
     private void btnCreateClicked(ActionEvent event) {
         try {
             obj.setGroup(txtGroupName.getText(), Const.GlobalUserName, txtNoOfPlayers.getText());
             ConstantElement.GroupName = txtGroupName.getText();
             ConstantElement.no_of_players = Integer.parseInt(txtNoOfPlayers.getText());
-            setGroups();
             commonBehaviour("ViewGroup");
-            //navigationService = new NavigationService("/UI/GroupView.fxml");
-            //navigationService.OneDropNavigation(event);
+            setGroups();
         } catch (Exception e) {
         }
     }
@@ -249,44 +232,40 @@ public class HomeController implements Initializable {
             ConstantElement.isPopedUp = false;
             ConstantElement.isDisableBtnPlay = false;
             commonBehaviour("MakeAllInvicible");
-            //Stage stage = (Stage) btnLeave.getScene().getWindow();
-            //stage.close();
         } catch (Exception e) {
         }
     }
 
-    ///Create Group Controller events
-    ///Group View Controller events
     @FXML
-    private void btnProceedClicked(ActionEvent e) {
-//        try {
-//            service.cancel();
-//            if (!users.isEmpty()) {
-//                for (int i = 0; i < 3; i++) {
-//                    ConstantElement.userArray[i] = users.get(i);
-//                }
-//                ConstantElement.userArray[3] = ConstantElement.GlobalUserName;
-//                System.out.println("" + Arrays.toString(ConstantElement.userArray));
-//            }
-//            //navigationService.OneDropNavigation(event);
-//        } catch (Exception e) {
-//        }
+    private void btnProceedClicked(ActionEvent event) {
+        try {
+            service.cancel();
+            if (!users.isEmpty()) {
+                for (int i = 0; i < 3; i++) {
+                    ConstantElement.userArray[i] = users.get(i);
+                }
+                ConstantElement.userArray[3] = ConstantElement.GlobalUserName;
+                System.out.println("" + Arrays.toString(ConstantElement.userArray));
+            }
+            System.out.println("Hello world");
+            //navigationService.OneDropNavigation(event);
+        } catch (Exception e) {
+        }
     }
 
     @FXML
     private void btnLeaveGroupViewClicked(ActionEvent e) {
-        //service.cancel();
+        service.cancel();
         ConstantElement.isPopedUp = false;
         ConstantElement.isDisableBtnPlay = false;
         commonBehaviour("MakeAllInvicible");
     }
-    ///Group View Controller events
 
-    ///Join Group Events
     @FXML
     private void btnJoinGroupLeaveClicked(ActionEvent e) {
         ConstantElement.isPopedUp = false;
         ConstantElement.isDisableBtnPlay = false;
+        commonBehaviour("MakeAllInvicible");
     }
 
     @FXML
@@ -295,12 +274,10 @@ public class HomeController implements Initializable {
         ConstantElement.isJoin = true;
         if (!ConstantElement.GroupName.isEmpty()) {
             commonBehaviour("ViewGroup");
+            obj.setGroup(txtGroupName.getText(), Const.GlobalUserName, "");
             setGroups();
         }
-        //navigationService = new NavigationService("/UI/GroupView.fxml");
-        //navigationService.OneDropNavigation(event);
     }
-    ///Join Group Events
 
     private void route(String id, String path) throws IOException {
         AnchorPane layout;
@@ -333,9 +310,8 @@ public class HomeController implements Initializable {
                 GroupAncher.setVisible(false);
                 AnchrcreateGroup.setVisible(false);
                 AnchorForJoinLive.setVisible(false);
-                ancherGroupView.setVisible(true);
                 lblGroupViewHeading.setText(ConstantElement.GroupName);
-                //GroupView
+                ancherGroupView.setVisible(true);
                 break;
             case "JoinGroup":
                 GroupAncher.setVisible(false);
@@ -343,8 +319,6 @@ public class HomeController implements Initializable {
                 ancherGroupView.setVisible(false);
                 AnchorForJoinLive.setVisible(true);
                 loadComboValues();
-
-                //Join Group
                 break;
             case "MakeAllInvicible":
                 GroupAncher.setVisible(false);
@@ -359,11 +333,7 @@ public class HomeController implements Initializable {
 
     private void setGroups() {
         if ((!ConstantElement.GroupName.isEmpty() && ConstantElement.no_of_players != 0) || (!ConstantElement.GroupName.isEmpty() && ConstantElement.isJoin)) {
-            listGroupViewMembers.getItems().add(ConstantElement.GlobalUserName);
             getUsers();
-//            for (String users : users) {
-//                listGroupViewMembers.getItems().add(users);
-//            }
             service.start();
         }
     }
@@ -371,7 +341,7 @@ public class HomeController implements Initializable {
     private void getUsers() {
         //JSONObject userJsonObjects = null;
         //JSONArray array = null;
-        ArrayList<String> users = new ArrayList<String>();
+        users = new ArrayList<String>();
         try {
             JSONArray array = obj.getGroup();
             returnedNoOfUsers = array.size();
@@ -384,9 +354,9 @@ public class HomeController implements Initializable {
                         users.add(UserName);
                     }
                 }
-                listGroupViewMembers.getItems().clear();
-                for (String users1 : users) {
-                    listGroupViewMembers.getItems().add(users1);
+                listGroupViewMembers.getItems().clear(); 
+                for (String userStringObject : users) {
+                    listGroupViewMembers.getItems().add(userStringObject);
                 }
                 System.out.println("" + Arrays.toString(users.toArray()));
             }
@@ -415,7 +385,7 @@ public class HomeController implements Initializable {
                                     }
                                 };
                                 Timer retrievalTimer = new Timer();
-                                retrievalTimer.scheduleAtFixedRate(timerDataRetrieval, 10, 1000);
+                                retrievalTimer.scheduleAtFixedRate(timerDataRetrieval, 10, 10000);
                             } finally {
                                 latch.countDown();
                             }
@@ -440,6 +410,7 @@ public class HomeController implements Initializable {
                         listOfGroups.add(GroupName);
                     }
                 }
+                cmbGroup.getItems().clear();
                 for (String groups : listOfGroups) {
                     cmbGroup.getItems().add(groups);
                 }
