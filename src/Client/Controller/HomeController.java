@@ -341,9 +341,9 @@ public class HomeController implements Initializable {
                 GroupAncher.setVisible(false);
                 AnchrcreateGroup.setVisible(false);
                 ancherGroupView.setVisible(false);
-                AnchorForJoinLive.setVisible(true);               
+                AnchorForJoinLive.setVisible(true);
                 loadComboValues();
-              
+
                 //Join Group
                 break;
             case "MakeAllInvicible":
@@ -361,9 +361,9 @@ public class HomeController implements Initializable {
         if ((!ConstantElement.GroupName.isEmpty() && ConstantElement.no_of_players != 0) || (!ConstantElement.GroupName.isEmpty() && ConstantElement.isJoin)) {
             listGroupViewMembers.getItems().add(ConstantElement.GlobalUserName);
             getUsers();
-            for (String users : users) {
-                listGroupViewMembers.getItems().add(users);
-            }
+//            for (String users : users) {
+//                listGroupViewMembers.getItems().add(users);
+//            }
             service.start();
         }
     }
@@ -380,6 +380,9 @@ public class HomeController implements Initializable {
                         //currUser = UserName;
                         users.add(UserName);
                     }
+                }
+                for (String users : users) {
+                    listGroupViewMembers.getItems().add(users);
                 }
                 System.out.println("" + Arrays.toString(users.toArray()));
             }
