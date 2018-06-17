@@ -17,6 +17,16 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javax.swing.JOptionPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.fxml.FXMLLoader;
+import java.util.Random;
+import glory_schema.ConstantElement;
+import glory_services.MessageService;
+import glory_services.SendEmailService;
 
 /**
  * FXML Controller class
@@ -26,6 +36,7 @@ import javafx.stage.Stage;
 public class RegisterUserController implements Initializable {
 
     //Global Variable,begin   
+    ConstantElement userData = new ConstantElement();
     MiddleTier ServerCall = new MiddleTier();
     //Global Variable,end
     @FXML
@@ -60,7 +71,17 @@ public class RegisterUserController implements Initializable {
             if (!txtEmail.getText().isEmpty()) {
                 if (!newV) {
                     try {
-                        validatorService.validateConditionErrors("MAIL CONFIRMATION", "Please enter your confirmation code to verify your email", true, true, false, false);
+                        validatorService.validateConditionErrors("MAIL CONFIRMATION", "Please enter your confirmation code to verify your email", true,true,false,true);
+                       String usarMail = txtEmail.getText().toString().trim();
+                        //Set the current genarated code
+                        //setUserRecievedCode(id); 
+                        //Genarate randome number and send email
+                    Random random = new Random();
+                    String id = String.format("%04d", random.nextInt(10000));
+                    SendEmailService sc = new SendEmailService();            
+                    sc.sendVerificationCode(id,usarMail);
+                    userData.RandomeNo=id;
+                    userData.UserMail= usarMail;
                     } catch (Exception e) {
                     }
                 }
