@@ -104,6 +104,7 @@ public class GroupViewController implements Initializable {
     
     private void getUsers() {
         try {
+            listGroupMembers.getItems().clear();
             array = obj.getGroup();
             returnedNoOfUsers = array.size();
             if (!array.isEmpty()) {

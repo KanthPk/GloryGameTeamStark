@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -195,25 +197,151 @@
                 <Image url="@../resources/minimize.png" />
             </image>
         </ImageView>
-      <AnchorPane id="AnchorPane" fx:id="ancherGroupLoader" layoutX="336.0" layoutY="211.0" prefHeight="325.0" prefWidth="551.0" style="-fx-background-color: WHITE;" visible="false">
+      <AnchorPane id="AnchorPane" fx:id="GroupAncher" layoutX="14.0" layoutY="85.0" opacity="0.79" prefHeight="148.0" prefWidth="406.0" style="-fx-background-color: #263364;" visible="false">
+         <stylesheets>
+            <URL value="@/Common/css/group.css" />
+         </stylesheets>
          <children>
-            <ProgressBar fx:id="progressGameLoader" layoutX="14.0" layoutY="14.0" prefHeight="20.0" prefWidth="523.0" progress="0.0">
+            <Button fx:id="btnCreateGroup" layoutX="41.0" layoutY="67.0" mnemonicParsing="false" onAction="#btnCreateGroupClicked" prefHeight="53.0" prefWidth="146.0" style="-fx-cursor: HAND;" text="CREATE GROUP">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
                <effect>
-                  <DropShadow />
+                  <DropShadow spread="0.37" />
                </effect>
-            </ProgressBar>
-            <ListView fx:id="listGroupMembers" layoutX="14.0" layoutY="100.0" prefHeight="173.0" prefWidth="529.0" />
-            <Label fx:id="lblGroupName" layoutX="14.0" layoutY="48.0" prefHeight="40.0" prefWidth="264.0" text="GROUP NAME">
+            </Button>
+            <Button fx:id="btnJoinGroup" layoutX="233.0" layoutY="67.0" mnemonicParsing="false" onAction="#btnJoinGroupClicked" prefHeight="53.0" prefWidth="146.0" style="-fx-cursor: HAND;" text="JOIN A GROUP">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <effect>
+                  <DropShadow spread="0.37" />
+               </effect>
+            </Button>
+            <Label layoutX="20.0" layoutY="14.0" prefHeight="31.0" prefWidth="308.0" text="PLEASE SELECT YOUR CHOISE" textFill="WHITE" underline="true">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+         </children>
+         <effect>
+            <DropShadow spread="0.24" />
+         </effect>
+      </AnchorPane>
+      <AnchorPane id="AnchorPane" fx:id="AnchrcreateGroup" layoutX="23.0" layoutY="78.0" opacity="0.79" prefHeight="227.0" prefWidth="477.0" style="-fx-background-color: #263364;" styleClass="mainFxmlClass" visible="false">
+         <stylesheets>
+            <URL value="@/Common/css/creategroup.css" />
+         </stylesheets>
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" prefHeight="36.0" prefWidth="192.0" text="CREATE GROUP" textFill="WHITE" underline="true">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtGroupName" layoutX="167.0" layoutY="68.0" prefHeight="36.0" prefWidth="291.0" />
+            <TextField fx:id="txtNoOfPlayers" layoutX="167.0" layoutY="120.0" prefHeight="36.0" prefWidth="291.0" />
+            <Label layoutX="14.0" layoutY="74.0" prefHeight="25.0" prefWidth="137.0" text="Group Name" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="126.0" prefHeight="25.0" prefWidth="137.0" text="#. of players" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnCreate" disable="true" layoutX="321.0" layoutY="175.0" mnemonicParsing="false" onAction="#btnCreateClicked" prefHeight="37.0" prefWidth="137.0" style="-fx-cursor: HAND;" text="CREATE">
+               <effect>
+                  <DropShadow spread="0.4" />
+               </effect>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnLeave" layoutX="167.0" layoutY="175.0" mnemonicParsing="false" onAction="#btnLeaveClicked" prefHeight="37.0" prefWidth="137.0" style="-fx-cursor: HAND;" text="LEAVE GROUP">
+               <effect>
+                  <DropShadow spread="0.4" />
+               </effect>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+         </children>
+         <effect>
+            <DropShadow spread="0.24" />
+         </effect>
+      </AnchorPane>
+      <AnchorPane id="AnchorPane" fx:id="ancherGroupView" layoutX="23.0" layoutY="85.0" opacity="0.79" prefHeight="350.0" prefWidth="535.0" style="-fx-background-color: #263364;" visible="false">
+         <children>
+            <Label fx:id="lblGroupViewHeading" layoutX="14.0" layoutY="14.0" prefHeight="40.0" prefWidth="264.0" text="GROUP NAME" textFill="WHITE">
                <font>
                   <Font name="Nirmala UI" size="28.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="281.0" prefHeight="28.0" prefWidth="453.0" text="PLEASE WAIT....,GAME IS LOADING">
+            <ListView fx:id="listGroupViewMembers" layoutX="10.0" layoutY="59.0" prefHeight="254.0" prefWidth="387.0" />
+            <Label fx:id="lblGroupViewSubHeading" layoutX="10.0" layoutY="313.0" prefHeight="31.0" prefWidth="415.0" text="Please wait for other players" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
             </Label>
+            <Button fx:id="btnProceed" alignment="CENTER" layoutX="407.0" layoutY="59.0" mnemonicParsing="false" onAction="#btnProceedClicked" prefHeight="49.0" prefWidth="117.0" style="-fx-cursor: HAND;" text="PROCEED">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <effect>
+                  <DropShadow spread="0.37" />
+               </effect>
+            </Button>
+            <Button fx:id="btnLeaveGroupView" alignment="CENTER" layoutX="407.0" layoutY="126.0" mnemonicParsing="false" onAction="#btnLeaveGroupViewClicked" prefHeight="49.0" prefWidth="117.0" style="-fx-cursor: HAND;" text="LEAVE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <effect>
+                  <DropShadow spread="0.37" />
+               </effect>
+            </Button>
          </children>
+         <effect>
+            <DropShadow spread="0.24" />
+         </effect>
+      </AnchorPane>
+      <AnchorPane id="AnchorPane" fx:id="AnchorForJoinLive" layoutX="16.0" layoutY="92.0" opacity="0.79" prefHeight="246.0" prefWidth="549.0" style="-fx-background-color: #263364;" visible="false">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" prefHeight="40.0" prefWidth="264.0" text="JOIN ONLINE" textFill="WHITE" underline="true">
+               <font>
+                  <Font name="Nirmala UI" size="28.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="85.0" prefHeight="31.0" prefWidth="218.0" text="Group Name" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cmbGroup" layoutX="221.0" layoutY="81.0" prefHeight="40.0" prefWidth="305.0" style="-fx-cursor: HAND;">
+               <effect>
+                  <DropShadow spread="0.26" />
+               </effect>
+            </ComboBox>
+            <Button fx:id="btnJoin" layoutX="381.0" layoutY="168.0" mnemonicParsing="false" onAction="#btnJoinToLIveClicked" prefHeight="53.0" prefWidth="145.0" text="JOIN">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <effect>
+                  <DropShadow spread="0.37" />
+               </effect>
+            </Button>
+            <Button fx:id="btnLeave1" layoutX="221.0" layoutY="168.0" mnemonicParsing="false" onAction="#btnLeaveClicked" prefHeight="53.0" prefWidth="145.0" text="LEAVE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <effect>
+                  <DropShadow spread="0.37" />
+               </effect>
+            </Button>
+         </children>
+         <effect>
+            <DropShadow spread="0.24" />
+         </effect>
       </AnchorPane>
     </children>
 </AnchorPane>
