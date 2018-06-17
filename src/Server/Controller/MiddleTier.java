@@ -235,22 +235,22 @@ public class MiddleTier {
     public void leaveGroup(String groupName, String nickName)
     {
     String inputLine = null;
-        try {
-            System.out.println("sssssssssssassssasasasa"+groupName+nickName);
+        try {          
             //save the data
             // open a connection to the site
             URL url = new URL("https://kanthpk.000webhostapp.com/leavegroup.php");
             URLConnection con = url.openConnection();
             con.setDoOutput(true);
+            System.out.println("groupName"+groupName+"nickName"+nickName);
             try (PrintStream ps = new PrintStream(con.getOutputStream())) {
-                ps.print("&groupname=" + "TeamStark");
+                ps.print("&groupname=" + groupName);
                 ps.print("&username=" + nickName);                
                 con.getInputStream();
                 try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
                     inputLine = inStream.readLine();
                 }
             }
-            getGroup();
+            //getGroup();
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
