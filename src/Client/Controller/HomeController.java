@@ -52,10 +52,10 @@ public class HomeController implements Initializable {
     ConstantElement Const;
     MiddleTier ServerCall = new MiddleTier();
     MiddleTier obj;
-    private JSONArray array = null;
+    
     private int returnedNoOfUsers = 0;
-    private JSONObject userJsonObjects = null;
-    ArrayList<String> users = new ArrayList<String>();
+    
+    
     private ArrayList<String> listOfGroups = new ArrayList<String>();
     //Global Variable,end
 
@@ -151,13 +151,13 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        ArrayList<String> users = new ArrayList<String>();
         btnPlay.setDisable(ConstantElement.isDisableBtnPlay);
-        String[] users = null;
-        users = ServerCall.onlineUsers();
+        String[] user = null;
+        user = ServerCall.onlineUsers();
         int userIndex = 1;
-        for (String user : users) {
-            System.out.println(userIndex + ". " + user);
+        for (String user1 : users) {
+            System.out.println(userIndex + ". " + user1);
             userIndex++;
         }
 
@@ -369,20 +369,24 @@ public class HomeController implements Initializable {
     }
 
     private void getUsers() {
+        //JSONObject userJsonObjects = null;
+        //JSONArray array = null;
+        ArrayList<String> users = new ArrayList<String>();
         try {
-            array = obj.getGroup();
+            JSONArray array = obj.getGroup();
             returnedNoOfUsers = array.size();
             if (!array.isEmpty()) {
                 for (int i = 0; i < returnedNoOfUsers; i++) {
-                    userJsonObjects = (JSONObject) array.get(i);
+                    JSONObject userJsonObjects = (JSONObject) array.get(i);
                     String UserName = (String) userJsonObjects.get("UserName");
                     if (!UserName.isEmpty()) {
                         //currUser = UserName;
                         users.add(UserName);
                     }
                 }
-                for (String users : users) {
-                    listGroupViewMembers.getItems().add(users);
+                listGroupViewMembers.getItems().clear();
+                for (String users1 : users) {
+                    listGroupViewMembers.getItems().add(users1);
                 }
                 System.out.println("" + Arrays.toString(users.toArray()));
             }
@@ -405,8 +409,8 @@ public class HomeController implements Initializable {
                                 TimerTask timerDataRetrieval = new TimerTask() {
                                     @Override
                                     public void run() {
-                                        array.clear();
-                                        users.clear();
+                                        //array.clear();
+                                        //users.clear();
                                         getUsers();
                                     }
                                 };

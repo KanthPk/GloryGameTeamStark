@@ -207,7 +207,7 @@ public class MiddleTier {
     }
     public JSONArray getGroup() {
         String[] members = null;
-        JSONArray array = null;
+        JSONArray array = new JSONArray();
         try {
             URL oracle = new URL("https://kanthpk.000webhostapp.com/getgroup.php");
             URLConnection yc = oracle.openConnection();
@@ -222,7 +222,7 @@ public class MiddleTier {
                 String GroupName = (String) jo.get("GroupName");
                 String UserName = (String) jo.get("UserName");
                 String Players = (String) jo.get("Players");
-                System.out.println("outputyss"+GroupName+UserName+Players);                
+                //System.out.println("outputyss"+GroupName+UserName+Players);                
             }                                                                       
             }
 
