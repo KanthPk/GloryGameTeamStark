@@ -96,6 +96,7 @@ public class MiddleTier {
 
     public void registerUser(String userName, String email, String password, String confirmpwd) {
         String inputLine = null;
+        String userExist="User exist";
         try {
             //save the data
             // open a connection to the site
@@ -110,7 +111,7 @@ public class MiddleTier {
                 con.getInputStream();
                 try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
                     inputLine = inStream.readLine();
-                    if (inputLine.equals("User exist")) {
+                    if (inputLine.equals(userExist)) {                        
                         serviceValidater.validateConditionErrors("CHECK User Name", "User name is already existing", false, false, true, false);
                     }
                 }
