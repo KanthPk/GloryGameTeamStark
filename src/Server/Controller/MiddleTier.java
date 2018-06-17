@@ -232,6 +232,77 @@ public class MiddleTier {
         return array;
 
     }
+    public void leaveGroup(String groupName, String nickName)
+    {
+    String inputLine = null;
+        try {
+            System.out.println("sssssssssssassssasasasa"+groupName+nickName);
+            //save the data
+            // open a connection to the site
+            URL url = new URL("https://kanthpk.000webhostapp.com/leavegroup.php");
+            URLConnection con = url.openConnection();
+            con.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(con.getOutputStream())) {
+                ps.print("&groupname=" + "TeamStark");
+                ps.print("&username=" + nickName);                
+                con.getInputStream();
+                try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
+                    inputLine = inStream.readLine();
+                }
+            }
+            getGroup();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
     
+    }
     
+    public void setGroupUSer(String groupName, String nickName) {
+        String inputLine = null;
+        try {
+            //save the data
+            // open a connection to the site
+            URL url = new URL("https://kanthpk.000webhostapp.com/usergroup.php");
+            URLConnection con = url.openConnection();
+            con.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(con.getOutputStream())) {
+                ps.print("&GroupName=" + groupName);
+                ps.print("&UserName=" + nickName);                
+                con.getInputStream();
+                try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
+                    inputLine = inStream.readLine();
+                }
+            }
+            getGroup();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public JSONArray getUserGroup() {
+        String[] members = null;
+        JSONArray array = new JSONArray();
+        try {
+            URL oracle = new URL("https://kanthpk.000webhostapp.com/getusergroup.php");
+            URLConnection yc = oracle.openConnection();
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(
+                    yc.getInputStream()))) {
+                JSONParser parser =new JSONParser();
+                array =(JSONArray)parser.parse(in.readLine());
+                int n = array.size();            
+                for (int i = 0; i < n; i++) {
+                // GET INDIVIDUAL JSON OBJECT FROM JSON ARRAY
+                JSONObject jo = (JSONObject)array.get(i);      
+                String GroupName = (String) jo.get("GroupName");
+                String UserName = (String) jo.get("UserName");
+                //System.out.println("outputyss"+GroupName+UserName+Players);                
+            }                                                                       
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return array;
+
+    }
 }
