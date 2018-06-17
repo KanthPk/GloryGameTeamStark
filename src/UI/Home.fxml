@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -338,6 +339,29 @@
                   <DropShadow spread="0.37" />
                </effect>
             </Button>
+         </children>
+         <effect>
+            <DropShadow spread="0.24" />
+         </effect>
+      </AnchorPane>
+      <AnchorPane id="AnchorPane" fx:id="anchorGroupAboutToLoad" layoutX="290.0" layoutY="192.0" opacity="0.79" prefHeight="325.0" prefWidth="551.0" style="-fx-background-color: #263364;" visible="false">
+         <children>
+            <ProgressBar fx:id="progressGameLoader" layoutX="14.0" layoutY="14.0" prefHeight="20.0" prefWidth="523.0" progress="0.0">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ProgressBar>
+            <ListView fx:id="listViewAboutToLoad" layoutX="14.0" layoutY="100.0" prefHeight="173.0" prefWidth="529.0" />
+            <Label fx:id="lblGroupNameAboutToLive" layoutX="14.0" layoutY="48.0" prefHeight="40.0" prefWidth="264.0" text="GROUP NAME" textFill="WHITE">
+               <font>
+                  <Font name="Nirmala UI" size="28.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="281.0" prefHeight="28.0" prefWidth="453.0" text="PLEASE WAIT....,GAME IS LOADING" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+            </Label>
          </children>
          <effect>
             <DropShadow spread="0.24" />

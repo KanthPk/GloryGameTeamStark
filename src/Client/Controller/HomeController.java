@@ -6,6 +6,7 @@
 package Client.Controller;
 
 import Server.Controller.MiddleTier;
+import glory_schema.Bag;
 import glory_schema.ConstantElement;
 import glory_services.NavigationService;
 import java.io.IOException;
@@ -16,10 +17,18 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -38,6 +47,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -54,8 +64,10 @@ public class HomeController implements Initializable {
     MiddleTier obj;
     ArrayList<String> users;
     private int returnedNoOfUsers = 0;
-
+    TimerTask timerDataRetrieval = null;
+    Task copyWorker;
     private ArrayList<String> listOfGroups = new ArrayList<String>();
+    private String[] randomGenCharacters;
     //Global Variable,end
 
     @FXML
@@ -72,9 +84,6 @@ public class HomeController implements Initializable {
 
     @FXML
     private AnchorPane ancherGroupLoader;
-
-    @FXML
-    private ProgressBar progressGameLoader;
 
     @FXML
     private ListView<?> listGroupMembers;
@@ -132,25 +141,42 @@ public class HomeController implements Initializable {
     @FXML
     private Button btnJoinToLIve;
 
+    //Group Loader
+    @FXML
+    private AnchorPane anchorGroupAboutToLoad;
+
+    @FXML
+    private Label lblGroupNameAboutToLive;
+
+    @FXML
+    private ListView listViewAboutToLoad;
+
+    @FXML
+    private ProgressBar progressGameLoader;
+
     NavigationService navigationService;
+
+    Bag bag;
 
     public HomeController() {
         //navigationService = new NavigationService(""); //needed if
         obj = new MiddleTier();
         Const = new ConstantElement();
+        bag = new Bag();
+        randomGenCharacters = new String[4];
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ArrayList<String> users = new ArrayList<String>();
-        btnPlay.setDisable(ConstantElement.isDisableBtnPlay);
-        String[] user = null;
-        user = ServerCall.onlineUsers();
-        int userIndex = 1;
-        for (String user1 : users) {
-            System.out.println(userIndex + ". " + user1);
-            userIndex++;
-        }
+//        ArrayList<String> users = new ArrayList<String>();
+//        btnPlay.setDisable(ConstantElement.isDisableBtnPlay);
+//        String[] user = null;
+//        user = ServerCall.onlineUsers();
+//        int userIndex = 1;
+//        for (String user1 : users) {
+//            System.out.println(userIndex + ". " + user1);
+//            userIndex++;
+//        }
 
         btnCreate.disableProperty().bind(txtNoOfPlayers.textProperty().isEmpty());
         btnCreate.disableProperty().bind(txtNoOfPlayers.textProperty().isEmpty());
@@ -160,11 +186,9 @@ public class HomeController implements Initializable {
             return t;
         }));
 
-        Runnable task = () -> {
-            String threadName = Thread.currentThread().getName();
-            System.out.println("Hello " + threadName);
-        };
-
+        progressGameLoader.setProgress(0);
+        copyWorker = createWorker();
+        progressGameLoader.progressProperty().unbind();
     }
 
     public void getObject(ConstantElement login) {
@@ -194,12 +218,12 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    void imgSettingsOnPress(MouseEvent event) {
+    private void imgSettingsOnPress(MouseEvent event) {
         System.out.println("Hello");
     }
 
     @FXML
-    void btnCreateGroupClicked(ActionEvent event) {
+    private void btnCreateGroupClicked(ActionEvent event) {
         try {
             commonBehaviour("CreateGroup");
         } catch (Exception e) {
@@ -207,7 +231,7 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    void btnJoinGroupClicked(ActionEvent event) {
+    private void btnJoinGroupClicked(ActionEvent event) {
         try {
             commonBehaviour("JoinGroup");
         } catch (Exception e) {
@@ -239,16 +263,27 @@ public class HomeController implements Initializable {
     @FXML
     private void btnProceedClicked(ActionEvent event) {
         try {
-            service.cancel();
-            if (!users.isEmpty()) {
-                for (int i = 0; i < 3; i++) {
-                    ConstantElement.userArray[i] = users.get(i);
-                }
-                ConstantElement.userArray[3] = ConstantElement.GlobalUserName;
-                System.out.println("" + Arrays.toString(ConstantElement.userArray));
-            }
-            System.out.println("Hello world");
-            //navigationService.OneDropNavigation(event);
+            // if (!users.isEmpty()) {
+            // for (int i = 0; i < 3; i++) {
+            //    ConstantElement.userArray[i] = users.get(i);
+            // }
+            //ConstantElement.userArray[3] = ConstantElement.GlobalUserName;
+            //if (ConstantElement.userArray.length != 0) {
+            //timerDataRetrieval.cancel();
+            //service.cancel();
+            commonBehaviour("PrepareForGame");
+
+            //}
+            // System.out.println("" + Arrays.toString(ConstantElement.userArray));
+            // }
+//            Stage app_stage = (Stage) progressGameLoader.getScene().getWindow();
+//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/Game.fxml"));
+//            Parent parentHome = null;
+//            parentHome = (Parent) fxmlLoader.load();
+//            Scene home_page_scene = new Scene(parentHome);
+//            app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//            app_stage.setScene(home_page_scene);
+//            app_stage.show();
         } catch (Exception e) {
         }
     }
@@ -274,7 +309,7 @@ public class HomeController implements Initializable {
         ConstantElement.isJoin = true;
         if (!ConstantElement.GroupName.isEmpty()) {
             commonBehaviour("ViewGroup");
-            obj.setGroup(txtGroupName.getText(), Const.GlobalUserName, "");
+            obj.setGroupUSer(Const.GroupName, Const.GlobalUserName);
             setGroups();
         }
     }
@@ -320,11 +355,33 @@ public class HomeController implements Initializable {
                 AnchorForJoinLive.setVisible(true);
                 loadComboValues();
                 break;
+            case "PrepareForGame":
+                GroupAncher.setVisible(false);
+                AnchrcreateGroup.setVisible(false);
+                ancherGroupView.setVisible(false);
+                AnchorForJoinLive.setVisible(false);
+                lblGroupNameAboutToLive.setText(ConstantElement.GroupName);
+
+                ObservableList items = FXCollections.observableArrayList();
+                randomGenCharacters[0] = ConstantElement.GlobalUserName;
+                items.add(randomGenCharacters[0]);
+                listViewAboutToLoad.setItems(items);
+                for (int i = 1; i < 4; i++) {
+                    randomGenCharacters[i] = Character.toString(bag.randomGen());
+                    System.out.println("" + randomGenCharacters[i]);
+                    items.add(randomGenCharacters[i]);
+                    listViewAboutToLoad.setItems(items);
+                }
+                anchorGroupAboutToLoad.setVisible(true);
+                //praveen save from here
+
+                break;
             case "MakeAllInvicible":
                 GroupAncher.setVisible(false);
                 AnchrcreateGroup.setVisible(false);
                 ancherGroupView.setVisible(false);
                 AnchorForJoinLive.setVisible(false);
+                anchorGroupAboutToLoad.setVisible(false);
                 break;
             default:
             //all invicible
@@ -343,22 +400,20 @@ public class HomeController implements Initializable {
         //JSONArray array = null;
         users = new ArrayList<String>();
         try {
-            JSONArray array = obj.getGroup();
+            JSONArray array = obj.getUserGroup();
             returnedNoOfUsers = array.size();
             if (!array.isEmpty()) {
                 for (int i = 0; i < returnedNoOfUsers; i++) {
                     JSONObject userJsonObjects = (JSONObject) array.get(i);
                     String UserName = (String) userJsonObjects.get("UserName");
                     if (!UserName.isEmpty()) {
-                        //currUser = UserName;
                         users.add(UserName);
                     }
                 }
-                listGroupViewMembers.getItems().clear(); 
-                for (String userStringObject : users) {
+                listGroupViewMembers.getItems().clear();
+                for (String userStringObject : users) {                    
                     listGroupViewMembers.getItems().add(userStringObject);
                 }
-                System.out.println("" + Arrays.toString(users.toArray()));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -376,18 +431,12 @@ public class HomeController implements Initializable {
                         @Override
                         public void run() {
                             try {
-                                TimerTask timerDataRetrieval = new TimerTask() {
-                                    @Override
-                                    public void run() {
-                                        //array.clear();
-                                        //users.clear();
-                                        getUsers();
-                                    }
-                                };
-                                Timer retrievalTimer = new Timer();
-                                retrievalTimer.scheduleAtFixedRate(timerDataRetrieval, 10, 10000);
-                            } finally {
-                                latch.countDown();
+                                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
+                                    getUsers();                                 
+                                }));
+                                timeline.setCycleCount(Animation.INDEFINITE);
+                                timeline.play();
+                            } catch (Exception e) {                               
                             }
                         }
                     });
@@ -400,13 +449,13 @@ public class HomeController implements Initializable {
 
     private void loadComboValues() {
         try {
-            JSONArray array = obj.getGroup();
+            JSONArray array = obj.getUserGroup();
             int n = array.size();
             if (!array.isEmpty()) {
                 for (int i = 0; i < n; i++) {
                     JSONObject jo = (JSONObject) array.get(i);
                     String GroupName = (String) jo.get("GroupName");
-                    if (!GroupName.isEmpty()) {
+                    if (!GroupName.isEmpty() && !listOfGroups.contains(GroupName)) {
                         listOfGroups.add(GroupName);
                     }
                 }
@@ -418,5 +467,41 @@ public class HomeController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void setProgress() {
+        try {
+
+            progressGameLoader.progressProperty().bind(copyWorker.progressProperty());
+            progressGameLoader.addEventHandler(EventType.ROOT, event -> {
+//                try {
+//                    //System.out.println("From Progress world");
+//                    copyWorker.cancel(true);
+//
+//                   
+//                } catch (IOException ex) {
+//                    Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+            });
+        } catch (Exception e) {
+        }
+    }
+
+    public Task createWorker() {
+        return new Task() {
+            @Override
+            protected Object call() throws Exception {
+                for (int i = 1; i <= 10; i++) {
+                    if (i == 10) {
+                        ConstantElement.isFinished = true;
+                    } else if (i != 10) {
+                        //Thread.sleep(1000);
+                        //updateMessage("1000 milliseconds");
+                        updateProgress(i + 1, 10);
+                    }
+                }
+                return true;
+            }
+        };
     }
 }
