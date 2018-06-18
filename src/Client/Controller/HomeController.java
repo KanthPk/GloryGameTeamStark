@@ -426,14 +426,13 @@ public class HomeController implements Initializable {
             progressGameLoader.progressProperty().bind(progressThread.progressProperty());
             progressThread.messageProperty().addListener(new ChangeListener<String>() {
                 @Override
-                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                    System.out.println("Hello !!" + newValue);
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {                    
                     if (ConstantElement.prepareToSave) {
                         try {
                             System.out.println("" + ConstantElement.prepareToSave);
-//                            ServerCall.setInitialLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName,
-//                                    randomGenCharacters[1], randomGenCharacters[2],
-//                                    randomGenCharacters[3]);
+                            ServerCall.setInitialLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName,
+                                    randomGenCharacters[1], randomGenCharacters[2],
+                                    randomGenCharacters[3]);
                             Thread.sleep(5000);
                             ConstantElement.prepareToSave = false;
                         } catch (InterruptedException ex) {
