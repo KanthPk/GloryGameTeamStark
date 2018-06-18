@@ -51,6 +51,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  * FXML Controller class
@@ -192,7 +194,7 @@ public class GameController implements Initializable {
     private int minute;
     private int hour;
     private int second;
-
+    ArrayList<String> users;
     /**
      * Initializes the controller class.
      */
@@ -216,6 +218,36 @@ public class GameController implements Initializable {
         //Save the Initial Number into Databse
         ServerCall.DisplayInitialLetter(ConstantElement.GlobalUserName, txtRandom_1.getText(), txtRandom_2.getText(), txtRandom_3.getText());
         System.out.println("                         " + ConstantElement.GlobalUserName);
+
+        try {          
+            users = new ArrayList<String>();
+            JSONArray array = ServerCall.getLetter(ConstantElement.GroupName);
+             int n = array.size();
+            if (!array.isEmpty()) {
+                for (int i = 0; i < n; i++) {
+                    JSONObject userJsonObjects = (JSONObject) array.get(i);
+                    String user = (String) userJsonObjects.get("UserId");
+                    String Letter1 = (String) userJsonObjects.get("Letter1");
+                    String Letter2 = (String) userJsonObjects.get("Letter2");
+                    String Letter3 = (String) userJsonObjects.get("Letter3");
+                    users.add(user);
+                    users.add(Letter1);
+                    users.add(Letter2);
+                    users.add(Letter3);
+                    if(user.equals(ConstantElement.GlobalUserName))
+                    {
+                        txtRandom_1.setText(Letter1);
+                        txtRandom_2.setText(Letter2);
+                        txtRandom_3.setText(Letter3);
+                    }
+                    
+                }
+            }
+            for (String y : users) {
+                System.out.println(y);
+            }
+        } catch (Exception s) {
+        }
 
         liveTime();
 
