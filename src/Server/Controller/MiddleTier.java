@@ -34,21 +34,21 @@ public class MiddleTier {
         serviceValidater = new ValidatorService();
     }
 
-    public Boolean Logout(String user_id, String password) {
+    public void Logout(String user_id, String group) {
         try {
             URL url = new URL("https://kanthpk.000webhostapp.com/logout.php");
             URLConnection con = url.openConnection();
             con.setDoOutput(true);
             try (PrintStream ps = new PrintStream(con.getOutputStream())) {
                 ps.print("&username=" + user_id);
-                ps.print("&password=" + password);
+                ps.print("&group=" + group);
                 con.getInputStream();
             }
 
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
-        return true;
+        //return true;
     }
 
     public String[] onlineUsers() {
