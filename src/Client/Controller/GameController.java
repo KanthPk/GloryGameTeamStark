@@ -382,7 +382,7 @@ public class GameController implements Initializable {
         //serverCallToLogout
         output = ServerCall.Logout(ConstantElement.GlobalUserName, ConstantElement.GlobalPassowrd);
         //serverCallToDeleteLetters
-        ServerCall.deleteLetter();
+        ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
         System.exit(0);
     }
 
