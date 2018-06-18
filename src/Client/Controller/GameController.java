@@ -13,31 +13,20 @@ import glory_schema.WordElement;
 import glory_services.RoundScoreService;
 import glory_services.ValidatorService;
 import glory_services.WordAutoGenerate;
-import java.awt.event.ActionListener;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.function.Function;
-import java.util.function.UnaryOperator;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -48,8 +37,6 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -116,7 +103,7 @@ public class GameController implements Initializable {
 
     @FXML
     private TextField user_3_txt_2;
-    
+
     @FXML
     private TextField user_3_txt_3;
 
@@ -195,6 +182,7 @@ public class GameController implements Initializable {
     private int hour;
     private int second;
     ArrayList<String> users;
+
     /**
      * Initializes the controller class.
      */
@@ -219,10 +207,10 @@ public class GameController implements Initializable {
         ServerCall.DisplayInitialLetter(ConstantElement.GlobalUserName, txtRandom_1.getText(), txtRandom_2.getText(), txtRandom_3.getText());
         System.out.println("                         " + ConstantElement.GlobalUserName);
 
-        try {          
+        try {
             users = new ArrayList<String>();
             JSONArray array = ServerCall.getLetter(ConstantElement.GroupName);
-             int n = array.size();
+            int n = array.size();
             if (!array.isEmpty()) {
                 for (int i = 0; i < n; i++) {
                     JSONObject userJsonObjects = (JSONObject) array.get(i);
@@ -230,22 +218,37 @@ public class GameController implements Initializable {
                     String Letter1 = (String) userJsonObjects.get("Letter1");
                     String Letter2 = (String) userJsonObjects.get("Letter2");
                     String Letter3 = (String) userJsonObjects.get("Letter3");
-                    users.add(user);
-                    users.add(Letter1);
-                    users.add(Letter2);
-                    users.add(Letter3);
-                    if(user.equals(ConstantElement.GlobalUserName))
-                    {
+//                    users.add(user);
+//                    users.add(Letter1);
+//                    users.add(Letter2);
+//                    users.add(Letter3);
+                    if (user.equals(ConstantElement.GlobalUserName)) {
                         txtRandom_1.setText(Letter1);
                         txtRandom_2.setText(Letter2);
                         txtRandom_3.setText(Letter3);
+                    } else {
+                        if (!user.equals(ConstantElement.GlobalUserName)) {
+                            if (user_1_txt_1.getText().isEmpty() && user_1_txt_2.getText().isEmpty() && user_1_txt_3.getText().isEmpty()) {
+                                user_1_txt_1.setText(Letter1);
+                                user_1_txt_2.setText(Letter2);
+                                user_1_txt_3.setText(Letter3);
+                            } else if (user_2_txt_1.getText().isEmpty() && user_2_txt_2.getText().isEmpty() && user_2_txt_3.getText().isEmpty()) {
+                                user_2_txt_1.setText(Letter1);
+                                user_2_txt_2.setText(Letter2);
+                                user_2_txt_3.setText(Letter3);
+                            } else if (user_3_txt_1.getText().isEmpty() && user_3_txt_2.getText().isEmpty() && user_3_txt_3.getText().isEmpty()) {
+                                user_3_txt_1.setText(Letter1);
+                                user_3_txt_2.setText(Letter2);
+                                user_3_txt_3.setText(Letter3);
+                            }
+                        }
                     }
-                    
+
                 }
             }
-            for (String y : users) {
-                System.out.println(y);
-            }
+//            for (String y : users) {
+//                System.out.println(y);
+//            }
         } catch (Exception s) {
         }
 
@@ -259,10 +262,9 @@ public class GameController implements Initializable {
         globalSubChars.append(characters[1]);
         globalSubChars.append(characters[2]);
 
-        txtRandom_1.setText(characters[0]);
-        txtRandom_2.setText(characters[1]);
-        txtRandom_3.setText(characters[2]);
-
+//        txtRandom_1.setText(characters[0]);
+//        txtRandom_2.setText(characters[1]);
+//        txtRandom_3.setText(characters[2]);
         rBtnconsonent.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             triggerForConsonent(newValue);
         });
