@@ -79,7 +79,7 @@ public class ValidatorService {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
     }
-    
+
     public void getValidaterMessage(String heading, String value, boolean confirmation, boolean textVisi, boolean force) {
         try {
             AnchorPane layout;
@@ -100,5 +100,9 @@ public class ValidatorService {
 
         } catch (Exception e) {
         }
+    }
+
+    public void getMailMessageBox() {
+
     }
 }

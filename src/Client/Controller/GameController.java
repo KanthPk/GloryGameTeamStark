@@ -376,12 +376,9 @@ public class GameController implements Initializable {
     }
 
     @FXML
-    void closeApplication(MouseEvent event) {
-        Boolean output;//needed for further implement      
-        Platform.exit();
-        //serverCallToLogout
-        output = ServerCall.Logout(ConstantElement.GlobalUserName, ConstantElement.GlobalPassowrd);
-        //serverCallToDeleteLetters
+    void closeApplication(MouseEvent event) {        
+        Platform.exit();        
+        ServerCall.Logout(ConstantElement.GlobalUserName, ConstantElement.GlobalPassowrd);        
         ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
         System.exit(0);
     }

@@ -60,7 +60,6 @@ import org.json.simple.JSONObject;
  */
 public class HomeController implements Initializable {
 
-    //Global Variable,begin
     ConstantElement Const;
     MiddleTier ServerCall = new MiddleTier();
     MiddleTier obj;
@@ -71,7 +70,6 @@ public class HomeController implements Initializable {
     private ArrayList<String> listOfGroups = new ArrayList<String>();
     private String[] randomGenCharacters;
     Timeline timeline = null;
-    //Global Variable,end
 
     @FXML
     private AnchorPane homeRoot;
@@ -120,6 +118,10 @@ public class HomeController implements Initializable {
 
     @FXML
     private Label lblGroupViewHeading;
+
+    @FXML
+    private Label lblGroupViewSubHeading;
+
     @FXML
     private ListView listGroupViewMembers;
 
@@ -144,7 +146,6 @@ public class HomeController implements Initializable {
     @FXML
     private Button btnJoinToLIve;
 
-    //Group Loader
     @FXML
     private AnchorPane anchorGroupAboutToLoad;
 
@@ -157,7 +158,6 @@ public class HomeController implements Initializable {
     @FXML
     private ProgressBar progressGameLoader;
 
-    NavigationService navigationService;
     private Bag bag;
 
     public HomeController() {
@@ -188,10 +188,9 @@ public class HomeController implements Initializable {
 
     @FXML
     private void closeApplication() {
-        if (!ConstantElement.isDisableBtnPlay && !ConstantElement.isPopedUp) {
-            Boolean output;
+        if (!ConstantElement.isDisableBtnPlay && !ConstantElement.isPopedUp) {            
             Platform.exit();
-            output = ServerCall.Logout(ConstantElement.GlobalUserName, ConstantElement.GlobalPassowrd);
+            ServerCall.Logout(ConstantElement.GlobalUserName, ConstantElement.GlobalPassowrd);
             ServerCall.leaveGroup(ConstantElement.GroupName, ConstantElement.GlobalUserName);
             ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
             System.exit(0);
@@ -315,10 +314,8 @@ public class HomeController implements Initializable {
                 ancherGroupView.setVisible(false);
                 AnchorForJoinLive.setVisible(false);
                 lblGroupNameAboutToLive.setText(ConstantElement.GroupName);
-
                 ObservableList items = FXCollections.observableArrayList();
-                /////USER VALIDATION
-                for (int i = 0; i < 2; i++) {                    
+                for (int i = 0; i < 4; i++) {
                     ConstantElement.userArray[i] = users.get(i);
                     items.add(ConstantElement.userArray[i]);
                 }
@@ -327,7 +324,6 @@ public class HomeController implements Initializable {
                     randomGenCharacters[i] = Character.toString(bag.randomGen());
                 }
                 setProgress(event);
-
                 break;
             case "MakeAllInvicible":
                 GroupAncher.setVisible(false);
@@ -337,7 +333,6 @@ public class HomeController implements Initializable {
                 anchorGroupAboutToLoad.setVisible(false);
                 break;
             default:
-            //all invicible
         }
     }
 
@@ -383,6 +378,12 @@ public class HomeController implements Initializable {
                         public void run() {
                             try {
                                 timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
+                                    if (users.size() == 4 || (users.size() > 2) && (users.size() < 4)) {
+                                        btnProceed.setDisable(false);
+                                    } else if (users.size() < 2 || users.size() == 1) {
+                                        btnProceed.setDisable(true);
+                                        lblGroupViewSubHeading.setText("Please wait for other players");
+                                    }
                                     getUsers();
                                 }));
                                 timeline.setCycleCount(Animation.INDEFINITE);
@@ -426,7 +427,7 @@ public class HomeController implements Initializable {
             progressGameLoader.progressProperty().bind(progressThread.progressProperty());
             progressThread.messageProperty().addListener(new ChangeListener<String>() {
                 @Override
-                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {                    
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                     if (ConstantElement.prepareToSave) {
                         try {
                             System.out.println("" + ConstantElement.prepareToSave);
@@ -468,7 +469,7 @@ public class HomeController implements Initializable {
                     if (i == 60) {
                         ConstantElement.prepareToSave = true;
                     }
-                    Thread.sleep(2000);
+                    Thread.sleep(150);
                     updateMessage(i + "%");
                     updateProgress(i + 1, 100);
                 }

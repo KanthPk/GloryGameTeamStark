@@ -323,7 +323,7 @@
                   <DropShadow spread="0.26" />
                </effect>
             </ComboBox>
-            <Button fx:id="btnJoin" layoutX="381.0" layoutY="168.0" mnemonicParsing="false" onAction="#btnJoinToLIveClicked" prefHeight="53.0" prefWidth="145.0" text="JOIN">
+            <Button fx:id="btnJoin" layoutX="381.0" layoutY="168.0" mnemonicParsing="false" onAction="#btnJoinToLIveClicked" prefHeight="53.0" prefWidth="145.0" style="-fx-cursor: HAND;" text="JOIN">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -331,7 +331,7 @@
                   <DropShadow spread="0.37" />
                </effect>
             </Button>
-            <Button fx:id="btnLeave1" layoutX="221.0" layoutY="168.0" mnemonicParsing="false" onAction="#btnLeaveClicked" prefHeight="53.0" prefWidth="145.0" text="LEAVE">
+            <Button fx:id="btnLeave1" layoutX="221.0" layoutY="168.0" mnemonicParsing="false" onAction="#btnLeaveClicked" prefHeight="53.0" prefWidth="145.0" style="-fx-cursor: HAND;" text="LEAVE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>

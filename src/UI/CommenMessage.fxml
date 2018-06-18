@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="203.0" prefWidth="792.0" style="-fx-border-color: Black; -fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.CommenMessageController">
+<AnchorPane id="AnchorPane" prefHeight="196.0" prefWidth="792.0" style="-fx-border-color: Black; -fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.CommenMessageController">
    <children>
-       <Button fx:id="btnSendAgain" alignment="CENTER" layoutX="414.0" layoutY="127.0" mnemonicParsing="false" onAction="#btnSendmailClicked" prefHeight="39.0" prefWidth="111.0" style="-fx-cursor: Hand;" text="Resend">
+       <Button fx:id="btnSendAgain" alignment="CENTER" layoutX="419.0" layoutY="143.0" mnemonicParsing="false" onAction="#btnSendmailClicked" prefHeight="39.0" prefWidth="111.0" style="-fx-cursor: Hand;" text="controller 0">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -18,7 +18,7 @@
             <DropShadow spread="0.31" />
          </effect>
       </Button>
-      <Button fx:id="btnOK" alignment="CENTER" layoutX="542.0" layoutY="127.0" mnemonicParsing="false" onAction="#btnOKClicked" prefHeight="39.0" prefWidth="111.0" style="-fx-cursor: Hand;" text="controller 1">
+      <Button fx:id="btnOK" alignment="CENTER" layoutX="542.0" layoutY="143.0" mnemonicParsing="false" onAction="#btnOKClicked" prefHeight="39.0" prefWidth="111.0" style="-fx-cursor: Hand;" text="controller 1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -26,7 +26,7 @@
             <DropShadow spread="0.31" />
          </effect>
       </Button>
-      <Button fx:id="btnCancel" alignment="CENTER" layoutX="667.0" layoutY="127.0" mnemonicParsing="false" onAction="#btnCancelClicked" prefHeight="39.0" prefWidth="111.0" style="-fx-cursor: Hand;" text="Controller 2">
+      <Button fx:id="btnCancel" alignment="CENTER" layoutX="667.0" layoutY="143.0" mnemonicParsing="false" onAction="#btnCancelClicked" prefHeight="39.0" prefWidth="111.0" style="-fx-cursor: Hand;" text="Controller 2">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
