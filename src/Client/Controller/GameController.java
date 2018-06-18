@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.ResourceBundle;
+import java.util.UUID;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
@@ -466,7 +467,9 @@ public class GameController implements Initializable {
         });
         
         btnNextRound.setOnAction(event -> {
-            
+            UUID uuid = UUID.randomUUID();
+            String randomUUIDString = uuid.toString();
+            ServerCall.setRound(ConstantElement.GroupName, ConstantElement.GlobalUserName, randomUUIDString, txtScore.getText().toString(),"1");
             System.out.println("Hello world");
         });
     }

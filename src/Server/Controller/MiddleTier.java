@@ -365,4 +365,28 @@ public class MiddleTier {
         }
         return inputLine;
     }
+    
+    public void setRound(String groupName, String nickName, String roundid, String score,String level) {
+        String inputLine = null;
+        try {
+            //save the data
+            // open a connection to the site
+            URL url = new URL("https://kanthpk.000webhostapp.com/setRound.php");
+            URLConnection con = url.openConnection();
+            con.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(con.getOutputStream())) {
+                ps.print("&GroupName=" + groupName);
+                ps.print("&UserName=" + nickName);
+                ps.print("&roundid="+roundid);
+                ps.print("&level="+level);
+                con.getInputStream();
+                try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
+                    inputLine = inStream.readLine();
+                }
+            }
+            //getGroup();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
 }
