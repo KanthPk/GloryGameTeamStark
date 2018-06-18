@@ -48,133 +48,166 @@ import org.json.simple.JSONObject;
  * @author AshanPerera
  */
 public class GameController implements Initializable {
-
+    
     ConstantElement Const;
     MiddleTier ServerCall = new MiddleTier();
     @FXML
     private AnchorPane root;
-
+    
     @FXML
     private Button btnPause;
-
+    
     @FXML
     private TextField txt_1;
-
+    
     @FXML
     private TextField txt_2;
-
+    
     @FXML
     private TextField txt_3;
-
+    
     @FXML
     private TextField txt_4;
-
+    
     @FXML
     private TextField txt_5;
-
+    
     @FXML
     private TextField txt_6;
-
+    
     @FXML
     private TextField txt_7;
-
+    
     @FXML
     private TextField txt_8;
-
+    
     @FXML
     private TextField user_1_txt_1;
-
+    
     @FXML
     private TextField user_1_txt_2;
-
+    
     @FXML
     private TextField user_1_txt_3;
-
+    
     @FXML
     private TextField user_2_txt_1;
-
+    
     @FXML
     private TextField user_2_txt_2;
-
+    
     @FXML
     private TextField user_2_txt_3;
-
+    
     @FXML
     private TextField user_3_txt_1;
-
+    
     @FXML
     private TextField user_3_txt_2;
-
+    
     @FXML
     private TextField user_3_txt_3;
-
+    
     @FXML
     private TextField txtWordFIeld;
-
+    
     @FXML
     private Button btnCreate;
-
+    
     @FXML
     public Button btnHome;
-
+    
     @FXML
     private TextField txtRandom_1;
-
+    
     @FXML
     private TextField txtRandom_2;
-
+    
     @FXML
     private TextField txtRandom_3;
-
+    
     @FXML
     private AnchorPane anchQuestion;
-
+    
     @FXML
     private RadioButton rBtnVowel;
-
+    
     @FXML
     private RadioButton rBtnconsonent;
-
+    
     @FXML
     private ImageView imgBagView;
-
+    
     @FXML
     private TextField txtScore;
-
+    
     @FXML
     private Label lblMsgDialog;
     @FXML
     private CheckBox checkBoxForPuaseSwap;
-
+    
     @FXML
     private AnchorPane anchorEditBack;
-
+    
     @FXML
     private AnchorPane subCheckBoxAncher;
-
+    
     @FXML
     private CheckBox chkEdit;
     @FXML
     private ImageView imgSearch;
-
+    
     @FXML
     private AnchorPane ancherPause;
-
+    
     @FXML
     private Label lblTimer;
-
+    
     @FXML
     private Label lbl_live_user_1;
-
+    
     @FXML
     private Label lbl_live_user_2;
-
+    
     @FXML
     private Label lbl_live_user_3;
-
+    
     @FXML
     private Label lbl_Gllobal_User;
-
+    
+    @FXML
+    private Label user_1;
+    
+    @FXML
+    private Label user_2;
+    
+    @FXML
+    private Label user_3;
+    
+    @FXML
+    private Label user_4;
+    
+    @FXML
+    private Label user_1_score;
+    
+    @FXML
+    private Label user_2_score;
+    
+    @FXML
+    private Label user_3_score;
+    
+    @FXML
+    private Label user_4_score;
+    
+    @FXML
+    private Button btnNextRound;
+    
+    @FXML
+    private ImageView imgClose_scoreAnchor;
+    
+    @FXML
+    private AnchorPane anchorScore;
+    
     StringBuffer globalSubChars;
     private Bag bag;
     public boolean verifyInputFromBagForVovel;
@@ -198,12 +231,12 @@ public class GameController implements Initializable {
         characters = new String[11];
         transitionService = new TransitionService();
         globalSubChars = new StringBuffer();
-
+        
     }
 
     /////PRAVEEN
     @FXML
-    private void imgSearch() {   
+    private void imgSearch() {
         if (txtWordFIeld.getText().isEmpty()) {
             String[] ary = getLetterArray();
             WordAutoGenerate v = new WordAutoGenerate(ary);
@@ -213,7 +246,15 @@ public class GameController implements Initializable {
         }
     }
     
-
+    @FXML
+    private void imgClose_scoreAnchorPressed() {
+        try {
+            anchorScore.setDisable(true);            
+            transitionService.MakeFadeOutInLiveGame(anchorScore).play();
+        } catch (Exception e) {
+        }
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         rBtnVowel.setToggleGroup(group);
@@ -225,7 +266,7 @@ public class GameController implements Initializable {
         //Save the Initial Number into Databse
         ServerCall.DisplayInitialLetter(ConstantElement.GlobalUserName, txtRandom_1.getText(), txtRandom_2.getText(), txtRandom_3.getText());
         System.out.println("                         " + ConstantElement.GlobalUserName);
-
+        
         try {
             users = new ArrayList<String>();
             JSONArray array = ServerCall.getLetter(ConstantElement.GroupName);
@@ -237,7 +278,7 @@ public class GameController implements Initializable {
                     String Letter1 = (String) userJsonObjects.get("Letter1");
                     String Letter2 = (String) userJsonObjects.get("Letter2");
                     String Letter3 = (String) userJsonObjects.get("Letter3");
-
+                    
                     if (user.equals(ConstantElement.GlobalUserName)) {
                         lbl_Gllobal_User.setText(ConstantElement.GlobalUserName);
                         txtRandom_1.setText(Letter1);
@@ -267,17 +308,17 @@ public class GameController implements Initializable {
             }
         } catch (Exception s) {
         }
-
+        
         liveTime();
-
+        
         characters[0] = Character.toString(bag.randomGen());
         characters[1] = Character.toString(bag.randomGen());
         characters[2] = Character.toString(bag.randomGen());
-
+        
         globalSubChars.append(characters[0]);
         globalSubChars.append(characters[1]);
         globalSubChars.append(characters[2]);
-
+        
         rBtnconsonent.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             triggerForConsonent(newValue);
         });
@@ -285,16 +326,16 @@ public class GameController implements Initializable {
             triggerForVowel(newValue);
         });
         btnCreate.disableProperty().bind(txtWordFIeld.textProperty().isEmpty());
-
+        
         txtWordFIeld.setTextFormatter(new TextFormatter<>((TextFormatter.Change t) -> {
             t.setText(t.getText().replaceAll(".*[^a-zA-Z].*", "").toUpperCase());
             return t;
         }));
-
+        
         if (txt_1.getText().isEmpty() && txt_2.getText().isEmpty() && txt_3.getText().isEmpty() && txt_4.getText().isEmpty() && txt_5.getText().isEmpty() && txt_6.getText().isEmpty() && txt_7.getText().isEmpty() && txt_8.getText().isEmpty()) {
             txtWordFIeld.setDisable(true);
         }
-
+        
         txtWordFIeld.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.isEmpty()) {
                 enableAllFields();
@@ -309,7 +350,7 @@ public class GameController implements Initializable {
                 }
             }
         });
-
+        
         txtWordFIeld.setOnKeyPressed(e -> {
             try {
                 char pressed = e.getText().toUpperCase().charAt(0);
@@ -379,7 +420,7 @@ public class GameController implements Initializable {
                 txtWordFIeld.setStyle("-fx-border-color: RED;");
             }
         });
-
+        
         chkEdit.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (txtWordFIeld.getText().length() == 11 && chkEdit.isSelected()) {
                 txtWordFIeld.setEditable(true);
@@ -387,7 +428,7 @@ public class GameController implements Initializable {
                 anchorEditBack.setVisible(false);
             }
         });
-
+        
         btnPause.setOnAction(event -> {
             transitionService.MakeFadeIn(subCheckBoxAncher).play();
             subCheckBoxAncher.setVisible(true);
@@ -401,7 +442,7 @@ public class GameController implements Initializable {
             //shoould return all data to server
             //and stop the game
         });
-
+        
         checkBoxForPuaseSwap.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue) {
                 if (!ConstantElement.isPause) {
@@ -423,8 +464,13 @@ public class GameController implements Initializable {
                 }
             }
         });
+        
+        btnNextRound.setOnAction(event -> {
+            
+            System.out.println("Hello world");
+        });
     }
-
+    
     private void setDynamicCheckBox(String id) {
         switch (id) {
             case "pause":
@@ -435,7 +481,7 @@ public class GameController implements Initializable {
                 break;
         }
     }
-
+    
     @FXML
     void closeApplication(MouseEvent event) {
         Platform.exit();
@@ -443,7 +489,7 @@ public class GameController implements Initializable {
         ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
         System.exit(0);
     }
-
+    
     @FXML
     void imgBagView(MouseEvent event) {
         try {
@@ -456,7 +502,7 @@ public class GameController implements Initializable {
             e.getStackTrace();
         }
     }
-
+    
     private void triggerForVowel(boolean liveValue) {
         try {
             if (liveValue) {
@@ -470,7 +516,7 @@ public class GameController implements Initializable {
             e.printStackTrace();
         }
     }
-
+    
     private void triggerForConsonent(boolean liveValue) {
         try {
             if (liveValue) {
@@ -482,7 +528,7 @@ public class GameController implements Initializable {
         } catch (Exception e) {
         }
     }
-
+    
     private void validate(String id) {
         switch (id) {
             case "V":
@@ -602,7 +648,7 @@ public class GameController implements Initializable {
                         transitionService.MakeFadeIn(subCheckBoxAncher).play();
                         setDynamicCheckBox("swap");
                         subCheckBoxAncher.setVisible(true);
-
+                        
                     }
                 } else {
                     rBtnconsonent.setDisable(true);
@@ -612,7 +658,7 @@ public class GameController implements Initializable {
                 throw new Error("Error");
         }
     }
-
+    
     private void validateVowelChar(String[] charArray, String perticularChar, String id) {
         String[] arrOfChars = charArray;
         String vowelOfStrings = bag.takeVowelString();
@@ -663,13 +709,13 @@ public class GameController implements Initializable {
                 break;
         }
     }
-
+    
     private void validateConsonentChar(String[] charArray, String perticularChar, String id) {
         String[] arrOfChars = charArray;
         String consonentStrings = bag.takeConsonentString();
         int index;
         int noOfTimes;
-
+        
         switch (id) {
             case "singleChar":
                 index = 0;
@@ -715,7 +761,7 @@ public class GameController implements Initializable {
                 break;
         }
     }
-
+    
     @FXML
     void mousePressedOnCharFields(MouseEvent event) {
         txtWordFIeld.setStyle("-fx-border-color: BLACK;");
@@ -890,7 +936,7 @@ public class GameController implements Initializable {
             }
         }
     }
-
+    
     private void commonBehaviour(String id) {
         try {
             switch (id) {
@@ -928,10 +974,15 @@ public class GameController implements Initializable {
         } catch (Exception e) {
         }
     }
-
+    
     @FXML
     void btnCreateClicked(ActionEvent event) {
         try {
+
+            //get score board
+            transitionService.MakeFadeInLiveGame(anchorScore).play();
+            anchorScore.setDisable(false);
+            anchorScore.setVisible(true);
             //String[] myStringArray = new String[3];
             String[] myStringArray = {"a", "p", "c", "P", "l", "l", "e"};
             //String[] myStringArray = new String[]{"a","b","c"};
@@ -948,19 +999,19 @@ public class GameController implements Initializable {
             String[] ary = getLetterArray();
             for (int q = 0; q < 11; q++) {
                 System.out.println(ary[q]);
-
+                
             }
             //dummy location
             /*WordAutoGenerate v = new WordAutoGenerate(ary);
             v.Autogenerator();
             System.out.println("Autogenrate word" + v.getLongestWord());
             //end  
-            */
+             */
             if (result == true) {
                 System.out.println("this is a word");
                 int test = roundScoreService.getScoreFromEachRound(1, txtWordFIeld.getText());
                 txtScore.setText(Integer.toString(test));
-
+                
             } else {
                 System.out.println("this is not a word");
                 serviceValidater.validateConditionErrors("INVALID", "Invalid Longest English Word", false, false, true, false, false);
@@ -972,7 +1023,7 @@ public class GameController implements Initializable {
             e.printStackTrace();
         }
     }
-
+    
     @FXML
     void btnHomeClicked(ActionEvent event) {
         try {
@@ -981,7 +1032,7 @@ public class GameController implements Initializable {
             e.printStackTrace();
         }
     }
-
+    
     private void enableAllFields() {
         txtRandom_1.setDisable(false);
         txtRandom_2.setDisable(false);
@@ -995,13 +1046,13 @@ public class GameController implements Initializable {
         txt_7.setDisable(false);
         txt_8.setDisable(false);
     }
-
+    
     public void getObject(ConstantElement val) {
         Const = val;
     }
-
+    
     private void liveTime() {
-
+        
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             Calendar cal = Calendar.getInstance();
             second = cal.get(Calendar.SECOND);
@@ -1014,7 +1065,7 @@ public class GameController implements Initializable {
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
     }
-
+    
     public String[] getLetterArray() {
         String[] ary = new String[]{txt_1.getText().toLowerCase(), txt_2.getText().toLowerCase(), txt_3.getText().toLowerCase(), txt_4.getText().toLowerCase(), txt_5.getText().toLowerCase(), txt_6.getText().toLowerCase(), txt_7.getText().toLowerCase(), txt_8.getText().toLowerCase(), txtRandom_1.getText().toLowerCase(), txtRandom_2.getText().toLowerCase(), txtRandom_3.getText().toLowerCase()};
         return ary;

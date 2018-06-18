@@ -49,5 +49,29 @@ public class TransitionService {
         }
         return null;
     }
+    
+     public FadeTransition MakeFadeOutInLiveGame(AnchorPane layout) {
+        try {
+            fadeTransition.setDuration(Duration.millis(550.0));
+            fadeTransition.setNode((Node) layout);
+            fadeTransition.setFromValue(1);
+            fadeTransition.setToValue(.0);
+            return fadeTransition;
+        } catch (Exception e) {
+        }
+        return null;
+    }
+     
+     public FadeTransition MakeFadeInLiveGame(AnchorPane layout) {
+        try {
+            fadeTransition.setDuration(Duration.millis(550.0));
+            fadeTransition.setNode((Node) layout);
+            fadeTransition.setFromValue(.0);
+            fadeTransition.setToValue(0.58);
+            return fadeTransition;
+        } catch (Exception e) {
+        }
+        return null;
+    }
 
 }
