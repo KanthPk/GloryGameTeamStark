@@ -169,6 +169,7 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        btnProceed.setDisable(true);
         btnCreate.disableProperty().bind(txtNoOfPlayers.textProperty().isEmpty());
         btnCreate.disableProperty().bind(txtNoOfPlayers.textProperty().isEmpty());
         txtNoOfPlayers.setTextFormatter(new TextFormatter<>((TextFormatter.Change t) -> {

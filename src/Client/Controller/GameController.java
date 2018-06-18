@@ -169,6 +169,18 @@ public class GameController implements Initializable {
     @FXML
     private Label lblTimer;
 
+    @FXML
+    private Label lbl_live_user_1;
+
+    @FXML
+    private Label lbl_live_user_2;
+
+    @FXML
+    private Label lbl_live_user_3;
+
+    @FXML
+    private Label lbl_Gllobal_User;
+
     StringBuffer globalSubChars;
     private Bag bag;
     public boolean verifyInputFromBagForVovel;
@@ -218,37 +230,34 @@ public class GameController implements Initializable {
                     String Letter1 = (String) userJsonObjects.get("Letter1");
                     String Letter2 = (String) userJsonObjects.get("Letter2");
                     String Letter3 = (String) userJsonObjects.get("Letter3");
-//                    users.add(user);
-//                    users.add(Letter1);
-//                    users.add(Letter2);
-//                    users.add(Letter3);
+                    
                     if (user.equals(ConstantElement.GlobalUserName)) {
+                        lbl_Gllobal_User.setText(ConstantElement.GlobalUserName);
                         txtRandom_1.setText(Letter1);
                         txtRandom_2.setText(Letter2);
                         txtRandom_3.setText(Letter3);
                     } else {
                         if (!user.equals(ConstantElement.GlobalUserName)) {
                             if (user_1_txt_1.getText().isEmpty() && user_1_txt_2.getText().isEmpty() && user_1_txt_3.getText().isEmpty()) {
+                                lbl_live_user_1.setText(user);
                                 user_1_txt_1.setText(Letter1);
                                 user_1_txt_2.setText(Letter2);
                                 user_1_txt_3.setText(Letter3);
                             } else if (user_2_txt_1.getText().isEmpty() && user_2_txt_2.getText().isEmpty() && user_2_txt_3.getText().isEmpty()) {
+                                lbl_live_user_2.setText(user);
                                 user_2_txt_1.setText(Letter1);
                                 user_2_txt_2.setText(Letter2);
                                 user_2_txt_3.setText(Letter3);
                             } else if (user_3_txt_1.getText().isEmpty() && user_3_txt_2.getText().isEmpty() && user_3_txt_3.getText().isEmpty()) {
+                                lbl_live_user_3.setText(user);
                                 user_3_txt_1.setText(Letter1);
                                 user_3_txt_2.setText(Letter2);
                                 user_3_txt_3.setText(Letter3);
                             }
                         }
                     }
-
                 }
             }
-//            for (String y : users) {
-//                System.out.println(y);
-//            }
         } catch (Exception s) {
         }
 
