@@ -203,8 +203,14 @@ public class GameController implements Initializable {
 
     /////PRAVEEN
     @FXML
-    private void imgSearch() {
-        System.out.println("Hello world");
+    private void imgSearch() {   
+        if (txtWordFIeld.getText().isEmpty()) {
+            String[] ary = getLetterArray();
+            WordAutoGenerate v = new WordAutoGenerate(ary);
+            v.Autogenerator();
+            System.out.println("Autogenrate word" + v.getLongestWord());
+            txtWordFIeld.setText(v.getLongestWord());
+        }
     }
     
 
@@ -945,10 +951,11 @@ public class GameController implements Initializable {
 
             }
             //dummy location
-            WordAutoGenerate v = new WordAutoGenerate(ary);
+            /*WordAutoGenerate v = new WordAutoGenerate(ary);
             v.Autogenerator();
             System.out.println("Autogenrate word" + v.getLongestWord());
-            //end           
+            //end  
+            */
             if (result == true) {
                 System.out.println("this is a word");
                 int test = roundScoreService.getScoreFromEachRound(1, txtWordFIeld.getText());
