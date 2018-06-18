@@ -149,14 +149,23 @@ public class MiddleTier {
         }
     }
 
-    public void deleteLetter() {
+    public void deleteLetter(String GroupName,String UserName) {
+        String inputLine = null;
         try {
-            URL oracle = new URL("https://kanthpk.000webhostapp.com/Obsolete.php");
-            URLConnection yc = oracle.openConnection();
-            try (BufferedReader in = new BufferedReader(new InputStreamReader(
-                    yc.getInputStream()))) {
-                System.out.println("" + in.readLine());
+            //save the data
+            // open a connection to the site
+            URL url = new URL("https://kanthpk.000webhostapp.com/deleteLetter.php");
+            URLConnection con = url.openConnection();
+            con.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(con.getOutputStream())) {
+                ps.print("&groupid=" + GroupName);
+                ps.print("&userid=" + UserName);                
+                con.getInputStream();
+                try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
+                    inputLine = inStream.readLine();
+                }
             }
+            //getGroup();
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
@@ -200,7 +209,7 @@ public class MiddleTier {
                     inputLine = inStream.readLine();
                 }
             }
-            getGroup();
+            //getGroup();
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
@@ -273,7 +282,7 @@ public class MiddleTier {
                     inputLine = inStream.readLine();
                 }
             }
-            getGroup();
+            //getGroup();
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
@@ -304,5 +313,54 @@ public class MiddleTier {
         }
         return array;
 
+    }
+    
+    public void setInitialLetter(String GroupName,String UserName,String L1,String L2,String L3)
+    {
+    String inputLine = null;
+        try {           
+            //save the data
+            // open a connection to the site
+            URL url = new URL("https://kanthpk.000webhostapp.com/setLetters.php");
+            URLConnection con = url.openConnection();
+            con.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(con.getOutputStream())) {
+                ps.print("&GroupName=" + GroupName);
+                ps.print("&UserName=" + UserName);   
+                ps.print("&l1=" + L1); 
+                ps.print("&l2=" + L2); 
+                ps.print("&l3=" + L3); 
+                con.getInputStream();
+                try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
+                    inputLine = inStream.readLine();
+                }
+            }
+           
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    
+    }
+    public String checkEmail(String UserName,String Email )
+    {
+    String inputLine = null;
+        try {
+            if (!UserName.isEmpty() && !Email.isEmpty()) {
+                URL url = new URL("https://kanthpk.000webhostapp.com/checkmail.php");
+                URLConnection con = url.openConnection();
+                con.setDoOutput(true);
+                try (PrintStream ps = new PrintStream(con.getOutputStream())) {
+                    ps.print("&username=" + UserName);
+                    ps.print("&email=" + Email);
+                    con.getInputStream();
+                }
+                try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
+                    inputLine = inStream.readLine();
+                     }
+            }           
+        } 
+        catch (IOException ex) {
+        }
+       return inputLine;    
     }
 }
