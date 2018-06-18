@@ -378,6 +378,7 @@ public class MiddleTier {
                 ps.print("&GroupName=" + groupName);
                 ps.print("&UserName=" + nickName);
                 ps.print("&roundid="+roundid);
+                ps.print("&score="+score);
                 ps.print("&level="+level);
                 con.getInputStream();
                 try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
