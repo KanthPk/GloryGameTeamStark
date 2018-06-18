@@ -14,7 +14,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
-import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;
@@ -23,6 +22,8 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
@@ -40,6 +41,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.image.ImageView;
@@ -65,9 +67,10 @@ public class HomeController implements Initializable {
     ArrayList<String> users;
     private int returnedNoOfUsers = 0;
     TimerTask timerDataRetrieval = null;
-    Task copyWorker;
+    Task progressThread;
     private ArrayList<String> listOfGroups = new ArrayList<String>();
     private String[] randomGenCharacters;
+    Timeline timeline = null;
     //Global Variable,end
 
     @FXML
@@ -155,11 +158,9 @@ public class HomeController implements Initializable {
     private ProgressBar progressGameLoader;
 
     NavigationService navigationService;
-
-    Bag bag;
+    private Bag bag;
 
     public HomeController() {
-        //navigationService = new NavigationService(""); //needed if
         obj = new MiddleTier();
         Const = new ConstantElement();
         bag = new Bag();
@@ -168,27 +169,12 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        ArrayList<String> users = new ArrayList<String>();
-//        btnPlay.setDisable(ConstantElement.isDisableBtnPlay);
-//        String[] user = null;
-//        user = ServerCall.onlineUsers();
-//        int userIndex = 1;
-//        for (String user1 : users) {
-//            System.out.println(userIndex + ". " + user1);
-//            userIndex++;
-//        }
-
         btnCreate.disableProperty().bind(txtNoOfPlayers.textProperty().isEmpty());
         btnCreate.disableProperty().bind(txtNoOfPlayers.textProperty().isEmpty());
-
         txtNoOfPlayers.setTextFormatter(new TextFormatter<>((TextFormatter.Change t) -> {
             t.setText(t.getText().replaceAll(".*[^0-9].*", "").toUpperCase());
             return t;
         }));
-
-        progressGameLoader.setProgress(0);
-        copyWorker = createWorker();
-        progressGameLoader.progressProperty().unbind();
     }
 
     public void getObject(ConstantElement login) {
@@ -197,16 +183,17 @@ public class HomeController implements Initializable {
 
     @FXML
     void btnPlayClicked(ActionEvent event) throws IOException {
-        commonBehaviour("Group");
+        commonBehaviour("Group", null);
     }
 
     @FXML
     private void closeApplication() {
         if (!ConstantElement.isDisableBtnPlay && !ConstantElement.isPopedUp) {
-            Boolean output;//needed for further implement      
+            Boolean output;
             Platform.exit();
-            //serverCallToLogout
             output = ServerCall.Logout(ConstantElement.GlobalUserName, ConstantElement.GlobalPassowrd);
+            ServerCall.leaveGroup(ConstantElement.GroupName, ConstantElement.GlobalUserName);
+            ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
             System.exit(0);
         }
     }
@@ -225,7 +212,7 @@ public class HomeController implements Initializable {
     @FXML
     private void btnCreateGroupClicked(ActionEvent event) {
         try {
-            commonBehaviour("CreateGroup");
+            commonBehaviour("CreateGroup", null);
         } catch (Exception e) {
         }
     }
@@ -233,7 +220,7 @@ public class HomeController implements Initializable {
     @FXML
     private void btnJoinGroupClicked(ActionEvent event) {
         try {
-            commonBehaviour("JoinGroup");
+            commonBehaviour("JoinGroup", null);
         } catch (Exception e) {
         }
     }
@@ -244,7 +231,7 @@ public class HomeController implements Initializable {
             obj.setGroup(txtGroupName.getText(), Const.GlobalUserName, txtNoOfPlayers.getText());
             ConstantElement.GroupName = txtGroupName.getText();
             ConstantElement.no_of_players = Integer.parseInt(txtNoOfPlayers.getText());
-            commonBehaviour("ViewGroup");
+            commonBehaviour("ViewGroup", null);
             setGroups();
         } catch (Exception e) {
         }
@@ -255,7 +242,8 @@ public class HomeController implements Initializable {
         try {
             ConstantElement.isPopedUp = false;
             ConstantElement.isDisableBtnPlay = false;
-            commonBehaviour("MakeAllInvicible");
+            commonBehaviour("MakeAllInvicible", null);
+            ServerCall.leaveGroup(ConstantElement.GroupName, ConstantElement.GlobalUserName);
         } catch (Exception e) {
         }
     }
@@ -263,76 +251,41 @@ public class HomeController implements Initializable {
     @FXML
     private void btnProceedClicked(ActionEvent event) {
         try {
-            // if (!users.isEmpty()) {
-            // for (int i = 0; i < 3; i++) {
-            //    ConstantElement.userArray[i] = users.get(i);
-            // }
-            //ConstantElement.userArray[3] = ConstantElement.GlobalUserName;
-            //if (ConstantElement.userArray.length != 0) {
-            //timerDataRetrieval.cancel();
-            //service.cancel();
-            commonBehaviour("PrepareForGame");
-
-            //}
-            // System.out.println("" + Arrays.toString(ConstantElement.userArray));
-            // }
-//            Stage app_stage = (Stage) progressGameLoader.getScene().getWindow();
-//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/Game.fxml"));
-//            Parent parentHome = null;
-//            parentHome = (Parent) fxmlLoader.load();
-//            Scene home_page_scene = new Scene(parentHome);
-//            app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//            app_stage.setScene(home_page_scene);
-//            app_stage.show();
+            if (!users.isEmpty()) {
+                commonBehaviour("PrepareForGame", event);
+            }
         } catch (Exception e) {
         }
     }
 
     @FXML
-    private void btnLeaveGroupViewClicked(ActionEvent e) {
+    private void btnLeaveGroupViewClicked(ActionEvent e) throws IOException {
         service.cancel();
         ConstantElement.isPopedUp = false;
         ConstantElement.isDisableBtnPlay = false;
-        commonBehaviour("MakeAllInvicible");
+        commonBehaviour("MakeAllInvicible", null);
     }
 
     @FXML
-    private void btnJoinGroupLeaveClicked(ActionEvent e) {
+    private void btnJoinGroupLeaveClicked(ActionEvent e) throws IOException {
         ConstantElement.isPopedUp = false;
         ConstantElement.isDisableBtnPlay = false;
-        commonBehaviour("MakeAllInvicible");
+        commonBehaviour("MakeAllInvicible", null);
     }
 
     @FXML
-    private void btnJoinToLIveClicked(ActionEvent e) {
+    private void btnJoinToLIveClicked(ActionEvent e) throws IOException {
         ConstantElement.GroupName = cmbGroup.getValue().toString();
         ConstantElement.isJoin = true;
         if (!ConstantElement.GroupName.isEmpty()) {
-            commonBehaviour("ViewGroup");
-            obj.setGroupUSer(Const.GroupName, Const.GlobalUserName);
+            commonBehaviour("ViewGroup", null);
+            obj.setGroupUSer(ConstantElement.GroupName, ConstantElement.GlobalUserName);
+            //System.out.println("     " + ConstantElement.GroupName + ConstantElement.GlobalUserName);
             setGroups();
         }
     }
 
-    private void route(String id, String path) throws IOException {
-        AnchorPane layout;
-        Stage stage;
-        switch (id) {
-            case "group":
-                layout = null;
-                stage = null;
-                layout = FXMLLoader.load(getClass().getResource(path));
-                stage = new Stage();
-                stage.centerOnScreen();
-                stage.setScene(new Scene(layout));
-                stage.setResizable(false);
-                stage.initStyle(StageStyle.UNDECORATED);
-                stage.show();
-                break;
-        }
-    }
-
-    private void commonBehaviour(String id) {
+    private void commonBehaviour(String id, ActionEvent event) throws IOException {
         switch (id) {
             case "Group":
                 GroupAncher.setVisible(true);
@@ -356,6 +309,7 @@ public class HomeController implements Initializable {
                 loadComboValues();
                 break;
             case "PrepareForGame":
+                anchorGroupAboutToLoad.setVisible(true);
                 GroupAncher.setVisible(false);
                 AnchrcreateGroup.setVisible(false);
                 ancherGroupView.setVisible(false);
@@ -363,17 +317,16 @@ public class HomeController implements Initializable {
                 lblGroupNameAboutToLive.setText(ConstantElement.GroupName);
 
                 ObservableList items = FXCollections.observableArrayList();
-                randomGenCharacters[0] = ConstantElement.GlobalUserName;
-                items.add(randomGenCharacters[0]);
+                /////USER VALIDATION
+                for (int i = 0; i < 2; i++) {                    
+                    ConstantElement.userArray[i] = users.get(i);
+                    items.add(ConstantElement.userArray[i]);
+                }
                 listViewAboutToLoad.setItems(items);
                 for (int i = 1; i < 4; i++) {
                     randomGenCharacters[i] = Character.toString(bag.randomGen());
-                    System.out.println("" + randomGenCharacters[i]);
-                    items.add(randomGenCharacters[i]);
-                    listViewAboutToLoad.setItems(items);
                 }
-                anchorGroupAboutToLoad.setVisible(true);
-                //praveen save from here
+                setProgress(event);
 
                 break;
             case "MakeAllInvicible":
@@ -396,8 +349,6 @@ public class HomeController implements Initializable {
     }
 
     private void getUsers() {
-        //JSONObject userJsonObjects = null;
-        //JSONArray array = null;
         users = new ArrayList<String>();
         try {
             JSONArray array = obj.getUserGroup();
@@ -411,7 +362,7 @@ public class HomeController implements Initializable {
                     }
                 }
                 listGroupViewMembers.getItems().clear();
-                for (String userStringObject : users) {                    
+                for (String userStringObject : users) {
                     listGroupViewMembers.getItems().add(userStringObject);
                 }
             }
@@ -431,12 +382,12 @@ public class HomeController implements Initializable {
                         @Override
                         public void run() {
                             try {
-                                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
-                                    getUsers();                                 
+                                timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
+                                    getUsers();
                                 }));
                                 timeline.setCycleCount(Animation.INDEFINITE);
                                 timeline.play();
-                            } catch (Exception e) {                               
+                            } catch (Exception e) {
                             }
                         }
                     });
@@ -469,20 +420,43 @@ public class HomeController implements Initializable {
         }
     }
 
-    private void setProgress() {
+    private void setProgress(ActionEvent event) {
         try {
-
-            progressGameLoader.progressProperty().bind(copyWorker.progressProperty());
-            progressGameLoader.addEventHandler(EventType.ROOT, event -> {
-//                try {
-//                    //System.out.println("From Progress world");
-//                    copyWorker.cancel(true);
-//
-//                   
-//                } catch (IOException ex) {
-//                    Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
-//                }
+            progressThread = createWorker();
+            progressGameLoader.progressProperty().bind(progressThread.progressProperty());
+            progressThread.messageProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    System.out.println("Hello !!" + newValue);
+                    if (ConstantElement.prepareToSave) {
+                        try {
+                            System.out.println("" + ConstantElement.prepareToSave);
+//                            ServerCall.setInitialLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName,
+//                                    randomGenCharacters[1], randomGenCharacters[2],
+//                                    randomGenCharacters[3]);
+                            Thread.sleep(5000);
+                            ConstantElement.prepareToSave = false;
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else if (ConstantElement.isFinished) {
+                        timeline.stop();
+                        Stage app_stage = (Stage) progressGameLoader.getScene().getWindow();
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/Game.fxml"));
+                        Parent parentHome = null;
+                        try {
+                            parentHome = (Parent) fxmlLoader.load();
+                        } catch (IOException ex) {
+                            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        Scene home_page_scene = new Scene(parentHome);
+                        app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        app_stage.setScene(home_page_scene);
+                        app_stage.show();
+                    }
+                }
             });
+            new Thread(progressThread).start();
         } catch (Exception e) {
         }
     }
@@ -491,17 +465,18 @@ public class HomeController implements Initializable {
         return new Task() {
             @Override
             protected Object call() throws Exception {
-                for (int i = 1; i <= 10; i++) {
-                    if (i == 10) {
-                        ConstantElement.isFinished = true;
-                    } else if (i != 10) {
-                        //Thread.sleep(1000);
-                        //updateMessage("1000 milliseconds");
-                        updateProgress(i + 1, 10);
+                for (int i = 0; i < 100; i++) {
+                    if (i == 60) {
+                        ConstantElement.prepareToSave = true;
                     }
+                    Thread.sleep(2000);
+                    updateMessage(i + "%");
+                    updateProgress(i + 1, 100);
                 }
+                ConstantElement.isFinished = true;
                 return true;
             }
         };
     }
+
 }

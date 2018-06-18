@@ -21,6 +21,7 @@ public class ConstantElement {
     public static boolean isJoin;
     public static String[] userArray = new String[4];
     public static boolean isFinished = false;
+    public static boolean prepareToSave = false;
 
     public static boolean manageTexFields;
     public static final int BlueEssenceForFirstClassEnglishWord = 50;
