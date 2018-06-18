@@ -71,17 +71,17 @@ public class RegisterUserController implements Initializable {
             if (!txtEmail.getText().isEmpty()) {
                 if (!newV) {
                     try {
-                        validatorService.validateConditionErrors("MAIL CONFIRMATION", "Please enter your confirmation code to verify your email", true,true,false,true);
-                       String usarMail = txtEmail.getText().toString().trim();
+                        validatorService.getMailMessageBox("MAIL CONFIRMATION", "Please enter your confirmation code to verify your email", true, true, true, true, "mail", true);
+                        String usarMail = txtEmail.getText().toString().trim();
                         //Set the current genarated code
                         //setUserRecievedCode(id); 
                         //Genarate randome number and send email
-                    Random random = new Random();
-                    String id = String.format("%04d", random.nextInt(10000));
-                    SendEmailService sc = new SendEmailService();            
-                    sc.sendVerificationCode(id,usarMail);
-                    userData.RandomeNo=id;
-                    userData.UserMail= usarMail;
+                        Random random = new Random();
+                        String id = String.format("%04d", random.nextInt(10000));
+                        SendEmailService sc = new SendEmailService();
+                        sc.sendVerificationCode(id, usarMail);
+                        userData.RandomeNo = id;
+                        userData.UserMail = usarMail;
                     } catch (Exception e) {
                     }
                 }

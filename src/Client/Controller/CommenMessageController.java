@@ -38,7 +38,11 @@ public class CommenMessageController implements Initializable {
     /**
      * Initializes the controller class.
      */
-     ConstantElement ce = new ConstantElement();
+    ConstantElement ce = new ConstantElement();
+
+    @FXML
+    private Button btnResend;
+
     @FXML
     private Button btnOK;
 
@@ -57,181 +61,143 @@ public class CommenMessageController implements Initializable {
     @FXML
     private TextField txtInfo;
 
-    private String value;
-    
     //To get the verification code genarated
+    private String value;
+
     public String genaratedCode;
     public String Recievermail;
 
+    public CommenMessageController() {
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            imgMsgType.setImage(MessageService.getMakeMessageUI());
-            //add to the group         
-            txtInfo.setVisible(MessageService.visiblityForTextField);
-            txtInfo.setEditable(MessageService.visiblityForTextField);
-            lblMsgHeader.setText(MessageService.headerName);
-            lblMsgBody.setText(MessageService.msgValue);
-            //btnOK.setDisable(MessageService.isNeedBtnOK);
-           // if (!MessageService.isNeedBtnOK) {
-           //     btnCancel.setText("OK");
-           // } else if (MessageService.isNeedBtnOK) {
-          //      btnCancel.setText("Cancel");
-          //  }
-          //  btnOK.setVisible(MessageService.isNeedBtnOK);
-         //   btnOK.setText("Ok");
-
-        } catch (Exception e) {
-            e.getStackTrace();
+        //initiating behaviours
+        imgMsgType.setImage(MessageService.getMakeMessageUI());
+        txtInfo.setVisible(ConstantElement.visiblityForTextField);
+        txtInfo.setEditable(ConstantElement.visiblityForTextField);
+        lblMsgHeader.setText(MessageService.headerName);
+        lblMsgBody.setText(MessageService.msgValue);
+        //
+        if (!ConstantElement.isNeedBtnOK) {
+            btnCancel.setText("OK");
+        } else if (ConstantElement.isNeedBtnOK) {
+            btnOK.setText("OK");
+            btnCancel.setText("Cancel");
         }
+
+        if (ConstantElement.isNeedResendButton) {
+            btnResend.setText("Resend");
+        }
+
+        btnOK.setVisible(ConstantElement.isNeedBtnOK);
+        btnCancel.setVisible(ConstantElement.isNeedBtnCancel);
+        btnResend.setVisible(ConstantElement.isNeedResendButton);
+
+    }
+
+    void setGenaratedCode(String Code) {
+        genaratedCode = Code;
+
+    }
+
+    void setRecievermail(String mail) {
+        Recievermail = mail;
+
+    }
+
+    void getCode(String UserVerificationCode) {
+        genaratedCode = UserVerificationCode;
     }
 
     @FXML
-    void btnCancelClicked(ActionEvent event) {
+    private void btnCancelClicked(ActionEvent event) {
         try {
             Stage stage = (Stage) btnCancel.getScene().getWindow();
             stage.close();
         } catch (Exception e) {
         }
     }
-    
-    @FXML
-    void setGenaratedCode( String Code){
-        genaratedCode = Code;
-        
-    }
-    
-    void setRecievermail( String mail){
-        Recievermail = mail;
-        
-    }
-    
-    void getCode(String UserVerificationCode)
- {
-     genaratedCode =  UserVerificationCode;  
- }
-
-    
 
     @FXML
-    void btnOKClicked(ActionEvent event) {
-        try {         
-            if (MessageService.forEmailConfirmation) {    
-                System.out.println(""+MessageService.forEmailConfirmation);
-               try {
-          value = txtInfo.getText();
-            if (!value.isEmpty()) {
-                txtInfo.setStyle("-fx-border-color: BLACK;");
-                if(value.equals(ce.RandomeNo) )
-                {
-                JOptionPane.showMessageDialog(null, "Email successfully verified" , "InfoBox: " + "Email verification", JOptionPane.INFORMATION_MESSAGE);
-                Stage stage = (Stage) btnCancel.getScene().getWindow();
-                stage.close();
+    private void btnOKClicked(ActionEvent event) {
+        try {
+            if (ConstantElement.forEmailConfirmation) {
+                System.out.println("" + ConstantElement.forEmailConfirmation);
+                try {
+                    value = txtInfo.getText();
+                    if (!value.isEmpty()) {
+                        txtInfo.setStyle("-fx-border-color: BLACK;");
+                        if (value.equals(ce.RandomeNo)) {
+                            JOptionPane.showMessageDialog(null, "Email successfully verified", "InfoBox: " + "Email verification", JOptionPane.INFORMATION_MESSAGE);
+                            Stage stage = (Stage) btnCancel.getScene().getWindow();
+                            stage.close();
+                        } else {
+                            txtInfo.clear();
+                            JOptionPane.showMessageDialog(null, "Email verification code is incorrect please resend the code", "Error: " + "Email verification", JOptionPane.ERROR_MESSAGE);
+                        }
+
+                    } else {
+                        txtInfo.setStyle("-fx-border-color: RED;");
+                    }
+                } catch (Exception e) {
+                } catch (Throwable ex) {
+                    Logger.getLogger(CommenMessageController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                else{
-                    
-                txtInfo.clear();
-                JOptionPane.showMessageDialog(null, "Email verification code is incorrect please resend the code" , "Error: " + "Email verification", JOptionPane.ERROR_MESSAGE);              
+            } else if (ConstantElement.forCahangePassword) {
+                try {
+                    value = txtInfo.getText();
+                    if (!value.isEmpty()) {
+                        txtInfo.setStyle("-fx-border-color: BLACK;");
+                        if (value.equals(ce.RandomeNo)) {
+                            JOptionPane.showMessageDialog(null, "Email successfully verified", "InfoBox: " + "Email verification", JOptionPane.INFORMATION_MESSAGE);
+                            Stage stage = (Stage) btnCancel.getScene().getWindow();
+                            stage.close();
+                        } else {
+                            txtInfo.clear();
+                        }
+                    } else {
+                        txtInfo.setStyle("-fx-border-color: RED;");
+                    }
+                } catch (Exception e) {
+                } catch (Throwable ex) {
+                    Logger.getLogger(CommenMessageController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-               
-            } else {
-                txtInfo.setStyle("-fx-border-color: RED;");
+            } else if (ConstantElement.forCahangeUserName) {
+                try {
+                    value = txtInfo.getText();
+                    if (!value.isEmpty()) {
+                        txtInfo.setStyle("-fx-border-color: BLACK;");
+                        if (value.equals(ce.RandomeNo)) {
+                            JOptionPane.showMessageDialog(null, "Email successfully verified", "InfoBox: " + "Email verification", JOptionPane.INFORMATION_MESSAGE);
+                            Stage stage = (Stage) btnCancel.getScene().getWindow();
+                            stage.close();
+                        } else {
+                            txtInfo.clear();
+                        }
+                    } else {
+                        txtInfo.setStyle("-fx-border-color: RED;");
+                    }
+                } catch (Exception e) {
+                } catch (Throwable ex) {
+                    Logger.getLogger(CommenMessageController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        catch (Exception e) {
-        }
-        catch (Throwable ex) {
-            Logger.getLogger(CommenMessageController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                
-            } else if (MessageService.forRandomSelectionFromTheBag) {
-                TextField txtRef = new TextField();
-                if (MessageService.forceToClose) {
-                    Stage stage = (Stage) btnOK.getScene().getWindow();
-                    stage.close();
-                }
-            }
-               else if(MessageService.forCahangePassword){
-            try {
-          value = txtInfo.getText();
-            if (!value.isEmpty()) {
-                txtInfo.setStyle("-fx-border-color: BLACK;");
-                if(value.equals(ce.RandomeNo) )
-                {
-                JOptionPane.showMessageDialog(null, "Email successfully verified" , "InfoBox: " + "Email verification", JOptionPane.INFORMATION_MESSAGE);
-                Stage stage = (Stage) btnCancel.getScene().getWindow();
-                stage.close();
-                }
-                else{
-                    
-                txtInfo.clear();
-               
-                }
-               
-            } else {
-                txtInfo.setStyle("-fx-border-color: RED;");
-            }
-        }
-        catch (Exception e) {
-        }
-        catch (Throwable ex) {
-            Logger.getLogger(CommenMessageController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        
-        }
-             else if(MessageService.forCahangeUserName)
-        {
-            
-                        try {
-          value = txtInfo.getText();
-            if (!value.isEmpty()) {
-                txtInfo.setStyle("-fx-border-color: BLACK;");
-                if(value.equals(ce.RandomeNo) )
-                {
-                JOptionPane.showMessageDialog(null, "Email successfully verified" , "InfoBox: " + "Email verification", JOptionPane.INFORMATION_MESSAGE);
-                Stage stage = (Stage) btnCancel.getScene().getWindow();
-                stage.close();
-                }
-                else{
-                    
-                txtInfo.clear();
-               
-                }
-               
-            } else {
-                txtInfo.setStyle("-fx-border-color: RED;");
-            }
-        }
-        catch (Exception e) {
-        }
-        catch (Throwable ex) {
-            Logger.getLogger(CommenMessageController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        }
-                  
+    }
+
+    @FXML
+    private void btnSendmailClicked(ActionEvent event) {
+        try {
+            Random random = new Random();
+            String id = String.format("%04d", random.nextInt(10000));
+            SendEmailService sc = new SendEmailService();
+            sc.sendVerificationCode(id, ce.UserMail);
+            setGenaratedCode(id);
         } catch (Exception e) {
         }
     }
-        @FXML
-    void btnSendmailClicked(ActionEvent event) {
-        try {
-           
-                    Random random = new Random();
-                    String id = String.format("%04d", random.nextInt(10000));
-                    SendEmailService sc = new SendEmailService();            
-                    sc.sendVerificationCode(id,ce.UserMail);
-                    setGenaratedCode(id);
-        }
-        
-             
-         catch (Exception e) 
-        {}
-            
-       
-    }
-    
 }

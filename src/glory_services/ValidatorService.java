@@ -18,17 +18,24 @@ import javafx.stage.StageStyle;
  */
 public class ValidatorService {
 
-    public void validateConditionErrors(String heading, String value, boolean confirmation, boolean textVisi, boolean force, boolean btnOK) {
+    AnchorPane layout;
+    Stage stage;
+
+    public ValidatorService() {
+    }
+
+    public void validateConditionErrors(String heading, String value, boolean confirmation, boolean textVisibility, boolean isNeedBtnCancel, boolean btnOK, boolean isNeedResendButton) {
         try {
-            AnchorPane layout;
-            Stage stage;
+            layout = null;
+            stage = null;
             String header = heading;
             String body = value;
-            MessageService.forceToClose = force;
-            MessageService.forEmailConfirmation = confirmation;
-            MessageService.visiblityForTextField = textVisi;
+            ConstantElement.forEmailConfirmation = confirmation;
+            ConstantElement.visiblityForTextField = textVisibility;
+            ConstantElement.isNeedBtnOK = btnOK;
+            ConstantElement.isNeedBtnCancel = isNeedBtnCancel;
+            ConstantElement.isNeedResendButton = isNeedResendButton;
             MessageService.setMakeMessageUI("Error", header, body);
-            MessageService.isNeedBtnOK = btnOK;
             layout = FXMLLoader.load(getClass().getResource("/UI/CommenMessage.fxml"));
             stage = new Stage();
             stage.centerOnScreen();
@@ -40,17 +47,19 @@ public class ValidatorService {
         }
     }
 
-    public void validateLiveError(String heading, String value, boolean confirmation, boolean textVisi, boolean force, boolean btnOK, String iconField) {
+    public void getMailMessageBox(String heading, String value, boolean confirmation, boolean textVisibility, boolean isNeedOkButton, boolean isNeedCancelButton, String iconField, boolean isNeedResendButton) {
         try {
-            AnchorPane layout;
-            Stage stage;
+            layout = null;
+            stage = null;
+
             String header = heading;
             String body = value;
-            MessageService.forceToClose = force;
-            MessageService.forEmailConfirmation = confirmation;
-            MessageService.visiblityForTextField = textVisi;
+            ConstantElement.forEmailConfirmation = confirmation;
+            ConstantElement.visiblityForTextField = textVisibility;
+            ConstantElement.isNeedBtnOK = isNeedOkButton;
+            ConstantElement.isNeedBtnCancel = isNeedCancelButton;
+            ConstantElement.isNeedResendButton = isNeedResendButton;
             MessageService.setMakeMessageUI(iconField, header, body);
-            MessageService.isNeedBtnOK = btnOK;
             layout = FXMLLoader.load(getClass().getResource("/UI/CommenMessage.fxml"));
             stage = new Stage();
             stage.centerOnScreen();
@@ -62,34 +71,20 @@ public class ValidatorService {
         }
     }
 
-    public void getPauseMessage(String heading, String value, boolean confirmation, boolean textVisi, boolean force) throws Exception {
-        AnchorPane layout;
-        Stage stage;
-        String header = heading;
-        String body = value;
-        MessageService.forceToClose = force;
-        MessageService.forEmailConfirmation = confirmation;
-        MessageService.visiblityForTextField = textVisi;
-        MessageService.setMakeMessageUI("pause", header, body);
-        layout = FXMLLoader.load(getClass().getResource("/UI/CommenMessage.fxml"));
-        stage = new Stage();
-        stage.centerOnScreen();
-        stage.setScene(new Scene(layout));
-        stage.setResizable(false);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.show();
-    }
-
-    public void getValidaterMessage(String heading, String value, boolean confirmation, boolean textVisi, boolean force) {
+    public void validateLiveError(String heading, String value, boolean confirmation, boolean textVisibility, boolean isNeedCancelButton, boolean isNeedOkButton, String iconField, boolean isNeedResendButton) {
         try {
-            AnchorPane layout;
-            Stage stage;
+            layout = null;
+            stage = null;
+
             String header = heading;
             String body = value;
-            MessageService.forceToClose = force;
-            MessageService.forEmailConfirmation = confirmation;
-            MessageService.visiblityForTextField = textVisi;
-            MessageService.setMakeMessageUI("mail", header, body);
+            
+            ConstantElement.forEmailConfirmation = confirmation;
+            ConstantElement.visiblityForTextField = textVisibility;
+            ConstantElement.isNeedBtnOK = isNeedOkButton;
+            ConstantElement.isNeedBtnCancel = isNeedCancelButton;
+            ConstantElement.isNeedResendButton = isNeedResendButton;
+            MessageService.setMakeMessageUI(iconField, header, body);
             layout = FXMLLoader.load(getClass().getResource("/UI/CommenMessage.fxml"));
             stage = new Stage();
             stage.centerOnScreen();
@@ -97,12 +92,31 @@ public class ValidatorService {
             stage.setResizable(false);
             stage.initStyle(StageStyle.UNDECORATED);
             stage.show();
-
         } catch (Exception e) {
         }
     }
+    
+//    public void getValidaterMessage(String heading, String value, boolean confirmation, boolean textVisi, boolean force) {
+//        try {
+//            layout = null;
+//            stage = null;
+//
+//            String header = heading;
+//            String body = value;
+//            
+//            ConstantElement.forEmailConfirmation = confirmation;
+//            ConstantElement.visiblityForTextField = textVisi;
+//            MessageService.setMakeMessageUI("mail", header, body);
+//            layout = FXMLLoader.load(getClass().getResource("/UI/CommenMessage.fxml"));
+//            stage = new Stage();
+//            stage.centerOnScreen();
+//            stage.setScene(new Scene(layout));
+//            stage.setResizable(false);
+//            stage.initStyle(StageStyle.UNDECORATED);
+//            stage.show();
+//
+//        } catch (Exception e) {
+//        }
+//    }
 
-    public void getMailMessageBox() {
-
-    }
 }

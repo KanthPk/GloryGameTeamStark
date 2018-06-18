@@ -23,6 +23,15 @@ public class ConstantElement {
     public static boolean isFinished = false;
     public static boolean prepareToSave = false;
 
+    //for common message boxes
+    public static boolean forEmailConfirmation = false;
+    public static boolean visiblityForTextField = false;
+    public static boolean isNeedBtnOK = false;
+    public static boolean isNeedBtnCancel = false;
+    public static boolean forCahangePassword = false;
+    public static boolean forCahangeUserName = false;
+    public static boolean isNeedResendButton = false;
+
     public static boolean manageTexFields;
     public static final int BlueEssenceForFirstClassEnglishWord = 50;
     public static final int BlueEssenceForSecondClassEnglishWord = 35;

@@ -124,21 +124,21 @@ public class LoginController implements Initializable {
                     app_stage.setScene(home_page_scene);
                     app_stage.show();
                 } else if (Check.equals(Denied)) {
-                    serviceValidater.validateConditionErrors("AUTHENTICATION FAILED", "Please recheck your credentials", false, false, true, false);
+                    serviceValidater.validateConditionErrors("AUTHENTICATION FAILED", "Please recheck your credentials", false, false, true, false, false);
                 }
             } else if (txtUserName.getText().isEmpty() && pwdPassword.getText().isEmpty()) {
-                serviceValidater.validateConditionErrors("CHECK INPUTS", "Please check your inputs", false, false, true, false);
+                serviceValidater.validateConditionErrors("CHECK INPUTS", "Please check your inputs", false, false, true, false, false);
             } else if (!txtUserName.getText().isEmpty() && pwdPassword.getText().isEmpty()) {
-                serviceValidater.validateConditionErrors("CHECK INPUTS", "Please enter your password", false, false, true, false);
+                serviceValidater.validateConditionErrors("CHECK INPUTS", "Please enter your password", false, false, true, false, false);
             } else if (txtUserName.getText().isEmpty() && !pwdPassword.getText().isEmpty()) {
-                serviceValidater.validateConditionErrors("CHECK INPUTS", "Please enter your user name", false, false, true, false);
+                serviceValidater.validateConditionErrors("CHECK INPUTS", "Please enter your user name", false, false, true, false, false);
             }
         } catch (SecurityException e) {
-            serviceValidater.validateLiveError("CONNECTION FAILED", "Something wrong with the server, Please try again", false, false, true, false, "Live");
+            serviceValidater.validateLiveError("CONNECTION FAILED", "Something wrong with the server, Please try again", false, false, true, false, "Live", false);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         } catch (Exception e) {
-            serviceValidater.validateLiveError("CONNECTION FAILED", "Something wrong with the server, Please try again", false, false, true, false, "Live");
+            serviceValidater.validateLiveError("CONNECTION FAILED", "Something wrong with the server, Please try again", false, false, true, false, "Live", false);
         }
     }
 

@@ -21,16 +21,6 @@ public class MessageService {
     static Image img = null;
     static ImageView imgView = new ImageView();
 
-    public static boolean visiblityForTextField;
-    public static boolean visiblityForRadioButton;
-
-    public static boolean forEmailConfirmation;
-    public static boolean forRandomSelectionFromTheBag;
-    public static boolean forceToClose;
-    public static boolean isNeedBtnOK;
-    public static boolean forCahangePassword;
-    public static boolean forCahangeUserName;
-
     public MessageService() {
     }
 

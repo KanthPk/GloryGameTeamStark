@@ -47,28 +47,26 @@ public class ForgotUserNameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-               
+
         //inject validator service
         validatorService = new ValidatorService();
-        
+
         txtEmail.focusedProperty().addListener((ov, oldV, newV) -> {
             if (!txtEmail.getText().isEmpty()) {
                 if (!newV) {
-                    try {  
-
-                       validatorService.getValidaterMessage("MAIL CONFIRMATION", "Please enter your confirmation code to verify your User name", true, true, false);
-                       String usarMail = "maduperera106@gmail.com";
+                    try {
+                        validatorService.getMailMessageBox("MAIL CONFIRMATION", "Please enter your confirmation code to verify your User name", true, true, true, true, "mail", true);
+                        String usarMail = "maduperera106@gmail.com";
                         //Set the current genarated code
                         //setUserRecievedCode(id); 
                         //Genarate randome number and send email
-                    Random random = new Random();
-                    String id = String.format("%04d", random.nextInt(10000));
-                    SendEmailService sc = new SendEmailService();            
-                    sc.sendVerificationCode(id,usarMail);
-                    userData.RandomeNo=id;
-                    userData.UserMail= usarMail;
-                    
-                                 
+                        Random random = new Random();
+                        String id = String.format("%04d", random.nextInt(10000));
+                        SendEmailService sc = new SendEmailService();
+                        sc.sendVerificationCode(id, usarMail);
+                        userData.RandomeNo = id;
+                        userData.UserMail = usarMail;
+
                     } catch (Exception e) {
                     }
                 }

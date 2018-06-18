@@ -5,7 +5,6 @@
  */
 package Client.Controller;
 
-
 import glory_schema.ConstantElement;
 import glory_services.MessageService;
 import glory_services.SendEmailService;
@@ -56,29 +55,28 @@ public class ForgotPasswordController implements Initializable {
 
     @FXML
     private ValidatorService validatorService;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-   //inject validator service
+        //inject validator service
         validatorService = new ValidatorService();
-        
+
         txtUserName.focusedProperty().addListener((ov, oldV, newV) -> {
             if (!txtUserName.getText().isEmpty()) {
                 if (!newV) {
-                    try {  
-
-                       validatorService.getValidaterMessage("MAIL CONFIRMATION", "Please enter your confirmation code to verify your User name", true, true, false);
-                       String usarMail = "maduperera106@gmail.com";
+                    try {
+                        validatorService.getMailMessageBox("MAIL CONFIRMATION", "Please enter your confirmation code to verify your User name", true, true, true, true, "mail", true);
+                        String usarMail = "maduperera106@gmail.com";
                         //Set the current genarated code
                         //setUserRecievedCode(id); 
                         //Genarate randome number and send email
-                    Random random = new Random();
-                    String id = String.format("%04d", random.nextInt(10000));
-                    SendEmailService sc = new SendEmailService();            
-                    sc.sendVerificationCode(id,usarMail);
-                    userData.RandomeNo=id;
-                    userData.UserMail= usarMail;
-                    
-                                 
+                        Random random = new Random();
+                        String id = String.format("%04d", random.nextInt(10000));
+                        SendEmailService sc = new SendEmailService();
+                        sc.sendVerificationCode(id, usarMail);
+                        userData.RandomeNo = id;
+                        userData.UserMail = usarMail;
+
                     } catch (Exception e) {
                     }
                 }
@@ -103,41 +101,40 @@ public class ForgotPasswordController implements Initializable {
         } catch (Exception e) {
         }
     }
-       
+
     @FXML
     void btnSendcodeClicked(ActionEvent event) {
-          try {                
-                //validatorService.getValidaterMessage("MAIL CONFIRMATION", "Please enter your confirmation code to verify your email", true, true, false);//AshansCode
-                String usarMail = "maduperera106@gmail.com";
-                //Set the current genarated code
-                //setUserRecievedCode(id); 
-               //Genarate randome number and send email
-                    Random random = new Random();
-                    String id = String.format("%04d", random.nextInt(10000));
-                    SendEmailService sc = new SendEmailService();            
-                    sc.sendVerificationCode(id,usarMail);
-           
-                    
-                       AnchorPane layout;
-                       Stage stage;
-                       String header = "MAIL CONFIRMATION";
-                        String body = "Please enter your confirmation code to verify your email";
-                       MessageService.setMakeMessageUI("mail", header, body);
-                       // layout = FXMLLoader.load(getClass().getResource("/UI/CommenMessage.fxml"));
-                        //CommenMessageController cmc = new CommenMessageController();  
-                        
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/CommenMessage.fxml"));
-                        Parent parentHome = (Parent) fxmlLoader.load();
-                        CommenMessageController controller = fxmlLoader.<CommenMessageController>getController();
-                        controller.setGenaratedCode(id);
-                        controller.setRecievermail(usarMail);
-                     
-                        stage = new Stage();
-                       stage.setScene(new Scene(parentHome));
-                       stage.setResizable(false);
-                      stage.initStyle(StageStyle.UNDECORATED);
-                        stage.show();
-                    } catch (Exception e) {
-                    }
+        try {
+            //validatorService.getValidaterMessage("MAIL CONFIRMATION", "Please enter your confirmation code to verify your email", true, true, false);//AshansCode
+            String usarMail = "maduperera106@gmail.com";
+            //Set the current genarated code
+            //setUserRecievedCode(id); 
+            //Genarate randome number and send email
+            Random random = new Random();
+            String id = String.format("%04d", random.nextInt(10000));
+            SendEmailService sc = new SendEmailService();
+            sc.sendVerificationCode(id, usarMail);
+
+            AnchorPane layout;
+            Stage stage;
+            String header = "MAIL CONFIRMATION";
+            String body = "Please enter your confirmation code to verify your email";
+            MessageService.setMakeMessageUI("mail", header, body);
+            // layout = FXMLLoader.load(getClass().getResource("/UI/CommenMessage.fxml"));
+            //CommenMessageController cmc = new CommenMessageController();  
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/CommenMessage.fxml"));
+            Parent parentHome = (Parent) fxmlLoader.load();
+            CommenMessageController controller = fxmlLoader.<CommenMessageController>getController();
+            controller.setGenaratedCode(id);
+            controller.setRecievermail(usarMail);
+
+            stage = new Stage();
+            stage.setScene(new Scene(parentHome));
+            stage.setResizable(false);
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.show();
+        } catch (Exception e) {
+        }
     }
 }
