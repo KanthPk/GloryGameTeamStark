@@ -172,24 +172,26 @@ public class MiddleTier {
 
     }
 
-    public String[] getLetter() {
-        String[] animals = null;
+    public JSONArray getLetter(String group) {
+        String[] members = null;
+        JSONArray array = new JSONArray();
         try {
             URL oracle = new URL("https://kanthpk.000webhostapp.com/getLetterValue.php");
-            URLConnection yc = oracle.openConnection();
-            try (BufferedReader in = new BufferedReader(new InputStreamReader(
-                    yc.getInputStream()))) {
-                String inputLine;
-
-                while ((inputLine = in.readLine()) != null) {
-                    animals = inputLine.split("\\s");
+            URLConnection con = oracle.openConnection();
+            con.setDoOutput(true);
+                try (PrintStream ps = new PrintStream(con.getOutputStream())) {
+                    ps.print("&group=" + group);                   
+                    con.getInputStream();
                 }
+            try (DataInputStream in = new DataInputStream(con.getInputStream())) {
+                JSONParser parser =new JSONParser();
+                array =(JSONArray)parser.parse(in.readLine());                                                           
             }
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return animals;
+        return array;
 
     }
     public void setGroup(String groupName, String nickName, String member) {
