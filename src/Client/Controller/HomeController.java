@@ -400,7 +400,7 @@ public class HomeController implements Initializable {
 
     private void loadComboValues() {
         try {
-            JSONArray array = obj.getUserGroup();
+            JSONArray array = obj.getGroup();
             int n = array.size();
             if (!array.isEmpty()) {
                 for (int i = 0; i < n; i++) {
