@@ -92,6 +92,33 @@ public class GameController implements Initializable {
     private TextField txt_8;
 
     @FXML
+    private TextField user_1_txt_1;
+
+    @FXML
+    private TextField user_1_txt_2;
+
+    @FXML
+    private TextField user_1_txt_3;
+
+    @FXML
+    private TextField user_2_txt_1;
+
+    @FXML
+    private TextField user_2_txt_2;
+
+    @FXML
+    private TextField user_2_txt_3;
+
+    @FXML
+    private TextField user_3_txt_1;
+
+    @FXML
+    private TextField user_3_txt_2;
+    
+    @FXML
+    private TextField user_3_txt_3;
+
+    @FXML
     private TextField txtWordFIeld;
 
     @FXML
@@ -189,19 +216,6 @@ public class GameController implements Initializable {
         //Save the Initial Number into Databse
         ServerCall.DisplayInitialLetter(ConstantElement.GlobalUserName, txtRandom_1.getText(), txtRandom_2.getText(), txtRandom_3.getText());
         System.out.println("                         " + ConstantElement.GlobalUserName);
-
-        String[] users1 = null;
-        users1 = ServerCall.getLetter();
-        int userIndex = 1;
-        for (String user : users1) {
-            System.out.println(userIndex + ". " + user);
-            if (userIndex == 1) {
-                txt_111.setText(user);
-                txt_211.setText(user);
-                txt_311.setText(user);
-            }
-            userIndex++;
-        }
 
         liveTime();
 
@@ -376,9 +390,9 @@ public class GameController implements Initializable {
     }
 
     @FXML
-    void closeApplication(MouseEvent event) {        
-        Platform.exit();        
-        ServerCall.Logout(ConstantElement.GlobalUserName, ConstantElement.GlobalPassowrd);        
+    void closeApplication(MouseEvent event) {
+        Platform.exit();
+        ServerCall.Logout(ConstantElement.GlobalUserName, ConstantElement.GlobalPassowrd);
         ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
         System.exit(0);
     }
@@ -891,17 +905,17 @@ public class GameController implements Initializable {
             }
             //dummy location
             WordAutoGenerate v = new WordAutoGenerate(ary);
-            v.Autogenerator();           
+            v.Autogenerator();
             System.out.println("Autogenrate word" + v.getLongestWord());
             //end           
             if (result == true) {
                 System.out.println("this is a word");
                 int test = roundScoreService.getScoreFromEachRound(1, txtWordFIeld.getText());
-                txtScore.setText(Integer.toString(test));              
+                txtScore.setText(Integer.toString(test));
 
             } else {
                 System.out.println("this is not a word");
-                serviceValidater.validateConditionErrors("INVALID", "Invalid Longest English Word", false, false, true, false);
+                serviceValidater.validateConditionErrors("INVALID", "Invalid Longest English Word", false, false, true, false, false);
             }
 
             //int test = roundScoreService.getScoreFromEachRound(1, txtWordFIeld.getText());

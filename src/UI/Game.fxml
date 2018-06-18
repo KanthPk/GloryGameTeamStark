@@ -128,17 +128,17 @@
             </Label>
             <AnchorPane layoutX="18.0" layoutY="14.0" prefHeight="274.0" prefWidth="315.0" style="-fx-border-color: Black;">
                <children>
-                  <TextField fx:id="txt_111" alignment="CENTER" editable="false" layoutX="43.0" layoutY="216.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #FFFFFF; -fx-cursor: HAND; -fx-border-color: Black;">
+                  <TextField fx:id="user_1_txt_1" alignment="CENTER" editable="false" layoutX="43.0" layoutY="216.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #FFFFFF; -fx-cursor: HAND; -fx-border-color: Black;">
                      <font>
                         <Font name="Bell MT Bold" size="21.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="txt_211" alignment="CENTER" editable="false" layoutX="127.0" layoutY="216.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #FFFFFF; -fx-cursor: HAND; -fx-border-color: Black;">
+                  <TextField fx:id="user_1_txt_2" alignment="CENTER" editable="false" layoutX="127.0" layoutY="216.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #FFFFFF; -fx-cursor: HAND; -fx-border-color: Black;">
                      <font>
                         <Font name="Bell MT Bold" size="21.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="txt_311" alignment="CENTER" editable="false" layoutX="208.0" layoutY="216.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #FFFFFF; -fx-cursor: HAND; -fx-border-color: Black;">
+                  <TextField fx:id="user_1_txt_3" alignment="CENTER" editable="false" layoutX="208.0" layoutY="216.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #FFFFFF; -fx-cursor: HAND; -fx-border-color: Black;">
                      <font>
                         <Font name="Bell MT Bold" size="21.0" />
                      </font>
@@ -206,17 +206,17 @@
             </TextField>
             <AnchorPane layoutX="346.0" layoutY="14.0" prefHeight="274.0" prefWidth="301.0" style="-fx-border-color: Black;">
                <children>
-                  <TextField fx:id="txt_1111" alignment="CENTER" editable="false" layoutX="36.0" layoutY="217.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #FFFFFF; -fx-cursor: HAND; -fx-border-color: Black;">
+                  <TextField fx:id="user_2_txt_1" alignment="CENTER" editable="false" layoutX="36.0" layoutY="217.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #FFFFFF; -fx-cursor: HAND; -fx-border-color: Black;">
                      <font>
                         <Font name="Bell MT Bold" size="21.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="txt_2111" alignment="CENTER" editable="false" layoutX="120.0" layoutY="217.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #FFFFFF; -fx-cursor: HAND; -fx-border-color: Black;">
+                  <TextField fx:id="user_2_txt_2" alignment="CENTER" editable="false" layoutX="120.0" layoutY="217.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #FFFFFF; -fx-cursor: HAND; -fx-border-color: Black;">
                      <font>
                         <Font name="Bell MT Bold" size="21.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="txt_3111" alignment="CENTER" editable="false" layoutX="201.0" layoutY="217.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #FFFFFF; -fx-cursor: HAND; -fx-border-color: Black;">
+                  <TextField fx:id="user_2_txt_3" alignment="CENTER" editable="false" layoutX="201.0" layoutY="217.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #FFFFFF; -fx-cursor: HAND; -fx-border-color: Black;">
                      <font>
                         <Font name="Bell MT Bold" size="21.0" />
                      </font>
@@ -268,17 +268,17 @@
             </ImageView>
             <AnchorPane layoutX="657.0" layoutY="14.0" prefHeight="274.0" prefWidth="301.0" style="-fx-border-color: Black;">
                <children>
-                  <TextField fx:id="txt_11111" alignment="CENTER" editable="false" layoutX="36.0" layoutY="217.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #FFFFFF; -fx-cursor: HAND; -fx-border-color: Black;">
+                  <TextField fx:id="user_3_txt_1" alignment="CENTER" editable="false" layoutX="36.0" layoutY="217.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #FFFFFF; -fx-cursor: HAND; -fx-border-color: Black;">
                      <font>
                         <Font name="Bell MT Bold" size="21.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="txt_21111" alignment="CENTER" editable="false" layoutX="120.0" layoutY="217.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #FFFFFF; -fx-cursor: HAND; -fx-border-color: Black;">
+                  <TextField fx:id="user_3_txt_2" alignment="CENTER" editable="false" layoutX="120.0" layoutY="217.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #FFFFFF; -fx-cursor: HAND; -fx-border-color: Black;">
                      <font>
                         <Font name="Bell MT Bold" size="21.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="txt_31111" alignment="CENTER" editable="false" layoutX="201.0" layoutY="217.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #FFFFFF; -fx-cursor: HAND; -fx-border-color: Black;">
+                  <TextField fx:id="user_3_txt_3" alignment="CENTER" editable="false" layoutX="201.0" layoutY="217.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #FFFFFF; -fx-cursor: HAND; -fx-border-color: Black;">
                      <font>
                         <Font name="Bell MT Bold" size="21.0" />
                      </font>
