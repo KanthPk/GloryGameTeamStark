@@ -25,6 +25,7 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -149,13 +150,6 @@ public class GameController implements Initializable {
     private AnchorPane anchorEditBack;
 
     @FXML
-    private TextField txt_111;
-    @FXML
-    private TextField txt_211;
-    @FXML
-    private TextField txt_311;
-
-    @FXML
     private AnchorPane subCheckBoxAncher;
 
     @FXML
@@ -207,6 +201,13 @@ public class GameController implements Initializable {
 
     }
 
+    /////PRAVEEN
+    @FXML
+    private void imgSearch() {
+        System.out.println("Hello world");
+    }
+    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         rBtnVowel.setToggleGroup(group);
@@ -230,7 +231,7 @@ public class GameController implements Initializable {
                     String Letter1 = (String) userJsonObjects.get("Letter1");
                     String Letter2 = (String) userJsonObjects.get("Letter2");
                     String Letter3 = (String) userJsonObjects.get("Letter3");
-                    
+
                     if (user.equals(ConstantElement.GlobalUserName)) {
                         lbl_Gllobal_User.setText(ConstantElement.GlobalUserName);
                         txtRandom_1.setText(Letter1);
@@ -271,9 +272,6 @@ public class GameController implements Initializable {
         globalSubChars.append(characters[1]);
         globalSubChars.append(characters[2]);
 
-//        txtRandom_1.setText(characters[0]);
-//        txtRandom_2.setText(characters[1]);
-//        txtRandom_3.setText(characters[2]);
         rBtnconsonent.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             triggerForConsonent(newValue);
         });

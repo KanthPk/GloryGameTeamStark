@@ -424,7 +424,7 @@
             <Image url="@../resources/close.png" />
          </image>        
       </ImageView>
-      <ImageView fx:id="imgSearch" fitHeight="98.0" fitWidth="102.0" layoutX="29.0" layoutY="536.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: HAND;">
+      <ImageView fx:id="imgSearch" fitHeight="98.0" fitWidth="102.0" layoutX="29.0" layoutY="536.0" onMousePressed="#imgSearch" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: HAND;">
          <image>
             <Image url="@../resources/icons/search.png" />
          </image>
