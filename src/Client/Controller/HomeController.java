@@ -191,9 +191,10 @@ public class HomeController implements Initializable {
     private void closeApplication() {
         if (!ConstantElement.isDisableBtnPlay && !ConstantElement.isPopedUp) {            
             Platform.exit();
-            ServerCall.Logout(ConstantElement.GlobalUserName, ConstantElement.GlobalPassowrd);
-            ServerCall.leaveGroup(ConstantElement.GroupName, ConstantElement.GlobalUserName);
-            ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
+              ServerCall.Logout(ConstantElement.GlobalUserName, ConstantElement.GroupName);
+              ServerCall.leaveGroup(ConstantElement.GroupName, ConstantElement.GlobalUserName);
+            //ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
+            
             System.exit(0);
         }
     }

@@ -253,8 +253,7 @@ public class MiddleTier {
             // open a connection to the site
             URL url = new URL("https://kanthpk.000webhostapp.com/leavegroup.php");
             URLConnection con = url.openConnection();
-            con.setDoOutput(true);
-            System.out.println("groupName" + groupName + "nickName" + nickName);
+            con.setDoOutput(true);           
             try (PrintStream ps = new PrintStream(con.getOutputStream())) {
                 ps.print("&groupname=" + groupName);
                 ps.print("&username=" + nickName);
@@ -389,5 +388,28 @@ public class MiddleTier {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+    }
+    public JSONArray getRoundScore(String groupName, String nickName) {
+        String[] scores = null;
+        System.out.println("     cou"+groupName+"nickName"+nickName);
+        JSONArray array = new JSONArray();
+        try {
+            URL oracle = new URL("https://kanthpk.000webhostapp.com/getScore.php");
+            URLConnection yc = oracle.openConnection();
+            yc.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(yc.getOutputStream())) {
+                    ps.print("&username=" + nickName);
+                    ps.print("&group=" + groupName);
+                    yc.getInputStream();
+                }
+                try (DataInputStream inStream = new DataInputStream(yc.getInputStream())) {
+                    JSONParser parser = new JSONParser();
+                array = (JSONArray) parser.parse(inStream.readLine());
+                }           
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return array;
+
     }
 }
