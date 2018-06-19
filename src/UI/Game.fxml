@@ -379,7 +379,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Label fx:id="lbl_Gllobal_User" alignment="CENTER" layoutX="1130.0" layoutY="130.0" prefHeight="35.0" prefWidth="172.0" text="AVATAR">
+      <Label fx:id="lbl_Gllobal_User" alignment="CENTER" layoutX="1136.0" layoutY="136.0" prefHeight="35.0" prefWidth="161.0" text="AVATAR">
          <font>
             <Font size="20.0" />
          </font>
@@ -387,7 +387,7 @@
             <DropShadow blurType="TWO_PASS_BOX" color="WHITE" spread="1.0" />
          </effect>
       </Label>
-      <Label alignment="CENTER" layoutX="1165.0" layoutY="165.0" prefHeight="28.0" prefWidth="102.0" text="ONLINE">
+      <Label alignment="CENTER" layoutX="1171.0" layoutY="171.0" prefHeight="30.0" prefWidth="94.0" text="ONLINE">
          <font>
             <Font size="20.0" />
          </font>
@@ -395,7 +395,7 @@
             <DropShadow blurType="ONE_PASS_BOX" color="#00ff5e" spread="1.0" />
          </effect>
       </Label>
-      <Label fx:id="lblTimer" alignment="CENTER" layoutX="27.0" layoutY="87.0" prefHeight="43.0" prefWidth="102.0" text="TIME">
+      <Label fx:id="lblTimer" layoutX="7.0" layoutY="77.0" prefHeight="43.0" prefWidth="150.0" text="00:00.000">
          <font>
             <Font size="27.0" />
          </font>
@@ -411,7 +411,7 @@
             <DropShadow blurType="ONE_PASS_BOX" color="WHITE" spread="1.0" />
          </effect>
       </Label>
-      <ImageView fx:id="userImageView1112" fitHeight="98.0" fitWidth="94.0" layoutX="1169.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="userImageView1112" fitHeight="109.0" fitWidth="118.0" layoutX="1167.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../resources/default.png" />
          </image>
@@ -419,7 +419,7 @@
             <DropShadow spread="0.56" />
          </effect>
       </ImageView>
-      <ImageView fitHeight="35.0" fitWidth="37.0" layoutX="10.0" layoutY="10.0" onMousePressed="#closeApplication" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: HAND;" styleClass="button">
+      <ImageView fitHeight="39.0" fitWidth="38.0" layoutX="7.0" layoutY="5.0" onMousePressed="#closeApplication" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: HAND;" styleClass="button">
          <image>
             <Image url="@../resources/close.png" />
          </image>        
@@ -648,20 +648,12 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="anchorScore" cacheShape="false" layoutX="414.0" layoutY="145.0" opacity="0.58" prefHeight="382.0" prefWidth="479.0" style="-fx-background-color: #FFA600;" styleClass="game-background" visible="false">
+      <AnchorPane fx:id="anchorScore" cacheShape="false" layoutX="414.0" layoutY="145.0" opacity="0.74" prefHeight="382.0" prefWidth="479.0" style="-fx-background-color: #656468;" visible="false">
          <effect>
             <DropShadow spread="0.34" />
          </effect>
          <children>
-            <Label fx:id="user_1_score" alignment="CENTER" layoutX="338.0" layoutY="124.0" prefHeight="28.0" prefWidth="94.0" style="-fx-background-color: #86CA0F;" text="25">
-               <font>
-                  <Font name="System Bold" size="21.0" />
-               </font>
-               <effect>
-                  <DropShadow blurType="ONE_PASS_BOX" color="WHITE" spread="1.0" />
-               </effect>
-            </Label>
-            <Label fx:id="score_round_label" alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="161.0" text="ROUND  -  1" underline="true">
+            <Label fx:id="user_1_score" alignment="CENTER" layoutX="338.0" layoutY="124.0" prefHeight="28.0" prefWidth="94.0" text="25">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
@@ -701,7 +693,7 @@
                   <DropShadow blurType="ONE_PASS_BOX" color="WHITE" spread="1.0" />
                </effect>
             </Label>
-            <Label fx:id="user_2_score" alignment="CENTER" layoutX="338.0" layoutY="169.0" prefHeight="28.0" prefWidth="94.0" style="-fx-background-color: #86CA0F;" text="25">
+            <Label fx:id="user_2_score" alignment="CENTER" layoutX="338.0" layoutY="169.0" prefHeight="28.0" prefWidth="94.0" text="25">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
@@ -709,7 +701,7 @@
                   <DropShadow blurType="ONE_PASS_BOX" color="WHITE" spread="1.0" />
                </effect>
             </Label>
-            <Label fx:id="user_3_score" alignment="CENTER" layoutX="338.0" layoutY="212.0" prefHeight="28.0" prefWidth="94.0" style="-fx-background-color: #86CA0F;" text="25">
+            <Label fx:id="user_3_score" alignment="CENTER" layoutX="338.0" layoutY="212.0" prefHeight="28.0" prefWidth="94.0" text="25">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
@@ -717,7 +709,7 @@
                   <DropShadow blurType="ONE_PASS_BOX" color="WHITE" spread="1.0" />
                </effect>
             </Label>
-            <Label fx:id="user_4_score" alignment="CENTER" layoutX="338.0" layoutY="257.0" prefHeight="28.0" prefWidth="94.0" style="-fx-background-color: #86CA0F;" text="25">
+            <Label fx:id="user_4_score" alignment="CENTER" layoutX="338.0" layoutY="257.0" prefHeight="28.0" prefWidth="94.0" text="25">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
