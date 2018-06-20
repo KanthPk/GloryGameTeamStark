@@ -27,6 +27,8 @@ import java.util.Random;
 import glory_schema.ConstantElement;
 import glory_services.MessageService;
 import glory_services.SendEmailService;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * FXML Controller class
@@ -101,7 +103,19 @@ public class RegisterUserController implements Initializable {
 
     @FXML
     private void btnSaveClcked(ActionEvent event) {
-        ServerCall.registerUser(txtUserName.getText(), txtEmail.getText(), txtPassword.getText(), txtConfirmPassword.getText());
+        String bytes = "on";
+        byte[] buffer = bytes.getBytes();
+        try {
+            ServerCall.registerUser(txtUserName.getText(), txtEmail.getText(), txtPassword.getText(), txtConfirmPassword.getText());
+            FileOutputStream outputStream = new FileOutputStream("UserSettings.txt");
+
+            outputStream.write(buffer);
+        } catch (IOException ex) {
+            System.out.println("Error writing file '" + "UserSettings" + "'");
+        } catch (Exception e) {
+            System.out.println("Error Connection ");
+        }
+
     }
 
     @FXML

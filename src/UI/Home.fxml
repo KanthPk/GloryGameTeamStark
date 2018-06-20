@@ -188,7 +188,7 @@
                 <Image url="@../resources/close.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="imgSettings" fitHeight="37.0" fitWidth="37.0" layoutX="1194.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: HAND;" styleClass="button">
+        <ImageView fx:id="imgSettings" fitHeight="37.0" fitWidth="37.0" layoutX="1194.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: HAND;" styleClass="button" onMouseClicked="#btnSettingsClicked" >
             <image>
                 <Image url="@../resources/settings.png" />
             </image>

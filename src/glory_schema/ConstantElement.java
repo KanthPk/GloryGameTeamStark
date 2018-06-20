@@ -4,6 +4,11 @@
  * and open the template in the editor.
  */
 package glory_schema;
+import java.io.File;
+import java.net.URI;
+import java.net.URL;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 //Team Stark
 public class ConstantElement {
@@ -43,6 +48,10 @@ public class ConstantElement {
 
     //deduct points
     public static final int StandardDeductPoints = 1;
+   
+    //The music palyer
+    public static MediaPlayer mediaPlayer;
+
 
     //length is 11
     public static final int ExtraPointsForWord = 8;
@@ -113,4 +122,12 @@ public class ConstantElement {
     public int getNo_of_players() {
         return this.no_of_players;
     }
+    
+    public static void player()
+    {     
+   String path = System.getProperty("user.home") + File.separator + "Documents"+File.separator + "GloryGameFiles"+File.separator+"MyLittleAdventure.mp3";
+  Media hit = new Media(new File(path).toURI().toString());
+    mediaPlayer = new MediaPlayer(hit);
+    }
+    
 }

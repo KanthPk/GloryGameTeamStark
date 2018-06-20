@@ -9,11 +9,15 @@ import Server.Controller.MiddleTier;
 import glory_schema.Bag;
 import glory_schema.ConstantElement;
 import glory_services.NavigationService;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;
@@ -47,9 +51,11 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -176,7 +182,39 @@ public class HomeController implements Initializable {
             t.setText(t.getText().replaceAll(".*[^0-9].*", "").toUpperCase());
             return t;
         }));
+	//Initialize Music      
+        ConstantElement.player();
+        ConstantElement.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+     Scanner file = null;
+       try {
+           file = new Scanner(new File("UserSettings.txt"));
+       } catch (FileNotFoundException ex) {
+
+        }   
+      while (file.hasNextLine()) {
+             String line = file.nextLine();
+               if (line.compareTo("on")== 0) {
+              ConstantElement.mediaPlayer.play();
+             }               else if (line.compareTo("off")== 0) {
+                ConstantElement.mediaPlayer.stop();
+              }                else {
+                  // StartMusicByDefault
+                String bytes = "on";
+       byte[] buffer = bytes.getBytes();
+      try {           
+          FileOutputStream outputStream = new FileOutputStream("UserSettings.txt");
+           outputStream.write(buffer);
+     } catch (IOException ex) {
+           System.out.println("Error writing file '" + "UserSettings" + "'");
+      } catch (Exception e) {
+           System.out.println("Error Connection ");
+        }
+               ConstantElement.mediaPlayer.play();
+              
+             }
+  }
     }
+
 
     public void getObject(ConstantElement login) {
         Const = login;
@@ -208,6 +246,28 @@ public class HomeController implements Initializable {
     @FXML
     private void imgSettingsOnPress(MouseEvent event) {
         System.out.println("Hello");
+    }
+    
+    @FXML
+    void btnSettingsClicked(MouseEvent event) {
+        
+        try {
+       AnchorPane layout;
+        Stage stage;
+                    layout = null;
+                    stage = null;
+                    layout = FXMLLoader.load(getClass().getResource("/UI/UserSettings.fxml"));
+                    stage = new Stage();
+                    stage.setScene(new Scene(layout));
+                    //if need it take it
+                    //service.makeFadeOut(root).play();
+                    stage.setResizable(false);
+                    stage.initStyle(StageStyle.UNDECORATED);
+                    stage.show();         
+           
+        } catch (IOException e) {
+        }
+
     }
 
     @FXML
