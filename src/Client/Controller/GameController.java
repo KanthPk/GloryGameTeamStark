@@ -989,44 +989,45 @@ public class GameController implements Initializable {
     @FXML
     void btnCreateClicked(ActionEvent event) {
         try {
+            if (!txtWordFIeld.getText().isEmpty()) {
+                //get score board            
+                //String[] myStringArray = new String[3];
+                String[] myStringArray = {"a", "p", "c", "P", "l", "l", "e"};
+                //String[] myStringArray = new String[]{"a","b","c"};
+                //basties code goes here
+                //just return a boolean and validate it
 
-            //get score board            
-            //String[] myStringArray = new String[3];
-            String[] myStringArray = {"a", "p", "c", "P", "l", "l", "e"};
-            //String[] myStringArray = new String[]{"a","b","c"};
-            //basties code goes here
-            //just return a boolean and validate it
+                //my codes goes after basties validation
+                //1 Para : round
+                //2 para : ture validate worded with proper validation
+                WordElement we = new WordElement();
+                boolean result = we.validateWord(txtWordFIeld.getText());
 
-            //my codes goes after basties validation
-            //1 Para : round
-            //2 para : ture validate worded with proper validation
-            WordElement we = new WordElement();
-            boolean result = we.validateWord(txtWordFIeld.getText());
+                //autogenerate,begin
+                String[] ary = getLetterArray();
+                for (int q = 0; q < 11; q++) {
+                    System.out.println(ary[q]);
 
-            //autogenerate,begin
-            String[] ary = getLetterArray();
-            for (int q = 0; q < 11; q++) {
-                System.out.println(ary[q]);
-
-            }
-            //dummy location
-            /*WordAutoGenerate v = new WordAutoGenerate(ary);
+                }
+                //dummy location
+                /*WordAutoGenerate v = new WordAutoGenerate(ary);
             v.Autogenerator();
             System.out.println("Autogenrate word" + v.getLongestWord());
             //end  
-             */
-            if (result == true) {
-                System.out.println("this is a word");
-                int test = roundScoreService.getScoreFromEachRound(1, txtWordFIeld.getText());
-                txtScore.setText(Integer.toString(test));
+                 */
+                if (result == true) {
+                    System.out.println("this is a word");
+                    int test = roundScoreService.getScoreFromEachRound(1, txtWordFIeld.getText());
+                    txtScore.setText(Integer.toString(test));
 
-            } else {
-                System.out.println("this is not a word");
-                serviceValidater.validateConditionErrors("INVALID", "Invalid Longest English Word", false, false, true, false, false);
+                } else {
+                    System.out.println("this is not a word");
+                    serviceValidater.validateConditionErrors("INVALID", "Invalid Longest English Word", false, false, true, false, false);
+                }
+
+                //int test = roundScoreService.getScoreFromEachRound(1, txtWordFIeld.getText());
+                //txtScore.setText(Integer.toString(test));
             }
-
-            //int test = roundScoreService.getScoreFromEachRound(1, txtWordFIeld.getText());
-            //txtScore.setText(Integer.toString(test));
         } catch (Exception e) {
             e.printStackTrace();
         }
