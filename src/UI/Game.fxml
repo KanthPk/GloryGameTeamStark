@@ -403,7 +403,7 @@
             <DropShadow blurType="ONE_PASS_BOX" color="WHITE" spread="1.0" />
          </effect>
       </Label>
-      <Label alignment="CENTER" layoutX="410.0" layoutY="14.0" prefHeight="43.0" prefWidth="429.0" text="ROUND  -  1">
+      <Label fx:id="roundid" alignment="CENTER" layoutX="410.0" layoutY="14.0" prefHeight="43.0" prefWidth="429.0" text="">
          <font>
             <Font size="27.0" />
          </font>

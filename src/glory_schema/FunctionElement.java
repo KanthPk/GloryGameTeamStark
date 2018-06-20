@@ -2,9 +2,18 @@ package glory_schema;
 
 /**
  *
- * @author AshanPerera
+ * @TeamStark
  */
 
-public class FunctionElement extends GloryElement {
+public class FunctionElement {
+    protected int totalScore=0; 
+    public int getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(int totalScore) {
+        this.totalScore = this.totalScore+totalScore;
+    }
+
     
 }

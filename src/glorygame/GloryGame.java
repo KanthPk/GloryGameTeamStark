@@ -17,7 +17,7 @@ import javafx.stage.StageStyle;
 
 /**
  *
- * @author AshanPerera
+ * @author TeamStark
  */
 public class GloryGame extends Application {
 

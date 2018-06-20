@@ -9,6 +9,7 @@ import Server.Controller.MiddleTier;
 import animation.TransitionService;
 import glory_schema.Bag;
 import glory_schema.ConstantElement;
+import glory_schema.FunctionElement;
 import glory_schema.WordElement;
 import glory_services.RoundScoreService;
 import glory_services.ValidatorService;
@@ -57,6 +58,7 @@ public class GameController implements Initializable {
 
     ConstantElement Const;
     MiddleTier ServerCall = new MiddleTier();
+    FunctionElement scoreObj;
     @FXML
     private AnchorPane root;
 
@@ -214,6 +216,10 @@ public class GameController implements Initializable {
     @FXML
     private AnchorPane anchorScore;
 
+    @FXML
+    private Label roundid;
+
+    public int roundVal = 1;
     StringBuffer globalSubChars;
     private Bag bag;
     public boolean verifyInputFromBagForVovel;
@@ -238,6 +244,7 @@ public class GameController implements Initializable {
     public GameController() {
         bag = new Bag();
         serviceValidater = new ValidatorService();
+        scoreObj = new FunctionElement();
         characters = new String[11];
         transitionService = new TransitionService();
         globalSubChars = new StringBuffer();
@@ -274,50 +281,7 @@ public class GameController implements Initializable {
 
         //praveen
         //Save the Initial Number into Databse
-        ServerCall.DisplayInitialLetter(ConstantElement.GlobalUserName, txtRandom_1.getText(), txtRandom_2.getText(), txtRandom_3.getText());
-        System.out.println("                         " + ConstantElement.GlobalUserName);
-
-        try {
-            users = new ArrayList<String>();
-            JSONArray array = ServerCall.getLetter(ConstantElement.GroupName);
-            int n = array.size();
-            if (!array.isEmpty()) {
-                for (int i = 0; i < n; i++) {
-                    JSONObject userJsonObjects = (JSONObject) array.get(i);
-                    String user = (String) userJsonObjects.get("UserId");
-                    String Letter1 = (String) userJsonObjects.get("Letter1");
-                    String Letter2 = (String) userJsonObjects.get("Letter2");
-                    String Letter3 = (String) userJsonObjects.get("Letter3");
-
-                    if (user.equals(ConstantElement.GlobalUserName)) {
-                        lbl_Gllobal_User.setText(ConstantElement.GlobalUserName);
-                        txtRandom_1.setText(Letter1);
-                        txtRandom_2.setText(Letter2);
-                        txtRandom_3.setText(Letter3);
-                    } else {
-                        if (!user.equals(ConstantElement.GlobalUserName)) {
-                            if (user_1_txt_1.getText().isEmpty() && user_1_txt_2.getText().isEmpty() && user_1_txt_3.getText().isEmpty()) {
-                                lbl_live_user_1.setText(user);
-                                user_1_txt_1.setText(Letter1);
-                                user_1_txt_2.setText(Letter2);
-                                user_1_txt_3.setText(Letter3);
-                            } else if (user_2_txt_1.getText().isEmpty() && user_2_txt_2.getText().isEmpty() && user_2_txt_3.getText().isEmpty()) {
-                                lbl_live_user_2.setText(user);
-                                user_2_txt_1.setText(Letter1);
-                                user_2_txt_2.setText(Letter2);
-                                user_2_txt_3.setText(Letter3);
-                            } else if (user_3_txt_1.getText().isEmpty() && user_3_txt_2.getText().isEmpty() && user_3_txt_3.getText().isEmpty()) {
-                                lbl_live_user_3.setText(user);
-                                user_3_txt_1.setText(Letter1);
-                                user_3_txt_2.setText(Letter2);
-                                user_3_txt_3.setText(Letter3);
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (Exception s) {
-        }
+        getIntialLetter();
 
         liveStopWatch();
 
@@ -475,13 +439,22 @@ public class GameController implements Initializable {
             }
         });
 
-        btnNextRound.setOnAction(event -> {
+        btnNextRound.setOnAction(event -> {           
             UUID uuid = UUID.randomUUID();
-            String randomUUIDString = uuid.toString();                        
-            ServerCall.setRound(ConstantElement.GroupName, ConstantElement.GlobalUserName, randomUUIDString, txtScore.getText().toString(),"1");          
+            String randomUUIDString = uuid.toString();
+            System.out.println("12121");
+            scoreObj.setTotalScore(Integer.valueOf(txtScore.getText()));
+            ServerCall.setRound(ConstantElement.GroupName, ConstantElement.GlobalUserName, randomUUIDString, txtScore.getText().toString(),Integer.toString(roundVal));          
             ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
             setScore();
-            System.out.println("Hello world");
+            roundVal = roundVal+1;
+            System.out.println("22222");
+            roundid.setText(Integer.toString(roundVal));
+            clearFields();
+            setInitialLetter();
+            getIntialLetter();
+            System.out.println("33333");
+            System.out.println("Hello world"+Integer.toString(scoreObj.getTotalScore()));
         });
     }
 
@@ -1138,57 +1111,137 @@ public class GameController implements Initializable {
     }
     
     public void setScore()
-    {    
-     
-           
-    int count = 0;
-    JSONObject userJsonObjects = null;
-    ArrayList<String> score = new ArrayList<String>();
-    try {      
-        //temporary clearing need to remove text in game fxml,begin
-        user_2.setText("");
-        user_3.setText("");
-        user_4.setText("");
-        user_2_score.setText("");
-        user_3_score.setText("");
-        user_4_score.setText("");   
-        //end
-            JSONArray array = ServerCall.getRoundScore(ConstantElement.GroupName, ConstantElement.GlobalUserName,"1");
+    {   
+        
+        int count = 0;
+        JSONObject userJsonObjects = null;
+        ArrayList<String> score = new ArrayList<String>();
+        try {
+            //temporary clearing need to remove text in game fxml,begin
+            user_2.setText("");
+            user_3.setText("");
+            user_4.setText("");
+            user_2_score.setText("");
+            user_3_score.setText("");
+            user_4_score.setText("");
+            //end
+            JSONArray array = ServerCall.getRoundScore(ConstantElement.GroupName, ConstantElement.GlobalUserName, Integer.toString(roundVal));
             count = array.size();
-            System.out.println("sssssssssssssss"+count);
+            System.out.println("number of rows in server table" + count);
             if (!array.isEmpty()) {
                 for (int i = 0; i < count; i++) {
                     userJsonObjects = (JSONObject) array.get(i);
                     String UserName = (String) userJsonObjects.get("UserId");
                     String Scoren = (String) userJsonObjects.get("Score");
                     String Level = (String) userJsonObjects.get("Level");
-                      if (UserName.equals(ConstantElement.GlobalUserName)) {
+                    if (UserName.equals(ConstantElement.GlobalUserName)) {
                         lbl_live_user_1.setText(ConstantElement.GlobalUserName);
                         user_1.setText(UserName);
                         user_1_score.setText(Scoren);
-                      
+
                     } else {
                         if (!UserName.equals(ConstantElement.GlobalUserName)) {
                             if (user_2.getText().isEmpty() && user_2_score.getText().isEmpty()) {
-                                 user_2.setText(UserName);
-                                 user_2_score.setText(Scoren);                               
+                                user_2.setText(UserName);
+                                user_2_score.setText(Scoren);
                             } else if (user_3.getText().isEmpty() && user_3_score.getText().isEmpty()) {
-                                 user_3.setText(UserName);
-                                 user_3_score.setText(Scoren);
+                                user_3.setText(UserName);
+                                user_3_score.setText(Scoren);
                             } else if (user_4.getText().isEmpty() && user_4_score.getText().isEmpty()) {
-                                 user_4.setText(UserName);
-                                 user_4_score.setText(Scoren);
+                                user_4.setText(UserName);
+                                user_4_score.setText(Scoren);
                             }
                         }
                     }
-                }  
-            }
-                for (String scores : score) {
-                    System.out.println("score"+scores);
-                }
-            
+                }               
+            }           
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    public void setInitialLetter() {
+        try {
+            characters[0] = Character.toString(bag.randomGen());
+            characters[1] = Character.toString(bag.randomGen());
+            characters[2] = Character.toString(bag.randomGen());
+            ServerCall.setInitialLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName,
+                                    characters[0], characters[1],
+                                    characters[2]);
+        } catch (Exception ex) {
+        }
+    }
+    public void getIntialLetter() {
+        
+        //ServerCall.DisplayInitialLetter(ConstantElement.GlobalUserName, txtRandom_1.getText(), txtRandom_2.getText(), txtRandom_3.getText());
+        //System.out.println("                         " + ConstantElement.GlobalUserName);
+
+        try {
+            roundid.setText(Integer.toString(roundVal));
+            users = new ArrayList<String>();
+            JSONArray array = ServerCall.getLetter(ConstantElement.GroupName);
+            int n = array.size();
+            if (!array.isEmpty()) {
+                for (int i = 0; i < n; i++) {
+                    JSONObject userJsonObjects = (JSONObject) array.get(i);
+                    String user = (String) userJsonObjects.get("UserId");
+                    String Letter1 = (String) userJsonObjects.get("Letter1");
+                    String Letter2 = (String) userJsonObjects.get("Letter2");
+                    String Letter3 = (String) userJsonObjects.get("Letter3");
+
+                    if (user.equals(ConstantElement.GlobalUserName)) {
+                        lbl_Gllobal_User.setText(ConstantElement.GlobalUserName);
+                        txtRandom_1.setText(Letter1);
+                        txtRandom_2.setText(Letter2);
+                        txtRandom_3.setText(Letter3);
+                    } else {
+                        if (!user.equals(ConstantElement.GlobalUserName)) {
+                            if (user_1_txt_1.getText().isEmpty() && user_1_txt_2.getText().isEmpty() && user_1_txt_3.getText().isEmpty()) {
+                                lbl_live_user_1.setText(user);
+                                user_1_txt_1.setText(Letter1);
+                                user_1_txt_2.setText(Letter2);
+                                user_1_txt_3.setText(Letter3);
+                            } else if (user_2_txt_1.getText().isEmpty() && user_2_txt_2.getText().isEmpty() && user_2_txt_3.getText().isEmpty()) {
+                                lbl_live_user_2.setText(user);
+                                user_2_txt_1.setText(Letter1);
+                                user_2_txt_2.setText(Letter2);
+                                user_2_txt_3.setText(Letter3);
+                            } else if (user_3_txt_1.getText().isEmpty() && user_3_txt_2.getText().isEmpty() && user_3_txt_3.getText().isEmpty()) {
+                                lbl_live_user_3.setText(user);
+                                user_3_txt_1.setText(Letter1);
+                                user_3_txt_2.setText(Letter2);
+                                user_3_txt_3.setText(Letter3);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception s) {
+        }
+    }       
+   public void clearFields()
+   {   
+        lbl_Gllobal_User.setText("");
+        lbl_live_user_1.setText("");
+        lbl_live_user_2.setText("");
+        lbl_live_user_3.setText("");
+        txt_1.setText("");
+        txt_2.setText("");
+        txt_3.setText("");
+        txt_4.setText("");
+        txt_5.setText("");
+        txt_6.setText("");
+        txt_7.setText("");
+        txt_8.setText("");
+        user_1_txt_2.setText("");
+        user_1_txt_1.setText("");
+        user_1_txt_3.setText("");
+        user_2_txt_2.setText("");
+        user_2_txt_1.setText("");
+        user_2_txt_3.setText("");
+        user_3_txt_1.setText("");          
+        user_3_txt_2.setText("");          
+        user_3_txt_3.setText("");          
+        txtWordFIeld.setText("");
+        txtScore.setText("0");        
+   }
 }
