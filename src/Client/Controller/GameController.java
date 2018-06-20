@@ -1139,10 +1139,20 @@ public class GameController implements Initializable {
     
     public void setScore()
     {    
+     
+           
     int count = 0;
     JSONObject userJsonObjects = null;
     ArrayList<String> score = new ArrayList<String>();
-    try {           
+    try {      
+        //temporary clearing need to remove text in game fxml,begin
+        user_2.setText("");
+        user_3.setText("");
+        user_4.setText("");
+        user_2_score.setText("");
+        user_3_score.setText("");
+        user_4_score.setText("");   
+        //end
             JSONArray array = ServerCall.getRoundScore(ConstantElement.GroupName, ConstantElement.GlobalUserName,"1");
             count = array.size();
             System.out.println("sssssssssssssss"+count);
