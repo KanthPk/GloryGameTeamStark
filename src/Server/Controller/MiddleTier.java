@@ -413,4 +413,74 @@ public class MiddleTier {
         return array;
 
     }
+    
+    public void setGlobalScore( String nickName,String groupName,String Score) {
+        String inputLine = null;
+        try {
+            //save the data
+            // open a connection to the site
+            URL url = new URL("https://kanthpk.000webhostapp.com/setGlobalScore.php");
+            URLConnection con = url.openConnection();
+            con.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(con.getOutputStream())) {
+                ps.print("&GroupName=" + groupName);
+                ps.print("&UserName=" + nickName);
+                ps.print("&score=" + Score);
+                con.getInputStream();
+                try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
+                    inputLine = inStream.readLine();
+                }
+            }
+            //getGroup();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    public JSONArray getTotalScore() {
+        String[] scores = null;
+        JSONArray array = new JSONArray();
+        try {
+            URL oracle = new URL("https://kanthpk.000webhostapp.com/getTotalScore.php");
+            URLConnection yc = oracle.openConnection();
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(
+                    yc.getInputStream()))) {
+                JSONParser parser = new JSONParser();
+                array = (JSONArray) parser.parse(in.readLine());
+                int n = array.size();
+                for (int i = 0; i < n; i++) {
+                    // GET INDIVIDUAL JSON OBJECT FROM JSON ARRAY
+                    JSONObject jo = (JSONObject) array.get(i);
+                    String GroupName = (String) jo.get("GroupName");
+                    String UserName = (String) jo.get("User");
+                    //System.out.println("outputyss"+GroupName+UserName+Players);                
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return array;
+    }
+    public void updateGlobalScore(String groupName, String nickName, String Score) {
+        String inputLine = null;
+        try {
+            //save the data
+            // open a connection to the site
+            URL url = new URL("https://kanthpk.000webhostapp.com/updateScore.php");
+            URLConnection con = url.openConnection();
+            con.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(con.getOutputStream())) {
+                ps.print("&GroupName=" + groupName);
+                ps.print("&UserName=" + nickName);
+                ps.print("&score=" + Score);
+                con.getInputStream();
+                try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
+                    inputLine = inStream.readLine();
+                }
+            }
+            //getGroup();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
 }

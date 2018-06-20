@@ -218,7 +218,12 @@ public class GameController implements Initializable {
 
     @FXML
     private Label roundid;
-
+    @FXML
+    private Label user_1_global;
+    @FXML
+    private Label user_2_global;
+    @FXML
+    private Label user_3_global;
     public int roundVal = 1;
     StringBuffer globalSubChars;
     private Bag bag;
@@ -248,7 +253,7 @@ public class GameController implements Initializable {
         characters = new String[11];
         transitionService = new TransitionService();
         globalSubChars = new StringBuffer();
-
+        ServerCall.setGlobalScore(ConstantElement.GlobalUserName,ConstantElement.GroupName,Integer.toString(scoreObj.getTotalScore()));       
     }
 
     /////PRAVEEN
@@ -441,19 +446,18 @@ public class GameController implements Initializable {
 
         btnNextRound.setOnAction(event -> {           
             UUID uuid = UUID.randomUUID();
-            String randomUUIDString = uuid.toString();
-            System.out.println("12121");
+            String randomUUIDString = uuid.toString();          
             scoreObj.setTotalScore(Integer.valueOf(txtScore.getText()));
+            ServerCall.updateGlobalScore(ConstantElement.GroupName, ConstantElement.GlobalUserName,Integer.toString(scoreObj.getTotalScore()));
             ServerCall.setRound(ConstantElement.GroupName, ConstantElement.GlobalUserName, randomUUIDString, txtScore.getText().toString(),Integer.toString(roundVal));          
             ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
             setScore();
-            roundVal = roundVal+1;
-            System.out.println("22222");
+            roundVal = roundVal+1;           
             roundid.setText(Integer.toString(roundVal));
             clearFields();
             setInitialLetter();
-            getIntialLetter();
-            System.out.println("33333");
+            getIntialLetter(); 
+            getTotalScore();
             System.out.println("Hello world"+Integer.toString(scoreObj.getTotalScore()));
         });
     }
@@ -1174,7 +1178,7 @@ public class GameController implements Initializable {
         
         //ServerCall.DisplayInitialLetter(ConstantElement.GlobalUserName, txtRandom_1.getText(), txtRandom_2.getText(), txtRandom_3.getText());
         //System.out.println("                         " + ConstantElement.GlobalUserName);
-
+        
         try {
             roundid.setText(Integer.toString(roundVal));
             users = new ArrayList<String>();
@@ -1224,6 +1228,9 @@ public class GameController implements Initializable {
         lbl_live_user_1.setText("");
         lbl_live_user_2.setText("");
         lbl_live_user_3.setText("");
+        user_1_global.setText("");
+        user_2_global.setText("");
+        user_3_global.setText("");
         txt_1.setText("");
         txt_2.setText("");
         txt_3.setText("");
@@ -1238,10 +1245,49 @@ public class GameController implements Initializable {
         user_2_txt_2.setText("");
         user_2_txt_1.setText("");
         user_2_txt_3.setText("");
-        user_3_txt_1.setText("");          
-        user_3_txt_2.setText("");          
-        user_3_txt_3.setText("");          
+        user_3_txt_1.setText("");
+        user_3_txt_2.setText("");
+        user_3_txt_3.setText("");
         txtWordFIeld.setText("");
-        txtScore.setText("0");        
-   }
+        txtScore.setText("0");
+    }
+
+    public void getTotalScore() {
+        try {
+            System.out.println("i came 1");
+            roundid.setText(Integer.toString(roundVal));
+            users = new ArrayList<String>();
+            JSONArray array = ServerCall.getTotalScore();
+            int n = array.size();
+            if (!array.isEmpty()) {
+                for (int i = 0; i < n; i++) {
+                    System.out.println("2 came ");
+                    JSONObject userJsonObjects = (JSONObject) array.get(i);
+                    String user = (String) userJsonObjects.get("User");
+                    String Score = (String) userJsonObjects.get("Score");
+                    System.out.println("User of score table"+user);
+                    if (user.equals(ConstantElement.GlobalUserName)) {
+                        /*lbl_Gllobal_User.setText(ConstantElement.GlobalUserName);
+                        txtRandom_1.setText(Letter1);
+                        txtRandom_2.setText(Letter2);
+                        txtRandom_3.setText(Letter3);*/
+                        System.out.println(" System.out.println(\"2 came \");");
+                    } else {
+                        if (!user.equals(ConstantElement.GlobalUserName)) {
+                            System.out.println("3 came "+lbl_live_user_1.getText());
+                            if (user_1_global.getText().isEmpty() && user.equals(lbl_live_user_1.getText())) {                              
+                                    System.out.println("4 came ");
+                                    user_1_global.setText(Score);                               
+                            }else if (user_2_global.getText().isEmpty() && user.equals(lbl_live_user_2.getText())) {                                
+                                    user_2_global.setText(Score);                               
+                            } else if (user_3_global.getText().isEmpty() && user.equals(lbl_live_user_3.getText())) {                                
+                                    user_3_global.setText(Score);                               
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception s) {
+        }
+    }
 }
