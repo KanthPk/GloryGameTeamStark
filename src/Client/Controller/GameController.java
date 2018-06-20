@@ -6,6 +6,7 @@
 package Client.Controller;
 
 import Server.Controller.MiddleTier;
+import Threads.GamePause;
 import animation.TransitionService;
 import glory_schema.Bag;
 import glory_schema.ConstantElement;
@@ -242,6 +243,13 @@ public class GameController implements Initializable {
     java.time.Duration pausedAfter;
     Timeline clock = null;
     Task progressThread;
+    private String fireScoreScreen;
+
+    long elapsed;
+    long ms;
+    long s;
+    long m;
+    long h;
 
     /**
      * Initializes the controller class.
@@ -253,7 +261,7 @@ public class GameController implements Initializable {
         characters = new String[11];
         transitionService = new TransitionService();
         globalSubChars = new StringBuffer();
-        ServerCall.setGlobalScore(ConstantElement.GlobalUserName,ConstantElement.GroupName,Integer.toString(scoreObj.getTotalScore()));       
+        ServerCall.setGlobalScore(ConstantElement.GlobalUserName, ConstantElement.GroupName, Integer.toString(scoreObj.getTotalScore()));
     }
 
     /////PRAVEEN
@@ -408,57 +416,51 @@ public class GameController implements Initializable {
             }
         });
 
+        /////Ashan
         btnPause.setOnAction(event -> {
-            transitionService.MakeFadeIn(subCheckBoxAncher).play();
-            subCheckBoxAncher.setVisible(true);
-            ConstantElement.isPause = true;
-            checkBoxForPuaseSwap.setVisible(true);
-            checkBoxForPuaseSwap.setDisable(false);
-            transitionService.MakeFadeIn(ancherPause).play();
+            transitionService.MakeFadeInLiveGame(subCheckBoxAncher).play();
             ancherPause.setVisible(true);
-            setDynamicCheckBox("pause");
-            //praveens part 
-            //shoould return all data to server
-            //and stop the game
+            ConstantElement.isPause = true;
+            clock.stop();
+            GamePause gamepause = new GamePause();
+            Thread thread_pause = new Thread(gamepause);
+            thread_pause.run();
         });
 
+        /////Ashan
         checkBoxForPuaseSwap.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue) {
-                if (!ConstantElement.isPause) {
-                    ConstantElement.isSwap = true;
-                    txtRandom_1.setVisible(false);
-                    txtRandom_2.setVisible(false);
-                    txtRandom_3.setVisible(false);
-                    txtWordFIeld.setVisible(false);
-                    btnCreate.setVisible(false);
-                }
+                ConstantElement.isSwap = true;
+                txtRandom_1.setVisible(false);
+                txtRandom_2.setVisible(false);
+                txtRandom_3.setVisible(false);
+                txtWordFIeld.setVisible(false);
+                btnCreate.setVisible(false);
             } else if (!newValue) {
-                if (ConstantElement.isPause) {
-                    ConstantElement.isSwap = false;
-                    txtRandom_1.setVisible(true);
-                    txtRandom_2.setVisible(true);
-                    txtRandom_3.setVisible(true);
-                    txtWordFIeld.setVisible(true);
-                    btnCreate.setVisible(true);
-                }
+                ConstantElement.isSwap = false;
+                txtRandom_1.setVisible(true);
+                txtRandom_2.setVisible(true);
+                txtRandom_3.setVisible(true);
+                txtWordFIeld.setVisible(true);
+                btnCreate.setVisible(true);
             }
         });
 
-        btnNextRound.setOnAction(event -> {           
+        btnNextRound.setOnAction(event -> {
             UUID uuid = UUID.randomUUID();
-            String randomUUIDString = uuid.toString();          
+            String randomUUIDString = uuid.toString();
             scoreObj.setTotalScore(Integer.valueOf(txtScore.getText()));
-            ServerCall.updateGlobalScore(ConstantElement.GroupName, ConstantElement.GlobalUserName,Integer.toString(scoreObj.getTotalScore()));
-            ServerCall.setRound(ConstantElement.GroupName, ConstantElement.GlobalUserName, randomUUIDString, txtScore.getText().toString(),Integer.toString(roundVal));          
+            ServerCall.updateGlobalScore(ConstantElement.GroupName, ConstantElement.GlobalUserName, Integer.toString(scoreObj.getTotalScore()));
+            ServerCall.setRound(ConstantElement.GroupName, ConstantElement.GlobalUserName, randomUUIDString, txtScore.getText().toString(), Integer.toString(roundVal));
             ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
             setScore();
-            roundVal = roundVal+1;           
+            roundVal = roundVal + 1;
             roundid.setText(Integer.toString(roundVal));
             clearFields();
             setInitialLetter();
-            getIntialLetter(); 
+            getIntialLetter();
             getTotalScore();
-            System.out.println("Hello world"+Integer.toString(scoreObj.getTotalScore()));
+            System.out.println("Hello world" + Integer.toString(scoreObj.getTotalScore()));
         });
     }
 
@@ -476,8 +478,8 @@ public class GameController implements Initializable {
     @FXML
     void closeApplication(MouseEvent event) {
         Platform.exit();
-        ServerCall.Logout(ConstantElement.GroupName,ConstantElement.GlobalUserName);
-        ServerCall.leaveGroup(ConstantElement.GroupName,ConstantElement.GlobalUserName);
+        ServerCall.Logout(ConstantElement.GroupName, ConstantElement.GlobalUserName);
+        ServerCall.leaveGroup(ConstantElement.GroupName, ConstantElement.GlobalUserName);
         ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
         System.exit(0);
     }
@@ -754,8 +756,9 @@ public class GameController implements Initializable {
         }
     }
 
+    /////Ashan
     @FXML
-    void mousePressedOnCharFields(MouseEvent event) {
+    private void mousePressedOnCharFields(MouseEvent event) {
         txtWordFIeld.setStyle("-fx-border-color: BLACK;");
         if (txtRandom_1.isPressed()) {
             txtRandom_1.setDisable(true);
@@ -781,7 +784,9 @@ public class GameController implements Initializable {
                     txt_1.setText(Character.toString(bag.takeConsonentsDinamiically()));
                     commonBehaviour("Constant");
                     commonBehaviour("avoidConstAndVowel");
-                } else if ((ConstantElement.isValidToDisableCharFieldsInVowel && ConstantElement.isValidToDisableCharFieldsInConst)) {
+                }
+            } else if (!ConstantElement.isSwap) {
+                if (!ConstantElement.isSwap || (ConstantElement.isValidToDisableCharFieldsInVowel && ConstantElement.isValidToDisableCharFieldsInConst)) {
                     txt_1.setDisable(true);
                     txtWordFIeld.setText(txtWordFIeld.getText() + txt_1.getText());
                 }
@@ -801,7 +806,9 @@ public class GameController implements Initializable {
                     txt_2.setText(Character.toString(bag.takeConsonentsDinamiically()));
                     commonBehaviour("Constant");
                     commonBehaviour("avoidConstAndVowel");
-                } else if ((ConstantElement.isValidToDisableCharFieldsInVowel && ConstantElement.isValidToDisableCharFieldsInConst)) {
+                }
+            } else if (!ConstantElement.isSwap) {
+                if (!ConstantElement.isSwap || (ConstantElement.isValidToDisableCharFieldsInVowel && ConstantElement.isValidToDisableCharFieldsInConst)) {
                     txt_2.setDisable(true);
                     txtWordFIeld.setText(txtWordFIeld.getText() + txt_2.getText());
                 }
@@ -821,7 +828,9 @@ public class GameController implements Initializable {
                     txt_3.setText(Character.toString(bag.takeConsonentsDinamiically()));
                     commonBehaviour("Constant");
                     commonBehaviour("avoidConstAndVowel");
-                } else if ((ConstantElement.isValidToDisableCharFieldsInVowel && ConstantElement.isValidToDisableCharFieldsInConst)) {
+                }
+            } else if (!ConstantElement.isSwap) {
+                if (!ConstantElement.isSwap || (ConstantElement.isValidToDisableCharFieldsInVowel && ConstantElement.isValidToDisableCharFieldsInConst)) {
                     txt_3.setDisable(true);
                     txtWordFIeld.setText(txtWordFIeld.getText() + txt_3.getText());
                 }
@@ -841,7 +850,9 @@ public class GameController implements Initializable {
                     txt_4.setText(Character.toString(bag.takeConsonentsDinamiically()));
                     commonBehaviour("Constant");
                     commonBehaviour("avoidConstAndVowel");
-                } else if ((ConstantElement.isValidToDisableCharFieldsInVowel && ConstantElement.isValidToDisableCharFieldsInConst)) {
+                }
+            } else if (!ConstantElement.isSwap) {
+                if (!ConstantElement.isSwap || (ConstantElement.isValidToDisableCharFieldsInVowel && ConstantElement.isValidToDisableCharFieldsInConst)) {
                     txt_4.setDisable(true);
                     txtWordFIeld.setText(txtWordFIeld.getText() + txt_4.getText());
                 }
@@ -861,7 +872,9 @@ public class GameController implements Initializable {
                     txt_5.setText(Character.toString(bag.takeConsonentsDinamiically()));
                     commonBehaviour("Constant");
                     commonBehaviour("avoidConstAndVowel");
-                } else if ((ConstantElement.isValidToDisableCharFieldsInVowel && ConstantElement.isValidToDisableCharFieldsInConst)) {
+                }
+            } else if (!ConstantElement.isSwap) {
+                if (!ConstantElement.isSwap || (ConstantElement.isValidToDisableCharFieldsInVowel && ConstantElement.isValidToDisableCharFieldsInConst)) {
                     txt_5.setDisable(true);
                     txtWordFIeld.setText(txtWordFIeld.getText() + txt_5.getText());
                 }
@@ -881,7 +894,9 @@ public class GameController implements Initializable {
                     txt_6.setText(Character.toString(bag.takeConsonentsDinamiically()));
                     commonBehaviour("Constant");
                     commonBehaviour("avoidConstAndVowel");
-                } else if ((ConstantElement.isValidToDisableCharFieldsInVowel && ConstantElement.isValidToDisableCharFieldsInConst)) {
+                }
+            } else if (!ConstantElement.isSwap) {
+                if (!ConstantElement.isSwap || (ConstantElement.isValidToDisableCharFieldsInVowel && ConstantElement.isValidToDisableCharFieldsInConst)) {
                     txt_6.setDisable(true);
                     txtWordFIeld.setText(txtWordFIeld.getText() + txt_6.getText());
                 }
@@ -901,7 +916,9 @@ public class GameController implements Initializable {
                     txt_7.setText(Character.toString(bag.takeConsonentsDinamiically()));
                     commonBehaviour("Constant");
                     commonBehaviour("avoidConstAndVowel");
-                } else if ((ConstantElement.isValidToDisableCharFieldsInVowel && ConstantElement.isValidToDisableCharFieldsInConst)) {
+                }
+            } else if (!ConstantElement.isSwap) {
+                if (!ConstantElement.isSwap || (ConstantElement.isValidToDisableCharFieldsInVowel && ConstantElement.isValidToDisableCharFieldsInConst)) {
                     txt_7.setDisable(true);
                     txtWordFIeld.setText(txtWordFIeld.getText() + txt_7.getText());
                 }
@@ -921,7 +938,9 @@ public class GameController implements Initializable {
                     txt_8.setText(Character.toString(bag.takeConsonentsDinamiically()));
                     commonBehaviour("Constant");
                     commonBehaviour("avoidConstAndVowel");
-                } else if ((ConstantElement.isValidToDisableCharFieldsInVowel && ConstantElement.isValidToDisableCharFieldsInConst)) {
+                }
+            } else if (!ConstantElement.isSwap) {
+                if (!ConstantElement.isSwap || (ConstantElement.isValidToDisableCharFieldsInVowel && ConstantElement.isValidToDisableCharFieldsInConst)) {
                     txt_8.setDisable(true);
                     txtWordFIeld.setText(txtWordFIeld.getText() + txt_8.getText());
                 }
@@ -1040,31 +1059,26 @@ public class GameController implements Initializable {
         Const = val;
     }
 
+    /////Ashan     
     private void liveStopWatch() {
         startTime = Instant.now();
         clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            long elapsed = java.time.Duration.between(startTime, Instant.now()).toMillis();
-            long ms = elapsed;
-            long s = ms / 1000;
-            long m = s / 60;
-            long h = m / 60;
+            elapsed = java.time.Duration.between(startTime, Instant.now()).toMillis();
+            ms = elapsed;
+            s = ms / 1000;
+            m = s / 60;
+            h = m / 60;
             ms = ms % 1000;
 
             s = s % 60;
             m = m % 60;
 
-            String fireScoreScreen = String.format("%02d:%02d:%02d.%03d", h, m, s, ms);
+//          String fireScoreScreen = String.format("%02d:%02d:%02d.%03d", h, m, s, ms);
+            fireScoreScreen = String.format("%02d:%02d:%02d", h, m, s);
             lblTimer.setText("" + fireScoreScreen);
-//            System.out.println("" + fireScoreScreen);
-            if (s == 20) {  
-                clock.stop();                
-                transitionService.MakeFadeInLiveGame(anchorScore).play();
-                anchorScore.setVisible(true);
-                anchorScore.setDisable(false);
-//                if (anchorScore.isVisible()) {
-//                    setProgressToNextRound();
-//                }
-
+            if (s == 30) {
+                clock.stop();
+                setProgressToNextRound();
             }
         }),
                 new KeyFrame(Duration.millis(1))
@@ -1078,45 +1092,54 @@ public class GameController implements Initializable {
         return ary;
     }
 
-    public void setProgressToNextRound() {
+    /////Ashan
+    private void setProgressToNextRound() {
         try {
-//            progressThread = createWorker();
-//            progressThread.progressProperty();
-//            progressThread.messageProperty().addListener(new ChangeListener<String>() {
-//                @Override
-//                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-//                    System.out.println("Hello");
-//                }
-//
-//            });
-
             progressThread = createWorker();
             progressThread.run();
-            progressThread.messageProperty().addListener(listener -> {
-                System.out.println("Hello world");
-                //save
-            });
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    public Task createWorker() {
+    /////Ashan
+    private Task createWorker() {
         return new Task() {
             @Override
             protected Object call() throws Exception {
-                for (int i = 0; i < 30; i++) {
-                    Thread.sleep(400);
-                    updateMessage(i + "%");
-                    updateProgress(i + 10, 40);
-                }
+                anchorScore.setVisible(true);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        for (int i = 1; i <= 10; i++) {
+                            final int counter = i;
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (counter == 10) {
+                                        try {
+                                            System.out.println("" + counter);
+                                            Thread.sleep(5000);
+                                            anchorScore.setVisible(false);
+                                            clock.stop();
+                                            lblTimer.setText("00:00:00");
+                                            liveStopWatch();
+                                        } catch (InterruptedException ex) {
+                                            Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }).start();
                 return true;
             }
         };
     }
-    
-    public void setScore()
-    {   
-        
+
+    public void setScore() {
+
         int count = 0;
         JSONObject userJsonObjects = null;
         ArrayList<String> score = new ArrayList<String>();
@@ -1157,28 +1180,29 @@ public class GameController implements Initializable {
                             }
                         }
                     }
-                }               
-            }           
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     public void setInitialLetter() {
         try {
             characters[0] = Character.toString(bag.randomGen());
             characters[1] = Character.toString(bag.randomGen());
             characters[2] = Character.toString(bag.randomGen());
             ServerCall.setInitialLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName,
-                                    characters[0], characters[1],
-                                    characters[2]);
+                    characters[0], characters[1],
+                    characters[2]);
         } catch (Exception ex) {
         }
     }
+
     public void getIntialLetter() {
-        
+
         //ServerCall.DisplayInitialLetter(ConstantElement.GlobalUserName, txtRandom_1.getText(), txtRandom_2.getText(), txtRandom_3.getText());
         //System.out.println("                         " + ConstantElement.GlobalUserName);
-        
         try {
             roundid.setText(Integer.toString(roundVal));
             users = new ArrayList<String>();
@@ -1221,9 +1245,9 @@ public class GameController implements Initializable {
             }
         } catch (Exception s) {
         }
-    }       
-   public void clearFields()
-   {   
+    }
+
+    public void clearFields() {
         lbl_Gllobal_User.setText("");
         lbl_live_user_1.setText("");
         lbl_live_user_2.setText("");
@@ -1265,7 +1289,7 @@ public class GameController implements Initializable {
                     JSONObject userJsonObjects = (JSONObject) array.get(i);
                     String user = (String) userJsonObjects.get("User");
                     String Score = (String) userJsonObjects.get("Score");
-                    System.out.println("User of score table"+user);
+                    System.out.println("User of score table" + user);
                     if (user.equals(ConstantElement.GlobalUserName)) {
                         /*lbl_Gllobal_User.setText(ConstantElement.GlobalUserName);
                         txtRandom_1.setText(Letter1);
@@ -1274,14 +1298,14 @@ public class GameController implements Initializable {
                         System.out.println(" System.out.println(\"2 came \");");
                     } else {
                         if (!user.equals(ConstantElement.GlobalUserName)) {
-                            System.out.println("3 came "+lbl_live_user_1.getText());
-                            if (user_1_global.getText().isEmpty() && user.equals(lbl_live_user_1.getText())) {                              
-                                    System.out.println("4 came ");
-                                    user_1_global.setText(Score);                               
-                            }else if (user_2_global.getText().isEmpty() && user.equals(lbl_live_user_2.getText())) {                                
-                                    user_2_global.setText(Score);                               
-                            } else if (user_3_global.getText().isEmpty() && user.equals(lbl_live_user_3.getText())) {                                
-                                    user_3_global.setText(Score);                               
+                            System.out.println("3 came " + lbl_live_user_1.getText());
+                            if (user_1_global.getText().isEmpty() && user.equals(lbl_live_user_1.getText())) {
+                                System.out.println("4 came ");
+                                user_1_global.setText(Score);
+                            } else if (user_2_global.getText().isEmpty() && user.equals(lbl_live_user_2.getText())) {
+                                user_2_global.setText(Score);
+                            } else if (user_3_global.getText().isEmpty() && user.equals(lbl_live_user_3.getText())) {
+                                user_3_global.setText(Score);
                             }
                         }
                     }
@@ -1290,4 +1314,5 @@ public class GameController implements Initializable {
         } catch (Exception s) {
         }
     }
+
 }
