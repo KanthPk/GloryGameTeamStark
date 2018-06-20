@@ -478,9 +478,10 @@ public class GameController implements Initializable {
     @FXML
     void closeApplication(MouseEvent event) {
         Platform.exit();
-        ServerCall.Logout(ConstantElement.GroupName, ConstantElement.GlobalUserName);
+        ServerCall.Logout(ConstantElement.GlobalUserName,ConstantElement.GroupName);
         ServerCall.leaveGroup(ConstantElement.GroupName, ConstantElement.GlobalUserName);
         ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
+        ServerCall.deleteRound(ConstantElement.GroupName, ConstantElement.GlobalUserName);
         System.exit(0);
     }
 
@@ -1223,9 +1224,7 @@ public class GameController implements Initializable {
     }
 
     public void getIntialLetter() {
-
-        //ServerCall.DisplayInitialLetter(ConstantElement.GlobalUserName, txtRandom_1.getText(), txtRandom_2.getText(), txtRandom_3.getText());
-        //System.out.println("                         " + ConstantElement.GlobalUserName);
+       
         try {
             roundid.setText(Integer.toString(roundVal));
             users = new ArrayList<String>();

@@ -123,7 +123,7 @@ public class MiddleTier {
         }
 
     }
-
+/*Tobe Removec
     public void DisplayInitialLetter(String User, String letter_1, String letter_2, String letter_3) {
 
         String inputLine = null;
@@ -148,7 +148,7 @@ public class MiddleTier {
             System.err.println(e.getMessage());
         }
     }
-
+*/
     public void deleteLetter(String GroupName, String UserName) {
         String inputLine = null;
         try {
@@ -483,4 +483,28 @@ public class MiddleTier {
             System.err.println(e.getMessage());
         }
     }
+    
+    public void deleteRound(String GroupName, String UserName) {
+        String inputLine = null;
+        try {
+            //save the data
+            // open a connection to the site
+            URL url = new URL("https://kanthpk.000webhostapp.com/deleteRound.php");
+            URLConnection con = url.openConnection();
+            con.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(con.getOutputStream())) {
+                ps.print("&groupid=" + GroupName);
+                ps.print("&userid=" + UserName);
+                con.getInputStream();
+                try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
+                    inputLine = inStream.readLine();
+                }
+            }
+            //getGroup();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+    }
+    
 }
