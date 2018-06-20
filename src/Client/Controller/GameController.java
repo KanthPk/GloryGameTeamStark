@@ -446,22 +446,22 @@ public class GameController implements Initializable {
             }
         });
 
-        btnNextRound.setOnAction(event -> {
-            UUID uuid = UUID.randomUUID();
-            String randomUUIDString = uuid.toString();
-            scoreObj.setTotalScore(Integer.valueOf(txtScore.getText()));
-            ServerCall.updateGlobalScore(ConstantElement.GroupName, ConstantElement.GlobalUserName, Integer.toString(scoreObj.getTotalScore()));
-            ServerCall.setRound(ConstantElement.GroupName, ConstantElement.GlobalUserName, randomUUIDString, txtScore.getText().toString(), Integer.toString(roundVal));
-            ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
-            setScore();
-            roundVal = roundVal + 1;
-            roundid.setText(Integer.toString(roundVal));
-            clearFields();
-            setInitialLetter();
-            getIntialLetter();
-            getTotalScore();
-            System.out.println("Hello world" + Integer.toString(scoreObj.getTotalScore()));
-        });
+//        btnNextRound.setOnAction(event -> {
+//            UUID uuid = UUID.randomUUID();
+//            String randomUUIDString = uuid.toString();
+//            scoreObj.setTotalScore(Integer.valueOf(txtScore.getText()));
+//            ServerCall.updateGlobalScore(ConstantElement.GroupName, ConstantElement.GlobalUserName, Integer.toString(scoreObj.getTotalScore()));
+//            ServerCall.setRound(ConstantElement.GroupName, ConstantElement.GlobalUserName, randomUUIDString, txtScore.getText().toString(), Integer.toString(roundVal));
+//            ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
+//            setScore();
+//            roundVal = roundVal + 1;
+//            roundid.setText(Integer.toString(roundVal));
+//            clearFields();
+//            setInitialLetter();
+//            getIntialLetter();
+//            getTotalScore();
+//            System.out.println("Hello world" + Integer.toString(scoreObj.getTotalScore()));
+//        });
     }
 
     private void setDynamicCheckBox(String id) {
@@ -1103,12 +1103,34 @@ public class GameController implements Initializable {
         }
     }
 
+    private void saveScoreOfLivePlayers() {
+        try {
+            UUID uuid = UUID.randomUUID();
+            String randomUUIDString = uuid.toString();
+            scoreObj.setTotalScore(Integer.valueOf(txtScore.getText()));
+            ServerCall.updateGlobalScore(ConstantElement.GroupName, ConstantElement.GlobalUserName, Integer.toString(scoreObj.getTotalScore()));
+            ServerCall.setRound(ConstantElement.GroupName, ConstantElement.GlobalUserName, randomUUIDString, txtScore.getText().toString(), Integer.toString(roundVal));
+            ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
+            setScore();
+            roundVal = roundVal + 1;
+            roundid.setText(Integer.toString(roundVal));
+            clearFields();
+            setInitialLetter();
+            getIntialLetter();
+            getTotalScore();
+            System.out.println("Hello world" + Integer.toString(scoreObj.getTotalScore()));
+        } catch (Exception e) {
+        }
+    }
+
     /////Ashan
     private Task createWorker() {
         return new Task() {
             @Override
             protected Object call() throws Exception {
                 anchorScore.setVisible(true);
+                saveScoreOfLivePlayers();
+                imgBagView.setDisable(false);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
