@@ -83,7 +83,7 @@ byte[] buffer = bytes.getBytes();
 
 try{
 FileOutputStream outputStream =
-                new FileOutputStream("UserSettings.txt");
+                new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents"+File.separator + "GloryGameFiles"+File.separator+"UserSettings.txt");
 
 outputStream.write(buffer);
 }
@@ -104,7 +104,7 @@ byte[] buffer = bytes.getBytes();
 
 try{
 FileOutputStream outputStream =
-                new FileOutputStream("UserSettings.txt");
+                new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents"+File.separator + "GloryGameFiles"+File.separator+"UserSettings.txt");
 
 outputStream.write(buffer);
 }

@@ -27,6 +27,7 @@ import java.util.Random;
 import glory_schema.ConstantElement;
 import glory_services.MessageService;
 import glory_services.SendEmailService;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -107,7 +108,7 @@ public class RegisterUserController implements Initializable {
         byte[] buffer = bytes.getBytes();
         try {
             ServerCall.registerUser(txtUserName.getText(), txtEmail.getText(), txtPassword.getText(), txtConfirmPassword.getText());
-            FileOutputStream outputStream = new FileOutputStream("UserSettings.txt");
+            FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents"+File.separator + "GloryGameFiles"+File.separator+"UserSettings.txt");
 
             outputStream.write(buffer);
         } catch (IOException ex) {

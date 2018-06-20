@@ -52,6 +52,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -187,7 +188,7 @@ public class HomeController implements Initializable {
         ConstantElement.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
      Scanner file = null;
        try {
-           file = new Scanner(new File("UserSettings.txt"));
+        file = new Scanner(new File(System.getProperty("user.home") + File.separator + "Documents"+File.separator + "GloryGameFiles"+File.separator+"UserSettings.txt"));
        } catch (FileNotFoundException ex) {
 
         }   
@@ -195,14 +196,14 @@ public class HomeController implements Initializable {
              String line = file.nextLine();
                if (line.compareTo("on")== 0) {
               ConstantElement.mediaPlayer.play();
-             }               else if (line.compareTo("off")== 0) {
+             }    else if (line.compareTo("off")== 0) {
                 ConstantElement.mediaPlayer.stop();
               }                else {
                   // StartMusicByDefault
                 String bytes = "on";
        byte[] buffer = bytes.getBytes();
       try {           
-          FileOutputStream outputStream = new FileOutputStream("UserSettings.txt");
+          FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents"+File.separator + "GloryGameFiles"+File.separator+"UserSettings.txt");
            outputStream.write(buffer);
      } catch (IOException ex) {
            System.out.println("Error writing file '" + "UserSettings" + "'");
@@ -258,7 +259,7 @@ public class HomeController implements Initializable {
                     stage = null;
                     layout = FXMLLoader.load(getClass().getResource("/UI/UserSettings.fxml"));
                     stage = new Stage();
-                    stage.setScene(new Scene(layout));
+                    stage.setScene(new Scene(layout));                   
                     //if need it take it
                     //service.makeFadeOut(root).play();
                     stage.setResizable(false);
