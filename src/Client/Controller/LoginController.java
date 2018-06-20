@@ -5,7 +5,6 @@
  */
 package Client.Controller;
 
-
 import Server.Controller.MiddleTier;
 import animation.TransitionService;
 import glory_schema.ConstantElement;
@@ -38,7 +37,7 @@ import org.apache.commons.io.FileUtils;
 /**
  * FXML Controller class
  *
- * @author AshanPerera
+ * @author TeamStark
  */
 public class LoginController implements Initializable {
 
@@ -98,43 +97,40 @@ public class LoginController implements Initializable {
         this.lblSignUp.setOnMouseClicked(event -> {
             this.route("RegisterUser", "/UI/RegisterUser.fxml");
         });
-        
-        
-        
-String path = System.getProperty("user.home") + File.separator + "Documents";
-path += File.separator + "GloryGameFiles";
-File customDir = new File(path);
 
-if (customDir.exists()) {
-    System.out.println(customDir + " already exists");
-} else if (customDir.mkdirs()) {
-    System.out.println(customDir + " was created");
-} else {
-    System.out.println(customDir + " was not created");
-}
+        String path = System.getProperty("user.home") + File.separator + "Documents";
+        path += File.separator + "GloryGameFiles";
+        File customDir = new File(path);
 
-copyfiles();
+        if (customDir.exists()) {
+            System.out.println(customDir + " already exists");
+        } else if (customDir.mkdirs()) {
+            System.out.println(customDir + " was created");
+        } else {
+            System.out.println(customDir + " was not created");
+        }
+
+        copyfiles();
 
     }
-    
-    private void copyfiles()
-    {
-    File source = new File(System.getProperty("user.home")+ File.separator + "Documents"+File.separator+"New folder"+File.separator+"MyLittleAdventure.mp3");
-		// Destination file.
-		File destination = new File(System.getProperty("user.home") + File.separator + "Documents"+File.separator + "GloryGameFiles"+File.separator+"MyLittleAdventure.mp3");
-		
-		try {
-			copyFile(source, destination);
-		} catch (IOException e) {
-			System.out.println("Problem occurs when copying files");
-			e.printStackTrace();
-		}
-    
+
+    private void copyfiles() {
+        File source = new File(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "New folder" + File.separator + "MyLittleAdventure.mp3");
+        // Destination file.
+        File destination = new File(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "MyLittleAdventure.mp3");
+
+        try {
+            copyFile(source, destination);
+        } catch (IOException e) {
+            System.out.println("Problem occurs when copying files");
+            e.printStackTrace();
+        }
+
     }
-    
-    	public static void copyFile(File source, File destination) throws IOException {
-		FileUtils.copyFile(source, destination);
-	}
+
+    public static void copyFile(File source, File destination) throws IOException {
+        FileUtils.copyFile(source, destination);
+    }
 
     @FXML
     private void btnLoginClicked(ActionEvent event) throws IOException {

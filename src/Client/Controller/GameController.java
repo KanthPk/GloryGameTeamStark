@@ -53,7 +53,7 @@ import org.json.simple.JSONObject;
 /**
  * FXML Controller class
  *
- * @author AshanPerera
+ * @author TeamStark
  */
 public class GameController implements Initializable {
 
@@ -264,7 +264,7 @@ public class GameController implements Initializable {
         ServerCall.setGlobalScore(ConstantElement.GlobalUserName, ConstantElement.GroupName, Integer.toString(scoreObj.getTotalScore()));
     }
 
-    /////PRAVEEN
+ 
     @FXML
     private void imgSearch() {
         if (txtWordFIeld.getText().isEmpty()) {
@@ -416,7 +416,7 @@ public class GameController implements Initializable {
             }
         });
 
-        /////Ashan
+      
         btnPause.setOnAction(event -> {
             transitionService.MakeFadeInLiveGame(subCheckBoxAncher).play();
             ancherPause.setVisible(true);
@@ -427,7 +427,7 @@ public class GameController implements Initializable {
             thread_pause.run();
         });
 
-        /////Ashan
+        
         checkBoxForPuaseSwap.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue) {
                 ConstantElement.isSwap = true;
@@ -478,7 +478,7 @@ public class GameController implements Initializable {
     @FXML
     void closeApplication(MouseEvent event) {
         Platform.exit();
-        ServerCall.Logout(ConstantElement.GlobalUserName,ConstantElement.GroupName);
+        ServerCall.Logout(ConstantElement.GlobalUserName, ConstantElement.GroupName);
         ServerCall.leaveGroup(ConstantElement.GroupName, ConstantElement.GlobalUserName);
         ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
         ServerCall.deleteRound(ConstantElement.GroupName, ConstantElement.GlobalUserName);
@@ -757,7 +757,7 @@ public class GameController implements Initializable {
         }
     }
 
-    /////Ashan
+   
     @FXML
     private void mousePressedOnCharFields(MouseEvent event) {
         txtWordFIeld.setStyle("-fx-border-color: BLACK;");
@@ -1061,7 +1061,7 @@ public class GameController implements Initializable {
         Const = val;
     }
 
-    /////Ashan     
+   
     private void liveStopWatch() {
         startTime = Instant.now();
         clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
@@ -1094,7 +1094,6 @@ public class GameController implements Initializable {
         return ary;
     }
 
-    /////Ashan
     private void setProgressToNextRound() {
         try {
             progressThread = createWorker();
@@ -1177,8 +1176,7 @@ public class GameController implements Initializable {
             user_4_score.setText("");
             //end
             JSONArray array = ServerCall.getRoundScore(ConstantElement.GroupName, ConstantElement.GlobalUserName, Integer.toString(roundVal));
-            count = array.size();
-            System.out.println("number of rows in server table" + count);
+            count = array.size();            
             if (!array.isEmpty()) {
                 for (int i = 0; i < count; i++) {
                     userJsonObjects = (JSONObject) array.get(i);
@@ -1224,7 +1222,7 @@ public class GameController implements Initializable {
     }
 
     public void getIntialLetter() {
-       
+
         try {
             roundid.setText(Integer.toString(roundVal));
             users = new ArrayList<String>();
@@ -1299,30 +1297,21 @@ public class GameController implements Initializable {
     }
 
     public void getTotalScore() {
-        try {
-            System.out.println("i came 1");
+        try {          
             roundid.setText(Integer.toString(roundVal));
             users = new ArrayList<String>();
             JSONArray array = ServerCall.getTotalScore();
             int n = array.size();
             if (!array.isEmpty()) {
-                for (int i = 0; i < n; i++) {
-                    System.out.println("2 came ");
+                for (int i = 0; i < n; i++) {                    
                     JSONObject userJsonObjects = (JSONObject) array.get(i);
                     String user = (String) userJsonObjects.get("User");
-                    String Score = (String) userJsonObjects.get("Score");
-                    System.out.println("User of score table" + user);
-                    if (user.equals(ConstantElement.GlobalUserName)) {
-                        /*lbl_Gllobal_User.setText(ConstantElement.GlobalUserName);
-                        txtRandom_1.setText(Letter1);
-                        txtRandom_2.setText(Letter2);
-                        txtRandom_3.setText(Letter3);*/
+                    String Score = (String) userJsonObjects.get("Score");                    
+                    if (user.equals(ConstantElement.GlobalUserName)) {                       
                         System.out.println(" System.out.println(\"2 came \");");
                     } else {
-                        if (!user.equals(ConstantElement.GlobalUserName)) {
-                            System.out.println("3 came " + lbl_live_user_1.getText());
-                            if (user_1_global.getText().isEmpty() && user.equals(lbl_live_user_1.getText())) {
-                                System.out.println("4 came ");
+                        if (!user.equals(ConstantElement.GlobalUserName)) {                          
+                            if (user_1_global.getText().isEmpty() && user.equals(lbl_live_user_1.getText())) {                              
                                 user_1_global.setText(Score);
                             } else if (user_2_global.getText().isEmpty() && user.equals(lbl_live_user_2.getText())) {
                                 user_2_global.setText(Score);
@@ -1336,5 +1325,4 @@ public class GameController implements Initializable {
         } catch (Exception s) {
         }
     }
-
 }
