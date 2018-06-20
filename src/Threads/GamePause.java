@@ -11,15 +11,19 @@ import glory_schema.ConstantElement;
  *
  * @author AshanPerera
  */
-public class GamePause implements Runnable{
+public class GamePause implements Runnable {
 
     @Override
     public void run() {
-        if(ConstantElement.isPause){
+        if (ConstantElement.isPause) {
             //server call
             //save the data from here
-            System.out.println("Hello This thread is running");
+            ConstantElement.isLive = true;
+            //push data
+            //sleep Thread 1000
+            //Thread.sleep(1000);
+            System.out.println("Thread 1");
         }
     }
-    
+
 }

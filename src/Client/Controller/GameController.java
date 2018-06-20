@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 import java.util.UUID;
+import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.Animation;
@@ -31,6 +32,7 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventType;
@@ -225,6 +227,9 @@ public class GameController implements Initializable {
     private Label user_2_global;
     @FXML
     private Label user_3_global;
+    @FXML
+    private ImageView imgPause;
+
     public int roundVal = 1;
     StringBuffer globalSubChars;
     private Bag bag;
@@ -243,7 +248,11 @@ public class GameController implements Initializable {
     java.time.Duration pausedAfter;
     Timeline clock = null;
     Task progressThread;
+    Timeline timeline;
     private String fireScoreScreen;
+    GamePause gamepause = new GamePause();
+    Thread thread_pause = new Thread(gamepause);
+    Task buttonPause;
 
     long elapsed;
     long ms;
@@ -264,7 +273,6 @@ public class GameController implements Initializable {
         ServerCall.setGlobalScore(ConstantElement.GlobalUserName, ConstantElement.GroupName, Integer.toString(scoreObj.getTotalScore()));
     }
 
- 
     @FXML
     private void imgSearch() {
         if (txtWordFIeld.getText().isEmpty()) {
@@ -416,18 +424,17 @@ public class GameController implements Initializable {
             }
         });
 
-      
         btnPause.setOnAction(event -> {
             transitionService.MakeFadeInLiveGame(subCheckBoxAncher).play();
             ancherPause.setVisible(true);
             ConstantElement.isPause = true;
             clock.stop();
-            GamePause gamepause = new GamePause();
-            Thread thread_pause = new Thread(gamepause);
             thread_pause.run();
+            buttonPause = ButtonPauseLiveGame();
+            buttonPause.run();
+            // service.start();
         });
 
-        
         checkBoxForPuaseSwap.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue) {
                 ConstantElement.isSwap = true;
@@ -445,23 +452,6 @@ public class GameController implements Initializable {
                 btnCreate.setVisible(true);
             }
         });
-
-//        btnNextRound.setOnAction(event -> {
-//            UUID uuid = UUID.randomUUID();
-//            String randomUUIDString = uuid.toString();
-//            scoreObj.setTotalScore(Integer.valueOf(txtScore.getText()));
-//            ServerCall.updateGlobalScore(ConstantElement.GroupName, ConstantElement.GlobalUserName, Integer.toString(scoreObj.getTotalScore()));
-//            ServerCall.setRound(ConstantElement.GroupName, ConstantElement.GlobalUserName, randomUUIDString, txtScore.getText().toString(), Integer.toString(roundVal));
-//            ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
-//            setScore();
-//            roundVal = roundVal + 1;
-//            roundid.setText(Integer.toString(roundVal));
-//            clearFields();
-//            setInitialLetter();
-//            getIntialLetter();
-//            getTotalScore();
-//            System.out.println("Hello world" + Integer.toString(scoreObj.getTotalScore()));
-//        });
     }
 
     private void setDynamicCheckBox(String id) {
@@ -757,7 +747,6 @@ public class GameController implements Initializable {
         }
     }
 
-   
     @FXML
     private void mousePressedOnCharFields(MouseEvent event) {
         txtWordFIeld.setStyle("-fx-border-color: BLACK;");
@@ -1061,7 +1050,6 @@ public class GameController implements Initializable {
         Const = val;
     }
 
-   
     private void liveStopWatch() {
         startTime = Instant.now();
         clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
@@ -1078,7 +1066,7 @@ public class GameController implements Initializable {
 //          String fireScoreScreen = String.format("%02d:%02d:%02d.%03d", h, m, s, ms);
             fireScoreScreen = String.format("%02d:%02d:%02d", h, m, s);
             lblTimer.setText("" + fireScoreScreen);
-            if (s == 30) {
+            if (m == 3) {
                 clock.stop();
                 setProgressToNextRound();
             }
@@ -1143,10 +1131,7 @@ public class GameController implements Initializable {
                                         try {
                                             System.out.println("" + counter);
                                             Thread.sleep(5000);
-                                            anchorScore.setVisible(false);
-                                            clock.stop();
-                                            lblTimer.setText("00:00:00");
-                                            liveStopWatch();
+                                            callBack();
                                         } catch (InterruptedException ex) {
                                             Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
                                         }
@@ -1176,7 +1161,7 @@ public class GameController implements Initializable {
             user_4_score.setText("");
             //end
             JSONArray array = ServerCall.getRoundScore(ConstantElement.GroupName, ConstantElement.GlobalUserName, Integer.toString(roundVal));
-            count = array.size();            
+            count = array.size();
             if (!array.isEmpty()) {
                 for (int i = 0; i < count; i++) {
                     userJsonObjects = (JSONObject) array.get(i);
@@ -1297,21 +1282,21 @@ public class GameController implements Initializable {
     }
 
     public void getTotalScore() {
-        try {          
+        try {
             roundid.setText(Integer.toString(roundVal));
             users = new ArrayList<String>();
             JSONArray array = ServerCall.getTotalScore();
             int n = array.size();
             if (!array.isEmpty()) {
-                for (int i = 0; i < n; i++) {                    
+                for (int i = 0; i < n; i++) {
                     JSONObject userJsonObjects = (JSONObject) array.get(i);
                     String user = (String) userJsonObjects.get("User");
-                    String Score = (String) userJsonObjects.get("Score");                    
-                    if (user.equals(ConstantElement.GlobalUserName)) {                       
+                    String Score = (String) userJsonObjects.get("Score");
+                    if (user.equals(ConstantElement.GlobalUserName)) {
                         System.out.println(" System.out.println(\"2 came \");");
                     } else {
-                        if (!user.equals(ConstantElement.GlobalUserName)) {                          
-                            if (user_1_global.getText().isEmpty() && user.equals(lbl_live_user_1.getText())) {                              
+                        if (!user.equals(ConstantElement.GlobalUserName)) {
+                            if (user_1_global.getText().isEmpty() && user.equals(lbl_live_user_1.getText())) {
                                 user_1_global.setText(Score);
                             } else if (user_2_global.getText().isEmpty() && user.equals(lbl_live_user_2.getText())) {
                                 user_2_global.setText(Score);
@@ -1325,4 +1310,57 @@ public class GameController implements Initializable {
         } catch (Exception s) {
         }
     }
+
+    private void callBack() {
+        anchorScore.setVisible(false);
+        clock.stop();
+        lblTimer.setText("00:00:00");
+        liveStopWatch();
+    }
+
+    @FXML
+    private void imgPausePressed(MouseEvent event) {
+        //simulation
+        //callBack();       
+        ConstantElement.isLive = false;
+        clock.play();
+        timeline.play();
+        buttonPause.cancel();
+        ancherPause.setVisible(false);
+        //service.start();
+    }
+
+    int x = 0;
+
+    private Task ButtonPauseLiveGame() {
+        return new Task() {
+            @Override
+            protected Object call() throws Exception {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
+                                        System.out.println("Thread 2");
+                                        if (ConstantElement.isLive) {
+                                            //
+                                            timeline.stop();
+                                        }
+                                    }));
+                                    timeline.setCycleCount(Animation.INDEFINITE);
+                                    timeline.play();
+                                } catch (Exception e) {
+                                }
+                            }
+                        });
+                    }
+                }).start();
+                return true;
+            }
+        };
+    }
+
 }

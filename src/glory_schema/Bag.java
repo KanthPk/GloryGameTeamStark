@@ -132,4 +132,12 @@ public class Bag {
             return false;
         }
     }
+
+    public void resetVowelConstants() {
+        try {
+            vowels = "AEIOU";
+            consonents = "BCDFGHJKLMNPQRSTVWXYZ";
+        } catch (Exception e) {
+        }
+    }
 }
