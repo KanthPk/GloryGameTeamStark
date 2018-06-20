@@ -477,8 +477,10 @@ public class GameController implements Initializable {
 
         btnNextRound.setOnAction(event -> {
             UUID uuid = UUID.randomUUID();
-            String randomUUIDString = uuid.toString();
-            ServerCall.setRound(ConstantElement.GroupName, ConstantElement.GlobalUserName, randomUUIDString, txtScore.getText().toString(), "1");
+            String randomUUIDString = uuid.toString();                        
+            ServerCall.setRound(ConstantElement.GroupName, ConstantElement.GlobalUserName, randomUUIDString, txtScore.getText().toString(),"1");          
+            ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
+            setScore();
             System.out.println("Hello world");
         });
     }
@@ -497,7 +499,8 @@ public class GameController implements Initializable {
     @FXML
     void closeApplication(MouseEvent event) {
         Platform.exit();
-        ServerCall.Logout(ConstantElement.GlobalUserName, ConstantElement.GlobalPassowrd);
+        ServerCall.Logout(ConstantElement.GroupName,ConstantElement.GlobalUserName);
+        ServerCall.leaveGroup(ConstantElement.GroupName,ConstantElement.GlobalUserName);
         ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
         System.exit(0);
     }
@@ -1076,7 +1079,7 @@ public class GameController implements Initializable {
             String fireScoreScreen = String.format("%02d:%02d:%02d.%03d", h, m, s, ms);
             lblTimer.setText("" + fireScoreScreen);
 //            System.out.println("" + fireScoreScreen);
-            if (s == 10) {  
+            if (s == 20) {  
                 clock.stop();                
                 transitionService.MakeFadeInLiveGame(anchorScore).play();
                 anchorScore.setVisible(true);
@@ -1132,5 +1135,50 @@ public class GameController implements Initializable {
                 return true;
             }
         };
+    }
+    
+    public void setScore()
+    {    
+    int count = 0;
+    JSONObject userJsonObjects = null;
+    ArrayList<String> score = new ArrayList<String>();
+    try {           
+            JSONArray array = ServerCall.getRoundScore(ConstantElement.GroupName, ConstantElement.GlobalUserName,"1");
+            count = array.size();
+            System.out.println("sssssssssssssss"+count);
+            if (!array.isEmpty()) {
+                for (int i = 0; i < count; i++) {
+                    userJsonObjects = (JSONObject) array.get(i);
+                    String UserName = (String) userJsonObjects.get("UserId");
+                    String Scoren = (String) userJsonObjects.get("Score");
+                    String Level = (String) userJsonObjects.get("Level");
+                      if (UserName.equals(ConstantElement.GlobalUserName)) {
+                        lbl_live_user_1.setText(ConstantElement.GlobalUserName);
+                        user_1.setText(UserName);
+                        user_1_score.setText(Scoren);
+                      
+                    } else {
+                        if (!UserName.equals(ConstantElement.GlobalUserName)) {
+                            if (user_2.getText().isEmpty() && user_2_score.getText().isEmpty()) {
+                                 user_2.setText(UserName);
+                                 user_2_score.setText(Scoren);                               
+                            } else if (user_3.getText().isEmpty() && user_3_score.getText().isEmpty()) {
+                                 user_3.setText(UserName);
+                                 user_3_score.setText(Scoren);
+                            } else if (user_4.getText().isEmpty() && user_4_score.getText().isEmpty()) {
+                                 user_4.setText(UserName);
+                                 user_4_score.setText(Scoren);
+                            }
+                        }
+                    }
+                }  
+            }
+                for (String scores : score) {
+                    System.out.println("score"+scores);
+                }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

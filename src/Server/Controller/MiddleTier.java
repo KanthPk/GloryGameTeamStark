@@ -389,7 +389,7 @@ public class MiddleTier {
             System.err.println(e.getMessage());
         }
     }
-    public JSONArray getRoundScore(String groupName, String nickName) {
+    public JSONArray getRoundScore(String groupName, String nickName,String level) {
         String[] scores = null;
         System.out.println("     cou"+groupName+"nickName"+nickName);
         JSONArray array = new JSONArray();
@@ -400,6 +400,7 @@ public class MiddleTier {
             try (PrintStream ps = new PrintStream(yc.getOutputStream())) {
                     ps.print("&username=" + nickName);
                     ps.print("&group=" + groupName);
+                    ps.print("&level=" + level);
                     yc.getInputStream();
                 }
                 try (DataInputStream inStream = new DataInputStream(yc.getInputStream())) {
