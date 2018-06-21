@@ -35,14 +35,13 @@ import javafx.stage.Stage;
  * @author Suba
  */
 public class UserSettingsController implements Initializable {
-    
-        @FXML
+
+    @FXML
     private Button btnMusicOn;
 
     @FXML
     private Button btnMusicOff;
-    
-    
+
     @FXML
     private ImageView imgViewTheme1;
 
@@ -55,119 +54,112 @@ public class UserSettingsController implements Initializable {
     @FXML
     private Button btnCancel;
 
-   
-
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        
-    } 
-    
-     @FXML
+    }
+
+    @FXML
     void btnCancelClicked(MouseEvent event) {
-         try {
+        try {
             Stage stage = (Stage) btnCancel.getScene().getWindow();
             stage.close();
         } catch (Exception e) {
         }
     }
+
     @FXML
     void btnMusicOffClicked(MouseEvent event) {
 
         ConstantElement.mediaPlayer.stop();
         String bytes = "off";
-byte[] buffer = bytes.getBytes();
+        byte[] buffer = bytes.getBytes();
 
-try{
-FileOutputStream outputStream =
-                new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents"+File.separator + "GloryGameFiles"+File.separator+"UserSettings.txt");
+        try {
+            FileOutputStream outputStream
+                    = new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "UserSettings.txt");
 
-outputStream.write(buffer);
-}
-catch(IOException ex) {
+            outputStream.write(buffer);
+        } catch (IOException ex) {
             System.out.println(
-                "Error writing file '"
-                +"UserSettings"+ "'");
+                    "Error writing file '"
+                    + "UserSettings" + "'");
 
-}
+        }
     }
 
     @FXML
-    void btnMusicOnClicked(MouseEvent event) throws IOException {       
-ConstantElement.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-ConstantElement.mediaPlayer.play();
-String bytes = "on";
-byte[] buffer = bytes.getBytes();
+    void btnMusicOnClicked(MouseEvent event) throws IOException {
+        ConstantElement.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        ConstantElement.mediaPlayer.play();
+        String bytes = "on";
+        byte[] buffer = bytes.getBytes();
 
-try{
-FileOutputStream outputStream =
-                new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents"+File.separator + "GloryGameFiles"+File.separator+"UserSettings.txt");
+        try {
+            FileOutputStream outputStream
+                    = new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "UserSettings.txt");
 
-outputStream.write(buffer);
-}
-catch(IOException ex) {
+            outputStream.write(buffer);
+        } catch (IOException ex) {
             System.out.println(
-                "Error writing file '"
-                +"UserSettings"+ "'");
+                    "Error writing file '"
+                    + "UserSettings" + "'");
 
-}
+        }
     }
-    
-      @FXML
+
+    @FXML
     void imgViewTheme1Clicked(MouseEvent event) {
-String bytes = "home1";
-byte[] buffer = bytes.getBytes();
+        String bytes = "home1";
+        byte[] buffer = bytes.getBytes();
 
-try{
-FileOutputStream outputStream =
-                new FileOutputStream("UserTheme.txt");
+        try {
+            FileOutputStream outputStream
+                    = new FileOutputStream("UserTheme.txt");
 
-outputStream.write(buffer);
-}
-catch(IOException ex) {
+            outputStream.write(buffer);
+        } catch (IOException ex) {
             System.out.println(
-                "Error writing file '"
-                +"UserTheme"+ "'");
-    }
+                    "Error writing file '"
+                    + "UserTheme" + "'");
+        }
     }
 
     @FXML
     void imgViewTheme2Clicked(MouseEvent event) {
-String bytes = "home2";
-byte[] buffer = bytes.getBytes();
+        String bytes = "home2";
+        byte[] buffer = bytes.getBytes();
 
-try{
-FileOutputStream outputStream =
-                new FileOutputStream("UserTheme.txt");
+        try {
+            FileOutputStream outputStream
+                    = new FileOutputStream("UserTheme.txt");
 
-outputStream.write(buffer);
-}
-catch(IOException ex) {
+            outputStream.write(buffer);
+        } catch (IOException ex) {
             System.out.println(
-                "Error writing file '"
-                +"UserTheme"+ "'");
-    }
+                    "Error writing file '"
+                    + "UserTheme" + "'");
+        }
     }
 
     @FXML
     void imgViewTheme3Clicked(MouseEvent event) {
-String bytes = "home3";
-byte[] buffer = bytes.getBytes();
+        String bytes = "home3";
+        byte[] buffer = bytes.getBytes();
 
-try{
-FileOutputStream outputStream =
-                new FileOutputStream("UserTheme.txt");
+        try {
+            FileOutputStream outputStream
+                    = new FileOutputStream("UserTheme.txt");
 
-outputStream.write(buffer);
-}
-catch(IOException ex) {
+            outputStream.write(buffer);
+        } catch (IOException ex) {
             System.out.println(
-                "Error writing file '"
-                +"UserTheme"+ "'");
+                    "Error writing file '"
+                    + "UserTheme" + "'");
+        }
     }
-    }
-       
+
 }

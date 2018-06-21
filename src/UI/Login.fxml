@@ -28,7 +28,7 @@
                   <DropShadow />
                </effect>
             </Button>
-            <Label layoutX="9.0" layoutY="14.0" prefHeight="46.0" prefWidth="270.0" text="Account Logn">
+            <Label alignment="CENTER" layoutX="61.0" layoutY="14.0" prefHeight="46.0" prefWidth="270.0" text="Account Login">
                <font>
                   <Font name="System Bold" size="31.0" />
                </font>
@@ -110,7 +110,7 @@
                   <Glow level="0.84" />
                </effect>
             </ImageView>
-            <Label alignment="CENTER" layoutX="248.0" layoutY="524.0" prefHeight="27.0" prefWidth="89.0" text="Product" AnchorPane.bottomAnchor="36.0" AnchorPane.rightAnchor="55.0">
+            <Label alignment="CENTER" layoutX="233.0" layoutY="571.0" prefHeight="27.0" prefWidth="89.0" text="Product" AnchorPane.bottomAnchor="36.0" AnchorPane.rightAnchor="70.0">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -134,15 +134,7 @@
             <Image url="@../resources/close.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgSettings" fitHeight="39.0" fitWidth="32.0" layoutX="48.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" styleClass="button">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <image>
-            <Image url="@../resources/settings.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="imgMinimize" fitHeight="32.0" fitWidth="39.0" layoutX="88.0" layoutY="10.0" onMousePressed="#imgMinimizeApplication" opacity="0.81" pickOnBounds="true" preserveRatio="true" styleClass="button">
+      <ImageView fx:id="imgMinimize" fitHeight="32.0" fitWidth="39.0" layoutX="50.0" layoutY="10.0" onMousePressed="#imgMinimizeApplication" opacity="0.81" pickOnBounds="true" preserveRatio="true" styleClass="button">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

@@ -34,7 +34,7 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -168,6 +168,9 @@ public class HomeController implements Initializable {
     @FXML
     private ProgressBar progressGameLoader;
 
+    @FXML
+    private ListView testListView;
+
     private Bag bag;
 
     public HomeController() {
@@ -179,6 +182,18 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        for (int i = 0; i < 10; i++) {
+            testListView.getItems().add(i);
+        }
+
+        testListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("clicked on " + testListView.getSelectionModel().getSelectedItem());
+            }
+        });
+
         btnProceed.setDisable(true);
         btnCreate.disableProperty().bind(txtNoOfPlayers.textProperty().isEmpty());
         btnCreate.disableProperty().bind(txtNoOfPlayers.textProperty().isEmpty());

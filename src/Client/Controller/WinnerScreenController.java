@@ -105,6 +105,7 @@ public class WinnerScreenController implements Initializable {
             } catch (IOException ex) {
                 Logger.getLogger(WinnerScreenController.class.getName()).log(Level.SEVERE, null, ex);
             }
+            stage.centerOnScreen();
             stage.setScene(scene);
         });
     }

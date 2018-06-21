@@ -1164,14 +1164,11 @@ public class GameController implements Initializable {
                                                 Scene scene = null;
                                                 try {
                                                     scene = new Scene(loader.load());
+                                                    stage.centerOnScreen();
+                                                    stage.setScene(scene);
                                                 } catch (IOException ex) {
                                                     Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
                                                 }
-                                                stage.centerOnScreen();
-                                                stage.setScene(scene);
-
-                                                ////Ashan
-                                                //Thread.sleep(10000);
                                             } else {
 
                                                 System.out.println("" + counter);

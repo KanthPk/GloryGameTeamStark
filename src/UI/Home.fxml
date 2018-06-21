@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -56,16 +57,8 @@
                 <DropShadow />
             </effect>
         </ImageView>
-        <AnchorPane layoutX="990.0" layoutY="227.0" opacity="0.79" prefHeight="438.0" prefWidth="285.0" style="-fx-background-color: #263364;">
+        <AnchorPane layoutX="38.0" layoutY="237.0" opacity="0.79" prefHeight="427.0" prefWidth="285.0" style="-fx-background-color: #263364;" visible="false">
             <children>
-                <Label layoutX="98.0" layoutY="23.0" prefHeight="25.0" prefWidth="173.0" style="-fx-cursor: HAND;" text="Subash Perera" textFill="#f3f5e3">
-                    <font>
-                        <Font name="Arial Bold" size="19.0" />
-                    </font>
-                    <effect>
-                        <DropShadow spread="0.13" />
-                    </effect>
-                </Label>
                 <Label layoutX="98.0" layoutY="48.0" prefHeight="25.0" prefWidth="50.0" text="Online" textFill="#09a139">
                     <font>
                         <Font name="Arial Bold" size="13.0" />
@@ -188,7 +181,7 @@
                 <Image url="@../resources/close.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="imgSettings" fitHeight="37.0" fitWidth="37.0" layoutX="1194.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: HAND;" styleClass="button" onMouseClicked="#btnSettingsClicked" >
+        <ImageView fx:id="imgSettings" fitHeight="37.0" fitWidth="37.0" layoutX="1194.0" layoutY="16.0" onMouseClicked="#btnSettingsClicked" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: HAND;" styleClass="button">
             <image>
                 <Image url="@../resources/settings.png" />
             </image>
@@ -346,7 +339,7 @@
       </AnchorPane>
       <AnchorPane id="AnchorPane" fx:id="anchorGroupAboutToLoad" layoutX="290.0" layoutY="192.0" opacity="0.79" prefHeight="325.0" prefWidth="551.0" style="-fx-background-color: #263364;" visible="false">
          <children>
-            <ProgressBar fx:id="progressGameLoader" layoutX="14.0" layoutY="14.0" prefHeight="20.0" prefWidth="523.0" progress="0.0">
+            <ProgressBar fx:id="progressGameLoader" blendMode="OVERLAY" cache="true" cacheHint="QUALITY" layoutX="14.0" layoutY="14.0" prefHeight="20.0" prefWidth="523.0" progress="0.23">
                <effect>
                   <DropShadow />
                </effect>
@@ -357,7 +350,7 @@
                   <Font name="Nirmala UI" size="28.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="281.0" prefHeight="28.0" prefWidth="453.0" text="PLEASE WAIT....,GAME IS LOADING" textFill="WHITE">
+            <Label layoutX="14.0" layoutY="281.0" prefHeight="31.0" prefWidth="218.0" text="GAME IS LOADING..." textFill="WHITE">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
@@ -367,5 +360,26 @@
             <DropShadow spread="0.24" />
          </effect>
       </AnchorPane>
+      <ListView fx:id="testListView" layoutX="1009.0" layoutY="231.0" prefHeight="427.0" prefWidth="264.0">
+         <effect>
+            <DropShadow spread="0.19" />
+         </effect>
+      </ListView>
+      <Button layoutX="920.0" layoutY="608.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="81.0" text="SEND">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <effect>
+            <DropShadow spread="0.24" />
+         </effect>
+      </Button>
+      <TextArea layoutX="549.0" layoutY="609.0" prefHeight="49.0" prefWidth="361.0" promptText="MESSAGE">
+         <effect>
+            <DropShadow spread="0.34" />
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextArea>
     </children>
 </AnchorPane>
