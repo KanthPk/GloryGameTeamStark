@@ -24,7 +24,7 @@ public class ConstantElement {
     public static String GroupName;
     public static int no_of_players;
     public static boolean isJoin;
-    public static String[] userArray = new String[4];
+    public static String[] userArray;
     public static boolean isFinished = false;
     public static boolean prepareToSave = false;
 

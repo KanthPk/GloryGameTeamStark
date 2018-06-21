@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.TimerTask;
@@ -75,8 +76,10 @@ public class HomeController implements Initializable {
     TimerTask timerDataRetrieval = null;
     Task progressThread;
     private ArrayList<String> listOfGroups = new ArrayList<String>();
+    private ArrayList<String> noOfPlayers = new ArrayList<String>();
     private String[] randomGenCharacters;
     Timeline timeline = null;
+    int[] PlayersArray = new int[100];
 
     @FXML
     private AnchorPane homeRoot;
@@ -337,11 +340,11 @@ public class HomeController implements Initializable {
     @FXML
     private void btnJoinToLIveClicked(ActionEvent e) throws IOException {
         ConstantElement.GroupName = cmbGroup.getValue().toString();
+        ConstantElement.no_of_players = PlayersArray[cmbGroup.getSelectionModel().getSelectedIndex()];
         ConstantElement.isJoin = true;
         if (!ConstantElement.GroupName.isEmpty()) {
             commonBehaviour("ViewGroup", null);
             obj.setGroupUSer(ConstantElement.GroupName, ConstantElement.GlobalUserName);
-            //System.out.println("     " + ConstantElement.GroupName + ConstantElement.GlobalUserName);
             setGroups();
         }
     }
@@ -377,16 +380,17 @@ public class HomeController implements Initializable {
                 AnchorForJoinLive.setVisible(false);
                 lblGroupNameAboutToLive.setText(ConstantElement.GroupName);
                 ObservableList items = FXCollections.observableArrayList();
-                for (int i = 0; i < 4; i++) {
-                    if (!users.get(i).isEmpty()) {
-                        ConstantElement.userArray[i] = users.get(i);
-                        items.add(ConstantElement.userArray[i]);
+
+                for (int i = 0; i < ConstantElement.no_of_players; i++) {
+                    if (!users.get(i).isEmpty() && users.get(i) != null) {
+                        System.out.println("" + users.get(i));
+                        items.add(users.get(i));
                     }
                 }
-                listViewAboutToLoad.setItems(items);
-                for (int i = 1; i < 4; i++) {
-                    randomGenCharacters[i] = Character.toString(bag.randomGen());
+                for (int j = 1; j < 4; j++) {
+                    randomGenCharacters[j] = Character.toString(bag.randomGen());
                 }
+                listViewAboutToLoad.setItems(items);
                 setProgress(event);
                 break;
             case "MakeAllInvicible":
@@ -442,9 +446,9 @@ public class HomeController implements Initializable {
                         public void run() {
                             try {
                                 timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
-                                    if (users.size() == 4 || (users.size() > 2) && (users.size() < 4)) {
+                                    if (users.size() == ConstantElement.no_of_players || (users.size() >= ConstantElement.no_of_players) && (users.size() < ConstantElement.no_of_players)) {
                                         btnProceed.setDisable(false);
-                                    } else if (users.size() < 2 || users.size() == 1) {
+                                    } else if (users.size() < ConstantElement.no_of_players || users.size() == ConstantElement.no_of_players) {
                                         btnProceed.setDisable(true);
                                         lblGroupViewSubHeading.setText("Please wait for other players");
                                     }
@@ -465,12 +469,15 @@ public class HomeController implements Initializable {
 
     private void loadComboValues() {
         try {
+            int a = 0;
             JSONArray array = obj.getGroup();
             int n = array.size();
             if (!array.isEmpty()) {
                 for (int i = 0; i < n; i++) {
                     JSONObject jo = (JSONObject) array.get(i);
                     String GroupName = (String) jo.get("GroupName");
+                    String playersCount = (String) jo.get("Players");
+                    noOfPlayers.add(playersCount);
                     if (!GroupName.isEmpty() && !listOfGroups.contains(GroupName)) {
                         listOfGroups.add(GroupName);
                     }
@@ -478,6 +485,11 @@ public class HomeController implements Initializable {
                 cmbGroup.getItems().clear();
                 for (String groups : listOfGroups) {
                     cmbGroup.getItems().add(groups);
+                }
+
+                for (String noPlayers : noOfPlayers) {
+                    PlayersArray[a] = Integer.parseInt(noPlayers);
+                    a++;
                 }
             }
         } catch (Exception e) {
@@ -494,7 +506,7 @@ public class HomeController implements Initializable {
                 public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                     if (ConstantElement.prepareToSave) {
                         try {
-                            System.out.println("" + ConstantElement.prepareToSave);
+                            System.out.println(ConstantElement.GroupName + ConstantElement.GlobalUserName + "" + ConstantElement.prepareToSave + randomGenCharacters[1] + randomGenCharacters[2] + randomGenCharacters[3]);
                             ServerCall.setInitialLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName,
                                     randomGenCharacters[1], randomGenCharacters[2],
                                     randomGenCharacters[3]);
