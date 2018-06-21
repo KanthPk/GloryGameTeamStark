@@ -12,9 +12,11 @@ import glory_schema.Bag;
 import glory_schema.ConstantElement;
 import glory_schema.FunctionElement;
 import glory_schema.WordElement;
+import glory_services.NavigationService;
 import glory_services.RoundScoreService;
 import glory_services.ValidatorService;
 import glory_services.WordAutoGenerate;
+import java.io.IOException;
 import java.net.URL;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -37,7 +39,9 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -48,6 +52,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -253,7 +258,7 @@ public class GameController implements Initializable {
     GamePause gamepause = new GamePause();
     Thread thread_pause = new Thread(gamepause);
     Task buttonPause;
-
+    NavigationService navigationService;
     long elapsed;
     long ms;
     long s;
@@ -265,6 +270,7 @@ public class GameController implements Initializable {
      */
     public GameController() {
         bag = new Bag();
+        navigationService = new NavigationService("/UI/WinnerScreen.fxml");
         serviceValidater = new ValidatorService();
         scoreObj = new FunctionElement();
         characters = new String[11];
@@ -1055,7 +1061,7 @@ public class GameController implements Initializable {
 
         startTime = Instant.now();
         clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            int a = 0;
+            int countDown = 0;
             elapsed = java.time.Duration.between(startTime, Instant.now()).toMillis();
             ms = elapsed;
             s = ms / 1000;
@@ -1071,18 +1077,18 @@ public class GameController implements Initializable {
             lblTimer.setText("" + fireScoreScreen);
 
             if (ConstantElement.roundId == 1) {
-                a = 45;
+                countDown = 1;
             } else if (ConstantElement.roundId == 2) {
-                a = 40;
+                countDown = 2;
             } else if (ConstantElement.roundId == 3) {
-                a = 30;
+                countDown = 3;
             } else if (ConstantElement.roundId == 4) {
-                a = 25;
+                countDown = 4;
             } else if (ConstantElement.roundId == 5) {
-                a = 15;
+                countDown = 5;
             }
-            if (s == a) {
-                a = 0;
+            if (s == countDown) {
+                countDown = 0;
                 clock.stop();
                 setProgressToNextRound();
             }
@@ -1112,7 +1118,7 @@ public class GameController implements Initializable {
             System.out.println("A" + roundVal);
             UUID uuid = UUID.randomUUID();
             String randomUUIDString = uuid.toString();
-            scoreObj.setTotalScore(txtScore.getText().isEmpty() ? Integer.parseInt(txtScore.getText()) : 0);    
+            scoreObj.setTotalScore(txtScore.getText().isEmpty() ? Integer.parseInt(txtScore.getText()) : 0);
             ServerCall.updateGlobalScore(ConstantElement.GroupName, ConstantElement.GlobalUserName, Integer.toString(scoreObj.getTotalScore()));
             ServerCall.setRound(ConstantElement.GroupName, ConstantElement.GlobalUserName, randomUUIDString, txtScore.getText().toString(), Integer.toString(roundVal));
             ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
@@ -1151,9 +1157,27 @@ public class GameController implements Initializable {
                                 public void run() {
                                     if (counter == 10) {
                                         try {
-                                            System.out.println("" + counter);
-                                            Thread.sleep(5000);
-                                            callBack();
+                                            if (ConstantElement.roundId == 6) {
+                                                anchorScore.setVisible(true);
+                                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/WinnerScreen.fxml"));
+                                                Stage stage = (Stage) txtRandom_1.getScene().getWindow();
+                                                Scene scene = null;
+                                                try {
+                                                    scene = new Scene(loader.load());
+                                                } catch (IOException ex) {
+                                                    Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
+                                                }
+                                                stage.centerOnScreen();
+                                                stage.setScene(scene);
+
+                                                ////Ashan
+                                                //Thread.sleep(10000);
+                                            } else {
+
+                                                System.out.println("" + counter);
+                                                Thread.sleep(1000);
+                                                callBack();
+                                            }
                                         } catch (InterruptedException ex) {
                                             Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
                                         }
