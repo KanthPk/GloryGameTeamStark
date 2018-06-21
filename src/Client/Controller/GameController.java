@@ -428,6 +428,7 @@ public class GameController implements Initializable {
             transitionService.MakeFadeInLiveGame(subCheckBoxAncher).play();
             ancherPause.setVisible(true);
             ConstantElement.isPause = true;
+            pausedAfter = java.time.Duration.between(startTime, Instant.now());
             clock.stop();
             thread_pause.run();
             buttonPause = ButtonPauseLiveGame();
@@ -1051,8 +1052,10 @@ public class GameController implements Initializable {
     }
 
     private void liveStopWatch() {
+
         startTime = Instant.now();
         clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+            int a = 0;
             elapsed = java.time.Duration.between(startTime, Instant.now()).toMillis();
             ms = elapsed;
             s = ms / 1000;
@@ -1066,7 +1069,20 @@ public class GameController implements Initializable {
 //          String fireScoreScreen = String.format("%02d:%02d:%02d.%03d", h, m, s, ms);
             fireScoreScreen = String.format("%02d:%02d:%02d", h, m, s);
             lblTimer.setText("" + fireScoreScreen);
-            if (m == 3) {
+
+            if (ConstantElement.roundId == 1) {
+                a = 45;
+            } else if (ConstantElement.roundId == 2) {
+                a = 40;
+            } else if (ConstantElement.roundId == 3) {
+                a = 30;
+            } else if (ConstantElement.roundId == 4) {
+                a = 25;
+            } else if (ConstantElement.roundId == 5) {
+                a = 15;
+            }
+            if (s == a) {
+                a = 0;
                 clock.stop();
                 setProgressToNextRound();
             }
@@ -1093,14 +1109,20 @@ public class GameController implements Initializable {
 
     private void saveScoreOfLivePlayers() {
         try {
+            System.out.println("A" + roundVal);
             UUID uuid = UUID.randomUUID();
             String randomUUIDString = uuid.toString();
-            scoreObj.setTotalScore(Integer.valueOf(txtScore.getText()));
+            scoreObj.setTotalScore(txtScore.getText().isEmpty() ? Integer.parseInt(txtScore.getText()) : 0);    
             ServerCall.updateGlobalScore(ConstantElement.GroupName, ConstantElement.GlobalUserName, Integer.toString(scoreObj.getTotalScore()));
             ServerCall.setRound(ConstantElement.GroupName, ConstantElement.GlobalUserName, randomUUIDString, txtScore.getText().toString(), Integer.toString(roundVal));
             ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
+            System.out.println("D" + roundVal);
             setScore();
+            System.out.println("C" + roundVal);
             roundVal = roundVal + 1;
+//            roundVal = 4;
+            System.out.println("A" + roundVal);
+            ConstantElement.roundId = roundVal;
             roundid.setText(Integer.toString(roundVal));
             clearFields();
             setInitialLetter();
@@ -1323,14 +1345,13 @@ public class GameController implements Initializable {
         //simulation
         //callBack();       
         ConstantElement.isLive = false;
+        startTime = Instant.now().minus(pausedAfter);
         clock.play();
         timeline.play();
         buttonPause.cancel();
         ancherPause.setVisible(false);
         //service.start();
     }
-
-    int x = 0;
 
     private Task ButtonPauseLiveGame() {
         return new Task() {

@@ -78,7 +78,7 @@ public class ConstantElement {
     private String UserName;
     private String Password;
     //later
-     public static String roundId;
+     public static int roundId = 1;
 
     public static String IsFieldClicked;
 
