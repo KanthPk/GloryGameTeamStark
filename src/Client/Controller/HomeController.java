@@ -183,39 +183,38 @@ public class HomeController implements Initializable {
             t.setText(t.getText().replaceAll(".*[^0-9].*", "").toUpperCase());
             return t;
         }));
-	//Initialize Music      
+        //Initialize Music      
         ConstantElement.player();
         ConstantElement.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-     Scanner file = null;
-       try {
-        file = new Scanner(new File(System.getProperty("user.home") + File.separator + "Documents"+File.separator + "GloryGameFiles"+File.separator+"UserSettings.txt"));
-       } catch (FileNotFoundException ex) {
+        Scanner file = null;
+        try {
+            file = new Scanner(new File(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "UserSettings.txt"));
+        } catch (FileNotFoundException ex) {
 
-        }   
-      while (file.hasNextLine()) {
-             String line = file.nextLine();
-               if (line.compareTo("on")== 0) {
-              ConstantElement.mediaPlayer.play();
-             }    else if (line.compareTo("off")== 0) {
-                ConstantElement.mediaPlayer.stop();
-              }                else {
-                  // StartMusicByDefault
-                String bytes = "on";
-       byte[] buffer = bytes.getBytes();
-      try {           
-          FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents"+File.separator + "GloryGameFiles"+File.separator+"UserSettings.txt");
-           outputStream.write(buffer);
-     } catch (IOException ex) {
-           System.out.println("Error writing file '" + "UserSettings" + "'");
-      } catch (Exception e) {
-           System.out.println("Error Connection ");
         }
-               ConstantElement.mediaPlayer.play();
-              
-             }
-  }
-    }
+        while (file.hasNextLine()) {
+            String line = file.nextLine();
+            if (line.compareTo("on") == 0) {
+                ConstantElement.mediaPlayer.play();
+            } else if (line.compareTo("off") == 0) {
+                ConstantElement.mediaPlayer.stop();
+            } else {
+                // StartMusicByDefault
+                String bytes = "on";
+                byte[] buffer = bytes.getBytes();
+                try {
+                    FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "UserSettings.txt");
+                    outputStream.write(buffer);
+                } catch (IOException ex) {
+                    System.out.println("Error writing file '" + "UserSettings" + "'");
+                } catch (Exception e) {
+                    System.out.println("Error Connection ");
+                }
+                ConstantElement.mediaPlayer.play();
 
+            }
+        }
+    }
 
     public void getObject(ConstantElement login) {
         Const = login;
@@ -228,12 +227,12 @@ public class HomeController implements Initializable {
 
     @FXML
     private void closeApplication() {
-        if (!ConstantElement.isDisableBtnPlay && !ConstantElement.isPopedUp) {            
+        if (!ConstantElement.isDisableBtnPlay && !ConstantElement.isPopedUp) {
             Platform.exit();
-              ServerCall.Logout(ConstantElement.GlobalUserName, ConstantElement.GroupName);
-              ServerCall.leaveGroup(ConstantElement.GroupName, ConstantElement.GlobalUserName);
+            ServerCall.Logout(ConstantElement.GlobalUserName, ConstantElement.GroupName);
+            ServerCall.leaveGroup(ConstantElement.GroupName, ConstantElement.GlobalUserName);
             //ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
-            
+
             System.exit(0);
         }
     }
@@ -248,24 +247,24 @@ public class HomeController implements Initializable {
     private void imgSettingsOnPress(MouseEvent event) {
         System.out.println("Hello");
     }
-    
+
     @FXML
     void btnSettingsClicked(MouseEvent event) {
-        
+
         try {
-       AnchorPane layout;
-        Stage stage;
-                    layout = null;
-                    stage = null;
-                    layout = FXMLLoader.load(getClass().getResource("/UI/UserSettings.fxml"));
-                    stage = new Stage();
-                    stage.setScene(new Scene(layout));                   
-                    //if need it take it
-                    //service.makeFadeOut(root).play();
-                    stage.setResizable(false);
-                    stage.initStyle(StageStyle.UNDECORATED);
-                    stage.show();         
-           
+            AnchorPane layout;
+            Stage stage;
+            layout = null;
+            stage = null;
+            layout = FXMLLoader.load(getClass().getResource("/UI/UserSettings.fxml"));
+            stage = new Stage();
+            stage.setScene(new Scene(layout));
+            //if need it take it
+            //service.makeFadeOut(root).play();
+            stage.setResizable(false);
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.show();
+
         } catch (IOException e) {
         }
 
@@ -379,8 +378,10 @@ public class HomeController implements Initializable {
                 lblGroupNameAboutToLive.setText(ConstantElement.GroupName);
                 ObservableList items = FXCollections.observableArrayList();
                 for (int i = 0; i < 4; i++) {
-                    ConstantElement.userArray[i] = users.get(i);
-                    items.add(ConstantElement.userArray[i]);
+                    if (!users.get(i).isEmpty()) {
+                        ConstantElement.userArray[i] = users.get(i);
+                        items.add(ConstantElement.userArray[i]);
+                    }
                 }
                 listViewAboutToLoad.setItems(items);
                 for (int i = 1; i < 4; i++) {
