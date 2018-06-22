@@ -612,4 +612,28 @@ return inputLine;
         }
 return inputLine;
     }
+    
+    public String getCheckPlayer(String groupName, String nickName) {
+        String inputLine = null;      
+        JSONArray array = new JSONArray();
+        try {
+            URL oracle = new URL("https://kanthpk.000webhostapp.com/checkAllPlayer.php");
+            URLConnection yc = oracle.openConnection();
+            yc.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(yc.getOutputStream())) {
+                ps.print("&group=" + groupName);
+                ps.print("&username=" + nickName);
+                yc.getInputStream();
+                try (DataInputStream inStream = new DataInputStream(yc.getInputStream())) {
+                    inputLine = inStream.readLine();
+                    //System.out.println(""+inputLine);
+                }
+            }      
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return inputLine;
+
+    }
+    
 }
