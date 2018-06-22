@@ -72,6 +72,7 @@ public class ConstantElement {
     private String ProfilePicPath;
     private String UnserName;
     private String GameName;
+    public static String ReadyToPlay;
 
     //server configuration
     private String ServerPath;

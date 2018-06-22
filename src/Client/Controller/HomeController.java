@@ -307,9 +307,10 @@ public class HomeController implements Initializable {
     @FXML
     private void btnCreateClicked(ActionEvent event) {
         try {
-            obj.setGroup(txtGroupName.getText(), Const.GlobalUserName, txtNoOfPlayers.getText());
+            obj.setGroup(txtGroupName.getText(), ConstantElement.GlobalUserName, txtNoOfPlayers.getText());                      
             ConstantElement.GroupName = txtGroupName.getText();
             ConstantElement.no_of_players = Integer.parseInt(txtNoOfPlayers.getText());
+            obj.setGroupUSer(ConstantElement.GroupName, ConstantElement.GlobalUserName);           
             commonBehaviour("ViewGroup", null);
             setGroups();
         } catch (Exception e) {

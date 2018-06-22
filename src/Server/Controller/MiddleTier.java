@@ -506,6 +506,29 @@ public class MiddleTier {
         }
 
     }
+    
+    public void deleteEachRound(String GroupName, String UserName) {
+        String inputLine = null;
+        try {
+            //save the data
+            // open a connection to the site
+            URL url = new URL("https://kanthpk.000webhostapp.com/deleteeachRound.php.php");
+            URLConnection con = url.openConnection();
+            con.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(con.getOutputStream())) {
+                ps.print("&groupid=" + GroupName);
+                ps.print("&userid=" + UserName);
+                con.getInputStream();
+                try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
+                    inputLine = inStream.readLine();
+                }
+            }
+            //getGroup();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+    }
     public void pauseGame(String status) {
         String inputLine = null;
         try {
@@ -551,5 +574,27 @@ public class MiddleTier {
         }
 return inputLine;
     }
-    
+    public String getPlayerReady() {
+        String inputLine = null;
+        try {
+            //save the data
+            // open a connection to the site
+            URL url = new URL("https://kanthpk.000webhostapp.com/playerReadToPlay.php");
+            URLConnection con = url.openConnection();
+            con.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(con.getOutputStream())) {
+                ps.print("&group=" + ConstantElement.GroupName);
+                ps.print("&username=" + ConstantElement.GlobalUserName);
+                con.getInputStream();
+                try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
+                    inputLine = inStream.readLine();
+                    //System.out.println(""+inputLine);
+                }
+            }
+            //getGroup();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+return inputLine;
+    }
 }
