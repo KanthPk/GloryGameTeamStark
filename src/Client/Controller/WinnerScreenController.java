@@ -5,9 +5,12 @@
  */
 package Client.Controller;
 
+import Server.Controller.MiddleTier;
+import glory_schema.ConstantElement;
 import glory_services.NavigationService;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +26,8 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  * FXML Controller class
@@ -34,6 +39,9 @@ public class WinnerScreenController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    ArrayList<String> users;
+    MiddleTier ServerCall = new MiddleTier();
+    ;
     @FXML
     private Button btnHome;
 
@@ -41,7 +49,7 @@ public class WinnerScreenController implements Initializable {
     private Label lbl_Gllobal_User;
 
     @FXML
-    private ImageView userImageView1112;
+    private ImageView userImageView1;
 
     @FXML
     private Label lbl_Gllobal_User1;
@@ -50,19 +58,19 @@ public class WinnerScreenController implements Initializable {
     private Label lbl_Gllobal_User2;
 
     @FXML
-    private ImageView userImageView11121;
+    private ImageView userImageView2;
 
     @FXML
-    private Label lbl_Gllobal_User21;
+    private Label lbl_Global_User3;
 
     @FXML
-    private ImageView userImageView111211;
+    private ImageView userImageView3;
 
     @FXML
-    private Label lbl_Gllobal_User211;
+    private Label lbl_Global_User4;
 
     @FXML
-    private ImageView userImageView1112111;
+    private ImageView userImageView4;
 
     @FXML
     private Label firstPlace;
@@ -104,14 +112,49 @@ public class WinnerScreenController implements Initializable {
             Scene scene = null;
             try {
                 scene = new Scene(loader.load());
+
             } catch (IOException ex) {
                 Logger.getLogger(WinnerScreenController.class.getName()).log(Level.SEVERE, null, ex);
             }
             stage.setFullScreen(true);
-            stage.setScene(scene);       
-            stage.show(); 
+            stage.setScene(scene);
+            stage.show();
             //tage.fullScreenProperty();          
-              
+
         });
     }
+
+    public void getTotalScore() {
+        try {
+            users = new ArrayList<String>();
+            JSONArray array = ServerCall.getFinalScore();
+            int n = array.size();
+            if (!array.isEmpty()) {
+                for (int i = 0; i < n; i++) {
+                    JSONObject userJsonObjects = (JSONObject) array.get(i);
+                    String user = (String) userJsonObjects.get("User");
+                    String Score = (String) userJsonObjects.get("Score");
+
+                    if (lbl_Gllobal_User.getText().isEmpty()) {
+                        lbl_Gllobal_User.setText(user);
+                        firstPlaceScore.setText(Score);
+                    } else if (lbl_Gllobal_User2.getText().isEmpty()) {
+                        lbl_Gllobal_User2.setText(user);
+                        secondPlaceScore.setText(Score);
+
+                    } else if (lbl_Global_User3.getText().isEmpty()) {
+                        lbl_Global_User3.setText(user);
+                        thirdPlaceScore.setText(Score);
+                    } else if (lbl_Global_User4.getText().isEmpty()) {
+                        lbl_Global_User4.setText(user);
+                        fourthPlaceScore.setText(Score);
+                    }
+
+                }
+
+            }
+        } catch (Exception s) {
+        }
+    }
+
 }

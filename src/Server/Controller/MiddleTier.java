@@ -442,20 +442,35 @@ public class MiddleTier {
         try {
             URL oracle = new URL("https://kanthpk.000webhostapp.com/getTotalScore.php");
             URLConnection yc = oracle.openConnection();
-            try (BufferedReader in = new BufferedReader(new InputStreamReader(
-                    yc.getInputStream()))) {
-                JSONParser parser = new JSONParser();
-                array = (JSONArray) parser.parse(in.readLine());
-                int n = array.size();
-                for (int i = 0; i < n; i++) {
-                    // GET INDIVIDUAL JSON OBJECT FROM JSON ARRAY
-                    JSONObject jo = (JSONObject) array.get(i);
-                    String GroupName = (String) jo.get("GroupName");
-                    String UserName = (String) jo.get("User");
-                    //System.out.println("outputyss"+GroupName+UserName+Players);                
-                }
+            yc.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(yc.getOutputStream())) {
+                ps.print("&GroupName=" + ConstantElement.GroupName);
+                yc.getInputStream();
             }
-
+            try (DataInputStream inStream = new DataInputStream(yc.getInputStream())) {
+                JSONParser parser = new JSONParser();
+                array = (JSONArray) parser.parse(inStream.readLine());
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return array;
+    }
+    public JSONArray getFinalScore() {
+        String[] scores = null;
+        JSONArray array = new JSONArray();
+        try {
+            URL oracle = new URL("https://kanthpk.000webhostapp.com/FinalScore.php");
+            URLConnection yc = oracle.openConnection();
+            yc.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(yc.getOutputStream())) {
+                ps.print("&GroupName=" + ConstantElement.GroupName);
+                yc.getInputStream();
+            }
+            try (DataInputStream inStream = new DataInputStream(yc.getInputStream())) {
+                JSONParser parser = new JSONParser();
+                array = (JSONArray) parser.parse(inStream.readLine());
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
