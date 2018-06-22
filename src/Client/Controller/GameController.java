@@ -1076,15 +1076,15 @@ public class GameController implements Initializable {
             lblTimer.setText("" + fireScoreScreen);
 
             if (ConstantElement.roundId == 1) {
-                countDown = 10;
+                countDown = 35;
             } else if (ConstantElement.roundId == 2) {
-                countDown = 8;
+                countDown = 30;
             } else if (ConstantElement.roundId == 3) {
-                countDown = 6;
+                countDown = 25;
             } else if (ConstantElement.roundId == 4) {
-                countDown = 3;
+                countDown = 20;
             } else if (ConstantElement.roundId == 5) {
-                countDown = 1;
+                countDown = 15;
             }
             if (s == countDown) {
                 countDown = 0;
