@@ -1116,7 +1116,7 @@ public class GameController implements Initializable {
         try {
             ConstantElement.ReadyToPlay = ServerCall.getPlayerReady();
             System.out.println("go********************" + ConstantElement.ReadyToPlay);
-            if (ConstantElement.ReadyToPlay.equalsIgnoreCase("1")) {
+            //if (ConstantElement.ReadyToPlay.equalsIgnoreCase("1")) {
                 System.out.println("value to be tested " + txtScore.getText().toString());
                 UUID uuid = UUID.randomUUID();
                 String randomUUIDString = uuid.toString();
@@ -1134,7 +1134,7 @@ public class GameController implements Initializable {
                 getIntialLetter();
                 getTotalScore();
                 System.out.println("Hello world" + Integer.toString(scoreObj.getTotalScore()));
-            }
+            //}
         } catch (Exception e) {
             System.out.println("Loading Round Error");
         }
