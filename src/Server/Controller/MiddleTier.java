@@ -512,7 +512,7 @@ public class MiddleTier {
         try {
             //save the data
             // open a connection to the site
-            URL url = new URL("https://kanthpk.000webhostapp.com/deleteeachRound.php.php");
+            URL url = new URL("https://kanthpk.000webhostapp.com/deleteeachRound.php");
             URLConnection con = url.openConnection();
             con.setDoOutput(true);
             try (PrintStream ps = new PrintStream(con.getOutputStream())) {
