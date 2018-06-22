@@ -310,7 +310,7 @@ public class HomeController implements Initializable {
             obj.setGroup(txtGroupName.getText(), ConstantElement.GlobalUserName, txtNoOfPlayers.getText());                      
             ConstantElement.GroupName = txtGroupName.getText();
             ConstantElement.no_of_players = Integer.parseInt(txtNoOfPlayers.getText());
-            obj.setGroupUSer(ConstantElement.GroupName, ConstantElement.GlobalUserName);           
+            //obj.setGroupUSer(ConstantElement.GroupName, ConstantElement.GlobalUserName);           
             commonBehaviour("ViewGroup", null);
             setGroups();
         } catch (Exception e) {
