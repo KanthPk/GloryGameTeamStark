@@ -348,7 +348,7 @@
                   </CheckBox>
                </children>
             </AnchorPane>
-            <TextField fx:id="txtScore" alignment="CENTER" editable="false" layoutX="713.0" layoutY="501.0" prefHeight="52.0" prefWidth="240.0" promptText="SCORE" style="-fx-border-color: BLACK; -fx-background-color: #F4FF0D; -fx-cursor: HAND;" text="SCORE">
+            <TextField fx:id="txtScore" alignment="CENTER" editable="false" layoutX="713.0" layoutY="501.0" prefHeight="52.0" prefWidth="240.0" promptText="SCORE" style="-fx-border-color: BLACK; -fx-background-color: #F4FF0D; -fx-cursor: HAND;" text="0">
                <font>
                   <Font name="Californian FB Bold" size="27.0" />
                </font>

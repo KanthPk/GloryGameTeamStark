@@ -234,8 +234,8 @@ public class GameController implements Initializable {
     private Label user_3_global;
     @FXML
     private ImageView imgPause;
-
     public int roundVal = 1;
+    protected String pause="Stop";
     StringBuffer globalSubChars;
     private Bag bag;
     public boolean verifyInputFromBagForVovel;
@@ -437,8 +437,7 @@ public class GameController implements Initializable {
             pausedAfter = java.time.Duration.between(startTime, Instant.now());
             clock.stop();
             thread_pause.run();
-            buttonPause = ButtonPauseLiveGame();
-            buttonPause.run();
+            
             // service.start();
         });
 
@@ -1077,15 +1076,15 @@ public class GameController implements Initializable {
             lblTimer.setText("" + fireScoreScreen);
 
             if (ConstantElement.roundId == 1) {
-                countDown = 1;
+                countDown = 10;
             } else if (ConstantElement.roundId == 2) {
-                countDown = 2;
+                countDown = 8;
             } else if (ConstantElement.roundId == 3) {
-                countDown = 3;
+                countDown = 6;
             } else if (ConstantElement.roundId == 4) {
-                countDown = 4;
+                countDown = 3;
             } else if (ConstantElement.roundId == 5) {
-                countDown = 5;
+                countDown = 1;
             }
             if (s == countDown) {
                 countDown = 0;
@@ -1114,20 +1113,16 @@ public class GameController implements Initializable {
     }
 
     private void saveScoreOfLivePlayers() {
-        try {
-            System.out.println("A" + roundVal);
+        try {         
+            System.out.println("value to be tested "+txtScore.getText().toString());
             UUID uuid = UUID.randomUUID();
             String randomUUIDString = uuid.toString();
-            scoreObj.setTotalScore(txtScore.getText().isEmpty() ? Integer.parseInt(txtScore.getText()) : 0);
+            scoreObj.setTotalScore(Integer.parseInt(txtScore.getText()));
             ServerCall.updateGlobalScore(ConstantElement.GroupName, ConstantElement.GlobalUserName, Integer.toString(scoreObj.getTotalScore()));
             ServerCall.setRound(ConstantElement.GroupName, ConstantElement.GlobalUserName, randomUUIDString, txtScore.getText().toString(), Integer.toString(roundVal));
-            ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
-            System.out.println("D" + roundVal);
-            setScore();
-            System.out.println("C" + roundVal);
-            roundVal = roundVal + 1;
-//            roundVal = 4;
-            System.out.println("A" + roundVal);
+            ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);          
+            setScore();          
+            roundVal = roundVal + 1;           
             ConstantElement.roundId = roundVal;
             roundid.setText(Integer.toString(roundVal));
             clearFields();
@@ -1139,7 +1134,6 @@ public class GameController implements Initializable {
         }
     }
 
-    /////Ashan
     private Task createWorker() {
         return new Task() {
             @Override
@@ -1366,6 +1360,7 @@ public class GameController implements Initializable {
         //simulation
         //callBack();       
         ConstantElement.isLive = false;
+        ServerCall.pauseGame("Start");
         startTime = Instant.now().minus(pausedAfter);
         clock.play();
         timeline.play();
@@ -1386,8 +1381,10 @@ public class GameController implements Initializable {
                             public void run() {
                                 try {
                                     timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
-                                        System.out.println("Thread 2");
-                                        if (ConstantElement.isLive) {
+                                        
+                                        ConstantElement.pause =ServerCall.getpauseGame();
+                                        System.out.println("Thread 2*****************"+pause);
+                                        if (ConstantElement.pause.equals(pause)) {
                                             //
                                             timeline.stop();
                                         }

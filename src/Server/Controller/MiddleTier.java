@@ -6,6 +6,7 @@
 package Server.Controller;
 
 import animation.TransitionService;
+import glory_schema.ConstantElement;
 import glory_services.ValidatorService;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -291,31 +292,26 @@ public class MiddleTier {
         }
     }
 
-    public JSONArray getUserGroup() {
-        String[] members = null;
+    public JSONArray getUserGroup(String GroupName,String nickName) {
+        String[] members = null;       
         JSONArray array = new JSONArray();
         try {
             URL oracle = new URL("https://kanthpk.000webhostapp.com/getusergroup.php");
             URLConnection yc = oracle.openConnection();
-            try (BufferedReader in = new BufferedReader(new InputStreamReader(
-                    yc.getInputStream()))) {
-                JSONParser parser = new JSONParser();
-                array = (JSONArray) parser.parse(in.readLine());
-                int n = array.size();
-                for (int i = 0; i < n; i++) {
-                    // GET INDIVIDUAL JSON OBJECT FROM JSON ARRAY
-                    JSONObject jo = (JSONObject) array.get(i);
-                    String GroupName = (String) jo.get("GroupName");
-                    String UserName = (String) jo.get("UserName");
-                    //System.out.println("outputyss"+GroupName+UserName+Players);                
+            yc.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(yc.getOutputStream())) {
+                    ps.print("&username=" + nickName);
+                    ps.print("&group=" + GroupName);
+                    yc.getInputStream();
                 }
-            }
-
+                try (DataInputStream inStream = new DataInputStream(yc.getInputStream())) {
+                    JSONParser parser = new JSONParser();
+                array = (JSONArray) parser.parse(inStream.readLine());
+                }           
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return array;
-
     }
 
     public void setInitialLetter(String GroupName, String UserName, String L1, String L2, String L3) {
@@ -359,6 +355,10 @@ public class MiddleTier {
                 try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
                     inputLine = inStream.readLine();
                 }
+            }
+            else
+            {
+            serviceValidater.validateConditionErrors("CHECK INPUTS", "Please check your inputs", false, false, true, false, false);
             }
         } catch (IOException ex) {
         }
@@ -505,6 +505,51 @@ public class MiddleTier {
             System.err.println(e.getMessage());
         }
 
+    }
+    public void pauseGame(String status) {
+        String inputLine = null;
+        try {
+            //save the data
+            // open a connection to the site
+            URL url = new URL("https://kanthpk.000webhostapp.com/pause.php");
+            URLConnection con = url.openConnection();
+            con.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(con.getOutputStream())) {
+                ps.print("&status=" + status);
+                ps.print("&group=" + ConstantElement.GroupName);
+                con.getInputStream();
+                try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
+                    inputLine = inStream.readLine();
+                }
+            }
+            //getGroup();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+    }
+    
+    public String getpauseGame() {
+        String inputLine = null;
+        try {
+            //save the data
+            // open a connection to the site
+            URL url = new URL("https://kanthpk.000webhostapp.com/getPause.php");
+            URLConnection con = url.openConnection();
+            con.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(con.getOutputStream())) {
+                ps.print("&group=" + ConstantElement.GroupName);
+                con.getInputStream();
+                try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
+                    inputLine = inStream.readLine();
+                    //System.out.println(""+inputLine);
+                }
+            }
+            //getGroup();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+return inputLine;
     }
     
 }

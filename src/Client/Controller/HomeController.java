@@ -429,7 +429,7 @@ public class HomeController implements Initializable {
     private void getUsers() {
         users = new ArrayList<String>();
         try {
-            JSONArray array = obj.getUserGroup();
+            JSONArray array = obj.getUserGroup(ConstantElement.GroupName,ConstantElement.GlobalUserName);
             returnedNoOfUsers = array.size();
             if (!array.isEmpty()) {
                 for (int i = 0; i < returnedNoOfUsers; i++) {

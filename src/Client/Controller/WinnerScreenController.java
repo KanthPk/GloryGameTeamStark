@@ -14,11 +14,13 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -105,8 +107,11 @@ public class WinnerScreenController implements Initializable {
             } catch (IOException ex) {
                 Logger.getLogger(WinnerScreenController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            stage.centerOnScreen();
-            stage.setScene(scene);
+            stage.setFullScreen(true);
+            stage.setScene(scene);       
+            stage.show(); 
+            //tage.fullScreenProperty();          
+              
         });
     }
 }

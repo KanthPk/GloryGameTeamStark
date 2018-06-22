@@ -5,6 +5,7 @@
  */
 package Threads;
 
+import Server.Controller.MiddleTier;
 import glory_schema.ConstantElement;
 
 /**
@@ -12,7 +13,7 @@ import glory_schema.ConstantElement;
  * @author AshanPerera
  */
 public class GamePause implements Runnable {
-
+    MiddleTier server = new MiddleTier();
     @Override
     public void run() {
         if (ConstantElement.isPause) {
@@ -23,6 +24,7 @@ public class GamePause implements Runnable {
             //sleep Thread 1000
             //Thread.sleep(1000);
             System.out.println("Thread 1");
+            server.pauseGame("Stop");
         }
     }
 

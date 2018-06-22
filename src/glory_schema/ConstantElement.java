@@ -63,7 +63,7 @@ public class ConstantElement {
     public static String RandomeNo;
     public static String UserMail;
     public static boolean isLive;
-
+    public static String pause;
     private int Plagetyers;
     private String Timer;
     private boolean IsOnline;
