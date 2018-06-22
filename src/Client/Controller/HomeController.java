@@ -38,6 +38,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -49,6 +50,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -169,7 +171,10 @@ public class HomeController implements Initializable {
     private ProgressBar progressGameLoader;
 
     @FXML
-    private ListView testListView;
+    private ListView userList;
+
+    @FXML
+    private Label onlineCountLabel;
 
     private Bag bag;
 
@@ -184,13 +189,19 @@ public class HomeController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         for (int i = 0; i < 10; i++) {
-            testListView.getItems().add(i);
+            Label lbl = new Label("User" + i);
+            lbl.setAlignment(Pos.CENTER);
+            ImageView imgView = new ImageView(new Image("/resources/default.png"));
+            imgView.setFitHeight(40);
+            imgView.setFitWidth(40);
+            lbl.setGraphic(imgView);
+            userList.getItems().add(lbl);
         }
 
-        testListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        userList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                System.out.println("clicked on " + testListView.getSelectionModel().getSelectedItem());
+                System.out.println("clicked on " + userList.getSelectionModel().getSelectedItem());
             }
         });
 
@@ -201,6 +212,7 @@ public class HomeController implements Initializable {
             t.setText(t.getText().replaceAll(".*[^0-9].*", "").toUpperCase());
             return t;
         }));
+
         //Initialize Music      
         ConstantElement.player();
         ConstantElement.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
@@ -307,7 +319,7 @@ public class HomeController implements Initializable {
     @FXML
     private void btnCreateClicked(ActionEvent event) {
         try {
-            obj.setGroup(txtGroupName.getText(), ConstantElement.GlobalUserName, txtNoOfPlayers.getText());                      
+            obj.setGroup(txtGroupName.getText(), ConstantElement.GlobalUserName, txtNoOfPlayers.getText());
             ConstantElement.GroupName = txtGroupName.getText();
             ConstantElement.no_of_players = Integer.parseInt(txtNoOfPlayers.getText());
             //obj.setGroupUSer(ConstantElement.GroupName, ConstantElement.GlobalUserName);           
@@ -431,7 +443,7 @@ public class HomeController implements Initializable {
     private void getUsers() {
         users = new ArrayList<String>();
         try {
-            JSONArray array = obj.getUserGroup(ConstantElement.GroupName,ConstantElement.GlobalUserName);
+            JSONArray array = obj.getUserGroup(ConstantElement.GroupName, ConstantElement.GlobalUserName);
             returnedNoOfUsers = array.size();
             if (!array.isEmpty()) {
                 for (int i = 0; i < returnedNoOfUsers; i++) {
@@ -572,4 +584,32 @@ public class HomeController implements Initializable {
         };
     }
 
+    
+//    private Task ButtonPauseLiveGame() {
+//        return new Task() {
+//            @Override
+//            protected Object call() throws Exception {
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Platform.runLater(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                try {
+//                                    timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
+//
+//                                        System.out.println("Live players");
+//                                    }));
+//                                    timeline.setCycleCount(Animation.INDEFINITE);
+//                                    timeline.play();
+//                                } catch (Exception e) {
+//                                }
+//                            }
+//                        });
+//                    }
+//                }).start();
+//                return true;
+//            }
+//        };
+//    }
 }

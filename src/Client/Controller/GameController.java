@@ -235,7 +235,7 @@ public class GameController implements Initializable {
     @FXML
     private ImageView imgPause;
     public int roundVal = 1;
-    protected String pause="Stop";
+    protected String pause = "Stop";
     StringBuffer globalSubChars;
     private Bag bag;
     public boolean verifyInputFromBagForVovel;
@@ -437,7 +437,7 @@ public class GameController implements Initializable {
             pausedAfter = java.time.Duration.between(startTime, Instant.now());
             clock.stop();
             thread_pause.run();
-            
+
             // service.start();
         });
 
@@ -1117,23 +1117,23 @@ public class GameController implements Initializable {
             ConstantElement.ReadyToPlay = ServerCall.getPlayerReady();
             System.out.println("go********************" + ConstantElement.ReadyToPlay);
             //if (ConstantElement.ReadyToPlay.equalsIgnoreCase("1")) {
-                System.out.println("value to be tested " + txtScore.getText().toString());
-                UUID uuid = UUID.randomUUID();
-                String randomUUIDString = uuid.toString();
-                scoreObj.setTotalScore(Integer.parseInt(txtScore.getText()));
-                ServerCall.updateGlobalScore(ConstantElement.GroupName, ConstantElement.GlobalUserName, Integer.toString(scoreObj.getTotalScore()));
-                ServerCall.setRound(ConstantElement.GroupName, ConstantElement.GlobalUserName, randomUUIDString, txtScore.getText().toString(), Integer.toString(roundVal));
-                ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
-                setScore();
-                ServerCall.deleteEachRound(ConstantElement.GroupName, ConstantElement.GlobalUserName);
-                roundVal = roundVal + 1;
-                ConstantElement.roundId = roundVal;
-                roundid.setText(Integer.toString(roundVal));
-                clearFields();
-                setInitialLetter();
-                getIntialLetter();
-                getTotalScore();
-                System.out.println("Hello world" + Integer.toString(scoreObj.getTotalScore()));
+            System.out.println("value to be tested " + txtScore.getText().toString());
+            UUID uuid = UUID.randomUUID();
+            String randomUUIDString = uuid.toString();
+            scoreObj.setTotalScore(Integer.parseInt(txtScore.getText()));
+            ServerCall.updateGlobalScore(ConstantElement.GroupName, ConstantElement.GlobalUserName, Integer.toString(scoreObj.getTotalScore()));
+            ServerCall.setRound(ConstantElement.GroupName, ConstantElement.GlobalUserName, randomUUIDString, txtScore.getText().toString(), Integer.toString(roundVal));
+            ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
+            setScore();
+            ServerCall.deleteEachRound(ConstantElement.GroupName, ConstantElement.GlobalUserName);
+            roundVal = roundVal + 1;
+            ConstantElement.roundId = roundVal;
+            roundid.setText(Integer.toString(roundVal));
+            clearFields();
+            setInitialLetter();
+            getIntialLetter();
+            getTotalScore();
+            System.out.println("Hello world" + Integer.toString(scoreObj.getTotalScore()));
             //}
         } catch (Exception e) {
             System.out.println("Loading Round Error");
@@ -1387,9 +1387,9 @@ public class GameController implements Initializable {
                             public void run() {
                                 try {
                                     timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
-                                        
-                                        ConstantElement.pause =ServerCall.getpauseGame();
-                                        System.out.println("Thread 2*****************"+pause);
+
+                                        ConstantElement.pause = ServerCall.getpauseGame();
+                                        System.out.println("Thread 2*****************" + pause);
                                         if (ConstantElement.pause.equals(pause)) {
                                             //
                                             timeline.stop();
@@ -1407,5 +1407,4 @@ public class GameController implements Initializable {
             }
         };
     }
-
 }
