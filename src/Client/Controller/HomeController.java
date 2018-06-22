@@ -333,6 +333,7 @@ public class HomeController implements Initializable {
         try {
             if (!users.isEmpty()) {
                 commonBehaviour("PrepareForGame", event);
+                ConstantElement.mediaPlayer.stop();
             }
         } catch (Exception e) {
         }
