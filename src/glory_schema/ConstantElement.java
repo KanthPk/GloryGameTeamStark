@@ -125,9 +125,8 @@ public class ConstantElement {
     }
     
     public static void player()
-    {     
-   String path = System.getProperty("user.home") + File.separator + "Documents"+File.separator + "GloryGameFiles"+File.separator+"MyLittleAdventure.mp3";
-  Media hit = new Media(new File(path).toURI().toString());
+    {       
+    Media hit = new Media(new File("MyLittleAdventure.mp3").toURI().toString());
     mediaPlayer = new MediaPlayer(hit);
     }
     

@@ -109,28 +109,10 @@ public class LoginController implements Initializable {
         } else {
             System.out.println(customDir + " was not created");
         }
-
-        copyfiles();
-
+   
     }
 
-    private void copyfiles() {
-        File source = new File(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "New folder" + File.separator + "MyLittleAdventure.mp3");
-        // Destination file.
-        File destination = new File(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "MyLittleAdventure.mp3");
 
-        try {
-            copyFile(source, destination);
-        } catch (IOException e) {
-            System.out.println("Problem occurs when copying files");
-            e.printStackTrace();
-        }
-
-    }
-
-    public static void copyFile(File source, File destination) throws IOException {
-        FileUtils.copyFile(source, destination);
-    }
 
     @FXML
     private void btnLoginClicked(ActionEvent event) throws IOException {
