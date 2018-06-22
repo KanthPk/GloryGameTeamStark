@@ -64,7 +64,7 @@ import org.json.simple.JSONObject;
 /**
  * FXML Controller class
  *
- * @author AshanPerera
+ * @author TeamStark
  */
 public class HomeController implements Initializable {
 
