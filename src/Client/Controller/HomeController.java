@@ -344,7 +344,7 @@ public class HomeController implements Initializable {
     private void btnProceedClicked(ActionEvent event) {
         try {
             if (!users.isEmpty()) {
-                commonBehaviour("PrepareForGame", event);
+
                 ConstantElement.mediaPlayer.stop();
             }
         } catch (Exception e) {
@@ -475,8 +475,20 @@ public class HomeController implements Initializable {
                         public void run() {
                             try {
                                 timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
-                                    if (users.size() == ConstantElement.no_of_players || (users.size() >= ConstantElement.no_of_players) && (users.size() < ConstantElement.no_of_players)) {
+                                    String val = ServerCall.getCheckPlayer(ConstantElement.GroupName, ConstantElement.GlobalUserName);
+
+                                    if (users.size() == ConstantElement.no_of_players
+                                            || (users.size() >= ConstantElement.no_of_players)
+                                            && (users.size() < ConstantElement.no_of_players)
+                                            && (Integer.parseInt(val) != ConstantElement.no_of_players)) {
                                         btnProceed.setDisable(false);
+                                        btnProceed.setOnAction(event -> {
+                                            try {
+                                                commonBehaviour("PrepareForGame", event);
+                                            } catch (IOException ex) {
+                                                Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+                                            }
+                                        });
                                     } else if (users.size() < ConstantElement.no_of_players || users.size() == ConstantElement.no_of_players) {
                                         btnProceed.setDisable(true);
                                         lblGroupViewSubHeading.setText("Please wait for other players");
@@ -584,7 +596,6 @@ public class HomeController implements Initializable {
         };
     }
 
-    
 //    private Task ButtonPauseLiveGame() {
 //        return new Task() {
 //            @Override
