@@ -52,24 +52,25 @@ public class MiddleTier {
         //return true;
     }
 
-    public String[] onlineUsers() {
-        String[] animals = null;
+    public JSONArray onlineUsers() {
+        String[] scores = null;
+        JSONArray array = new JSONArray();
         try {
             URL oracle = new URL("https://kanthpk.000webhostapp.com/sample.php");
             URLConnection yc = oracle.openConnection();
-            try (BufferedReader in = new BufferedReader(new InputStreamReader(
-                    yc.getInputStream()))) {
-                String inputLine;
-
-                while ((inputLine = in.readLine()) != null) {
-                    animals = inputLine.split("\\s");
-                }
+            yc.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(yc.getOutputStream())) {
+                ps.print("&=" + ConstantElement.GroupName);
+                yc.getInputStream();
             }
-
-        } catch (IOException e) {
+            try (DataInputStream inStream = new DataInputStream(yc.getInputStream())) {
+                JSONParser parser = new JSONParser();
+                array = (JSONArray) parser.parse(inStream.readLine());
+            }
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return animals;
+        return array;
     }
 
     public String Login(String userName, String pasword) {
@@ -634,6 +635,26 @@ return inputLine;
         }
         return inputLine;
 
+    }
+    public String getUserGroupStart(String GroupName,String nickName) {
+        String inputLine = null;             
+        try {
+            URL oracle = new URL("https://kanthpk.000webhostapp.com/getGroupPlay.php");
+            URLConnection yc = oracle.openConnection();
+            yc.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(yc.getOutputStream())) {
+                    ps.print("&username=" + nickName);
+                    ps.print("&group=" + GroupName);
+                    yc.getInputStream();
+                }
+                try (DataInputStream inStream = new DataInputStream(yc.getInputStream())) {
+                    inputLine = inStream.readLine();
+                    //System.out.println(""+inputLine);
+                }          
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return inputLine;
     }
     
 }

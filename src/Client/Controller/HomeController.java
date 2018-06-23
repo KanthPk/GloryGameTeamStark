@@ -190,7 +190,7 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        for (int i = 0; i < 10; i++) {
+        /*for (int i = 0; i < 10; i++) {
             Label lbl = new Label("User" + i);
             lbl.setAlignment(Pos.CENTER);
             ImageView imgView = new ImageView(new Image("/resources/default.png"));
@@ -199,7 +199,7 @@ public class HomeController implements Initializable {
             lbl.setGraphic(imgView);
             userList.getItems().add(lbl);
         }
-
+*/      getOnlineUsers();    
         userList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -608,9 +608,10 @@ public class HomeController implements Initializable {
                         @Override
                         public void run() {
                             try {
-                                livePlayersTimeLine = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
+                                livePlayersTimeLine = new Timeline(new KeyFrame(Duration.minutes(1), ev -> {
                                     //after server call
                                     System.out.println("Calm Thread in home UI ->>>>");
+                                    getOnlineUsers();                                    
                                 }));
                                 livePlayersTimeLine.setCycleCount(Animation.INDEFINITE);
                                 livePlayersTimeLine.play();
@@ -624,4 +625,36 @@ public class HomeController implements Initializable {
             };
         }
     };
+    private void getOnlineUsers() {
+        users = new ArrayList<String>();
+        try {
+            JSONArray array = obj.onlineUsers();
+            int a = array.size();
+            if (!array.isEmpty()) {
+                for (int i = 0; i < a; i++) {
+                    JSONObject userJsonObjects = (JSONObject) array.get(i);
+                    String UserName = (String) userJsonObjects.get("UserName");
+                    if (!UserName.isEmpty()) {
+                        users.add(UserName);
+                    }
+                }
+                //listGroupViewMembers.getItems().clear();
+                userList.getItems().clear();
+                int d=0;
+                for (String userStringObject : users) {
+                    d++;
+                    onlineCountLabel.setText(Integer.toString(d));
+                    Label lbl = new Label(userStringObject);
+                    lbl.setAlignment(Pos.CENTER);
+                    ImageView imgView = new ImageView(new Image("/resources/default.png"));
+                    imgView.setFitHeight(40);
+                    imgView.setFitWidth(40);
+                    lbl.setGraphic(imgView);
+                    userList.getItems().add(lbl);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
