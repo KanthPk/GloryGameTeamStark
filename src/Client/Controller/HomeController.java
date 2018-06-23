@@ -176,6 +176,8 @@ public class HomeController implements Initializable {
     @FXML
     private Label onlineCountLabel;
 
+    private Timeline livePlayersTimeLine;
+
     private Bag bag;
 
     public HomeController() {
@@ -244,6 +246,9 @@ public class HomeController implements Initializable {
 
             }
         }
+        if (!ConstantElement.isFinished) {
+            livePlayerService.start();
+        }
     }
 
     public void getObject(ConstantElement login) {
@@ -252,6 +257,8 @@ public class HomeController implements Initializable {
 
     @FXML
     void btnPlayClicked(ActionEvent event) throws IOException {
+        livePlayerService.cancel();
+        livePlayersTimeLine.stop();
         commonBehaviour("Group", null);
     }
 
@@ -332,6 +339,7 @@ public class HomeController implements Initializable {
     @FXML
     private void btnLeaveClicked(ActionEvent event) {
         try {
+            livePlayerService.start();
             ConstantElement.isPopedUp = false;
             ConstantElement.isDisableBtnPlay = false;
             commonBehaviour("MakeAllInvicible", null);
@@ -353,7 +361,7 @@ public class HomeController implements Initializable {
 
     @FXML
     private void btnLeaveGroupViewClicked(ActionEvent e) throws IOException {
-        service.cancel();
+        livePlayerService.start();
         ConstantElement.isPopedUp = false;
         ConstantElement.isDisableBtnPlay = false;
         commonBehaviour("MakeAllInvicible", null);
@@ -475,7 +483,8 @@ public class HomeController implements Initializable {
                         public void run() {
                             try {
                                 timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
-                                    String val = ServerCall.getCheckPlayer(ConstantElement.GroupName, ConstantElement.GlobalUserName);
+                                    //should be removed
+                                    //String val = ServerCall.getCheckPlayer(ConstantElement.GroupName, ConstantElement.GlobalUserName);
                                     if (users.size() == ConstantElement.no_of_players || (users.size() >= ConstantElement.no_of_players) && (users.size() < ConstantElement.no_of_players)) {
                                         btnProceed.setDisable(false);
                                     } else if (users.size() < ConstantElement.no_of_players || users.size() == ConstantElement.no_of_players) {
@@ -546,7 +555,10 @@ public class HomeController implements Initializable {
                             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     } else if (ConstantElement.isFinished) {
+                        service.cancel();
                         timeline.stop();
+                        livePlayerService.cancel();
+                        livePlayersTimeLine.stop();
                         Stage app_stage = (Stage) progressGameLoader.getScene().getWindow();
                         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/Game.fxml"));
                         Parent parentHome = null;
@@ -575,7 +587,7 @@ public class HomeController implements Initializable {
                     if (i == 60) {
                         ConstantElement.prepareToSave = true;
                     }
-                    Thread.sleep(100);
+                    Thread.sleep(200);
                     updateMessage(i + "%");
                     updateProgress(i + 1, 100);
                 }
@@ -585,31 +597,31 @@ public class HomeController implements Initializable {
         };
     }
 
-//    private Task ButtonPauseLiveGame() {
-//        return new Task() {
-//            @Override
-//            protected Object call() throws Exception {
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Platform.runLater(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                try {
-//                                    timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
-//
-//                                        System.out.println("Live players");
-//                                    }));
-//                                    timeline.setCycleCount(Animation.INDEFINITE);
-//                                    timeline.play();
-//                                } catch (Exception e) {
-//                                }
-//                            }
-//                        });
-//                    }
-//                }).start();
-//                return true;
-//            }
-//        };
-//    }
+    Service<Void> livePlayerService = new Service<Void>() {
+        @Override
+        protected Task<Void> createTask() {
+            return new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                    final CountDownLatch latch = new CountDownLatch(1);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                livePlayersTimeLine = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
+                                    //after server call
+                                    System.out.println("Calm Thread in home UI ->>>>");
+                                }));
+                                livePlayersTimeLine.setCycleCount(Animation.INDEFINITE);
+                                livePlayersTimeLine.play();
+                            } catch (Exception e) {
+                            }
+                        }
+                    });
+                    latch.await();
+                    return null;
+                }
+            };
+        }
+    };
 }

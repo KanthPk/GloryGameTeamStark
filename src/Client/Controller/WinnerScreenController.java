@@ -104,15 +104,17 @@ public class WinnerScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        getTotalScore(); 
+        getTotalScore();
         btnHome.setOnAction(event -> {
+            //reset variable 
+            ConstantElement.isFinished = false;
             //navigate
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Home.fxml"));
             Stage stage = (Stage) secondPlaceScore.getScene().getWindow();
             Scene scene = null;
             try {
                 scene = new Scene(loader.load());
-                
+
             } catch (IOException ex) {
                 Logger.getLogger(WinnerScreenController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -131,7 +133,7 @@ public class WinnerScreenController implements Initializable {
             lbl_Gllobal_User.setText("");
             lbl_Gllobal_User2.setText("");
             lbl_Global_User3.setText("");
-            lbl_Global_User4.setText("");                   
+            lbl_Global_User4.setText("");
             users = new ArrayList<String>();
             JSONArray array = ServerCall.getFinalScore();
             int n = array.size();
