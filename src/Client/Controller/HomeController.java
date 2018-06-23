@@ -48,6 +48,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
@@ -82,7 +83,7 @@ public class HomeController implements Initializable {
     private String[] randomGenCharacters;
     Timeline timeline = null;
     int[] PlayersArray = new int[100];
-
+    int usercount=0;
     @FXML
     private AnchorPane homeRoot;
 
@@ -175,11 +176,18 @@ public class HomeController implements Initializable {
 
     @FXML
     private Label onlineCountLabel;
-
+    
+    @FXML
+    private Label globalUser;
+    @FXML
+    private TextArea txtmessage;
+    
+    @FXML
+    private Button btnSend; 
     private Timeline livePlayersTimeLine;
 
     private Bag bag;
-
+    
     public HomeController() {
         obj = new MiddleTier();
         Const = new ConstantElement();
@@ -190,23 +198,12 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        /*for (int i = 0; i < 10; i++) {
-            Label lbl = new Label("User" + i);
-            lbl.setAlignment(Pos.CENTER);
-            ImageView imgView = new ImageView(new Image("/resources/default.png"));
-            imgView.setFitHeight(40);
-            imgView.setFitWidth(40);
-            lbl.setGraphic(imgView);
-            userList.getItems().add(lbl);
-        }
-*/      getOnlineUsers();    
-        userList.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                System.out.println("clicked on " + userList.getSelectionModel().getSelectedItem());
-            }
+        btnSend.setOnAction((event) -> {
+            ServerCall.sendMessage(ConstantElement.GlobalUserName, txtmessage.getText(),"Subash");
         });
-
+        //accountUser.setText(ConstantElement.GlobalUserName);
+        globalUser.setText(ConstantElement.GlobalUserName);
+        getOnlineUsers();                  
         btnProceed.setDisable(true);
         btnCreate.disableProperty().bind(txtNoOfPlayers.textProperty().isEmpty());
         btnCreate.disableProperty().bind(txtNoOfPlayers.textProperty().isEmpty());
@@ -608,10 +605,12 @@ public class HomeController implements Initializable {
                         @Override
                         public void run() {
                             try {
-                                livePlayersTimeLine = new Timeline(new KeyFrame(Duration.minutes(1), ev -> {
+                                livePlayersTimeLine = new Timeline(new KeyFrame(Duration.seconds(20), ev -> {
                                     //after server call
                                     System.out.println("Calm Thread in home UI ->>>>");
-                                    getOnlineUsers();                                    
+                                    usercount=0;
+                                    getOnlineUsers();
+                                    getChatMessage();                                    
                                 }));
                                 livePlayersTimeLine.setCycleCount(Animation.INDEFINITE);
                                 livePlayersTimeLine.play();
@@ -626,6 +625,7 @@ public class HomeController implements Initializable {
         }
     };
     private void getOnlineUsers() {
+        System.out.println("ssssssssssssss"+txtmessage.getText());
         users = new ArrayList<String>();
         try {
             JSONArray array = obj.onlineUsers();
@@ -640,10 +640,11 @@ public class HomeController implements Initializable {
                 }
                 //listGroupViewMembers.getItems().clear();
                 userList.getItems().clear();
-                int d=0;
-                for (String userStringObject : users) {
-                    d++;
-                    onlineCountLabel.setText(Integer.toString(d));
+                int usercount=0;
+                for (String userStringObject : users) {                   
+                    if(!userStringObject.equals(ConstantElement.GlobalUserName)){
+                    usercount++;
+                    onlineCountLabel.setText(Integer.toString(usercount));
                     Label lbl = new Label(userStringObject);
                     lbl.setAlignment(Pos.CENTER);
                     ImageView imgView = new ImageView(new Image("/resources/default.png"));
@@ -652,9 +653,43 @@ public class HomeController implements Initializable {
                     lbl.setGraphic(imgView);
                     userList.getItems().add(lbl);
                 }
+                     userList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        String value = userList.getSelectionModel().getSelectedItems().toString();                
+                        value = value.substring(value.indexOf("'"));
+                        value = value.replaceAll("']", "'");
+                        value = value.replaceFirst("'", "");
+                        value = value.replaceFirst("'", "");
+                        System.out.println(value);                       
+                    }
+                });
+                }
+        } }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void getChatMessage() {
+        users = new ArrayList<String>();
+        try {                                  
+            JSONArray array = ServerCall.getChatMessage(ConstantElement.GlobalUserName);
+            int cou = array.size();
+            System.out.println("ssaas"+cou);
+            txtmessage.clear();
+            if (!array.isEmpty()) {
+                for (int i = 0; i < cou ; i++) {
+                    JSONObject userJsonObjects = (JSONObject) array.get(i);
+                    String Message = (String) userJsonObjects.get("Message");
+                    String sender = (String) userJsonObjects.get("Sender");
+                    String Receiver = (String) userJsonObjects.get("Receiver");
+                    if (!Message.isEmpty()&& Receiver.equals(ConstantElement.GlobalUserName)) {
+                        txtmessage.setText("Message From :-  "+sender+"....."+Message);
+                    }
+                }              
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    
 }

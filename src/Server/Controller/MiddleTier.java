@@ -656,5 +656,50 @@ return inputLine;
         }
         return inputLine;
     }
+    public void sendMessage(String Sender,String message,String reciever) {
+        String inputLine = null;
+        try {
+            //save the data
+            // open a connection to the site
+            URL url = new URL("https://kanthpk.000webhostapp.com/sendMessage.php");
+            URLConnection con = url.openConnection();
+            con.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(con.getOutputStream())) {
+                ps.print("&sender=" + Sender);
+                ps.print("&message=" + message);
+                ps.print("&reciever=" + reciever);
+                con.getInputStream();
+                try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
+                    inputLine = inStream.readLine();
+                }
+            }
+            //getGroup();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+    }
+    public JSONArray getChatMessage(String nickName) {
+        String[] scores = null;
+        
+        JSONArray array = new JSONArray();
+        try {
+            URL oracle = new URL("https://kanthpk.000webhostapp.com/getMessage.php");
+            URLConnection yc = oracle.openConnection();
+            yc.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(yc.getOutputStream())) {
+                    ps.print("&userid=" + nickName);                  
+                    yc.getInputStream();
+                }
+                try (DataInputStream inStream = new DataInputStream(yc.getInputStream())) {
+                    JSONParser parser = new JSONParser();
+                array = (JSONArray) parser.parse(inStream.readLine());
+                }           
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return array;
+
+    }
     
 }

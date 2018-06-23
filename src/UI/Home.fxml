@@ -35,7 +35,7 @@
                 </Button>
             </left>
         </BorderPane>
-        <Label layoutX="1125.0" layoutY="122.0" prefHeight="37.0" prefWidth="138.0" style="-fx-cursor: HAND;" text="Ashan Perera" textFill="#c3c3c3">
+        <Label fx:id="globalUser" layoutX="1125.0" layoutY="122.0" prefHeight="37.0" prefWidth="138.0" style="-fx-cursor: HAND;" text="" textFill="#c3c3c3">
             <font>
                 <Font name="Arial Bold" size="19.0" />
             </font>
@@ -362,7 +362,7 @@
             <DropShadow spread="0.24" />
          </effect>
       </AnchorPane>
-      <Button layoutX="960.0" layoutY="609.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="81.0" text="SEND">
+      <Button fx:id="btnSend" layoutX="960.0" layoutY="609.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="81.0" text="SEND">
          <font>
             <Font size="20.0" />
          </font>
@@ -370,7 +370,7 @@
             <DropShadow spread="0.24" />
          </effect>
       </Button>
-      <TextArea layoutX="589.0" layoutY="610.0" prefHeight="49.0" prefWidth="361.0" promptText="MESSAGE">
+      <TextArea fx:id= "txtmessage" layoutX="589.0" layoutY="610.0" prefHeight="49.0" prefWidth="361.0" promptText="MESSAGE">
          <effect>
             <DropShadow spread="0.34" />
          </effect>
