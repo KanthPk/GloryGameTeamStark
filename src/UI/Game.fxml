@@ -370,7 +370,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Label fx:id="roundid" alignment="CENTER" layoutX="471.0" layoutY="22.0" prefHeight="43.0" prefWidth="429.0" text="Round Label">
+      <Label fx:id="roundid" layoutX="676.0" layoutY="21.0" prefHeight="43.0" prefWidth="43.0" text="Round Label">
          <font>
             <Font size="27.0" />
          </font>
@@ -523,7 +523,7 @@
             <DropShadow spread="0.56" />
          </effect>
       </ImageView>
-      <Label fx:id="lblTimer" alignment="CENTER" layoutX="97.0" layoutY="19.0" prefHeight="49.0" prefWidth="143.0" text="00:00.000" textFill="WHITE">
+      <Label fx:id="lblTimer" alignment="CENTER" layoutX="108.0" layoutY="18.0" prefHeight="49.0" prefWidth="143.0" text="00:00.000" textFill="WHITE">
          <font>
             <Font size="33.0" />
          </font>
@@ -543,5 +543,34 @@
             </ImageView>
          </children>
       </AnchorPane>
+      <Label fx:id="roundid1" alignment="CENTER" layoutX="567.0" layoutY="21.0" prefHeight="43.0" prefWidth="112.0" text="Round -">
+         <font>
+            <Font size="27.0" />
+         </font>
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" color="WHITE" spread="1.0" />
+         </effect>
+      </Label>
+      <Label fx:id="roundid11" alignment="CENTER" layoutX="14.0" layoutY="20.0" prefHeight="43.0" prefWidth="94.0" text="TIMER">
+         <font>
+            <Font size="27.0" />
+         </font>
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" color="WHITE" spread="1.0" />
+         </effect>
+      </Label>
+      <Label fx:id="roundid111" alignment="CENTER" layoutX="150.0" layoutY="305.0" prefHeight="28.0" prefWidth="43.0" text="0">
+         <font>
+            <Font size="26.0" />
+         </font>
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" color="WHITE" spread="1.0" />
+         </effect>
+      </Label>
+      <ImageView fitHeight="52.0" fitWidth="57.0" layoutX="80.0" layoutY="302.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resources/diomond.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
