@@ -97,13 +97,9 @@ public class Bag {
         return vowels;
     }
 
-    public void setNewVowelString(String characterToBeRemoved) {
+    public void replaceVowelString(String characterToBeRemoved) {
         vowelLength -= 1;
         vowels = vowels.replace(characterToBeRemoved, "").trim();
-    }
-
-    public String takeFilterString() {
-        return vowels;
     }
 
     public String takeConsonentString() {
@@ -136,7 +132,9 @@ public class Bag {
     public void resetVowelConstants() {
         try {
             vowels = "AEIOU";
+            vowelLength = 5;
             consonents = "BCDFGHJKLMNPQRSTVWXYZ";
+            consonentLength = 21;
         } catch (Exception e) {
         }
     }
