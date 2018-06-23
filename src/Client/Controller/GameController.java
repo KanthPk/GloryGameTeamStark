@@ -11,6 +11,7 @@ import animation.TransitionService;
 import glory_schema.Bag;
 import glory_schema.ConstantElement;
 import glory_schema.FunctionElement;
+import glory_schema.GloryAward;
 import glory_schema.WordElement;
 import glory_services.NavigationService;
 import glory_services.RoundScoreService;
@@ -58,8 +59,11 @@ import org.json.simple.JSONObject;
  * @author TeamStark
  */
 public class GameController implements Initializable {
-
+    //GlobalVariable for Awards
+    public int NoOfDiamonds;
+    public int xpPoints;
     ConstantElement Const;
+    GloryAward gameAwards = new GloryAward();
     MiddleTier ServerCall = new MiddleTier();
     FunctionElement scoreObj;
     @FXML
@@ -997,6 +1001,12 @@ public class GameController implements Initializable {
                 } else {
                     System.out.println("this is not a word");
                     serviceValidater.validateConditionErrors("INVALID", "Invalid Longest English Word", false, false, true, false, false);
+                    //Set xpPointsStart   
+                    xpPoints = xpPoints + gameAwards.GetxpPoints(elapsed);
+                    NoOfDiamonds = gameAwards.GetDiamonds(xpPoints);
+                    System.out.println("###############suba : xp Points"+xpPoints);
+                    System.out.println("###############suba : Diamonds:  "+ NoOfDiamonds);          
+                    //Setting xpPointsEnd
                 }
 
                 //int test = roundScoreService.getScoreFromEachRound(1, txtWordFIeld.getText());
