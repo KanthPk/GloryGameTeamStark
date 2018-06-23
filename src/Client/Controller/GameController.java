@@ -997,16 +997,17 @@ public class GameController implements Initializable {
                     System.out.println("this is a word");
                     int test = roundScoreService.getScoreFromEachRound(1, txtWordFIeld.getText());
                     txtScore.setText(Integer.toString(test));
-
-                } else {
-                    System.out.println("this is not a word");
-                    serviceValidater.validateConditionErrors("INVALID", "Invalid Longest English Word", false, false, true, false, false);
                     //Set xpPointsStart   
                     xpPoints = xpPoints + gameAwards.GetxpPoints(elapsed);
                     NoOfDiamonds = gameAwards.GetDiamonds(xpPoints);
                     System.out.println("###############suba : xp Points"+xpPoints);
                     System.out.println("###############suba : Diamonds:  "+ NoOfDiamonds);          
                     //Setting xpPointsEnd
+
+                } else {
+                    System.out.println("this is not a word");
+                    serviceValidater.validateConditionErrors("INVALID", "Invalid Longest English Word", false, false, true, false, false);
+
                 }
 
                 //int test = roundScoreService.getScoreFromEachRound(1, txtWordFIeld.getText());
