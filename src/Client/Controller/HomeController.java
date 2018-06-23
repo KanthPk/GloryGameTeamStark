@@ -331,10 +331,10 @@ public class HomeController implements Initializable {
     @FXML
     private void btnLeaveClicked(ActionEvent event) {
         try {
-            livePlayerService.start();
-            ConstantElement.isPopedUp = false;
-            ConstantElement.isDisableBtnPlay = false;
             commonBehaviour("MakeAllInvicible", null);
+            ConstantElement.isPopedUp = false;
+            ConstantElement.isDisableBtnPlay = false; 
+            livePlayerService.start();                       
             ServerCall.leaveGroup(ConstantElement.GroupName, ConstantElement.GlobalUserName);
         } catch (Exception e) {
         }
@@ -352,11 +352,11 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    private void btnLeaveGroupViewClicked(ActionEvent e) throws IOException {
-        livePlayerService.start();
+    private void btnLeaveGroupViewClicked(ActionEvent e) throws IOException {        
         ConstantElement.isPopedUp = false;
         ConstantElement.isDisableBtnPlay = false;
         commonBehaviour("MakeAllInvicible", null);
+        livePlayerService.start();
     }
 
     @FXML
