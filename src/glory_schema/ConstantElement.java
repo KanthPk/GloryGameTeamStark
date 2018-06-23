@@ -27,6 +27,7 @@ public class ConstantElement {
     public static String[] userArray;
     public static boolean isFinished = false;
     public static boolean prepareToSave = false;
+    public static String playerExist;
 
     //for common message boxes
     public static boolean forEmailConfirmation = false;
