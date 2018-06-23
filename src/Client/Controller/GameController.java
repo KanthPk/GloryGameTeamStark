@@ -59,6 +59,7 @@ import org.json.simple.JSONObject;
  * @author TeamStark
  */
 public class GameController implements Initializable {
+
     //GlobalVariable for Awards
     public int NoOfDiamonds;
     public int xpPoints;
@@ -225,14 +226,22 @@ public class GameController implements Initializable {
 
     @FXML
     private Label roundid;
+
     @FXML
     private Label user_1_global;
+
     @FXML
     private Label user_2_global;
+
     @FXML
     private Label user_3_global;
+
     @FXML
     private ImageView imgPause;
+
+    @FXML
+    private Label lbl_diamond;
+
     public int roundVal = 1;
     protected String pause = "Stop";
     StringBuffer globalSubChars;
@@ -950,11 +959,11 @@ public class GameController implements Initializable {
                     ConstantElement.isValidToDisableCharFieldsInConst = true;
                     break;
                 case "avoidConstAndVowel":
-                    if (ConstantElement.isEditVowel && ConstantElement.isEditConstant) {                        
+                    if (ConstantElement.isEditVowel && ConstantElement.isEditConstant) {
                         subCheckBoxAncher.setVisible(false);
                         transitionService.MakeFadeOut(anchorEditBack).play();
                     } else if (!ConstantElement.isEditVowel && !ConstantElement.isEditConstant) {
-                        subCheckBoxAncher.setVisible(true);                        
+                        subCheckBoxAncher.setVisible(true);
                     }
                     break;
             }
@@ -1000,8 +1009,8 @@ public class GameController implements Initializable {
                     //Set xpPointsStart   
                     xpPoints = xpPoints + gameAwards.GetxpPoints(elapsed);
                     NoOfDiamonds = gameAwards.GetDiamonds(xpPoints);
-                    System.out.println("###############suba : xp Points"+xpPoints);
-                    System.out.println("###############suba : Diamonds:  "+ NoOfDiamonds);          
+                    System.out.println("###############suba : xp Points" + xpPoints);
+                    System.out.println("###############suba : Diamonds:  " + NoOfDiamonds);
                     //Setting xpPointsEnd
 
                 } else {
@@ -1067,12 +1076,16 @@ public class GameController implements Initializable {
             if (ConstantElement.roundId == 1) {
                 countDown = 35;
             } else if (ConstantElement.roundId == 2) {
+                lbl_diamond.setText("" + NoOfDiamonds);
                 countDown = 30;
             } else if (ConstantElement.roundId == 3) {
+                lbl_diamond.setText("" + NoOfDiamonds);
                 countDown = 25;
             } else if (ConstantElement.roundId == 4) {
+                lbl_diamond.setText("" + NoOfDiamonds);
                 countDown = 20;
             } else if (ConstantElement.roundId == 5) {
+                lbl_diamond.setText("" + NoOfDiamonds);
                 countDown = 15;
             }
             if (s == countDown) {

@@ -370,7 +370,7 @@
             <DropShadow spread="0.24" />
          </effect>
       </Button>
-      <TextArea fx:id= "txtmessage" layoutX="589.0" layoutY="610.0" prefHeight="49.0" prefWidth="361.0" promptText="MESSAGE">
+      <TextArea fx:id="txtmessage" layoutX="589.0" layoutY="610.0" prefHeight="49.0" prefWidth="361.0" promptText="MESSAGE">
          <effect>
             <DropShadow spread="0.34" />
          </effect>
