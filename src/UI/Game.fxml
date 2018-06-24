@@ -396,7 +396,7 @@
             <DropShadow spread="0.34" />
          </effect>
          <children>
-            <Label fx:id="user_1_score" alignment="CENTER" layoutX="338.0" layoutY="124.0" prefHeight="28.0" prefWidth="94.0" text="25">
+            <Label fx:id="user_1_score" alignment="CENTER" layoutX="338.0" layoutY="124.0" prefHeight="28.0" prefWidth="94.0" text="">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
@@ -412,7 +412,7 @@
                   <DropShadow blurType="ONE_PASS_BOX" color="WHITE" spread="1.0" />
                </effect>
             </Label>
-            <Label fx:id="user_2" alignment="CENTER" layoutX="21.0" layoutY="162.0" prefHeight="35.0" prefWidth="172.0" text="AVATAR">
+            <Label fx:id="user_2" alignment="CENTER" layoutX="21.0" layoutY="162.0" prefHeight="35.0" prefWidth="172.0" text="">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
@@ -420,7 +420,7 @@
                   <DropShadow blurType="ONE_PASS_BOX" color="WHITE" spread="1.0" />
                </effect>
             </Label>
-            <Label fx:id="user_3" alignment="CENTER" layoutX="21.0" layoutY="205.0" prefHeight="35.0" prefWidth="172.0" text="AVATAR">
+            <Label fx:id="user_3" alignment="CENTER" layoutX="21.0" layoutY="205.0" prefHeight="35.0" prefWidth="172.0" text="">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
@@ -428,7 +428,7 @@
                   <DropShadow blurType="ONE_PASS_BOX" color="WHITE" spread="1.0" />
                </effect>
             </Label>
-            <Label fx:id="user_4" alignment="CENTER" layoutX="21.0" layoutY="250.0" prefHeight="35.0" prefWidth="172.0" text="AVATAR">
+            <Label fx:id="user_4" alignment="CENTER" layoutX="21.0" layoutY="250.0" prefHeight="35.0" prefWidth="172.0" text="">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
@@ -436,7 +436,7 @@
                   <DropShadow blurType="ONE_PASS_BOX" color="WHITE" spread="1.0" />
                </effect>
             </Label>
-            <Label fx:id="user_2_score" alignment="CENTER" layoutX="338.0" layoutY="169.0" prefHeight="28.0" prefWidth="94.0" text="25">
+            <Label fx:id="user_2_score" alignment="CENTER" layoutX="338.0" layoutY="169.0" prefHeight="28.0" prefWidth="94.0" text="">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
@@ -444,7 +444,7 @@
                   <DropShadow blurType="ONE_PASS_BOX" color="WHITE" spread="1.0" />
                </effect>
             </Label>
-            <Label fx:id="user_3_score" alignment="CENTER" layoutX="338.0" layoutY="212.0" prefHeight="28.0" prefWidth="94.0" text="25">
+            <Label fx:id="user_3_score" alignment="CENTER" layoutX="338.0" layoutY="212.0" prefHeight="28.0" prefWidth="94.0" text="">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
@@ -452,7 +452,7 @@
                   <DropShadow blurType="ONE_PASS_BOX" color="WHITE" spread="1.0" />
                </effect>
             </Label>
-            <Label fx:id="user_4_score" alignment="CENTER" layoutX="338.0" layoutY="257.0" prefHeight="28.0" prefWidth="94.0" text="25">
+            <Label fx:id="user_4_score" alignment="CENTER" layoutX="338.0" layoutY="257.0" prefHeight="28.0" prefWidth="94.0" text="">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
