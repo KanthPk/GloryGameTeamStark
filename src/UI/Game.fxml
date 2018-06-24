@@ -122,7 +122,7 @@
                         <Font name="Bell MT Bold" size="21.0" />
                      </font>
                   </TextField>
-                  <Label fx:id="lbl_live_user_1" layoutX="14.0" layoutY="134.0" prefHeight="35.0" prefWidth="186.0" text="AVATAR">
+                  <Label fx:id="lbl_live_user_1" layoutX="14.0" layoutY="134.0" prefHeight="35.0" prefWidth="186.0">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -200,7 +200,7 @@
                         <Font name="Bell MT Bold" size="21.0" />
                      </font>
                   </TextField>
-                  <Label fx:id="lbl_live_user_2" layoutX="14.0" layoutY="136.0" prefHeight="35.0" prefWidth="186.0" text="AVATAR">
+                  <Label fx:id="lbl_live_user_2" layoutX="14.0" layoutY="136.0" prefHeight="35.0" prefWidth="186.0">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -262,7 +262,7 @@
                         <Font name="Bell MT Bold" size="21.0" />
                      </font>
                   </TextField>
-                  <Label fx:id="lbl_live_user_3" layoutX="14.0" layoutY="136.0" prefHeight="35.0" prefWidth="186.0" text="AVATAR">
+                  <Label fx:id="lbl_live_user_3" layoutX="14.0" layoutY="136.0" prefHeight="35.0" prefWidth="186.0">
                      <font>
                         <Font size="20.0" />
                      </font>

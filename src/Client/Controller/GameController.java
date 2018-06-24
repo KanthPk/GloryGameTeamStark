@@ -1129,6 +1129,7 @@ public class GameController implements Initializable {
                 roundid.setText(" finished");
             }
             clearFields();
+            Thread.sleep(2000, 0);
             setInitialLetter();
             getIntialLetter();
             getTotalScore();
@@ -1145,7 +1146,7 @@ public class GameController implements Initializable {
             protected Object call() throws Exception {
                 anchorScore.setVisible(true);
                 saveScoreOfLivePlayers();
-                imgBagView.setDisable(false);
+                imgBagView.setDisable(false);                
                 try {
                     new Thread(new Runnable() {
                         @Override
