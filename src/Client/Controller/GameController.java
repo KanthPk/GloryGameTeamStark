@@ -1128,8 +1128,7 @@ public class GameController implements Initializable {
             } else {
                 roundid.setText(" finished");
             }
-            clearFields();
-            Thread.sleep(2000, 0);
+            clearFields();           
             setInitialLetter();
             getIntialLetter();
             getTotalScore();
@@ -1230,7 +1229,6 @@ public class GameController implements Initializable {
                         lbl_live_user_1.setText(ConstantElement.GlobalUserName);
                         user_1.setText(UserName);
                         user_1_score.setText(Scoren);
-
                     } else {
                         if (!UserName.equals(ConstantElement.GlobalUserName)) {
                             if (user_2.getText().isEmpty() && user_2_score.getText().isEmpty()) {
