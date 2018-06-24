@@ -5,11 +5,13 @@
  */
 package Client.Controller;
 
+import Server.Controller.MiddleTier;
 import glory_schema.ConstantElement;
 import glory_services.MessageService;
 import glory_services.SendEmailService;
 import glory_services.ValidatorService;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -28,14 +30,16 @@ import javafx.stage.StageStyle;
 /**
  * FXML Controller class
  *
- * @author AshanPerera
+ * @author TeamStark
  */
 public class ForgotPasswordController implements Initializable {
 
     /**
      * Initializes the controller class.
      */
+    MiddleTier serverCall =new MiddleTier();
     ConstantElement userData = new ConstantElement();
+    ArrayList<String> users;
     @FXML
     private TextField txtUserName;
 
@@ -67,8 +71,9 @@ public class ForgotPasswordController implements Initializable {
             if (!txtUserName.getText().isEmpty()) {
                 if (!newV) {
                     try {
-                        validatorService.getMailMessageBox("MAIL CONFIRMATION", "Please enter your confirmation code to verify your User name", true, true, true, true, "mail", true);
-                        String usarMail = "maduperera106@gmail.com";
+                        validatorService.getMailMessageBox("MAIL CONFIRMATION", "Please enter your confirmation code to verify your User name", true, true, true, true, "mail", true);                       
+                        String usarMail = serverCall.checkEmail(txtUserName.getText());                      
+                        txtEmail.setText(usarMail);
                         //Set the current genarated code
                         //setUserRecievedCode(id); 
                         //Genarate randome number and send email
@@ -101,6 +106,7 @@ public class ForgotPasswordController implements Initializable {
         try {
             if (!txtUserName.getText().isEmpty() && !txtConfirmpassword.getText().isEmpty() && !txtEmail.getText().isEmpty() && !txtNewPassword.getText().isEmpty()) {
                 //save the data
+                serverCall.updatePassword(txtUserName.getText(), txtNewPassword.getText(), txtConfirmpassword.getText());
                 Stage stage = (Stage) btnBack.getScene().getWindow();
                 stage.close();
             } else {

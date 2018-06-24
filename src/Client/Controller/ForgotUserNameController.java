@@ -5,6 +5,7 @@
  */
 package Client.Controller;
 
+import Server.Controller.MiddleTier;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -21,7 +22,7 @@ import glory_services.ValidatorService;
 /**
  * FXML Controller class
  *
- * @author AshanPerera
+ * @author TeamStark
  */
 public class ForgotUserNameController implements Initializable {
 
@@ -29,6 +30,7 @@ public class ForgotUserNameController implements Initializable {
      * Initializes the controller class.
      */
     ConstantElement userData = new ConstantElement();
+    MiddleTier servercall = new MiddleTier();
     @FXML
     private Button btnCreate;
 
@@ -42,7 +44,7 @@ public class ForgotUserNameController implements Initializable {
     private TextField txtUsername;
 
     @FXML
-    private TextField txtConfirmpassword;
+    private TextField txtConfirmusername;
     private ValidatorService validatorService;
 
     @Override
@@ -56,7 +58,7 @@ public class ForgotUserNameController implements Initializable {
                 if (!newV) {
                     try {
                         validatorService.getMailMessageBox("MAIL CONFIRMATION", "Please enter your confirmation code to verify your User name", true, true, true, true, "mail", true);
-                        String usarMail = "maduperera106@gmail.com";
+                        String usarMail = txtEmail.getText();
                         //Set the current genarated code
                         //setUserRecievedCode(id); 
                         //Genarate randome number and send email
@@ -85,6 +87,18 @@ public class ForgotUserNameController implements Initializable {
 
     @FXML
     void btnChangeClicked(ActionEvent event) {
-        //update user data
+
+        try {
+            if (!txtEmail.getText().isEmpty() && !txtConfirmusername.getText().isEmpty() && !txtUsername.getText().isEmpty()) {
+                //save the data
+                servercall.updateUsername(txtEmail.getText().toString(), txtConfirmusername.getText().toString());
+                Stage stage = (Stage) btnBack.getScene().getWindow();
+                stage.close();
+            } else {
+                validatorService.validateConditionErrors("CHECK INPUTS", "Please check your inputs", false, false, true, false, false);
+            }
+        } catch (Exception e) {
+        }
+
     }
 }

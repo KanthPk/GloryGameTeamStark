@@ -341,27 +341,29 @@ public class MiddleTier {
 
     }
 
-    public String checkEmail(String UserName, String Email) {
-        String inputLine = null;
+    public String checkEmail(String UserName) {
+        String email = "Invalid";
+        JSONArray array = new JSONArray();
         try {
-            if (!UserName.isEmpty() && !Email.isEmpty()) {
-                URL url = new URL("https://kanthpk.000webhostapp.com/checkmail.php");
-                URLConnection con = url.openConnection();
-                con.setDoOutput(true);
-                try (PrintStream ps = new PrintStream(con.getOutputStream())) {
-                    ps.print("&username=" + UserName);
-                    ps.print("&email=" + Email);
-                    con.getInputStream();
+            URL oracle = new URL("https://kanthpk.000webhostapp.com/checkmail.php");
+            URLConnection yc = oracle.openConnection();
+            yc.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(yc.getOutputStream())) {
+                ps.print("&username=" + UserName);
+                yc.getInputStream();              
+                DataInputStream inStream = new DataInputStream(yc.getInputStream());
+                JSONParser parser = new JSONParser();
+                array = (JSONArray) parser.parse(inStream.readLine());
+                int n = array.size();
+                for (int i = 0; i < n; i++) {
+                    JSONObject jo = (JSONObject) array.get(i);
+                    email = (String) jo.get("Email");
                 }
-                try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
-                    inputLine = inStream.readLine();
-                }
-            } else {
-                serviceValidater.validateConditionErrors("CHECK INPUTS", "Please check your inputs", false, false, true, false, false);
             }
-        } catch (IOException ex) {
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-        return inputLine;
+        return email;
     }
 
     public void setRound(String groupName, String nickName, String roundid, String score, String level) {
@@ -708,5 +710,50 @@ public class MiddleTier {
         return array;
 
     }
+    
+    public void updatePassword(String user, String password, String confrim) {
+        String inputLine = null;
+        try {
+            //save the data
+            // open a connection to the site
+            URL url = new URL("https://kanthpk.000webhostapp.com/updatePassword.php");
+            URLConnection con = url.openConnection();
+            con.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(con.getOutputStream())) {
+                ps.print("&user=" + user);
+                ps.print("&password=" + password);
+                ps.print("&confirm=" + confrim);
+                con.getInputStream();
+                try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
+                    inputLine = inStream.readLine();
+                }
+            }
+            //getGroup();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
 
+ public void updateUsername(String email, String name) {
+        String inputLine = null;
+        try {
+            //save the data
+            // open a connection to the site
+            URL url = new URL("https://kanthpk.000webhostapp.com/updateUsername.php");
+            URLConnection con = url.openConnection();
+            con.setDoOutput(true);
+            try (PrintStream ps = new PrintStream(con.getOutputStream())) {
+                ps.print("&email=" + email);
+                ps.print("&name=" + name);
+                con.getInputStream();
+                try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
+                    inputLine = inStream.readLine();
+                }
+            }
+            //getGroup();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }   
+    
 }
