@@ -129,12 +129,13 @@ public class CommenMessageController implements Initializable {
                     if (!value.isEmpty()) {
                         txtInfo.setStyle("-fx-border-color: BLACK;");
                         if (value.equals(ce.RandomeNo)) {
-                            JOptionPane.showMessageDialog(null, "Email successfully verified", "InfoBox: " + "Email verification", JOptionPane.INFORMATION_MESSAGE);
+                            //JOptionPane.showMessageDialog(null, "Email successfully verified", "InfoBox: " + "Email verification", JOptionPane.INFORMATION_MESSAGE);
                             Stage stage = (Stage) btnCancel.getScene().getWindow();
                             stage.close();
                         } else {
                             txtInfo.clear();
-                            JOptionPane.showMessageDialog(null, "Email verification code is incorrect please resend the code", "Error: " + "Email verification", JOptionPane.ERROR_MESSAGE);
+                            //JOptionPane.showMessageDialog(null, "Email verification code is incorrect please resend the code", "Error: " + "Email verification", JOptionPane.ERROR_MESSAGE);
+                            
                         }
 
                     } else {
@@ -150,7 +151,7 @@ public class CommenMessageController implements Initializable {
                     if (!value.isEmpty()) {
                         txtInfo.setStyle("-fx-border-color: BLACK;");
                         if (value.equals(ce.RandomeNo)) {
-                            JOptionPane.showMessageDialog(null, "Email successfully verified", "InfoBox: " + "Email verification", JOptionPane.INFORMATION_MESSAGE);
+                           //JOptionPane.showMessageDialog(null, "Email successfully verified", "InfoBox: " + "Email verification", JOptionPane.INFORMATION_MESSAGE);
                             Stage stage = (Stage) btnCancel.getScene().getWindow();
                             stage.close();
                         } else {
@@ -169,7 +170,7 @@ public class CommenMessageController implements Initializable {
                     if (!value.isEmpty()) {
                         txtInfo.setStyle("-fx-border-color: BLACK;");
                         if (value.equals(ce.RandomeNo)) {
-                            JOptionPane.showMessageDialog(null, "Email successfully verified", "InfoBox: " + "Email verification", JOptionPane.INFORMATION_MESSAGE);
+                            //JOptionPane.showMessageDialog(null, "Email successfully verified", "InfoBox: " + "Email verification", JOptionPane.INFORMATION_MESSAGE);
                             Stage stage = (Stage) btnCancel.getScene().getWindow();
                             stage.close();
                         } else {
