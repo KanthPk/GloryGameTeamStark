@@ -996,7 +996,7 @@ public class GameController implements Initializable {
                     int test = roundScoreService.getScoreFromEachRound(1, txtWordFIeld.getText());
                     txtScore.setText(Integer.toString(test));
                     //Set xpPointsStart   
-                    xpPoints = xpPoints + gameAwards.GetxpPoints(elapsed);
+                    xpPoints = xpPoints + gameAwards.GetxpPoints(elapsed,txtWordFIeld.getText());
                     NoOfDiamonds = gameAwards.GetDiamonds(xpPoints);
                     System.out.println("###############suba : xp Points" + xpPoints);
                     System.out.println("###############suba : Diamonds:  " + NoOfDiamonds);

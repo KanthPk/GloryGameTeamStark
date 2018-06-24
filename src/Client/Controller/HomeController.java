@@ -206,10 +206,30 @@ public class HomeController implements Initializable {
             t.setText(t.getText().replaceAll(".*[^0-9].*", "").toUpperCase());
             return t;
         }));
+        
+
 
         //Initialize Music      
         ConstantElement.player();
         ConstantElement.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        
+        //writeFileStart if not exsist
+        File f = new File(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "UserSettings.txt");
+        if(!f.exists()) { 
+                String bytes = "on";
+        byte[] buffer = bytes.getBytes();
+        try {
+            FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents"+File.separator + "GloryGameFiles"+File.separator+"UserSettings.txt");
+            outputStream.write(buffer);
+        } catch (IOException ex) {
+            System.out.println("Error writing file '" + "UserSettings" + "'");
+        } catch (Exception e) {
+            System.out.println("Error Connection ");
+        }
+        }
+        //writeFileEnd
+        
+        
         Scanner file = null;
         try {
             file = new Scanner(new File(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "UserSettings.txt"));
@@ -224,11 +244,11 @@ public class HomeController implements Initializable {
                 ConstantElement.mediaPlayer.stop();
             } else {
                 // StartMusicByDefault
-                String bytes = "on";
-                byte[] buffer = bytes.getBytes();
+                String stat = "on";
+                byte[] statbuffer = stat.getBytes();
                 try {
                     FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "UserSettings.txt");
-                    outputStream.write(buffer);
+                    outputStream.write(statbuffer);
                 } catch (IOException ex) {
                     System.out.println("Error writing file '" + "UserSettings" + "'");
                 } catch (Exception e) {

@@ -1,0 +1,23 @@
+How To Play
+
+1) Login with your username and password.
+2) Click on play button.
+3) You may create a group or join to an already created group.
+
+	Create a group: Give a group name and Maximum number of players and click on create
+	Join a group: select a group and join to the group 
+
+4) Proceed button will be enable when the minimum number of players(2 players) are joined to the group click on proceed to go to the game with the currently joined players
+5) At the start, click the letter bag and get a vowel or a constant.
+6)  Build a meaningful word (creating a none meaningful word will result zero marks as well as a penalty)   by clicking on the letter tiles.
+7) If you are unable to think of a meaningful word within the time you can use auto search button to generate a meaningful word but this will reduce 10 marks from your total marks so, be careful when using it..!!
+8) Click in the create button when the word is built on the word field (make sure to click on create before the timer ends).
+
+Rewards during the game
+
+	Create the word and hit on the create button very quickly to get XPpoints and with these XPpoints you will be rewarded with gems on each rounds according to number of XPpoints. 
+	Create complex words to earn more XPpoints. 
+	You can use diamonds to use the auto search button without losing and marks, so try to earn more gems to play the game easily in the upcoming rounds (diamonds can only be used in the current game) 
+	At the end winner and the score board will be displayed.  
+
+Extra information: use username and password as glory/glory for default log in

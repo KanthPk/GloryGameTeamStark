@@ -30,8 +30,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.nio.channels.ConnectionPendingException;
+import java.util.Scanner;
 import javax.annotation.Resources;
 import org.apache.commons.io.FileUtils;
 
@@ -101,15 +103,41 @@ public class LoginController implements Initializable {
 
         String path = System.getProperty("user.home") + File.separator + "Documents";
         path += File.separator + "GloryGameFiles";
-        File customDir = new File(path);
+        File CreateGloryDir = new File(path);
 
-        if (customDir.exists()) {
-            System.out.println(customDir + " already exists");
-        } else if (customDir.mkdirs()) {
-            System.out.println(customDir + " was created");
+        if (CreateGloryDir.exists()) {
+            System.out.println(CreateGloryDir + " already exists");
+        } else if (CreateGloryDir.mkdirs()) {
+            System.out.println(CreateGloryDir + " was created");
         } else {
-            System.out.println(customDir + " was not created");
+            System.out.println(CreateGloryDir + " was not created");
         }
+        
+        
+        File f = new File(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "AccountSettings.txt");
+        if(f.exists())
+        { 
+            chkCheckBox.setSelected(true);
+            Scanner file = null;
+        try {
+            file = new Scanner(f);
+        } catch (FileNotFoundException ex) {
+
+        }
+         String[] userData = new String[2];
+         int i=0;
+        while (file.hasNextLine()) {
+             userData[i] = file.nextLine(); 
+               i++;
+                }
+ 
+         txtUserName.setText(userData[0]);
+         pwdPassword.setText(userData[1]);
+         file.close();
+        }
+       
+        
+        
 
     }
 
@@ -141,6 +169,26 @@ public class LoginController implements Initializable {
                     Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     app_stage.setScene(home_page_scene);
                     app_stage.show();
+                    
+                    
+                    //SaveLoginCredentials Start                
+                    File f = new File(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "AccountSettings.txt");
+                    f.deleteOnExit();
+                    
+                    if(chkCheckBox.isSelected()){
+                        String Userdata = txtUserName.getText()+"\n"+pwdPassword.getText();       
+                        byte[] buffer = Userdata.getBytes();
+                        try {
+                            FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents"+File.separator + "GloryGameFiles"+File.separator+"AccountSettings.txt");
+                            outputStream.write(buffer);          
+                        } catch (IOException ex) {
+                            System.out.println("Error writing file '" + "AccountSettings" + "'");
+                        } catch (Exception e) {
+                            System.out.println("Error Connection ");
+                    }  
+                    
+                    }
+                    //SaveLoginCredentials End
                 } else if (Check.equals(Denied)) {
                     serviceValidater.validateConditionErrors("AUTHENTICATION FAILED", "Please recheck your credentials", false, false, true, false, false);
                 }

@@ -16,6 +16,7 @@ import java.util.Scanner;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javax.sound.sampled.AudioFormat;
@@ -53,12 +54,29 @@ public class UserSettingsController implements Initializable {
 
     @FXML
     private Button btnCancel;
+    
+    @FXML
+    private TextArea howtoPlaytxt;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        
+                Scanner file = null;
+        try {
+            file = new Scanner(new File("HowToPlay.txt"));
+        } catch (FileNotFoundException ex) {
+
+        }
+        String line = "";
+        while (file.hasNextLine()) {
+             line = line+"\n"+file.nextLine(); 
+               
+                }
+        howtoPlaytxt.setText(line);
 
     }
 
