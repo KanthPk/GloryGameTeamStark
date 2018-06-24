@@ -5,6 +5,7 @@
  */
 package Client.Controller;
 
+import Server.Controller.MiddleTier;
 import glory_schema.ConstantElement;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,12 +14,22 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -29,6 +40,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -54,18 +66,14 @@ public class UserSettingsController implements Initializable {
 
     @FXML
     private Button btnCancel;
-    
+
     @FXML
     private TextArea howtoPlaytxt;
-
-    /**
-     * Initializes the controller class.
-     */
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        
-                Scanner file = null;
+
+        Scanner file = null;
         try {
             file = new Scanner(new File("HowToPlay.txt"));
         } catch (FileNotFoundException ex) {
@@ -73,11 +81,10 @@ public class UserSettingsController implements Initializable {
         }
         String line = "";
         while (file.hasNextLine()) {
-             line = line+"\n"+file.nextLine(); 
-               
-                }
-        howtoPlaytxt.setText(line);
+            line = line + "\n" + file.nextLine();
 
+        }
+        howtoPlaytxt.setText(line);
     }
 
     @FXML

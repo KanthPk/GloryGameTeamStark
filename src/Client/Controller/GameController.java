@@ -313,6 +313,8 @@ public class GameController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        System.out.println("*************************" + ConstantElement.roundId);
+        System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$" + roundVal);
         getIntialLetter();
         rBtnVowel.setToggleGroup(group);
         rBtnconsonent.setToggleGroup(group);
@@ -998,8 +1000,8 @@ public class GameController implements Initializable {
                     //Set xpPointsStart   
                     xpPoints = xpPoints + gameAwards.GetxpPoints(elapsed, txtWordFIeld.getText());
                     NoOfDiamonds = gameAwards.GetDiamonds(xpPoints);
-                    System.out.println("###############suba : xp Points" + xpPoints);
-                    System.out.println("###############suba : Diamonds:  " + NoOfDiamonds);
+                    System.out.println("############### : xp Points" + xpPoints);
+                    System.out.println("############### : Diamonds:  " + NoOfDiamonds);
                 } else {
                     serviceValidater.validateConditionErrors("INVALID", "Invalid Longest English Word", false, false, true, false, false);
                 }
@@ -1070,15 +1072,15 @@ public class GameController implements Initializable {
             lblTimer.setText("" + fireScoreScreen);
 
             if (ConstantElement.roundId == 1) {
-                countDown = 35;
+                countDown = 60;
             } else if (ConstantElement.roundId == 2) {
-                countDown = 30;
+                countDown = 60;
             } else if (ConstantElement.roundId == 3) {
-                countDown = 25;
+                countDown = 40;
             } else if (ConstantElement.roundId == 4) {
-                countDown = 20;
+                countDown = 30;
             } else if (ConstantElement.roundId == 5) {
-                countDown = 15;
+                countDown = 20;
             }
             if (s == countDown) {
                 countDown = 0;
@@ -1107,11 +1109,7 @@ public class GameController implements Initializable {
     }
 
     private void saveScoreOfLivePlayers() {
-        try {
-            //ConstantElement.ReadyToPlay = ServerCall.getPlayerReady();
-            //System.out.println("go********************" + ConstantElement.ReadyToPlay);
-            //if (ConstantElement.ReadyToPlay.equalsIgnoreCase("1")) {
-            //System.out.println("value to be tested " + txtScore.getText().toString());
+        try {           
             UUID uuid = UUID.randomUUID();
             String randomUUIDString = uuid.toString();
             scoreObj.setTotalScore(Integer.parseInt(txtScore.getText()));
@@ -1121,12 +1119,13 @@ public class GameController implements Initializable {
             Thread.sleep(3000);
             setScore();
             //ServerCall.deleteEachRound(ConstantElement.GroupName, ConstantElement.GlobalUserName);
-            roundVal = roundVal + 1;
+            roundVal = roundVal + 1;           
             lbl_diamond.setText("" + NoOfDiamonds);
             ConstantElement.roundId = roundVal;
             if (ConstantElement.roundId != 6) {
                 roundid.setText(Integer.toString(roundVal));
             } else {
+                roundVal = 1;
                 roundid.setText(" finished");
             }
             clearFields();
@@ -1135,10 +1134,8 @@ public class GameController implements Initializable {
             getIntialLetter();
             Thread.sleep(2000);
             getTotalScore();
-            System.out.println("Hello world" + Integer.toString(scoreObj.getTotalScore()));
-            //}
-        } catch (Exception e) {
-            System.out.println("Loading Round Error");
+            System.out.println(" ***** " + Integer.toString(scoreObj.getTotalScore()));        
+        } catch (Exception e) {           
         }
     }
 
@@ -1163,13 +1160,7 @@ public class GameController implements Initializable {
                                                 bag.resetVowelConstants();
                                                 subCheckBoxAncher.setVisible(false);
                                                 if (ConstantElement.roundId == 6) {
-//                                                    thread_pause.stop();
-//                                                    clock.stop();
-//                                                    timeline.stop();
-//                                                    progressThread.cancel();
-//                                                    roundid.setText(" finished");
-//                                                    anchorScore.setVisible(true);
-
+                                                    ConstantElement.roundId = 1;
                                                     Thread.sleep(10000);
                                                     try {
                                                         Stage stageGame = (Stage) txtRandom_1.getScene().getWindow();
