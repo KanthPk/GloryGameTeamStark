@@ -40,7 +40,7 @@ public class ForgotPasswordController implements Initializable {
     private TextField txtUserName;
 
     @FXML
-    private PasswordField txtOldpassword;
+    private TextField txtEmail;
 
     @FXML
     private PasswordField txtNewPassword;
@@ -56,11 +56,13 @@ public class ForgotPasswordController implements Initializable {
     @FXML
     private ValidatorService validatorService;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public ForgotPasswordController() {
         //inject validator service
         validatorService = new ValidatorService();
+    }
 
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
         txtUserName.focusedProperty().addListener((ov, oldV, newV) -> {
             if (!txtUserName.getText().isEmpty()) {
                 if (!newV) {
@@ -97,7 +99,13 @@ public class ForgotPasswordController implements Initializable {
     @FXML
     void btnSaveClick(ActionEvent event) {
         try {
-            //save the data
+            if (!txtUserName.getText().isEmpty() && !txtConfirmpassword.getText().isEmpty() && !txtEmail.getText().isEmpty() && !txtNewPassword.getText().isEmpty()) {
+                //save the data
+                Stage stage = (Stage) btnBack.getScene().getWindow();
+                stage.close();
+            } else {
+                validatorService.validateConditionErrors("CHECK INPUTS", "Please check your inputs", false, false, true, false, false);
+            }
         } catch (Exception e) {
         }
     }

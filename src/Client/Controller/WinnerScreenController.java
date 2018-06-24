@@ -1,29 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Client.Controller;
 
 import Server.Controller.MiddleTier;
 import glory_schema.ConstantElement;
 import glory_services.NavigationService;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.stage.Screen;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.json.simple.JSONArray;
@@ -106,23 +96,22 @@ public class WinnerScreenController implements Initializable {
         // TODO
         getTotalScore();
         btnHome.setOnAction(event -> {
-            //reset variable 
             ConstantElement.isFinished = false;
             //navigate
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Home.fxml"));
-            Stage stage = (Stage) secondPlaceScore.getScene().getWindow();
-            Scene scene = null;
             try {
-                scene = new Scene(loader.load());
+                Stage stageGame = (Stage) btnHome.getScene().getWindow();
+                stageGame.close();
 
-            } catch (IOException ex) {
-                Logger.getLogger(WinnerScreenController.class.getName()).log(Level.SEVERE, null, ex);
+                AnchorPane layout = null;
+                Stage stage = null;
+                layout = FXMLLoader.load(getClass().getResource("/UI/Home.fxml"));
+                stage = new Stage();
+                stage.setScene(new Scene(layout));
+                stage.setResizable(false);
+                stage.initStyle(StageStyle.UNDECORATED);
+                stage.show();
+            } catch (Exception e) {
             }
-            stage.setFullScreen(true);
-            stage.setScene(scene);
-            stage.show();
-            //tage.fullScreenProperty();          
-
         });
     }
 
@@ -157,9 +146,7 @@ public class WinnerScreenController implements Initializable {
                         lbl_Global_User4.setText(user);
                         fourthPlaceScore.setText(Score);
                     }
-
                 }
-
             }
         } catch (Exception s) {
         }

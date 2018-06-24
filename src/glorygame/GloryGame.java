@@ -15,10 +15,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-/**
- *
- * @author TeamStark
- */
 public class GloryGame extends Application {
 
     @Override
@@ -37,9 +33,6 @@ public class GloryGame extends Application {
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         launch(args);
     }

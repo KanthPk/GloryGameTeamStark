@@ -13,9 +13,8 @@ public class Bag {
     private String vowelValidationPerpose = "AEIOU";
     private int vowelLength = 5;
     private String consonents = "BCDFGHJKLMNPQRSTVWXYZ";
-    private String consValidationPurpose = "BCDFGHJKLMNPQRSTVWXYZ";
-    private String consonentsValidationPerpose = "BCDFGHJKLMNPQRSTVWXYZ";
     private int consonentLength = 21;
+    private String consValidationPurpose = "BCDFGHJKLMNPQRSTVWXYZ";
 
     public Bag() {
         letters.put("A", 9);//vovel
@@ -52,14 +51,19 @@ public class Bag {
     }
 
     public boolean removeLetter(String letter) {
-        int number = letters.get(letter);
-        number -= 1;
-        if (number == 0) {
-            return false;
-        } else {
-            letters.put(letter, number);
-            return true;
+        try {
+            int number = letters.get(letter);
+            number -= 1;
+            if (number == 0) {
+                return false;
+            } else {
+                letters.put(letter, number);
+                return true;
+            }
+        } catch (Exception e) {
+
         }
+        return false;
     }
 
     public char randomGen() {
@@ -84,13 +88,28 @@ public class Bag {
     }
 
     public char takeConsonentsDinamiically() {
-        int character = (int) (Math.random() * consonentLength);
-        String s = consonents.substring(character, character + 1);
-        boolean none = removeLetter(s);
-        if (!none) {
-            takeConsonentsDinamiically();
+        try {
+            int character = 0;
+            character = (int) (Math.random() * consonentLength);
+            if (character != 0) {
+
+                String s = consonents.substring(character, character + 1);
+                boolean none = removeLetter(s);
+                if (!none) {
+                    takeConsonentsDinamiically();
+                }
+                return s.charAt(0);
+            } else {
+                consonents = "BCDFGHJKLMNPQRSTVWXYZ";
+                consonentLength = 21;
+            }
+
+        } catch (StackOverflowError ex) {
+            System.out.println("" + ex);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return s.charAt(0);
+        return 0;
     }
 
     public String takeVowelString() {
@@ -106,7 +125,7 @@ public class Bag {
         return consonents;
     }
 
-    public void setNewConsonent(String value) {
+    public void removeExistsConsonents(String value) {
         consonentLength -= 1;
         consonents = consonents.replace(value, "").trim();
     }
@@ -133,8 +152,6 @@ public class Bag {
         try {
             vowels = "AEIOU";
             vowelLength = 5;
-            consonents = "BCDFGHJKLMNPQRSTVWXYZ";
-            consonentLength = 21;
         } catch (Exception e) {
         }
     }

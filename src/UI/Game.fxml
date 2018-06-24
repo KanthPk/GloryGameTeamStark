@@ -507,7 +507,7 @@
             <DropShadow blurType="TWO_PASS_BOX" color="WHITE" spread="1.0" />
          </effect>
       </Label>
-      <Label alignment="CENTER" layoutX="115.0" layoutY="261.0" prefHeight="30.0" prefWidth="94.0" text="ONLINE">
+      <Label fx:id="lbl_user_online_1" alignment="CENTER" layoutX="115.0" layoutY="261.0" prefHeight="30.0" prefWidth="94.0" text="ONLINE">
          <font>
             <Font size="20.0" />
          </font>

@@ -104,19 +104,23 @@ public class RegisterUserController implements Initializable {
 
     @FXML
     private void btnSaveClcked(ActionEvent event) {
-        String bytes = "on";
-        byte[] buffer = bytes.getBytes();
-        try {
-            ServerCall.registerUser(txtUserName.getText(), txtEmail.getText(), txtPassword.getText(), txtConfirmPassword.getText());
-            FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents"+File.separator + "GloryGameFiles"+File.separator+"UserSettings.txt");
-
-            outputStream.write(buffer);
-        } catch (IOException ex) {
-            System.out.println("Error writing file '" + "UserSettings" + "'");
-        } catch (Exception e) {
-            System.out.println("Error Connection ");
+        if (!txtUserName.getText().isEmpty() && !txtEmail.getText().isEmpty() && !txtConfirmPassword.getText().isEmpty() && !txtPassword.getText().isEmpty()) {
+            String bytes = "on";
+            byte[] buffer = bytes.getBytes();
+            try {
+                ServerCall.registerUser(txtUserName.getText(), txtEmail.getText(), txtPassword.getText(), txtConfirmPassword.getText());
+                FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "UserSettings.txt");
+                outputStream.write(buffer);
+                Stage stage = (Stage) btnBack.getScene().getWindow();
+                stage.close();
+            } catch (IOException ex) {
+                System.out.println("Error writing file '" + "UserSettings" + "'");
+            } catch (Exception e) {
+                System.out.println("Error Connection ");
+            }
+        } else {
+            validatorService.validateConditionErrors("CHECK INPUTS", "Please check your inputs", false, false, true, false, false);
         }
-
     }
 
     @FXML

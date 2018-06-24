@@ -99,7 +99,6 @@ public class CommenMessageController implements Initializable {
 
     void setGenaratedCode(String Code) {
         genaratedCode = Code;
-
     }
 
     void setRecievermail(String mail) {

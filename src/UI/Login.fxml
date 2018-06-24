@@ -34,12 +34,12 @@
                </font>
             </Label>
             <Separator layoutX="9.0" layoutY="60.0" opacity="0.75" prefHeight="12.0" prefWidth="383.0" />
-            <Label layoutX="32.0" layoutY="89.0" prefHeight="17.0" prefWidth="155.0" text="User Name">
+            <Label layoutX="17.0" layoutY="89.0" prefHeight="17.0" prefWidth="155.0" text="User Name">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="txtUserName" layoutX="32.0" layoutY="124.0" prefHeight="39.0" prefWidth="342.0" promptText="Your user name here">
+            <TextField fx:id="txtUserName" layoutX="17.0" layoutY="124.0" prefHeight="39.0" prefWidth="357.0" promptText="Your user name here">
                <font>
                   <Font size="18.0" />
                </font>
@@ -47,12 +47,12 @@
                   <DropShadow />
                </effect>
             </TextField>
-            <Label layoutX="32.0" layoutY="177.0" prefHeight="17.0" prefWidth="155.0" text="Password">
+            <Label layoutX="17.0" layoutY="177.0" prefHeight="17.0" prefWidth="155.0" text="Password">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <PasswordField fx:id="pwdPassword" layoutX="32.0" layoutY="211.0" prefHeight="39.0" prefWidth="342.0" promptText="Your password here">
+            <PasswordField fx:id="pwdPassword" layoutX="17.0" layoutY="211.0" prefHeight="39.0" prefWidth="357.0" promptText="Your password here">
                <font>
                   <Font size="18.0" />
                </font>
@@ -60,7 +60,7 @@
                   <DropShadow />
                </effect>
             </PasswordField>
-            <CheckBox fx:id="chkCheckBox" layoutX="32.0" layoutY="277.0" mnemonicParsing="false" style="-fx-cursor: Hand;" text="Remember me">
+            <CheckBox fx:id="chkCheckBox" layoutX="20.0" layoutY="281.0" mnemonicParsing="false" style="-fx-cursor: Hand;" text="Remember me">
                <font>
                   <Font size="18.0" />
                </font>
@@ -71,33 +71,33 @@
                   <DropShadow />
                </effect>
             </CheckBox>
-            <Label layoutX="30.0" layoutY="392.0" text="Don't have an account ?">
+            <Label layoutX="19.0" layoutY="391.0" text="Don't have an account ?">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="30.0" layoutY="425.0" text="Forgot your  ">
+            <Label layoutX="19.0" layoutY="424.0" text="Forgot your  ">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="30.0" layoutY="458.0" text="Forgot your  " AnchorPane.bottomAnchor="151.0">
+            <Label layoutX="19.0" layoutY="457.0" text="Forgot your  " AnchorPane.bottomAnchor="152.0">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
             <Separator layoutX="14.0" layoutY="351.0" opacity="0.75" prefHeight="12.0" prefWidth="372.0" />
-            <Label fx:id="lblSignUp" layoutX="219.0" layoutY="392.0" prefHeight="25.0" prefWidth="117.0" style="-fx-cursor: Hand;" text="Sign up now !" textFill="#1b1fff">
+            <Label fx:id="lblSignUp" layoutX="208.0" layoutY="391.0" prefHeight="25.0" prefWidth="117.0" style="-fx-cursor: Hand;" text="Sign up now !" textFill="#1b1fff">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label fx:id="lblUserName" layoutX="128.0" layoutY="458.0" prefHeight="25.0" prefWidth="117.0" style="-fx-cursor: Hand;" text="User name ?" textFill="#1b1fff">
+            <Label fx:id="lblUserName" layoutX="117.0" layoutY="457.0" prefHeight="25.0" prefWidth="117.0" style="-fx-cursor: Hand;" text="User name ?" textFill="#1b1fff">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label fx:id="lblForgotPassword" layoutX="129.0" layoutY="425.0" prefHeight="25.0" prefWidth="117.0" style="-fx-cursor: Hand;" text="Password ?" textFill="#1b1fff" AnchorPane.bottomAnchor="184.0">
+            <Label fx:id="lblForgotPassword" layoutX="118.0" layoutY="424.0" prefHeight="25.0" prefWidth="117.0" style="-fx-cursor: Hand;" text="Password ?" textFill="#1b1fff" AnchorPane.bottomAnchor="185.0">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -110,7 +110,7 @@
                   <Glow level="0.84" />
                </effect>
             </ImageView>
-            <Label alignment="CENTER" layoutX="233.0" layoutY="571.0" prefHeight="27.0" prefWidth="89.0" text="Product" AnchorPane.bottomAnchor="36.0" AnchorPane.rightAnchor="70.0">
+            <Label alignment="CENTER" layoutX="257.0" layoutY="571.0" prefHeight="27.0" prefWidth="89.0" text="Product" AnchorPane.bottomAnchor="36.0" AnchorPane.rightAnchor="46.0">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

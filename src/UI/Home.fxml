@@ -59,125 +59,6 @@
                 <DropShadow />
             </effect>
         </ImageView>
-        <AnchorPane layoutX="38.0" layoutY="237.0" opacity="0.79" prefHeight="427.0" prefWidth="285.0" style="-fx-background-color: #263364;" visible="false">
-            <children>
-                <Label layoutX="98.0" layoutY="48.0" prefHeight="25.0" prefWidth="50.0" text="Online" textFill="#09a139">
-                    <font>
-                        <Font name="Arial Bold" size="13.0" />
-                    </font>
-                    <effect>
-                        <DropShadow spread="0.13" />
-                    </effect>
-                </Label>
-                <Label layoutX="98.0" layoutY="96.0" prefHeight="25.0" prefWidth="138.0" style="-fx-cursor: HAND;" text="Oshadi Pererra" textFill="#f3f5e3">
-                    <font>
-                        <Font name="Arial Bold" size="19.0" />
-                    </font>
-                    <effect>
-                        <DropShadow spread="0.13" />
-                    </effect>
-                </Label>
-                <Label layoutX="98.0" layoutY="121.0" prefHeight="25.0" prefWidth="50.0" text="Online" textFill="#09a139">
-                    <font>
-                        <Font name="Arial Bold" size="13.0" />
-                    </font>
-                    <effect>
-                        <DropShadow spread="0.13" />
-                    </effect>
-                </Label>
-                <Label layoutX="98.0" layoutY="178.0" prefHeight="25.0" prefWidth="128.0" style="-fx-cursor: HAND;" text="Yasas Perera" textFill="#f3f5e3">
-                    <font>
-                        <Font name="Arial Bold" size="19.0" />
-                    </font>
-                    <effect>
-                        <DropShadow spread="0.13" />
-                    </effect>
-                </Label>
-                <Label layoutX="98.0" layoutY="203.0" prefHeight="25.0" prefWidth="50.0" text="Online" textFill="#09a139">
-                    <font>
-                        <Font name="Arial Bold" size="13.0" />
-                    </font>
-                    <effect>
-                        <DropShadow spread="0.13" />
-                    </effect>
-                </Label>
-                <Label layoutX="100.0" layoutY="262.0" prefHeight="25.0" prefWidth="151.0" style="-fx-cursor: HAND;" text="Avatar" textFill="#f3f5e3">
-                    <font>
-                        <Font name="Arial Bold" size="19.0" />
-                    </font>
-                    <effect>
-                        <DropShadow spread="0.13" />
-                    </effect>
-                </Label>
-                <Label layoutX="100.0" layoutY="287.0" prefHeight="25.0" prefWidth="50.0" text="Offline" textFill="#ff0606">
-                    <font>
-                        <Font name="Arial Bold" size="13.0" />
-                    </font>
-                    <effect>
-                        <DropShadow spread="0.13" />
-                    </effect>
-                </Label>
-                <Label layoutX="103.0" layoutY="352.0" prefHeight="25.0" prefWidth="167.0" style="-fx-cursor: HAND;" text="Avatar" textFill="#f3f5e3">
-                    <font>
-                        <Font name="Arial Bold" size="19.0" />
-                    </font>
-                    <effect>
-                        <DropShadow spread="0.13" />
-                    </effect>
-                </Label>
-                <Label layoutX="103.0" layoutY="377.0" prefHeight="25.0" prefWidth="50.0" text="Offline" textFill="#ff0606">
-                    <font>
-                        <Font name="Arial Bold" size="13.0" />
-                    </font>
-                    <effect>
-                        <DropShadow spread="0.13" />
-                    </effect>
-                </Label>
-                <ImageView fx:id="userImageView11" fitHeight="68.0" fitWidth="67.0" layoutX="14.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../resources/Dominic.png" />
-                    </image>
-                    <effect>
-                        <DropShadow spread="0.13" />
-                    </effect>
-                </ImageView>
-                <ImageView fx:id="userImageView111" fitHeight="68.0" fitWidth="67.0" layoutX="14.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../resources/sarah.png" />
-                    </image>
-                    <effect>
-                        <DropShadow spread="0.13" />
-                    </effect>
-                </ImageView>
-                <ImageView fx:id="userImageView1111" fitHeight="68.0" fitWidth="67.0" layoutX="14.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../resources/Gnar_Poro_Icon.jpg" />
-                    </image>
-                    <effect>
-                        <DropShadow spread="0.13" />
-                    </effect>
-                </ImageView>
-                <ImageView fx:id="userImageView11111" fitHeight="68.0" fitWidth="67.0" layoutX="16.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../resources/default.png" />
-                    </image>
-                    <effect>
-                        <DropShadow spread="0.13" />
-                    </effect>
-                </ImageView>
-                <ImageView fx:id="userImageView111111" fitHeight="68.0" fitWidth="67.0" layoutX="16.0" layoutY="344.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../resources/default.png" />
-                    </image>
-                    <effect>
-                        <DropShadow spread="0.13" />
-                    </effect>
-                </ImageView>
-            </children>
-            <effect>
-                <DropShadow spread="0.24" />
-            </effect>
-        </AnchorPane>
         <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="1232.0" layoutY="16.0" onMousePressed="#closeApplication" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: HAND;" styleClass="button">
             <image>
                 <Image url="@../resources/close.png" />
@@ -378,9 +259,9 @@
             <Font size="16.0" />
          </font>
       </TextArea>
-      <VBox layoutX="1050.0" layoutY="233.0" maxHeight="1.7976931348623157E308" opacity="0.64" prefHeight="436.0" prefWidth="227.0" style="-fx-background-color: #263364;" stylesheets="@../Common/css/ListViewStyle.css">
+      <VBox layoutX="1050.0" layoutY="233.0" maxHeight="1.7976931348623157E308" opacity="0.64" prefHeight="436.0" prefWidth="227.0" style="-fx-background-color: #263364;" stylesheets="@../Common/css/common.css">
          <children>
-            <HBox fx:id="onlineUsersHbox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="217.0" stylesheets="@../Common/css/ListViewStyle.css">
+            <HBox fx:id="onlineUsersHbox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="217.0" stylesheets="@../Common/css/common.css">
                <children>
                   <Label prefHeight="50.0" prefWidth="124.0" text="Online Users:" textAlignment="CENTER" textFill="#fc6747">
                      <font>
@@ -403,7 +284,7 @@
                   </Label>
                </children>
             </HBox>
-            <ListView fx:id="userList" focusTraversable="false" maxHeight="1.7976931348623157E308" prefHeight="495.0" prefWidth="217.0" style="-fx-border-image-width: 0;" stylesheets="@../Common/css/ListViewStyle.css" />
+            <ListView fx:id="userList" focusTraversable="false" maxHeight="1.7976931348623157E308" prefHeight="495.0" prefWidth="217.0" style="-fx-border-image-width: 0;" stylesheets="@../Common/css/common.css" />
          </children>
          <effect>
             <DropShadow />

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package glory_schema;
+
 import java.io.File;
 import java.net.URI;
 import java.net.URL;
@@ -49,16 +50,16 @@ public class ConstantElement {
 
     //deduct points
     public static final int StandardDeductPoints = 1;
-   
+
     //The music palyer
     public static MediaPlayer mediaPlayer;
-
 
     //length is 11
     public static final int ExtraPointsForWord = 8;
 
     //unused letters
-    public static final int UnusedLetters = 2;
+    public static int UnusedLetters;
+
     public static String GlobalUserName;
     public static String GlobalPassowrd;
     public static String RandomeNo;
@@ -80,7 +81,7 @@ public class ConstantElement {
     private String UserName;
     private String Password;
     //later
-     public static int roundId = 1;
+    public static int roundId = 1;
 
     public static String IsFieldClicked;
 
@@ -125,11 +126,10 @@ public class ConstantElement {
     public int getNo_of_players() {
         return this.no_of_players;
     }
-    
-    public static void player()
-    {       
-    Media hit = new Media(new File("MyLittleAdventure.mp3").toURI().toString());
-    mediaPlayer = new MediaPlayer(hit);
+
+    public static void player() {
+        Media hit = new Media(new File("MyLittleAdventure.mp3").toURI().toString());
+        mediaPlayer = new MediaPlayer(hit);
     }
-    
+
 }

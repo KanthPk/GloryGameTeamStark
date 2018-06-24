@@ -31,6 +31,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.nio.channels.ConnectionPendingException;
 import javax.annotation.Resources;
 import org.apache.commons.io.FileUtils;
 
@@ -109,10 +110,8 @@ public class LoginController implements Initializable {
         } else {
             System.out.println(customDir + " was not created");
         }
-   
+
     }
-
-
 
     @FXML
     private void btnLoginClicked(ActionEvent event) throws IOException {
@@ -156,6 +155,8 @@ public class LoginController implements Initializable {
             serviceValidater.validateLiveError("CONNECTION FAILED", "Something wrong with the server, Please try again", false, false, true, false, "Live", false);
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        } catch (ConnectionPendingException ex) {
+            serviceValidater.validateLiveError("CONNECTION FAILED", "Please check your connection", false, false, true, false, "Live", false);
         } catch (Exception e) {
             serviceValidater.validateLiveError("CONNECTION FAILED", "Something wrong with the server, Please try again", false, false, true, false, "Live", false);
         }
@@ -173,8 +174,6 @@ public class LoginController implements Initializable {
                     layout = FXMLLoader.load(getClass().getResource(path));
                     stage = new Stage();
                     stage.setScene(new Scene(layout));
-                    //if need it take it
-                    //service.makeFadeOut(root).play();
                     stage.setResizable(false);
                     stage.initStyle(StageStyle.UNDECORATED);
                     stage.show();
@@ -186,8 +185,6 @@ public class LoginController implements Initializable {
                     layout = FXMLLoader.load(getClass().getResource(path));
                     stage = new Stage();
                     stage.setScene(new Scene(layout));
-                    //if need it take it
-                    //service.makeFadeOut(root).play();
                     stage.setResizable(false);
                     stage.initStyle(StageStyle.UNDECORATED);
                     stage.show();
@@ -199,8 +196,6 @@ public class LoginController implements Initializable {
                     layout = FXMLLoader.load(getClass().getResource(path));
                     stage = new Stage();
                     stage.setScene(new Scene(layout));
-                    //if need it take it
-                    //service.makeFadeOut(root).play();
                     stage.setResizable(false);
                     stage.initStyle(StageStyle.UNDECORATED);
                     stage.show();

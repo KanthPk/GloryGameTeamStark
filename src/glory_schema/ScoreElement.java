@@ -12,69 +12,77 @@ import java.util.Map;
  *
  * @author AshanPerera
  */
-
 public class ScoreElement {
 
     private String word;
-    
+
     public ScoreElement() {
-        
-    }   
+
+    }
 
     public ScoreElement(String word) {
         this.word = word;
     }
-    
-    public int getScore(){
-    
-        Map<Character,Integer> letterMap = new HashMap<>();
-        String lettersAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        
-        for (int i = 0; i < lettersAlphabet.length(); i++) {
-            if (lettersAlphabet.charAt(i) == 'N' || lettersAlphabet.charAt(i) == 'O' || lettersAlphabet.charAt(i) == 'A' || 
-                lettersAlphabet.charAt(i) == 'I' || lettersAlphabet.charAt(i) == 'E'){
-                
-                letterMap.put(lettersAlphabet.charAt(i),2);
-                letterMap.put(lettersAlphabet.toLowerCase().charAt(i), 2);
-            }
-            
-             if (lettersAlphabet.charAt(i) == 'L' || lettersAlphabet.charAt(i) == 'S' ||
-             lettersAlphabet.charAt(i) == 'U' || lettersAlphabet.charAt(i) == 'R' || lettersAlphabet.charAt(i) == 'T') {
-                letterMap.put(lettersAlphabet.charAt(i), 4);
-                letterMap.put(lettersAlphabet.toLowerCase().charAt(i), 4);
+
+    public int getScore() {
+
+        Map<Character, Integer> lettersMap = new HashMap<>();
+        String lettersCap = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        for (int i = 0; i < lettersCap.length(); i++) {
+            if (lettersCap.charAt(i) == 'A' || lettersCap.charAt(i) == 'E'
+                    || lettersCap.charAt(i) == 'I' || lettersCap.charAt(i) == 'O'
+                    || lettersCap.charAt(i) == 'O' || lettersCap.charAt(i) == 'U'
+                    || lettersCap.charAt(i) == 'L' || lettersCap.charAt(i) == 'N'
+                    || lettersCap.charAt(i) == 'R' || lettersCap.charAt(i) == 'S'
+                    || lettersCap.charAt(i) == 'T') {
+
+                lettersMap.put(lettersCap.charAt(i), 1);
+                lettersMap.put(lettersCap.toLowerCase().charAt(i), 1);
             }
 
-            if (lettersAlphabet.charAt(i) == 'B' || lettersAlphabet.charAt(i) == 'C' ||
-            lettersAlphabet.charAt(i) == 'M' ||lettersAlphabet.charAt(i) == 'P') {
-                letterMap.put(lettersAlphabet.charAt(i), 6);
-                letterMap.put(lettersAlphabet.toLowerCase().charAt(i), 6);
+            if (lettersCap.charAt(i) == 'D' || lettersCap.charAt(i) == 'G') {
+                lettersMap.put(lettersCap.charAt(i), 2);
+                lettersMap.put(lettersCap.toLowerCase().charAt(i), 2);
             }
 
-            if (lettersAlphabet.charAt(i) == 'K' ||lettersAlphabet.charAt(i) == 'G' ||lettersAlphabet.charAt(i) == 'D' ||lettersAlphabet.charAt(i) == 'Y'
-                    ){
-                letterMap.put(lettersAlphabet.charAt(i), 8);
-                letterMap.put(lettersAlphabet.toLowerCase().charAt(i), 8);
+            if (lettersCap.charAt(i) == 'B' || lettersCap.charAt(i) == 'C'
+                    || lettersCap.charAt(i) == 'M' || lettersCap.charAt(i) == 'P') {
+                lettersMap.put(lettersCap.charAt(i), 3);
+                lettersMap.put(lettersCap.toLowerCase().charAt(i), 3);
             }
 
-            if (lettersAlphabet.charAt(i) == 'F' || lettersAlphabet.charAt(i) == 'H' || lettersAlphabet.charAt(i) == 'V' || lettersAlphabet.charAt(i) == 'W') {
-                letterMap.put(lettersAlphabet.charAt(i), 10);
-                letterMap.put(lettersAlphabet.toLowerCase().charAt(i), 10);
+            if (lettersCap.charAt(i) == 'F' || lettersCap.charAt(i) == 'H'
+                    || lettersCap.charAt(i) == 'V' || lettersCap.charAt(i) == 'W'
+                    || lettersCap.charAt(i) == 'Y') {
+                lettersMap.put(lettersCap.charAt(i), 4);
+                lettersMap.put(lettersCap.toLowerCase().charAt(i), 4);
             }
 
-            if (lettersAlphabet.charAt(i) == 'Z' || lettersAlphabet.charAt(i) == 'X' || lettersAlphabet.charAt(i) == 'Q' || lettersAlphabet.charAt(i) == 'J') {
-                letterMap.put(lettersAlphabet.charAt(i), 12);
-                letterMap.put(lettersAlphabet.toLowerCase().charAt(i), 12);
+            if (lettersCap.charAt(i) == 'K') {
+                lettersMap.put(lettersCap.charAt(i), 5);
+                lettersMap.put(lettersCap.toLowerCase().charAt(i), 5);
             }
+
+            if (lettersCap.charAt(i) == 'J' || lettersCap.charAt(i) == 'X') {
+                lettersMap.put(lettersCap.charAt(i), 8);
+                lettersMap.put(lettersCap.toLowerCase().charAt(i), 8);
+            }
+
+            if (lettersCap.charAt(i) == 'Q' || lettersCap.charAt(i) == 'Z') {
+                lettersMap.put(lettersCap.charAt(i), 10);
+                lettersMap.put(lettersCap.toLowerCase().charAt(i), 10);
+            }
+
         }
-        
+
         int totalValue = 0;
-        
-        for (int x = 0; x < word.length(); x++) {
 
-            totalValue += letterMap.get(word.charAt(x));
+        for (int j = 0; j < word.length(); j++) {
+
+            totalValue += lettersMap.get(word.charAt(j));
         }
-        
+
         return totalValue;
     }
-    
 }

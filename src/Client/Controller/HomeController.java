@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Client.Controller;
 
 import Server.Controller.MiddleTier;
 import glory_schema.Bag;
 import glory_schema.ConstantElement;
+import glory_services.ValidatorService;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -51,6 +47,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -180,10 +177,11 @@ public class HomeController implements Initializable {
     private Button btnSend;
     private Timeline livePlayersTimeLine;
     private String Chatreciver;
-
+    ValidatorService messageService;
     private Bag bag;
 
     public HomeController() {
+        messageService = new ValidatorService();
         obj = new MiddleTier();
         Const = new ConstantElement();
         bag = new Bag();
@@ -239,7 +237,10 @@ public class HomeController implements Initializable {
             }
         }
         if (!ConstantElement.isFinished) {
-            livePlayerService.start();
+            try {
+                livePlayerService.start();
+            } catch (Exception e) {
+            }
         }
     }
 
@@ -249,8 +250,6 @@ public class HomeController implements Initializable {
 
     @FXML
     void btnPlayClicked(ActionEvent event) throws IOException {
-        livePlayerService.cancel();
-        livePlayersTimeLine.stop();
         commonBehaviour("Group", null);
     }
 
@@ -333,8 +332,7 @@ public class HomeController implements Initializable {
         try {
             commonBehaviour("MakeAllInvicible", null);
             ConstantElement.isPopedUp = false;
-            ConstantElement.isDisableBtnPlay = false; 
-            livePlayerService.start();                       
+            ConstantElement.isDisableBtnPlay = false;
             ServerCall.leaveGroup(ConstantElement.GroupName, ConstantElement.GlobalUserName);
         } catch (Exception e) {
         }
@@ -344,7 +342,7 @@ public class HomeController implements Initializable {
     private void btnProceedClicked(ActionEvent event) {
         try {
             if (!users.isEmpty()) {
-                commonBehaviour("PrepareForGame", event);
+                //commonBehaviour("PrepareForGame", event);
                 ConstantElement.mediaPlayer.stop();
             }
         } catch (Exception e) {
@@ -352,30 +350,51 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    private void btnLeaveGroupViewClicked(ActionEvent e) throws IOException {        
+    private void btnLeaveGroupViewClicked(ActionEvent e) {
         ConstantElement.isPopedUp = false;
         ConstantElement.isDisableBtnPlay = false;
-        commonBehaviour("MakeAllInvicible", null);
-        livePlayerService.start();
-    }
-
-    @FXML
-    private void btnJoinGroupLeaveClicked(ActionEvent e) throws IOException {
-        ConstantElement.isPopedUp = false;
-        ConstantElement.isDisableBtnPlay = false;
-        commonBehaviour("MakeAllInvicible", null);
-    }
-
-    @FXML
-    private void btnJoinToLIveClicked(ActionEvent e) throws IOException {
-        ConstantElement.GroupName = cmbGroup.getValue().toString();
-        ConstantElement.no_of_players = PlayersArray[cmbGroup.getSelectionModel().getSelectedIndex()];
-        ConstantElement.isJoin = true;
-        if (!ConstantElement.GroupName.isEmpty()) {
-            commonBehaviour("ViewGroup", null);
-            obj.setGroupUSer(ConstantElement.GroupName, ConstantElement.GlobalUserName);
-            setGroups();
+        try {
+            commonBehaviour("MakeAllInvicible", null);
+        } catch (IOException ex) {
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void btnJoinGroupLeaveClicked(ActionEvent e) {
+        ConstantElement.isPopedUp = false;
+        ConstantElement.isDisableBtnPlay = false;
+        try {
+            commonBehaviour("MakeAllInvicible", null);
+        } catch (IOException ex) {
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void btnJoinToLIveClicked(ActionEvent event) {
+        try {
+            ConstantElement.GroupName = cmbGroup.getValue().toString();
+            livePlayerService.cancel();
+            livePlayersTimeLine.stop();
+            if (!ConstantElement.GroupName.isEmpty()) {
+                ConstantElement.no_of_players = PlayersArray[cmbGroup.getSelectionModel().getSelectedIndex()];
+                ConstantElement.isJoin = true;
+                if (!ConstantElement.GroupName.isEmpty()) {
+                    try {
+                        commonBehaviour("ViewGroup", null);
+                    } catch (IOException ex) {
+                        Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    obj.setGroupUSer(ConstantElement.GroupName, ConstantElement.GlobalUserName);
+                    setGroups();
+                }
+            }
+        } catch (Exception ex) {
+            messageService.validateConditionErrors("CHECK INPUTS", "Please select your group", false, false, true, false, false);
+
+        }
+
     }
 
     private void commonBehaviour(String id, ActionEvent event) throws IOException {
@@ -416,11 +435,14 @@ public class HomeController implements Initializable {
                         items.add(users.get(i));
                     }
                 }
-                for (int j = 1; j < 4; j++) {
-                    randomGenCharacters[j] = Character.toString(bag.randomGen());
+                try {
+                    for (int j = 1; j < 4; j++) {
+                        randomGenCharacters[j] = Character.toString(bag.randomGen());
+                    }
+                    listViewAboutToLoad.setItems(items);
+                    setProgress(event);
+                } catch (Exception e) {
                 }
-                listViewAboutToLoad.setItems(items);
-                setProgress(event);
                 break;
             case "MakeAllInvicible":
                 GroupAncher.setVisible(false);
@@ -435,8 +457,11 @@ public class HomeController implements Initializable {
 
     private void setGroups() {
         if ((!ConstantElement.GroupName.isEmpty() && ConstantElement.no_of_players != 0) || (!ConstantElement.GroupName.isEmpty() && ConstantElement.isJoin)) {
-            getUsers();
-            service.start();
+            try {
+                getUsers();
+                service.start();
+            } catch (Exception e) {
+            }
         }
     }
 
@@ -459,7 +484,6 @@ public class HomeController implements Initializable {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -475,10 +499,13 @@ public class HomeController implements Initializable {
                         public void run() {
                             try {
                                 timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
-                                    //should be removed
-                                    //String val = ServerCall.getCheckPlayer(ConstantElement.GroupName, ConstantElement.GlobalUserName);
                                     if (users.size() == ConstantElement.no_of_players || (users.size() >= ConstantElement.no_of_players) && (users.size() < ConstantElement.no_of_players)) {
-                                        btnProceed.setDisable(false);
+                                        try {
+                                            timeline.stop();
+                                            btnProceed.setDisable(false);
+                                            commonBehaviour("PrepareForGame", ev);
+                                        } catch (IOException ex) {
+                                        }
                                     } else if (users.size() < ConstantElement.no_of_players || users.size() == ConstantElement.no_of_players) {
                                         btnProceed.setDisable(true);
                                         lblGroupViewSubHeading.setText("Please wait for other players");
@@ -500,7 +527,7 @@ public class HomeController implements Initializable {
 
     private void loadComboValues() {
         try {
-            int a = 0;
+            int count = 0;
             JSONArray array = obj.getGroup();
             int n = array.size();
             if (!array.isEmpty()) {
@@ -519,12 +546,11 @@ public class HomeController implements Initializable {
                 }
 
                 for (String noPlayers : noOfPlayers) {
-                    PlayersArray[a] = Integer.parseInt(noPlayers);
-                    a++;
+                    PlayersArray[count] = Integer.parseInt(noPlayers);
+                    count++;
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -541,7 +567,7 @@ public class HomeController implements Initializable {
                             ServerCall.setInitialLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName,
                                     randomGenCharacters[1], randomGenCharacters[2],
                                     randomGenCharacters[3]);
-                            Thread.sleep(5000);
+                            Thread.sleep(1000);
                             ConstantElement.prepareToSave = false;
                         } catch (InterruptedException ex) {
                             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
@@ -551,18 +577,18 @@ public class HomeController implements Initializable {
                         timeline.stop();
                         livePlayerService.cancel();
                         livePlayersTimeLine.stop();
-                        Stage app_stage = (Stage) progressGameLoader.getScene().getWindow();
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/Game.fxml"));
-                        Parent parentHome = null;
                         try {
-                            parentHome = (Parent) fxmlLoader.load();
-                        } catch (IOException ex) {
-                            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+                            FXMLLoader fmxlLoader = new FXMLLoader(getClass().getResource("/UI/Game.fxml"));
+                            Parent window = (Pane) fmxlLoader.load();
+                            Scene home_page_scene = new Scene(window);
+                            Stage app_stage = (Stage) progressGameLoader.getScene().getWindow();
+                            app_stage = (Stage) txtGroupName.getScene().getWindow();
+                            app_stage.setScene(home_page_scene);
+                            app_stage.centerOnScreen();
+                            app_stage.show();
+                        } catch (Exception e) {
+
                         }
-                        Scene home_page_scene = new Scene(parentHome);
-                        app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        app_stage.setScene(home_page_scene);
-                        app_stage.show();
                     }
                 }
             });
@@ -579,7 +605,7 @@ public class HomeController implements Initializable {
                     if (i == 60) {
                         ConstantElement.prepareToSave = true;
                     }
-                    Thread.sleep(200);
+                    Thread.sleep(550);
                     updateMessage(i + "%");
                     updateProgress(i + 1, 100);
                 }
@@ -595,25 +621,31 @@ public class HomeController implements Initializable {
             return new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
-                    final CountDownLatch latch = new CountDownLatch(1);
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                livePlayersTimeLine = new Timeline(new KeyFrame(Duration.seconds(20), ev -> {
-                                    //after server call
-                                    System.out.println("Calm Thread in home UI ->>>>");
-                                    usercount = 0;
-                                    getOnlineUsers();
-                                    getChatMessage();
-                                }));
-                                livePlayersTimeLine.setCycleCount(Animation.INDEFINITE);
-                                livePlayersTimeLine.play();
-                            } catch (Exception e) {
+                    try {
+                        final CountDownLatch latch = new CountDownLatch(1);
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    livePlayersTimeLine = new Timeline(new KeyFrame(Duration.minutes(1), ev -> {
+                                        //after server call
+                                        System.out.println("Calm Thread in home UI ->>>>");
+                                        usercount = 0;
+                                        getOnlineUsers();
+                                        getChatMessage();
+                                    }));
+                                    livePlayersTimeLine.setCycleCount(Animation.INDEFINITE);
+                                    livePlayersTimeLine.play();
+                                } catch (Exception e) {
+                                    messageService.validateLiveError("CONNECTION FAILED", "Something wrong with the server, Please try again", false, false, true, false, "Live", false);
+                                }
                             }
-                        }
-                    });
-                    latch.await();
+                        });
+                        latch.await();
+
+                    } catch (Exception e) {
+                        messageService.validateLiveError("CONNECTION FAILED", "Something wrong with the server, Please try again", false, false, true, false, "Live", false);
+                    }
                     return null;
                 }
             };
@@ -664,7 +696,7 @@ public class HomeController implements Initializable {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            messageService.validateLiveError("CONNECTION FAILED", "Please check your connection", false, false, true, false, "Live", false);
         }
     }
 
@@ -687,7 +719,7 @@ public class HomeController implements Initializable {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            messageService.validateLiveError("CONNECTION FAILED", "Please check your connection", false, false, true, false, "Live", false);
         }
     }
 

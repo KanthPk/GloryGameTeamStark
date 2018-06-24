@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Client.Controller;
 
 import Server.Controller.MiddleTier;
@@ -13,7 +8,6 @@ import glory_schema.ConstantElement;
 import glory_schema.FunctionElement;
 import glory_schema.GloryAward;
 import glory_schema.WordElement;
-import glory_services.NavigationService;
 import glory_services.RoundScoreService;
 import glory_services.ValidatorService;
 import glory_services.WordAutoGenerate;
@@ -37,6 +31,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -49,6 +45,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -242,6 +239,9 @@ public class GameController implements Initializable {
     @FXML
     private Label lbl_diamond;
 
+    @FXML
+    private Label lbl_user_online_1;
+
     public int roundVal = 1;
     protected String pause = "Stop";
     StringBuffer globalSubChars;
@@ -266,7 +266,6 @@ public class GameController implements Initializable {
     GamePause gamepause = new GamePause();
     Thread thread_pause = new Thread(gamepause);
     Task buttonPause;
-    NavigationService navigationService;
     long elapsed;
     long ms;
     long s;
@@ -279,7 +278,6 @@ public class GameController implements Initializable {
      */
     public GameController() {
         bag = new Bag();
-        navigationService = new NavigationService("/UI/WinnerScreen.fxml");
         serviceValidater = new ValidatorService();
         scoreObj = new FunctionElement();
         characters = new String[11];
@@ -291,12 +289,15 @@ public class GameController implements Initializable {
 
     @FXML
     private void imgSearch() {
-        if (txtWordFIeld.getText().isEmpty()) {
-            String[] ary = getLetterArray();
-            WordAutoGenerate v = new WordAutoGenerate(ary);
-            v.Autogenerator();
-            System.out.println("Autogenrate word" + v.getLongestWord());
-            txtWordFIeld.setText(v.getLongestWord());
+        try {
+            if (txtWordFIeld.getText().isEmpty()) {
+                String[] ary = getLetterArray();
+                WordAutoGenerate v = new WordAutoGenerate(ary);
+                v.Autogenerator();
+                System.out.println("Autogenrate word" + v.getLongestWord());
+                txtWordFIeld.setText(v.getLongestWord());
+            }
+        } catch (Exception e) {
         }
     }
 
@@ -311,12 +312,13 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        getIntialLetter();
         rBtnVowel.setToggleGroup(group);
         rBtnconsonent.setToggleGroup(group);
         anchQuestion.setVisible(false);
         roundScoreService = new RoundScoreService();
 
-        getIntialLetter();
         liveStopWatch();
 
         rBtnconsonent.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
@@ -332,8 +334,8 @@ public class GameController implements Initializable {
             return t;
         }));
 
-        if (txt_1.getText().isEmpty() && txt_2.getText().isEmpty() && txt_3.getText().isEmpty() && txt_4.getText().isEmpty() && txt_5.getText().isEmpty() && txt_6.getText().isEmpty() && txt_7.getText().isEmpty() && txt_8.getText().isEmpty()) {
-            txtWordFIeld.setDisable(true);
+        if (txt_1.getText().isEmpty() && txt_2.getText().isEmpty() && txt_3.getText().isEmpty() && txt_4.getText().isEmpty() && txt_5.getText().isEmpty() && txt_6.getText().isEmpty() && txt_7.getText().isEmpty() && txt_8.getText().isEmpty() || (!txt_1.getText().isEmpty() && (!txt_2.getText().isEmpty()) && (!txt_3.getText().isEmpty()))) {
+            txtWordFIeld.setDisable(false);
         }
 
         txtWordFIeld.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -369,37 +371,26 @@ public class GameController implements Initializable {
                     btnCreate.setStyle("-fx-border-color: BLACK;");
                     txtWordFIeld.setStyle("-fx-border-color: BLACK;");
                     if (Character.toString(pressed).equals(txtRandom_1.getText()) && !txtRandom_1.isDisable()) {
-                        System.out.println("you have" + pressed);
                         txtRandom_1.setDisable(true);
                     } else if (Character.toString(pressed).equals(txtRandom_2.getText()) && !txtRandom_2.isDisable()) {
-                        System.out.println("you have" + pressed);
                         txtRandom_2.setDisable(true);
                     } else if (Character.toString(pressed).equals(txtRandom_3.getText()) && !txtRandom_3.isDisable()) {
-                        System.out.println("you have" + pressed);
                         txtRandom_3.setDisable(true);
                     } else if (Character.toString(pressed).equals(txt_1.getText()) && !txt_1.isDisable()) {
-                        System.out.println("you have" + pressed);
                         txt_1.setDisable(true);
                     } else if (Character.toString(pressed).equals(txt_2.getText()) && !txt_2.isDisable()) {
-                        System.out.println("you have" + pressed);
                         txt_2.setDisable(true);
                     } else if (Character.toString(pressed).equals(txt_3.getText()) && !txt_3.isDisable()) {
-                        System.out.println("you have" + pressed);
                         txt_3.setDisable(true);
                     } else if (Character.toString(pressed).equals(txt_4.getText()) && !txt_4.isDisable()) {
-                        System.out.println("you have" + pressed);
                         txt_4.setDisable(true);
                     } else if (Character.toString(pressed).equals(txt_5.getText()) && !txt_5.isDisable()) {
-                        System.out.println("you have" + pressed);
                         txt_5.setDisable(true);
                     } else if (Character.toString(pressed).equals(txt_6.getText()) && !txt_6.isDisable()) {
-                        System.out.println("you have" + pressed);
                         txt_6.setDisable(true);
                     } else if (Character.toString(pressed).equals(txt_7.getText()) && !txt_7.isDisable()) {
-                        System.out.println("you have" + pressed);
                         txt_7.setDisable(true);
                     } else if (Character.toString(pressed).equals(txt_8.getText()) && !txt_8.isDisable()) {
-                        System.out.println("you have" + pressed);
                         txt_8.setDisable(true);
                     }
                 } else if (!txtRandom_1.getText().contains(Character.toString(pressed))
@@ -422,7 +413,7 @@ public class GameController implements Initializable {
         });
 
         chkEdit.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (txtWordFIeld.getText().length() == 11 && chkEdit.isSelected()) {
+            if (txtWordFIeld.getText().length() != 0 && chkEdit.isSelected()) {
                 txtWordFIeld.setEditable(true);
                 transitionService.MakeFadeOut(anchorEditBack).play();
                 anchorEditBack.setVisible(false);
@@ -430,13 +421,13 @@ public class GameController implements Initializable {
         });
 
         btnPause.setOnAction(event -> {
-            transitionService.MakeFadeInLiveGame(subCheckBoxAncher).play();
+            imgBagView.setDisable(true);
+            btnHome.setDisable(false);
             ancherPause.setVisible(true);
             ConstantElement.isPause = true;
             pausedAfter = java.time.Duration.between(startTime, Instant.now());
             clock.stop();
             thread_pause.run();
-
             // service.start();
         });
 
@@ -472,12 +463,19 @@ public class GameController implements Initializable {
 
     @FXML
     void closeApplication(MouseEvent event) {
-        Platform.exit();
-        ServerCall.Logout(ConstantElement.GlobalUserName, ConstantElement.GroupName);
+        try {
+            Platform.exit();
+            ServerCall.Logout(ConstantElement.GlobalUserName, ConstantElement.GroupName);
+            commonServerCall();
+            System.exit(0);
+        } catch (Exception e) {
+        }
+    }
+
+    private void commonServerCall() {
         ServerCall.leaveGroup(ConstantElement.GroupName, ConstantElement.GlobalUserName);
         ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
         ServerCall.deleteRound(ConstantElement.GroupName, ConstantElement.GlobalUserName);
-        System.exit(0);
     }
 
     @FXML
@@ -581,7 +579,7 @@ public class GameController implements Initializable {
                 }
                 break;
             case "C":
-                if (rBtnconsonent.isSelected() && !bag.takeConsonentString().isEmpty()) {
+                if (liveValue && !bag.takeConsonentString().isEmpty()) {
                     if (txt_1.getText().isEmpty()) {
                         rBtnconsonent.setSelected(false);
                         String characterValue = Character.toString(bag.takeConsonentsDinamiically());
@@ -600,13 +598,13 @@ public class GameController implements Initializable {
                         String characterValue = Character.toString(bag.takeConsonentsDinamiically());
                         characters[5] = characterValue;
                         txt_3.setText(characterValue);
+                        txtWordFIeld.setDisable(false);
                         validateConsonentChar(characters, characterValue, "singleChar");
                     } else if (!txt_3.getText().isEmpty() && txt_4.getText().isEmpty()) {
                         rBtnconsonent.setSelected(false);
                         String characterValue = Character.toString(bag.takeConsonentsDinamiically());
                         characters[6] = characterValue;
                         txt_4.setText(characterValue);
-                        txtWordFIeld.setDisable(false);
                         validateConsonentChar(characters, characterValue, "singleChar");
                     } else if (!txt_4.getText().isEmpty() && txt_5.getText().isEmpty()) {
                         rBtnconsonent.setSelected(false);
@@ -635,6 +633,7 @@ public class GameController implements Initializable {
                         System.out.println("" + Arrays.toString(characters));
                         txt_8.setText(characterValue);
                         validateConsonentChar(characters, characterValue, "singleChar");
+                        bag.resetVowelConstants();
                         transitionService.MakeFadeIn(subCheckBoxAncher).play();
                         subCheckBoxAncher.setVisible(true);
                         setDynamicCheckBox("swap");
@@ -711,9 +710,11 @@ public class GameController implements Initializable {
                             if (noOfTimes == 2) {
                                 if (bag.takeConsonentString().isEmpty()) {
                                     rBtnconsonent.setDisable(false);
-                                } else {
-                                    bag.setNewConsonent(arrOfChars[index]);
+                                } else if (!bag.takeConsonentString().isEmpty()) {
+                                    bag.removeExistsConsonents(arrOfChars[i]);
                                     System.out.println("" + bag.takeConsonentString());
+                                } else if (bag.takeConsonentString().isEmpty()) {
+                                    bag.resetVowelConstants();
                                 }
                             }
                         }
@@ -732,7 +733,7 @@ public class GameController implements Initializable {
                                     if (bag.takeConsonentString().isEmpty()) {
                                         rBtnconsonent.setDisable(false);
                                     } else {
-                                        bag.setNewConsonent(arrOfChars[index]);
+                                        bag.removeExistsConsonents(arrOfChars[index]);
                                         System.out.println("" + bag.takeConsonentString());
                                     }
                                 }
@@ -767,7 +768,7 @@ public class GameController implements Initializable {
                     commonBehaviour("avoidConstAndVowel");
                 } else if (bag.isConstant(keyEle) && !ConstantElement.isEditConstant) {
                     txt_1.setText(null);
-                    bag.setNewConsonent(keyEle);
+                    bag.removeExistsConsonents(keyEle);
                     txt_1.setText(Character.toString(bag.takeConsonentsDinamiically()));
                     commonBehaviour("Constant");
                     commonBehaviour("avoidConstAndVowel");
@@ -789,7 +790,7 @@ public class GameController implements Initializable {
                     commonBehaviour("avoidConstAndVowel");
                 } else if (bag.isConstant(keyEle) && !ConstantElement.isEditConstant) {
                     txt_2.setText(null);
-                    bag.setNewConsonent(keyEle);
+                    bag.removeExistsConsonents(keyEle);
                     txt_2.setText(Character.toString(bag.takeConsonentsDinamiically()));
                     commonBehaviour("Constant");
                     commonBehaviour("avoidConstAndVowel");
@@ -811,7 +812,7 @@ public class GameController implements Initializable {
                     commonBehaviour("avoidConstAndVowel");
                 } else if (bag.isConstant(keyEle) && !ConstantElement.isEditConstant) {
                     txt_3.setText(null);
-                    bag.setNewConsonent(keyEle);
+                    bag.removeExistsConsonents(keyEle);
                     txt_3.setText(Character.toString(bag.takeConsonentsDinamiically()));
                     commonBehaviour("Constant");
                     commonBehaviour("avoidConstAndVowel");
@@ -833,7 +834,7 @@ public class GameController implements Initializable {
                     commonBehaviour("avoidConstAndVowel");
                 } else if (bag.isConstant(keyEle) && !ConstantElement.isEditConstant) {
                     txt_4.setText(null);
-                    bag.setNewConsonent(keyEle);
+                    bag.removeExistsConsonents(keyEle);
                     txt_4.setText(Character.toString(bag.takeConsonentsDinamiically()));
                     commonBehaviour("Constant");
                     commonBehaviour("avoidConstAndVowel");
@@ -855,7 +856,7 @@ public class GameController implements Initializable {
                     commonBehaviour("avoidConstAndVowel");
                 } else if (bag.isConstant(keyEle) && !ConstantElement.isEditConstant) {
                     txt_5.setText(null);
-                    bag.setNewConsonent(keyEle);
+                    bag.removeExistsConsonents(keyEle);
                     txt_5.setText(Character.toString(bag.takeConsonentsDinamiically()));
                     commonBehaviour("Constant");
                     commonBehaviour("avoidConstAndVowel");
@@ -877,7 +878,7 @@ public class GameController implements Initializable {
                     commonBehaviour("avoidConstAndVowel");
                 } else if (bag.isConstant(keyEle) && !ConstantElement.isEditConstant) {
                     txt_6.setText(null);
-                    bag.setNewConsonent(keyEle);
+                    bag.removeExistsConsonents(keyEle);
                     txt_6.setText(Character.toString(bag.takeConsonentsDinamiically()));
                     commonBehaviour("Constant");
                     commonBehaviour("avoidConstAndVowel");
@@ -899,7 +900,7 @@ public class GameController implements Initializable {
                     commonBehaviour("avoidConstAndVowel");
                 } else if (bag.isConstant(keyEle) && !ConstantElement.isEditConstant) {
                     txt_7.setText(null);
-                    bag.setNewConsonent(keyEle);
+                    bag.removeExistsConsonents(keyEle);
                     txt_7.setText(Character.toString(bag.takeConsonentsDinamiically()));
                     commonBehaviour("Constant");
                     commonBehaviour("avoidConstAndVowel");
@@ -921,7 +922,7 @@ public class GameController implements Initializable {
                     commonBehaviour("avoidConstAndVowel");
                 } else if (bag.isConstant(keyEle) && !ConstantElement.isEditConstant) {
                     txt_8.setText(null);
-                    bag.setNewConsonent(keyEle);
+                    bag.removeExistsConsonents(keyEle);
                     txt_8.setText(Character.toString(bag.takeConsonentsDinamiically()));
                     commonBehaviour("Constant");
                     commonBehaviour("avoidConstAndVowel");
@@ -975,33 +976,21 @@ public class GameController implements Initializable {
     void btnCreateClicked(ActionEvent event) {
         try {
             subCheckBoxAncher.setVisible(false);
-            txtWordFIeld.setEditable(false);
-            if (!txtWordFIeld.getText().isEmpty()) {
-                //get score board            
-                //String[] myStringArray = new String[3];
-                String[] myStringArray = {"a", "p", "c", "P", "l", "l", "e"};
-                //String[] myStringArray = new String[]{"a","b","c"};
-                //basties code goes here
-                //just return a boolean and validate it
 
-                //my codes goes after basties validation
-                //1 Para : round
-                //2 para : ture validate worded with proper validation
+            String val = txtWordFIeld.getText();
+            if (val.length() <= characters.length) {
+                ConstantElement.UnusedLetters = 2;
+            }
+
+            if (!txtWordFIeld.getText().isEmpty()) {
+
                 WordElement we = new WordElement();
                 boolean result = we.validateWord(txtWordFIeld.getText());
-
-                //autogenerate,begin
                 String[] ary = getLetterArray();
                 for (int q = 0; q < 11; q++) {
                     System.out.println(ary[q]);
-
                 }
-                //dummy location
-                /*WordAutoGenerate v = new WordAutoGenerate(ary);
-            v.Autogenerator();
-            System.out.println("Autogenrate word" + v.getLongestWord());
-            //end  
-                 */
+
                 if (result == true) {
                     System.out.println("this is a word");
                     int test = roundScoreService.getScoreFromEachRound(1, txtWordFIeld.getText());
@@ -1011,16 +1000,9 @@ public class GameController implements Initializable {
                     NoOfDiamonds = gameAwards.GetDiamonds(xpPoints);
                     System.out.println("###############suba : xp Points" + xpPoints);
                     System.out.println("###############suba : Diamonds:  " + NoOfDiamonds);
-                    //Setting xpPointsEnd
-
                 } else {
-                    System.out.println("this is not a word");
                     serviceValidater.validateConditionErrors("INVALID", "Invalid Longest English Word", false, false, true, false, false);
-
                 }
-
-                //int test = roundScoreService.getScoreFromEachRound(1, txtWordFIeld.getText());
-                //txtScore.setText(Integer.toString(test));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1030,9 +1012,23 @@ public class GameController implements Initializable {
     @FXML
     void btnHomeClicked(ActionEvent event) {
         try {
-            //remove the game UI
-        } catch (Exception e) {
-            e.printStackTrace();
+            ConstantElement.isFinished = false;
+            commonServerCall();
+            //navigate
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/Home.fxml"));
+                Parent parentHome = (Parent) fxmlLoader.load();
+                ConstantElement s = new ConstantElement();
+                Scene home_page_scene = new Scene(parentHome);
+                Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                app_stage.centerOnScreen();
+                app_stage.setScene(home_page_scene);
+                app_stage.show();
+            } catch (Exception e) {
+                serviceValidater.validateLiveError("CONNECTION FAILED", "Please check your connection", false, false, true, false, "Live", false);
+            }
+        } catch (RuntimeException e) {
+            serviceValidater.validateLiveError("CONNECTION FAILED", "Something wrong with the server, Please try again", false, false, true, false, "Live", false);
         }
     }
 
@@ -1076,16 +1072,12 @@ public class GameController implements Initializable {
             if (ConstantElement.roundId == 1) {
                 countDown = 35;
             } else if (ConstantElement.roundId == 2) {
-                lbl_diamond.setText("" + NoOfDiamonds);
                 countDown = 30;
             } else if (ConstantElement.roundId == 3) {
-                lbl_diamond.setText("" + NoOfDiamonds);
                 countDown = 25;
             } else if (ConstantElement.roundId == 4) {
-                lbl_diamond.setText("" + NoOfDiamonds);
                 countDown = 20;
             } else if (ConstantElement.roundId == 5) {
-                lbl_diamond.setText("" + NoOfDiamonds);
                 countDown = 15;
             }
             if (s == countDown) {
@@ -1116,10 +1108,10 @@ public class GameController implements Initializable {
 
     private void saveScoreOfLivePlayers() {
         try {
-            ConstantElement.ReadyToPlay = ServerCall.getPlayerReady();
-            System.out.println("go********************" + ConstantElement.ReadyToPlay);
+            //ConstantElement.ReadyToPlay = ServerCall.getPlayerReady();
+            //System.out.println("go********************" + ConstantElement.ReadyToPlay);
             //if (ConstantElement.ReadyToPlay.equalsIgnoreCase("1")) {
-            System.out.println("value to be tested " + txtScore.getText().toString());
+            //System.out.println("value to be tested " + txtScore.getText().toString());
             UUID uuid = UUID.randomUUID();
             String randomUUIDString = uuid.toString();
             scoreObj.setTotalScore(Integer.parseInt(txtScore.getText()));
@@ -1127,8 +1119,9 @@ public class GameController implements Initializable {
             ServerCall.setRound(ConstantElement.GroupName, ConstantElement.GlobalUserName, randomUUIDString, txtScore.getText().toString(), Integer.toString(roundVal));
             ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
             setScore();
-            ServerCall.deleteEachRound(ConstantElement.GroupName, ConstantElement.GlobalUserName);
+            //ServerCall.deleteEachRound(ConstantElement.GroupName, ConstantElement.GlobalUserName);
             roundVal = roundVal + 1;
+            lbl_diamond.setText("" + NoOfDiamonds);
             ConstantElement.roundId = roundVal;
             roundid.setText(Integer.toString(roundVal));
             clearFields();
@@ -1149,47 +1142,55 @@ public class GameController implements Initializable {
                 anchorScore.setVisible(true);
                 saveScoreOfLivePlayers();
                 imgBagView.setDisable(false);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        for (int i = 1; i <= 10; i++) {
-                            final int counter = i;
-                            Platform.runLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (counter == 10) {
-                                        try {
-//                                            Arrays.fill(characters, null);
-                                            bag.resetVowelConstants();
-                                            subCheckBoxAncher.setVisible(false);
+                try {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            for (int i = 1; i <= 10; i++) {
+                                final int counter = i;
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (counter == 10) {
+                                            try {                                           
+                                                bag.resetVowelConstants();
+                                                subCheckBoxAncher.setVisible(false);
+                                                if (ConstantElement.roundId == 6) {
+                                                    roundid.setText("  is finished");
+                                                    anchorScore.setVisible(true);
+                                                    Thread.sleep(10000);
+                                                    try {
+                                                        Stage stageGame = (Stage) txtRandom_1.getScene().getWindow();
+                                                        stageGame.close();
 
-                                            if (ConstantElement.roundId == 6) {
-                                                anchorScore.setVisible(true);
-                                                Thread.sleep(1000);
-                                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/WinnerScreen.fxml"));
-                                                Stage stage = (Stage) txtRandom_1.getScene().getWindow();
-                                                Scene scene = null;
-                                                try {
-                                                    scene = new Scene(loader.load());
-                                                    stage.centerOnScreen();
-                                                    stage.setScene(scene);
-                                                } catch (IOException ex) {
-                                                    Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
+                                                        AnchorPane layout = null;
+                                                        Stage stage = null;
+                                                        layout = FXMLLoader.load(getClass().getResource("/UI/WinnerScreen.fxml"));
+                                                        stage = new Stage();
+                                                        stage.setScene(new Scene(layout));
+                                                        stage.setResizable(false);
+                                                        stage.initStyle(StageStyle.UNDECORATED);
+                                                        stage.show();
+                                                    } catch (Exception e) {
+                                                    }
+                                                } else {
+                                                    System.out.println("" + counter);
+                                                    Thread.sleep(4000);
+                                                    callBack();
                                                 }
-                                            } else {
-                                                System.out.println("" + counter);
-                                                Thread.sleep(1000);
-                                                callBack();
+                                            } catch (InterruptedException ex) {
+                                                serviceValidater.validateLiveError("CONNECTION FAILED", "Please check your connection", false, false, true, false, "Live", false);
+                                                Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
                                             }
-                                        } catch (InterruptedException ex) {
-                                            Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
                                         }
                                     }
-                                }
-                            });
+                                });
+                            }
                         }
-                    }
-                }).start();
+                    }).start();
+                } catch (Exception e) {
+                    serviceValidater.validateLiveError("CONNECTION FAILED", "Please check your connection", false, false, true, false, "Live", false);
+                }
                 return true;
             }
         };
@@ -1359,7 +1360,6 @@ public class GameController implements Initializable {
                     String user = (String) userJsonObjects.get("User");
                     String Score = (String) userJsonObjects.get("Score");
                     if (user.equals(ConstantElement.GlobalUserName)) {
-                        System.out.println(" System.out.println(\"2 came \");");
                     } else {
                         if (!user.equals(ConstantElement.GlobalUserName)) {
                             if (user_1_global.getText().isEmpty() && user.equals(lbl_live_user_1.getText())) {
@@ -1391,16 +1391,20 @@ public class GameController implements Initializable {
 
     @FXML
     private void imgPausePressed(MouseEvent event) {
-        //simulation
-        //callBack();       
-        ConstantElement.isLive = false;
-        ServerCall.pauseGame("Start");
-        startTime = Instant.now().minus(pausedAfter);
-        clock.play();
-        timeline.play();
-        buttonPause.cancel();
-        ancherPause.setVisible(false);
-        //service.start();
+        try {
+            ancherPause.setVisible(false);
+            thread_pause.stop();
+            imgBagView.setDisable(false);
+            btnHome.setDisable(true);
+            ConstantElement.isLive = false;
+            ServerCall.pauseGame("Start");
+            startTime = Instant.now().minus(pausedAfter);
+            clock.play();
+            timeline.play();
+            buttonPause.cancel();
+            ancherPause.setVisible(false);
+        } catch (Exception e) {
+        }
     }
 
     private Task ButtonPauseLiveGame() {
@@ -1414,7 +1418,8 @@ public class GameController implements Initializable {
                             @Override
                             public void run() {
                                 try {
-                                    timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
+                                    btnHome.setDisable(false);
+                                    timeline = new Timeline(new KeyFrame(Duration.minutes(1), ev -> {
 
                                         ConstantElement.pause = ServerCall.getpauseGame();
                                         System.out.println("Thread 2*****************" + pause);

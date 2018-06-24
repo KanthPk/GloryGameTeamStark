@@ -235,12 +235,11 @@ public class MiddleTier {
                     // GET INDIVIDUAL JSON OBJECT FROM JSON ARRAY
                     JSONObject jo = (JSONObject) array.get(i);
                     String GroupName = (String) jo.get("GroupName");
-                    String UserName = (String) jo.get("UserName");
+                    //String UserName = (String) jo.get("UserName");
                     String Players = (String) jo.get("Players");
                     //System.out.println("outputyss"+GroupName+UserName+Players);                
                 }
             }
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
