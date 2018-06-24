@@ -1123,7 +1123,11 @@ public class GameController implements Initializable {
             roundVal = roundVal + 1;
             lbl_diamond.setText("" + NoOfDiamonds);
             ConstantElement.roundId = roundVal;
-            roundid.setText(Integer.toString(roundVal));
+            if (ConstantElement.roundId != 6) {
+                roundid.setText(Integer.toString(roundVal));
+            } else {
+                roundid.setText(" finished");
+            }
             clearFields();
             setInitialLetter();
             getIntialLetter();
@@ -1152,17 +1156,23 @@ public class GameController implements Initializable {
                                     @Override
                                     public void run() {
                                         if (counter == 10) {
-                                            try {                                           
+                                            try {
                                                 bag.resetVowelConstants();
                                                 subCheckBoxAncher.setVisible(false);
                                                 if (ConstantElement.roundId == 6) {
-                                                    roundid.setText("  is finished");
+                                                    thread_pause.stop();
+                                                    clock.stop();
+                                                    timeline.stop();
+                                                    progressThread.cancel(true);
+                                                    roundid.setText(" finished");
                                                     anchorScore.setVisible(true);
                                                     Thread.sleep(10000);
                                                     try {
                                                         Stage stageGame = (Stage) txtRandom_1.getScene().getWindow();
                                                         stageGame.close();
-
+                                                        //
+                                                        //
+                                                        //
                                                         AnchorPane layout = null;
                                                         Stage stage = null;
                                                         layout = FXMLLoader.load(getClass().getResource("/UI/WinnerScreen.fxml"));
