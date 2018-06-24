@@ -15,17 +15,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javax.swing.JOptionPane;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.fxml.FXMLLoader;
 import java.util.Random;
 import glory_schema.ConstantElement;
-import glory_services.MessageService;
 import glory_services.SendEmailService;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -71,15 +63,13 @@ public class RegisterUserController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         txtEmail.focusedProperty().addListener((ov, oldV, newV) -> {
             if (!txtEmail.getText().isEmpty()) {
                 if (!newV) {
                     try {
                         validatorService.getMailMessageBox("MAIL CONFIRMATION", "Please enter your confirmation code to verify your email", true, true, true, true, "mail", true);
                         String usarMail = txtEmail.getText().toString().trim();
-                        //Set the current genarated code
-                        //setUserRecievedCode(id); 
-                        //Genarate randome number and send email
                         Random random = new Random();
                         String id = String.format("%04d", random.nextInt(10000));
                         SendEmailService sc = new SendEmailService();
@@ -105,27 +95,29 @@ public class RegisterUserController implements Initializable {
     @FXML
     private void btnSaveClcked(ActionEvent event) {
         if (!txtUserName.getText().isEmpty() && !txtEmail.getText().isEmpty() && !txtConfirmPassword.getText().isEmpty() && !txtPassword.getText().isEmpty()) {
-            String bytes = "on";
-            byte[] buffer = bytes.getBytes();
-            try {
-                ServerCall.registerUser(txtUserName.getText(), txtEmail.getText(), txtPassword.getText(), txtConfirmPassword.getText());
-                FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "UserSettings.txt");
-                outputStream.write(buffer);
-                Stage stage = (Stage) btnBack.getScene().getWindow();
-                stage.close();
-            } catch (IOException ex) {
-                System.out.println("Error writing file '" + "UserSettings" + "'");
-            } catch (Exception e) {
-                System.out.println("Error Connection ");
+            if (txtPassword.getText().equals(txtConfirmPassword.getText()) && txtPassword.getText().length() == txtConfirmPassword.getText().length()) {
+                String bytes = "on";
+                byte[] buffer = bytes.getBytes();
+                try {
+                    if (ConstantElement.isVerified) {
+                        ServerCall.registerUser(txtUserName.getText(), txtEmail.getText(), txtPassword.getText(), txtConfirmPassword.getText());
+                        FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "UserSettings.txt");
+                        outputStream.write(buffer);
+                        Stage stage = (Stage) btnBack.getScene().getWindow();
+                        stage.close();
+                    } else if (!ConstantElement.isVerified) {
+                        validatorService.validateConditionErrors("INVALID VERIFICATION", "Invalid verification", false, false, true, false, false);
+                    }
+                } catch (IOException ex) {
+                    System.out.println("Error writing file '" + "UserSettings" + "'");
+                } catch (Exception e) {
+                    System.out.println("Error Connection ");
+                }
+            } else {
+                validatorService.validateConditionErrors("PASSWORD MISSMATCH", "Pleasecheck your confirmation password again", false, false, true, false, false);
             }
         } else {
             validatorService.validateConditionErrors("CHECK INPUTS", "Please check your inputs", false, false, true, false, false);
         }
     }
-
-    @FXML
-    void txtEmailPressed(MouseEvent event) {
-        /// no needed
-    }
-
 }

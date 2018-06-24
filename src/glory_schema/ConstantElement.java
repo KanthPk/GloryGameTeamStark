@@ -60,6 +60,7 @@ public class ConstantElement {
     //scoring algo purpose  
     public static String ReadyToPlay;
     public static boolean isSend;
+    public static boolean isVerified;
     private String UserName;
     private String Password;   
     public static int roundId = 1;

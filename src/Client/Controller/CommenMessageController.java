@@ -10,21 +10,15 @@ import glory_services.MessageService;
 import glory_services.SendEmailService;
 import java.util.logging.Logger;
 import java.util.logging.Level;
-import javax.swing.JOptionPane;
 import java.util.Random;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -128,14 +122,15 @@ public class CommenMessageController implements Initializable {
                     value = txtInfo.getText();
                     if (!value.isEmpty()) {
                         txtInfo.setStyle("-fx-border-color: BLACK;");
-                        if (value.equals(ce.RandomeNo)) {
-                            //JOptionPane.showMessageDialog(null, "Email successfully verified", "InfoBox: " + "Email verification", JOptionPane.INFORMATION_MESSAGE);
+                        if (value.equals(ce.RandomeNo)) {   
+                             //JOptionPane.showMessageDialog(null, "Email successfully verified", "InfoBox: " + "Email verification", JOptionPane.INFORMATION_MESSAGE);
+                            ConstantElement.isVerified = true;
                             Stage stage = (Stage) btnCancel.getScene().getWindow();
                             stage.close();
                         } else {
-                            txtInfo.clear();
+                            ConstantElement.isVerified = false;
+                            txtInfo.clear(); 
                             //JOptionPane.showMessageDialog(null, "Email verification code is incorrect please resend the code", "Error: " + "Email verification", JOptionPane.ERROR_MESSAGE);
-                            
                         }
 
                     } else {
@@ -151,7 +146,6 @@ public class CommenMessageController implements Initializable {
                     if (!value.isEmpty()) {
                         txtInfo.setStyle("-fx-border-color: BLACK;");
                         if (value.equals(ce.RandomeNo)) {
-                           //JOptionPane.showMessageDialog(null, "Email successfully verified", "InfoBox: " + "Email verification", JOptionPane.INFORMATION_MESSAGE);
                             Stage stage = (Stage) btnCancel.getScene().getWindow();
                             stage.close();
                         } else {
@@ -170,7 +164,6 @@ public class CommenMessageController implements Initializable {
                     if (!value.isEmpty()) {
                         txtInfo.setStyle("-fx-border-color: BLACK;");
                         if (value.equals(ce.RandomeNo)) {
-                            //JOptionPane.showMessageDialog(null, "Email successfully verified", "InfoBox: " + "Email verification", JOptionPane.INFORMATION_MESSAGE);
                             Stage stage = (Stage) btnCancel.getScene().getWindow();
                             stage.close();
                         } else {

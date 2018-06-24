@@ -7,7 +7,6 @@ package Client.Controller;
 
 import Server.Controller.MiddleTier;
 import glory_schema.ConstantElement;
-import glory_services.MessageService;
 import glory_services.SendEmailService;
 import glory_services.ValidatorService;
 import java.net.URL;
@@ -16,16 +15,11 @@ import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -37,7 +31,7 @@ public class ForgotPasswordController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    MiddleTier serverCall =new MiddleTier();
+    MiddleTier serverCall = new MiddleTier();
     ConstantElement userData = new ConstantElement();
     ArrayList<String> users;
     @FXML
@@ -71,8 +65,8 @@ public class ForgotPasswordController implements Initializable {
             if (!txtUserName.getText().isEmpty()) {
                 if (!newV) {
                     try {
-                        validatorService.getMailMessageBox("MAIL CONFIRMATION", "Please enter your confirmation code to verify your User name", true, true, true, true, "mail", true);                       
-                        String usarMail = serverCall.checkEmail(txtUserName.getText());                      
+                        validatorService.getMailMessageBox("MAIL CONFIRMATION", "Please enter your confirmation code to verify your User name", true, true, true, true, "mail", true);
+                        String usarMail = serverCall.checkEmail(txtUserName.getText());
                         txtEmail.setText(usarMail);
                         //Set the current genarated code
                         //setUserRecievedCode(id); 
@@ -105,10 +99,17 @@ public class ForgotPasswordController implements Initializable {
     void btnSaveClick(ActionEvent event) {
         try {
             if (!txtUserName.getText().isEmpty() && !txtConfirmpassword.getText().isEmpty() && !txtEmail.getText().isEmpty() && !txtNewPassword.getText().isEmpty()) {
-                //save the data
-                serverCall.updatePassword(txtUserName.getText(), txtNewPassword.getText(), txtConfirmpassword.getText());
-                Stage stage = (Stage) btnBack.getScene().getWindow();
-                stage.close();
+                if (txtNewPassword.getText().length() == txtConfirmpassword.getText().length() && txtConfirmpassword.getText().equals(txtNewPassword.getText())) {
+                    if (ConstantElement.isVerified) {
+                        serverCall.updatePassword(txtUserName.getText(), txtNewPassword.getText(), txtConfirmpassword.getText());
+                        Stage stage = (Stage) btnBack.getScene().getWindow();
+                        stage.close();
+                    } else {
+                        validatorService.validateConditionErrors("INVALID VERIFICATION", "Invalid verification", false, false, true, false, false);
+                    }
+                } else {
+                    validatorService.validateConditionErrors("PASSWORD MISSMATCH", "Pleasecheck your confirmation password again", false, false, true, false, false);
+                }
             } else {
                 validatorService.validateConditionErrors("CHECK INPUTS", "Please check your inputs", false, false, true, false, false);
             }
