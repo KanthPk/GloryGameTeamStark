@@ -192,7 +192,9 @@ public class HomeController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         btnSend.setOnAction((event) -> {
-            ServerCall.sendMessage(ConstantElement.GlobalUserName, txtmessage.getText(), Chatreciver);
+            if (!txtmessage.getText().isEmpty() && btnSend.isPressed()) {
+                ServerCall.sendMessage(ConstantElement.GlobalUserName, txtmessage.getText(), Chatreciver);
+            }
         });
         //accountUser.setText(ConstantElement.GlobalUserName);
         globalUser.setText(ConstantElement.GlobalUserName);
@@ -627,12 +629,13 @@ public class HomeController implements Initializable {
                             @Override
                             public void run() {
                                 try {
-                                    livePlayersTimeLine = new Timeline(new KeyFrame(Duration.minutes(1), ev -> {
+                                    livePlayersTimeLine = new Timeline(new KeyFrame(Duration.seconds(5), ev -> {
                                         //after server call
                                         System.out.println("Calm Thread in home UI ->>>>");
                                         usercount = 0;
                                         getOnlineUsers();
                                         getChatMessage();
+
                                     }));
                                     livePlayersTimeLine.setCycleCount(Animation.INDEFINITE);
                                     livePlayersTimeLine.play();
