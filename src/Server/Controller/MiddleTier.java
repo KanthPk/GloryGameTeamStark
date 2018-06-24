@@ -45,15 +45,12 @@ public class MiddleTier {
                 ps.print("&group=" + group);
                 con.getInputStream();
             }
-
         } catch (IOException e) {
             System.err.println(e.getMessage());
-        }
-        //return true;
+        }       
     }
 
-    public JSONArray onlineUsers() {
-        String[] scores = null;
+    public JSONArray onlineUsers() {      
         JSONArray array = new JSONArray();
         try {
             URL oracle = new URL("https://kanthpk.000webhostapp.com/sample.php");
@@ -92,16 +89,13 @@ public class MiddleTier {
             }
         } catch (IOException ex) {
         }
-
         return inputLine;
     }
 
     public void registerUser(String userName, String email, String password, String confirmpwd) {
         String inputLine = null;
         String userExist = "User exist";
-        try {
-            //save the data
-            // open a connection to the site
+        try {           
             URL url = new URL("https://kanthpk.000webhostapp.com/insert.php");
             URLConnection con = url.openConnection();
             con.setDoOutput(true);
@@ -167,8 +161,7 @@ public class MiddleTier {
                 try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
                     inputLine = inStream.readLine();
                 }
-            }
-            //getGroup();
+            }          
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
@@ -190,7 +183,6 @@ public class MiddleTier {
                 JSONParser parser = new JSONParser();
                 array = (JSONArray) parser.parse(in.readLine());
             }
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -214,15 +206,13 @@ public class MiddleTier {
                 try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
                     inputLine = inStream.readLine();
                 }
-            }
-            //getGroup();
+            }          
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }
 
-    public JSONArray getGroup() {
-        String[] members = null;
+    public JSONArray getGroup() {        
         JSONArray array = new JSONArray();
         try {
             URL oracle = new URL("https://kanthpk.000webhostapp.com/getgroup.php");
@@ -235,9 +225,9 @@ public class MiddleTier {
                 for (int i = 0; i < n; i++) {
                     // GET INDIVIDUAL JSON OBJECT FROM JSON ARRAY
                     JSONObject jo = (JSONObject) array.get(i);
-                    String GroupName = (String) jo.get("GroupName");
+                    //String GroupName = (String) jo.get("GroupName");
                     //String UserName = (String) jo.get("UserName");
-                    String Players = (String) jo.get("Players");
+                    //String Players = (String) jo.get("Players");
                     //System.out.println("outputyss"+GroupName+UserName+Players);                
                 }
             }
@@ -286,15 +276,13 @@ public class MiddleTier {
                 try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
                     inputLine = inStream.readLine();
                 }
-            }
-            //getGroup();
+            }          
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }
 
-    public JSONArray getUserGroup(String GroupName, String nickName) {
-        String[] members = null;
+    public JSONArray getUserGroup(String GroupName, String nickName) {        
         JSONArray array = new JSONArray();
         try {
             URL oracle = new URL("https://kanthpk.000webhostapp.com/getusergroup.php");
@@ -384,16 +372,12 @@ public class MiddleTier {
                 try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
                     inputLine = inStream.readLine();
                 }
-            }
-            //getGroup();
+            }          
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }
-
-    public JSONArray getRoundScore(String groupName, String nickName, String level) {
-        String[] scores = null;
-        System.out.println("     cou" + groupName + "nickName" + nickName);
+    public JSONArray getRoundScore(String groupName, String nickName, String level) {              
         JSONArray array = new JSONArray();
         try {
             URL oracle = new URL("https://kanthpk.000webhostapp.com/getScore.php");
@@ -432,15 +416,13 @@ public class MiddleTier {
                 try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
                     inputLine = inStream.readLine();
                 }
-            }
-            //getGroup();
+            }         
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }
 
-    public JSONArray getTotalScore() {
-        String[] scores = null;
+    public JSONArray getTotalScore() {       
         JSONArray array = new JSONArray();
         try {
             URL oracle = new URL("https://kanthpk.000webhostapp.com/getTotalScore.php");
@@ -460,8 +442,7 @@ public class MiddleTier {
         return array;
     }
 
-    public JSONArray getFinalScore() {
-        String[] scores = null;
+    public JSONArray getFinalScore() {        
         JSONArray array = new JSONArray();
         try {
             URL oracle = new URL("https://kanthpk.000webhostapp.com/FinalScore.php");
@@ -497,8 +478,7 @@ public class MiddleTier {
                 try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
                     inputLine = inStream.readLine();
                 }
-            }
-            //getGroup();
+            }            
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
@@ -519,8 +499,7 @@ public class MiddleTier {
                 try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
                     inputLine = inStream.readLine();
                 }
-            }
-            //getGroup();
+            }           
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
@@ -542,8 +521,7 @@ public class MiddleTier {
                 try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
                     inputLine = inStream.readLine();
                 }
-            }
-            //getGroup();
+            }           
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
@@ -565,12 +543,10 @@ public class MiddleTier {
                 try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
                     inputLine = inStream.readLine();
                 }
-            }
-            //getGroup();
+            }            
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
-
     }
 
     public String getpauseGame() {
@@ -585,11 +561,9 @@ public class MiddleTier {
                 ps.print("&group=" + ConstantElement.GroupName);
                 con.getInputStream();
                 try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
-                    inputLine = inStream.readLine();
-                    //System.out.println(""+inputLine);
+                    inputLine = inStream.readLine();                    
                 }
-            }
-            //getGroup();
+            }           
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
@@ -609,13 +583,10 @@ public class MiddleTier {
                 ps.print("&username=" + ConstantElement.GlobalUserName);
                 con.getInputStream();
                 try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
-                    inputLine = inStream.readLine();
-                    //System.out.println(""+inputLine);
+                    inputLine = inStream.readLine();                    
                 }
-            }
-            //getGroup();
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
+            }   
+        } catch (IOException e) {           
         }
         return inputLine;
     }
@@ -632,15 +603,13 @@ public class MiddleTier {
                 ps.print("&username=" + nickName);
                 yc.getInputStream();
                 try (DataInputStream inStream = new DataInputStream(yc.getInputStream())) {
-                    inputLine = inStream.readLine();
-                    //System.out.println(""+inputLine);
+                    inputLine = inStream.readLine();                  
                 }
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return inputLine;
-
     }
 
     public String getUserGroupStart(String GroupName, String nickName) {
@@ -655,8 +624,7 @@ public class MiddleTier {
                 yc.getInputStream();
             }
             try (DataInputStream inStream = new DataInputStream(yc.getInputStream())) {
-                inputLine = inStream.readLine();
-                //System.out.println(""+inputLine);
+                inputLine = inStream.readLine();               
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -680,17 +648,13 @@ public class MiddleTier {
                 try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
                     inputLine = inStream.readLine();
                 }
-            }
-            //getGroup();
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
+            }          
+        } catch (IOException e) {           
         }
 
     }
 
-    public JSONArray getChatMessage(String nickName) {
-        String[] scores = null;
-
+    public JSONArray getChatMessage(String nickName) {       
         JSONArray array = new JSONArray();
         try {
             URL oracle = new URL("https://kanthpk.000webhostapp.com/getMessage.php");
@@ -727,10 +691,8 @@ public class MiddleTier {
                 try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
                     inputLine = inStream.readLine();
                 }
-            }
-            //getGroup();
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
+            }           
+        } catch (IOException e) {           
         }
     }
 
@@ -749,10 +711,8 @@ public class MiddleTier {
                 try (DataInputStream inStream = new DataInputStream(con.getInputStream())) {
                     inputLine = inStream.readLine();
                 }
-            }
-            //getGroup();
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
+            }           
+        } catch (IOException e) {          
         }
     }   
     

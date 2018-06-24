@@ -282,7 +282,6 @@ public class HomeController implements Initializable {
             ServerCall.Logout(ConstantElement.GlobalUserName, ConstantElement.GroupName);
             ServerCall.leaveGroup(ConstantElement.GroupName, ConstantElement.GlobalUserName);
             //ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
-
             System.exit(0);
         }
     }
