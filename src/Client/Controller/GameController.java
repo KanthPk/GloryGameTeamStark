@@ -1169,10 +1169,7 @@ public class GameController implements Initializable {
                                                     Thread.sleep(10000);
                                                     try {
                                                         Stage stageGame = (Stage) txtRandom_1.getScene().getWindow();
-                                                        stageGame.close();
-                                                        //
-                                                        //
-                                                        //
+                                                        stageGame.close();                                                        
                                                         AnchorPane layout = null;
                                                         Stage stage = null;
                                                         layout = FXMLLoader.load(getClass().getResource("/UI/WinnerScreen.fxml"));
@@ -1212,14 +1209,14 @@ public class GameController implements Initializable {
         JSONObject userJsonObjects = null;
         ArrayList<String> score = new ArrayList<String>();
         try {
-            //temporary clearing need to remove text in game fxml,begin
-            user_2.setText("");
-            user_3.setText("");
-            user_4.setText("");
-            user_2_score.setText("");
-            user_3_score.setText("");
-            user_4_score.setText("");
-            //end
+//            //temporary clearing need to remove text in game fxml,begin
+//            user_2.setText("");
+//            user_3.setText("");
+//            user_4.setText("");
+//            user_2_score.setText("");
+//            user_3_score.setText("");
+//            user_4_score.setText("");
+//            //end
             JSONArray array = ServerCall.getRoundScore(ConstantElement.GroupName, ConstantElement.GlobalUserName, Integer.toString(roundVal));
             count = array.size();
             if (!array.isEmpty()) {
