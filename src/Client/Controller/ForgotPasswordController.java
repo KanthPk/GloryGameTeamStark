@@ -116,11 +116,11 @@ public class ForgotPasswordController implements Initializable {
         }
     }
 
-    @FXML
+    /*@FXML omit code
     void btnSendcodeClicked(ActionEvent event) {
         try {
             //validatorService.getValidaterMessage("MAIL CONFIRMATION", "Please enter your confirmation code to verify your email", true, true, false);//AshansCode
-            String usarMail = "maduperera106@gmail.com";
+            String usarMail = "";
             //Set the current genarated code
             //setUserRecievedCode(id); 
             //Genarate randome number and send email
@@ -150,5 +150,5 @@ public class ForgotPasswordController implements Initializable {
             stage.show();
         } catch (Exception e) {
         }
-    }
+    }*/
 }
