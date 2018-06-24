@@ -242,6 +242,9 @@ public class GameController implements Initializable {
     @FXML
     private Label lbl_user_online_1;
 
+    @FXML
+    private Label lbl_total_score;
+
     public int roundVal = 1;
     protected String pause = "Stop";
     StringBuffer globalSubChars;
@@ -1072,9 +1075,9 @@ public class GameController implements Initializable {
             lblTimer.setText("" + fireScoreScreen);
 
             if (ConstantElement.roundId == 1) {
-                countDown = 60;
+                countDown = 59;
             } else if (ConstantElement.roundId == 2) {
-                countDown = 60;
+                countDown = 59;
             } else if (ConstantElement.roundId == 3) {
                 countDown = 40;
             } else if (ConstantElement.roundId == 4) {
@@ -1109,7 +1112,7 @@ public class GameController implements Initializable {
     }
 
     private void saveScoreOfLivePlayers() {
-        try {           
+        try {
             UUID uuid = UUID.randomUUID();
             String randomUUIDString = uuid.toString();
             scoreObj.setTotalScore(Integer.parseInt(txtScore.getText()));
@@ -1119,7 +1122,7 @@ public class GameController implements Initializable {
             Thread.sleep(3000);
             setScore();
             //ServerCall.deleteEachRound(ConstantElement.GroupName, ConstantElement.GlobalUserName);
-            roundVal = roundVal + 1;           
+            roundVal = roundVal + 1;
             lbl_diamond.setText("" + NoOfDiamonds);
             ConstantElement.roundId = roundVal;
             if (ConstantElement.roundId != 6) {
@@ -1134,8 +1137,8 @@ public class GameController implements Initializable {
             getIntialLetter();
             Thread.sleep(2000);
             getTotalScore();
-            System.out.println(" ***** " + Integer.toString(scoreObj.getTotalScore()));        
-        } catch (Exception e) {           
+            System.out.println(" ***** " + Integer.toString(scoreObj.getTotalScore()));
+        } catch (Exception e) {
         }
     }
 

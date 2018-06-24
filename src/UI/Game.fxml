@@ -107,7 +107,7 @@
             </Button>
             <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="274.0" prefWidth="328.0" style="-fx-border-color: Black;">
                <children>
-                  <TextField fx:id="user_1_txt_1" alignment="CENTER" editable="false" layoutX="43.0" layoutY="216.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #7A5B47; -fx-cursor: HAND; -fx-border-color: Black;">
+                  <TextField fx:id="user_1_txt_1" alignment="CENTER" editable="false" layoutX="43.0" layoutY="216.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #D39900; -fx-cursor: HAND; -fx-border-color: Black;">
                      <font>
                         <Font name="Bell MT Bold" size="21.0" />
                      </font>
@@ -138,7 +138,7 @@
                         <DropShadow blurType="ONE_PASS_BOX" color="#c8d7d0" spread="1.0" />
                      </effect>
                   </Label>
-                  <Label layoutX="125.0" layoutY="84.0" prefHeight="35.0" prefWidth="76.0" text="ONLINE">
+                  <Label layoutX="125.0" layoutY="84.0" prefHeight="35.0" prefWidth="76.0" text="OFFLINE">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -159,7 +159,7 @@
                   <DropShadow spread="0.53" />
                </effect>
             </AnchorPane>
-            <TextField fx:id="txtRandom_1" alignment="CENTER" editable="false" layoutX="15.0" layoutY="364.0" onMousePressed="#mousePressedOnCharFields" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #7A5B47; -fx-border-color: Black; -fx-cursor: HAND;">
+            <TextField fx:id="txtRandom_1" alignment="CENTER" editable="false" layoutX="15.0" layoutY="364.0" onMousePressed="#mousePressedOnCharFields" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #D39900; -fx-border-color: Black; -fx-cursor: HAND;">
                <font>
                   <Font name="Bell MT Bold" size="21.0" />
                </font>
@@ -185,7 +185,7 @@
             </TextField>
             <AnchorPane layoutX="357.0" layoutY="14.0" prefHeight="274.0" prefWidth="317.0" style="-fx-border-color: Black;">
                <children>
-                  <TextField fx:id="user_2_txt_1" alignment="CENTER" editable="false" layoutX="36.0" layoutY="217.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #7A5B47; -fx-cursor: HAND; -fx-border-color: Black;">
+                  <TextField fx:id="user_2_txt_1" alignment="CENTER" editable="false" layoutX="36.0" layoutY="217.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #D39900; -fx-cursor: HAND; -fx-border-color: Black;">
                      <font>
                         <Font name="Bell MT Bold" size="21.0" />
                      </font>
@@ -216,7 +216,7 @@
                         <DropShadow blurType="ONE_PASS_BOX" color="#c8d7d0" spread="1.0" />
                      </effect>
                   </Label>
-                  <Label layoutX="125.0" layoutY="84.0" prefHeight="35.0" prefWidth="76.0" text="ONLINE">
+                  <Label layoutX="125.0" layoutY="84.0" prefHeight="35.0" prefWidth="76.0" text="OFFLINE">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -247,7 +247,7 @@
             </ImageView>
             <AnchorPane layoutX="687.0" layoutY="14.0" prefHeight="274.0" prefWidth="308.0" style="-fx-border-color: Black;">
                <children>
-                  <TextField fx:id="user_3_txt_1" alignment="CENTER" editable="false" layoutX="36.0" layoutY="217.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #7A5B47; -fx-cursor: HAND; -fx-border-color: Black;">
+                  <TextField fx:id="user_3_txt_1" alignment="CENTER" editable="false" layoutX="36.0" layoutY="217.0" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color: #D39900; -fx-cursor: HAND; -fx-border-color: Black;">
                      <font>
                         <Font name="Bell MT Bold" size="21.0" />
                      </font>
@@ -278,7 +278,7 @@
                         <DropShadow blurType="ONE_PASS_BOX" color="#c8d7d0" spread="1.0" />
                      </effect>
                   </Label>
-                  <Label layoutX="125.0" layoutY="84.0" prefHeight="35.0" prefWidth="76.0" text="ONLINE">
+                  <Label layoutX="125.0" layoutY="84.0" prefHeight="35.0" prefWidth="76.0" text="OFFLINE">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -370,13 +370,10 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Label fx:id="roundid" layoutX="676.0" layoutY="21.0" prefHeight="43.0" prefWidth="43.0" text="Round Label">
+      <Label fx:id="roundid" layoutX="749.0" layoutY="20.0" prefHeight="43.0" prefWidth="43.0" text="Round Label" textFill="WHITE">
          <font>
-            <Font size="27.0" />
+            <Font name="System Bold" size="32.0" />
          </font>
-         <effect>
-            <DropShadow blurType="ONE_PASS_BOX" color="WHITE" spread="1.0" />
-         </effect>
       </Label>
       <ImageView fitHeight="39.0" fitWidth="38.0" layoutX="1253.0" layoutY="15.0" onMousePressed="#closeApplication" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: HAND;" styleClass="button">
          <image>
@@ -499,7 +496,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <Label fx:id="lbl_Gllobal_User" alignment="CENTER" layoutX="90.0" layoutY="226.0" prefHeight="35.0" prefWidth="143.0" text="AVATAR">
+      <Label fx:id="lbl_Gllobal_User" alignment="CENTER" layoutX="90.0" layoutY="226.0" prefHeight="35.0" prefWidth="143.0">
          <font>
             <Font size="20.0" />
          </font>
@@ -523,7 +520,7 @@
             <DropShadow spread="0.56" />
          </effect>
       </ImageView>
-      <Label fx:id="lblTimer" alignment="CENTER" layoutX="108.0" layoutY="18.0" prefHeight="49.0" prefWidth="143.0" text="00:00.000" textFill="WHITE">
+      <Label fx:id="lblTimer" alignment="CENTER" layoutX="108.0" layoutY="18.0" prefHeight="49.0" prefWidth="143.0" text="00:00.000">
          <font>
             <Font size="33.0" />
          </font>
@@ -543,13 +540,10 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <Label fx:id="roundid1" alignment="CENTER" layoutX="567.0" layoutY="21.0" prefHeight="43.0" prefWidth="112.0" text="Round -">
+      <Label fx:id="roundid1" alignment="CENTER" layoutX="617.0" layoutY="19.0" prefHeight="47.0" prefWidth="134.0" text="Round -" textFill="WHITE">
          <font>
-            <Font size="27.0" />
+            <Font name="System Bold" size="32.0" />
          </font>
-         <effect>
-            <DropShadow blurType="ONE_PASS_BOX" color="WHITE" spread="1.0" />
-         </effect>
       </Label>
       <Label fx:id="roundid11" alignment="CENTER" layoutX="14.0" layoutY="20.0" prefHeight="43.0" prefWidth="94.0" text="TIMER">
          <font>
@@ -572,5 +566,15 @@
             <Image url="@../resources/diomond.png" />
          </image>
       </ImageView>
+      <Label fx:id="lbl_user_online_11" layoutX="295.0" layoutY="24.0" prefHeight="35.0" prefWidth="186.0" text="TOTAL SCORE  -" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbl_total_score" layoutX="481.0" layoutY="24.0" prefHeight="30.0" prefWidth="65.0" text="0" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

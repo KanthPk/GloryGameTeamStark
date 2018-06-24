@@ -64,12 +64,13 @@ public class RegisterUserController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
+    public RegisterUserController() {
         //inject validator service
         validatorService = new ValidatorService();
+    }
 
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
         txtEmail.focusedProperty().addListener((ov, oldV, newV) -> {
             if (!txtEmail.getText().isEmpty()) {
                 if (!newV) {
@@ -90,7 +91,6 @@ public class RegisterUserController implements Initializable {
                 }
             }
         });
-
     }
 
     @FXML

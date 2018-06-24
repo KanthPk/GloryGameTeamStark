@@ -175,6 +175,10 @@ public class HomeController implements Initializable {
 
     @FXML
     private Button btnSend;
+
+    @FXML
+    private ComboBox cmbNoOfplayers;
+
     private Timeline livePlayersTimeLine;
     private String Chatreciver;
     ValidatorService messageService;
@@ -196,40 +200,35 @@ public class HomeController implements Initializable {
                 ServerCall.sendMessage(ConstantElement.GlobalUserName, txtmessage.getText(), Chatreciver);
             }
         });
+
+        for (int i = 2; i <= 4; i++) {
+            cmbNoOfplayers.getItems().add(i);
+        }
+
         //accountUser.setText(ConstantElement.GlobalUserName);
         globalUser.setText(ConstantElement.GlobalUserName);
         getOnlineUsers();
         btnProceed.setDisable(true);
-        btnCreate.disableProperty().bind(txtNoOfPlayers.textProperty().isEmpty());
-        btnCreate.disableProperty().bind(txtNoOfPlayers.textProperty().isEmpty());
-        txtNoOfPlayers.setTextFormatter(new TextFormatter<>((TextFormatter.Change t) -> {
-            t.setText(t.getText().replaceAll(".*[^0-9].*", "").toUpperCase());
-            return t;
-        }));
-        
-
-
         //Initialize Music      
         ConstantElement.player();
         ConstantElement.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        
+
         //writeFileStart if not exsist
         File f = new File(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "UserSettings.txt");
-        if(!f.exists()) { 
-                String bytes = "on";
-        byte[] buffer = bytes.getBytes();
-        try {
-            FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents"+File.separator + "GloryGameFiles"+File.separator+"UserSettings.txt");
-            outputStream.write(buffer);
-        } catch (IOException ex) {
-            System.out.println("Error writing file '" + "UserSettings" + "'");
-        } catch (Exception e) {
-            System.out.println("Error Connection ");
-        }
+        if (!f.exists()) {
+            String bytes = "on";
+            byte[] buffer = bytes.getBytes();
+            try {
+                FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "UserSettings.txt");
+                outputStream.write(buffer);
+            } catch (IOException ex) {
+                System.out.println("Error writing file '" + "UserSettings" + "'");
+            } catch (Exception e) {
+                System.out.println("Error Connection ");
+            }
         }
         //writeFileEnd
-        
-        
+
         Scanner file = null;
         try {
             file = new Scanner(new File(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "UserSettings.txt"));
@@ -338,10 +337,10 @@ public class HomeController implements Initializable {
     @FXML
     private void btnCreateClicked(ActionEvent event) {
         try {
-            obj.setGroup(txtGroupName.getText(), ConstantElement.GlobalUserName, txtNoOfPlayers.getText());
+            obj.setGroup(txtGroupName.getText(), ConstantElement.GlobalUserName, cmbNoOfplayers.getValue().toString());
             ConstantElement.GroupName = txtGroupName.getText();
-            ConstantElement.no_of_players = Integer.parseInt(txtNoOfPlayers.getText());
-            //obj.setGroupUSer(ConstantElement.GroupName, ConstantElement.GlobalUserName);           
+            ConstantElement.no_of_players = Integer.parseInt(cmbNoOfplayers.getValue().toString());
+            obj.setGroupUSer(ConstantElement.GroupName, ConstantElement.GlobalUserName);
             commonBehaviour("ViewGroup", null);
             setGroups();
         } catch (Exception e) {
@@ -648,7 +647,7 @@ public class HomeController implements Initializable {
                             @Override
                             public void run() {
                                 try {
-                                    livePlayersTimeLine = new Timeline(new KeyFrame(Duration.seconds(5), ev -> {
+                                    livePlayersTimeLine = new Timeline(new KeyFrame(Duration.seconds(10), ev -> {
                                         //after server call
                                         System.out.println("Calm Thread in home UI ->>>>");
                                         usercount = 0;
@@ -712,7 +711,6 @@ public class HomeController implements Initializable {
                             value = value.replaceFirst("'", "");
                             value = value.replaceFirst("'", "");
                             Chatreciver = value;
-                            System.out.println(value);
                         }
                     });
                 }

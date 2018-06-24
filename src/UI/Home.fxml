@@ -105,7 +105,7 @@
             <DropShadow spread="0.24" />
          </effect>
       </AnchorPane>
-      <AnchorPane id="AnchorPane" fx:id="AnchrcreateGroup" layoutX="23.0" layoutY="78.0" opacity="0.79" prefHeight="227.0" prefWidth="477.0" style="-fx-background-color: #263364;" styleClass="mainFxmlClass" visible="false">
+      <AnchorPane id="AnchorPane" fx:id="AnchrcreateGroup" layoutX="23.0" layoutY="78.0" opacity="0.79" prefHeight="235.0" prefWidth="477.0" style="-fx-background-color: #263364;" styleClass="mainFxmlClass" visible="false">
          <stylesheets>
             <URL value="@/Common/css/common.css" />
          </stylesheets>
@@ -116,7 +116,6 @@
                </font>
             </Label>
             <TextField fx:id="txtGroupName" layoutX="167.0" layoutY="68.0" prefHeight="36.0" prefWidth="291.0" />
-            <TextField fx:id="txtNoOfPlayers" layoutX="167.0" layoutY="120.0" prefHeight="36.0" prefWidth="291.0" />
             <Label layoutX="14.0" layoutY="74.0" prefHeight="25.0" prefWidth="137.0" text="Group Name" textFill="WHITE">
                <font>
                   <Font size="16.0" />
@@ -127,7 +126,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Button fx:id="btnCreate" disable="true" layoutX="321.0" layoutY="175.0" mnemonicParsing="false" onAction="#btnCreateClicked" prefHeight="37.0" prefWidth="137.0" style="-fx-cursor: HAND;" text="CREATE">
+            <Button fx:id="btnCreate" layoutX="321.0" layoutY="176.0" mnemonicParsing="false" onAction="#btnCreateClicked" prefHeight="37.0" prefWidth="137.0" style="-fx-cursor: HAND;" text="CREATE">
                <effect>
                   <DropShadow spread="0.4" />
                </effect>
@@ -135,14 +134,15 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btnLeave" layoutX="167.0" layoutY="175.0" mnemonicParsing="false" onAction="#btnLeaveClicked" prefHeight="37.0" prefWidth="137.0" style="-fx-cursor: HAND;" text="LEAVE GROUP">
+            <Button fx:id="btnLeave" layoutX="167.0" layoutY="176.0" mnemonicParsing="false" onAction="#btnLeaveClicked" prefHeight="37.0" prefWidth="137.0" style="-fx-cursor: HAND;" text="LEAVE GROUP">
                <effect>
                   <DropShadow spread="0.4" />
                </effect>
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
-            </Button>
+            </Button>            
+            <ComboBox fx:id="cmbNoOfplayers" layoutX="167.0" layoutY="120.0" prefHeight="36.0" prefWidth="291.0" />
          </children>
          <effect>
             <DropShadow spread="0.24" />
