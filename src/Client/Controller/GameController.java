@@ -996,7 +996,7 @@ public class GameController implements Initializable {
                     int test = roundScoreService.getScoreFromEachRound(1, txtWordFIeld.getText());
                     txtScore.setText(Integer.toString(test));
                     //Set xpPointsStart   
-                    xpPoints = xpPoints + gameAwards.GetxpPoints(elapsed,txtWordFIeld.getText());
+                    xpPoints = xpPoints + gameAwards.GetxpPoints(elapsed, txtWordFIeld.getText());
                     NoOfDiamonds = gameAwards.GetDiamonds(xpPoints);
                     System.out.println("###############suba : xp Points" + xpPoints);
                     System.out.println("###############suba : Diamonds:  " + NoOfDiamonds);
@@ -1118,6 +1118,7 @@ public class GameController implements Initializable {
             ServerCall.updateGlobalScore(ConstantElement.GroupName, ConstantElement.GlobalUserName, Integer.toString(scoreObj.getTotalScore()));
             ServerCall.setRound(ConstantElement.GroupName, ConstantElement.GlobalUserName, randomUUIDString, txtScore.getText().toString(), Integer.toString(roundVal));
             ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
+            Thread.sleep(3000);
             setScore();
             //ServerCall.deleteEachRound(ConstantElement.GroupName, ConstantElement.GlobalUserName);
             roundVal = roundVal + 1;
@@ -1128,9 +1129,11 @@ public class GameController implements Initializable {
             } else {
                 roundid.setText(" finished");
             }
-            clearFields();           
+            clearFields();
             setInitialLetter();
+            Thread.sleep(2000);
             getIntialLetter();
+            Thread.sleep(2000);
             getTotalScore();
             System.out.println("Hello world" + Integer.toString(scoreObj.getTotalScore()));
             //}
@@ -1145,7 +1148,7 @@ public class GameController implements Initializable {
             protected Object call() throws Exception {
                 anchorScore.setVisible(true);
                 saveScoreOfLivePlayers();
-                imgBagView.setDisable(false);                
+                imgBagView.setDisable(false);
                 try {
                     new Thread(new Runnable() {
                         @Override
@@ -1160,16 +1163,17 @@ public class GameController implements Initializable {
                                                 bag.resetVowelConstants();
                                                 subCheckBoxAncher.setVisible(false);
                                                 if (ConstantElement.roundId == 6) {
-                                                    thread_pause.stop();
-                                                    clock.stop();
-                                                    timeline.stop();
-                                                    progressThread.cancel(true);
-                                                    roundid.setText(" finished");
-                                                    anchorScore.setVisible(true);
+//                                                    thread_pause.stop();
+//                                                    clock.stop();
+//                                                    timeline.stop();
+//                                                    progressThread.cancel();
+//                                                    roundid.setText(" finished");
+//                                                    anchorScore.setVisible(true);
+
                                                     Thread.sleep(10000);
                                                     try {
                                                         Stage stageGame = (Stage) txtRandom_1.getScene().getWindow();
-                                                        stageGame.close();                                                        
+                                                        stageGame.close();
                                                         AnchorPane layout = null;
                                                         Stage stage = null;
                                                         layout = FXMLLoader.load(getClass().getResource("/UI/WinnerScreen.fxml"));
