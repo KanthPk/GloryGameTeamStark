@@ -99,6 +99,10 @@ public class WinnerScreenController implements Initializable {
             ConstantElement.isFinished = false;
             //navigate
             try {
+                ServerCall.Logout(ConstantElement.GlobalUserName, ConstantElement.GroupName);
+                ServerCall.leaveGroup(ConstantElement.GroupName, ConstantElement.GlobalUserName);
+                ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
+                ServerCall.deleteRound(ConstantElement.GroupName, ConstantElement.GlobalUserName);
                 Stage stageGame = (Stage) btnHome.getScene().getWindow();
                 stageGame.close();
 
