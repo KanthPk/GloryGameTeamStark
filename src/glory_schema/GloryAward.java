@@ -23,20 +23,19 @@ public class GloryAward {
         int xpPoints = 0;
         long remaining = 0;long range =0 ;
            if (ConstantElement.roundId == 1) {
-                remaining =  35000 - elapsed;
-                range = 15000;
+                remaining =  59000 - elapsed;
+                range = 30000;
             } else if (ConstantElement.roundId == 2) {
-                remaining =  30000 - elapsed;
-                range = 15000;
+                remaining =  59000 - elapsed;
+                range = 25000;
             } else if (ConstantElement.roundId == 3) {
-                remaining =  25000 - elapsed;
-                range = 10000;
+                remaining =  40000 - elapsed;
+                range = 20000;
             } else if (ConstantElement.roundId == 4) {
-               remaining =  20000 - elapsed;
-               range = 15000;
+               remaining =  30000 - elapsed;
+               range = 10000;
             } else if (ConstantElement.roundId == 5) {
-               remaining =  15000 - elapsed;
-               range = 5000;
+              return 0;
             }
    
         if(remaining > range){
