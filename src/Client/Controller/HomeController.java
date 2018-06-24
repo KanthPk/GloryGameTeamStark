@@ -1,8 +1,9 @@
 package Client.Controller;
 
 import Server.Controller.MiddleTier;
-import glory_schema.Bag;
+import Threads.ChatThread;
 import glory_schema.ConstantElement;
+import glory_schema.LetterValueElement;
 import glory_services.ValidatorService;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,7 +33,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -42,7 +42,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -182,22 +181,33 @@ public class HomeController implements Initializable {
     private Timeline livePlayersTimeLine;
     private String Chatreciver;
     ValidatorService messageService;
-    private Bag bag;
+    private LetterValueElement letterElement;
+
+    ChatThread chatSavingProcessThread;
+    Thread chatThreadInject;
 
     public HomeController() {
         messageService = new ValidatorService();
         obj = new MiddleTier();
         Const = new ConstantElement();
-        bag = new Bag();
+        letterElement = new LetterValueElement();
         randomGenCharacters = new String[4];
+        chatSavingProcessThread = new ChatThread();
+        chatThreadInject = new Thread(chatSavingProcessThread);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         btnSend.setOnAction((event) -> {
-            if (!txtmessage.getText().isEmpty() && btnSend.isPressed()) {
-                ServerCall.sendMessage(ConstantElement.GlobalUserName, txtmessage.getText(), Chatreciver);
+            ConstantElement.isSend = false;
+            if (!txtmessage.getText().isEmpty() && btnSend.isPressed()) {              
+                ConstantElement.message = txtmessage.getText();
+                ConstantElement.chatReciever = Chatreciver;
+                chatThreadInject.start();
+                if (ConstantElement.isSend) {
+                    chatThreadInject.stop();
+                }
             }
         });
 
@@ -457,7 +467,7 @@ public class HomeController implements Initializable {
                 }
                 try {
                     for (int j = 1; j < 4; j++) {
-                        randomGenCharacters[j] = Character.toString(bag.randomGen());
+                        randomGenCharacters[j] = Character.toString(letterElement.randomGen());
                     }
                     listViewAboutToLoad.setItems(items);
                     setProgress(event);

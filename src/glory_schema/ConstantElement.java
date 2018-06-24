@@ -6,8 +6,6 @@
 package glory_schema;
 
 import java.io.File;
-import java.net.URI;
-import java.net.URL;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -29,7 +27,18 @@ public class ConstantElement {
     public static boolean isFinished = false;
     public static boolean prepareToSave = false;
     public static String playerExist;
-
+    public static MediaPlayer mediaPlayer;
+    public static final int ExtraPointsForWord = 8;
+    public static int UnusedLetters;
+    public static String GlobalUserName;
+    public static String GlobalPassowrd;
+    public static String RandomeNo;
+    public static String UserMail;
+    public static boolean isLive;
+    public static String pause;
+    public static String message;
+    public static String chatReciever;
+    
     //for common message boxes
     public static boolean forEmailConfirmation = false;
     public static boolean visiblityForTextField = false;
@@ -38,51 +47,22 @@ public class ConstantElement {
     public static boolean forCahangePassword = false;
     public static boolean forCahangeUserName = false;
     public static boolean isNeedResendButton = false;
-
     public static boolean manageTexFields;
+    //for common message boxes
+
+    //scoring algo purpose
     public static final int BlueEssenceForFirstClassEnglishWord = 50;
     public static final int BlueEssenceForSecondClassEnglishWord = 35;
     public static final int BlueEssenceForThirdClassEnglishWord = 20;
-
-    //scoring rules
     public static final int MaxEnglishWordLength = 11;
     public static final int StandardWordLength = 8;
-
-    //deduct points
     public static final int StandardDeductPoints = 1;
-
-    //The music palyer
-    public static MediaPlayer mediaPlayer;
-
-    //length is 11
-    public static final int ExtraPointsForWord = 8;
-
-    //unused letters
-    public static int UnusedLetters;
-
-    public static String GlobalUserName;
-    public static String GlobalPassowrd;
-    public static String RandomeNo;
-    public static String UserMail;
-    public static boolean isLive;
-    public static String pause;
-    private int Plagetyers;
-    private String Timer;
-    private boolean IsOnline;
-    private boolean IsIngame;
-    private boolean IsAway;
-    private String ProfilePicPath;
-    private String UnserName;
-    private String GameName;
+    //scoring algo purpose  
     public static String ReadyToPlay;
-
-    //server configuration
-    private String ServerPath;
+    public static boolean isSend;
     private String UserName;
-    private String Password;
-    //later
+    private String Password;   
     public static int roundId = 1;
-
     public static String IsFieldClicked;
 
     public void set_userId(String userId) {
@@ -117,8 +97,7 @@ public class ConstantElement {
 
     }
 
-    public ConstantElement(String serverPath, String userName, String password) {
-        this.ServerPath = serverPath;
+    public ConstantElement(String serverPath, String userName, String password) {        
         this.UserName = userName;
         this.Password = password;
     }

@@ -481,12 +481,7 @@
                   <DropShadow spread="0.56" />
                </effect>
             </Button>
-            <ImageView fx:id="imgClose_scoreAnchor" fitHeight="35.0" fitWidth="37.0" layoutX="432.0" layoutY="12.0" onMousePressed="#imgClose_scoreAnchorPressed" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: HAND;" styleClass="button">
-               <image>
-                  <Image url="@../resources/close.png" />
-               </image>
-            </ImageView>
-            <Label alignment="CENTER" layoutX="129.0" layoutY="10.0" prefHeight="39.0" prefWidth="221.0" text="SUMMERY REPORT" underline="true">
+            <Label alignment="CENTER" layoutX="129.0" layoutY="10.0" prefHeight="39.0" prefWidth="221.0" text="SUMMARY REPORT" underline="true">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>

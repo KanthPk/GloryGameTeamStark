@@ -3,15 +3,14 @@ package Client.Controller;
 import Server.Controller.MiddleTier;
 import Threads.GamePause;
 import animation.TransitionService;
-import glory_schema.Bag;
 import glory_schema.ConstantElement;
 import glory_schema.FunctionElement;
 import glory_schema.GloryAward;
+import glory_schema.LetterValueElement;
 import glory_schema.WordElement;
 import glory_services.RoundScoreService;
 import glory_services.ValidatorService;
 import glory_services.WordAutoGenerate;
-import java.io.IOException;
 import java.net.URL;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -216,9 +215,6 @@ public class GameController implements Initializable {
     private Button btnNextRound;
 
     @FXML
-    private ImageView imgClose_scoreAnchor;
-
-    @FXML
     private AnchorPane anchorScore;
 
     @FXML
@@ -248,7 +244,7 @@ public class GameController implements Initializable {
     public int roundVal = 1;
     protected String pause = "Stop";
     StringBuffer globalSubChars;
-    private Bag bag;
+    private LetterValueElement letterElement;
     public boolean verifyInputFromBagForVovel;
     public boolean verifyInputFromBagForConsonent;
     final ToggleGroup group = new ToggleGroup();
@@ -280,7 +276,7 @@ public class GameController implements Initializable {
      * Initializes the controller class.
      */
     public GameController() {
-        bag = new Bag();
+        letterElement = new LetterValueElement();
         serviceValidater = new ValidatorService();
         scoreObj = new FunctionElement();
         characters = new String[11];
@@ -304,14 +300,6 @@ public class GameController implements Initializable {
         }
     }
 
-    @FXML
-    private void imgClose_scoreAnchorPressed() {
-        try {
-            anchorScore.setDisable(true);
-            transitionService.MakeFadeOutInLiveGame(anchorScore).play();
-        } catch (Exception e) {
-        }
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -524,53 +512,53 @@ public class GameController implements Initializable {
     private void validate(String id, boolean liveValue) {
         switch (id) {
             case "V":
-                if (liveValue && !bag.takeVowelString().isEmpty()) {
+                if (liveValue && !letterElement.takeVowelString().isEmpty()) {
                     if (txt_1.getText().isEmpty()) {
-                        String characterValue = Character.toString(bag.takeVowelsRandomically());
+                        String characterValue = Character.toString(letterElement.takeVowelsRandomically());
                         characters[3] = characterValue;
                         txt_1.setText(characterValue);
                         validateVowelChar(randomLetter, null, "MultipleChar");
                         validateVowelChar(characters, characterValue, "SingleChar");
                         rBtnVowel.setSelected(false);
                     } else if (txt_2.getText().isEmpty()) {
-                        String characterValue = Character.toString(bag.takeVowelsRandomically());
+                        String characterValue = Character.toString(letterElement.takeVowelsRandomically());
                         characters[4] = characterValue;
                         txt_2.setText(characterValue);
                         validateVowelChar(characters, characterValue, "SingleChar");
                         rBtnVowel.setSelected(false);
                     } else if (txt_3.getText().isEmpty()) {
-                        String characterValue = Character.toString(bag.takeVowelsRandomically());
+                        String characterValue = Character.toString(letterElement.takeVowelsRandomically());
                         characters[5] = characterValue;
                         txt_3.setText(characterValue);
                         validateVowelChar(characters, characterValue, "SingleChar");
                         rBtnVowel.setSelected(false);
                     } else if (txt_4.getText().isEmpty()) {
-                        String characterValue = Character.toString(bag.takeVowelsRandomically());
+                        String characterValue = Character.toString(letterElement.takeVowelsRandomically());
                         characters[6] = characterValue;
                         txt_4.setText(characterValue);
                         validateVowelChar(characters, characterValue, "SingleChar");
                         rBtnVowel.setSelected(false);
                         txtWordFIeld.setDisable(false);
                     } else if (txt_5.getText().isEmpty()) {
-                        String characterValue = Character.toString(bag.takeVowelsRandomically());
+                        String characterValue = Character.toString(letterElement.takeVowelsRandomically());
                         characters[7] = characterValue;
                         txt_5.setText(characterValue);
                         validateVowelChar(characters, characterValue, "SingleChar");
                         rBtnVowel.setSelected(false);
                     } else if (txt_6.getText().isEmpty()) {
-                        String characterValue = Character.toString(bag.takeVowelsRandomically());
+                        String characterValue = Character.toString(letterElement.takeVowelsRandomically());
                         characters[8] = characterValue;
                         txt_6.setText(characterValue);
                         validateVowelChar(characters, characterValue, "SingleChar");
                         rBtnVowel.setSelected(false);
                     } else if (txt_7.getText().isEmpty()) {
-                        String characterValue = Character.toString(bag.takeVowelsRandomically());
+                        String characterValue = Character.toString(letterElement.takeVowelsRandomically());
                         characters[9] = characterValue;
                         txt_7.setText(characterValue);
                         validateVowelChar(characters, characterValue, "SingleChar");
                         rBtnVowel.setSelected(false);
                     } else if (txt_8.getText().isEmpty()) {
-                        String characterValue = Character.toString(bag.takeVowelsRandomically());
+                        String characterValue = Character.toString(letterElement.takeVowelsRandomically());
                         characters[10] = characterValue;
                         System.out.println("" + Arrays.toString(characters));
                         txt_8.setText(characterValue);
@@ -584,48 +572,48 @@ public class GameController implements Initializable {
                 }
                 break;
             case "C":
-                if (liveValue && !bag.takeConsonentString().isEmpty()) {
+                if (liveValue && !letterElement.takeConsonentString().isEmpty()) {
                     if (txt_1.getText().isEmpty()) {
                         rBtnconsonent.setSelected(false);
-                        String characterValue = Character.toString(bag.takeConsonentsDinamiically());
+                        String characterValue = Character.toString(letterElement.takeConsonentsDinamiically());
                         characters[3] = characterValue;
                         txt_1.setText(characterValue);
                         validateConsonentChar(characters, null, "multipleChar");
                         validateConsonentChar(characters, characterValue, "singleChar");
                     } else if (!txt_1.getText().isEmpty() && txt_2.getText().isEmpty()) {
                         rBtnconsonent.setSelected(false);
-                        String characterValue = Character.toString(bag.takeConsonentsDinamiically());
+                        String characterValue = Character.toString(letterElement.takeConsonentsDinamiically());
                         characters[4] = characterValue;
                         txt_2.setText(characterValue);
                         validateConsonentChar(characters, characterValue, "singleChar");
                     } else if (!txt_2.getText().isEmpty() && txt_3.getText().isEmpty()) {
                         rBtnconsonent.setSelected(false);
-                        String characterValue = Character.toString(bag.takeConsonentsDinamiically());
+                        String characterValue = Character.toString(letterElement.takeConsonentsDinamiically());
                         characters[5] = characterValue;
                         txt_3.setText(characterValue);
                         txtWordFIeld.setDisable(false);
                         validateConsonentChar(characters, characterValue, "singleChar");
                     } else if (!txt_3.getText().isEmpty() && txt_4.getText().isEmpty()) {
                         rBtnconsonent.setSelected(false);
-                        String characterValue = Character.toString(bag.takeConsonentsDinamiically());
+                        String characterValue = Character.toString(letterElement.takeConsonentsDinamiically());
                         characters[6] = characterValue;
                         txt_4.setText(characterValue);
                         validateConsonentChar(characters, characterValue, "singleChar");
                     } else if (!txt_4.getText().isEmpty() && txt_5.getText().isEmpty()) {
                         rBtnconsonent.setSelected(false);
-                        String characterValue = Character.toString(bag.takeConsonentsDinamiically());
+                        String characterValue = Character.toString(letterElement.takeConsonentsDinamiically());
                         characters[7] = characterValue;
                         txt_5.setText(characterValue);
                         validateConsonentChar(characters, characterValue, "singleChar");
                     } else if (!txt_5.getText().isEmpty() && txt_6.getText().isEmpty()) {
                         rBtnconsonent.setSelected(false);
-                        String characterValue = Character.toString(bag.takeConsonentsDinamiically());
+                        String characterValue = Character.toString(letterElement.takeConsonentsDinamiically());
                         characters[8] = characterValue;
                         txt_6.setText(characterValue);
                         validateConsonentChar(characters, characterValue, "singleChar");
                     } else if (!txt_6.getText().isEmpty() && txt_7.getText().isEmpty()) {
                         rBtnconsonent.setSelected(false);
-                        String characterValue = Character.toString(bag.takeConsonentsDinamiically());
+                        String characterValue = Character.toString(letterElement.takeConsonentsDinamiically());
                         characters[9] = characterValue;
                         txt_7.setText(characterValue);
                         validateConsonentChar(characters, characterValue, "singleChar");
@@ -633,12 +621,12 @@ public class GameController implements Initializable {
                         rBtnconsonent.setSelected(false);
                         imgBagView.setDisable(true);
                         txtWordFIeld.setDisable(false);
-                        String characterValue = Character.toString(bag.takeConsonentsDinamiically());
+                        String characterValue = Character.toString(letterElement.takeConsonentsDinamiically());
                         characters[10] = characterValue;
                         System.out.println("" + Arrays.toString(characters));
                         txt_8.setText(characterValue);
                         validateConsonentChar(characters, characterValue, "singleChar");
-                        bag.resetVowelConstants();
+                        letterElement.resetVowelConstants();
                         transitionService.MakeFadeIn(subCheckBoxAncher).play();
                         subCheckBoxAncher.setVisible(true);
                         setDynamicCheckBox("swap");
@@ -652,7 +640,7 @@ public class GameController implements Initializable {
 
     private void validateVowelChar(String[] charArray, String perticularChar, String id) {
         String[] arrOfChars = charArray;
-        String vowelOfStrings = bag.takeVowelString();
+        String vowelOfStrings = letterElement.takeVowelString();
         int index;
         int noOfTimes;
         switch (id) {
@@ -664,11 +652,11 @@ public class GameController implements Initializable {
                         if (Character.toString(vowelOfStrings.charAt(index)).equals(arrOfChars[i])) {
                             noOfTimes += 1;
                             if (noOfTimes == 2) {
-                                if (bag.takeVowelString().isEmpty()) {
+                                if (letterElement.takeVowelString().isEmpty()) {
                                     rBtnVowel.setDisable(true);
-                                } else if (!bag.takeVowelString().isEmpty()) {
-                                    bag.replaceVowelString(arrOfChars[i]);
-                                    System.out.println("" + bag.takeVowelString());
+                                } else if (!letterElement.takeVowelString().isEmpty()) {
+                                    letterElement.replaceVowelString(arrOfChars[i]);
+                                    System.out.println("" + letterElement.takeVowelString());
                                 }
                             }
                         }
@@ -684,9 +672,9 @@ public class GameController implements Initializable {
                             if (Character.toString(vowelOfStrings.charAt(index)).equals(arrOfChars[i])) {
                                 noOfTimes += 1;
                                 if (noOfTimes == 2) {
-                                    if (!bag.takeVowelString().isEmpty()) {
-                                        bag.replaceVowelString(arrOfChars[i]);
-                                        System.out.println("" + bag.takeVowelString());
+                                    if (!letterElement.takeVowelString().isEmpty()) {
+                                        letterElement.replaceVowelString(arrOfChars[i]);
+                                        System.out.println("" + letterElement.takeVowelString());
                                     }
                                 }
                             }
@@ -699,7 +687,7 @@ public class GameController implements Initializable {
 
     private void validateConsonentChar(String[] charArray, String perticularChar, String id) {
         String[] arrOfChars = charArray;
-        String consonentStrings = bag.takeConsonentString();
+        String consonentStrings = letterElement.takeConsonentString();
         int index;
         int noOfTimes;
 
@@ -713,13 +701,13 @@ public class GameController implements Initializable {
                         if (Character.toString(consonentStrings.charAt(index)).equals(arrOfChars[i])) {
                             noOfTimes += 1;
                             if (noOfTimes == 2) {
-                                if (bag.takeConsonentString().isEmpty()) {
+                                if (letterElement.takeConsonentString().isEmpty()) {
                                     rBtnconsonent.setDisable(false);
-                                } else if (!bag.takeConsonentString().isEmpty()) {
-                                    bag.removeExistsConsonents(arrOfChars[i]);
-                                    System.out.println("" + bag.takeConsonentString());
-                                } else if (bag.takeConsonentString().isEmpty()) {
-                                    bag.resetVowelConstants();
+                                } else if (!letterElement.takeConsonentString().isEmpty()) {
+                                    letterElement.removeExistsConsonents(arrOfChars[i]);
+                                    System.out.println("" + letterElement.takeConsonentString());
+                                } else if (letterElement.takeConsonentString().isEmpty()) {
+                                    letterElement.resetVowelConstants();
                                 }
                             }
                         }
@@ -735,11 +723,11 @@ public class GameController implements Initializable {
                             if (Character.toString(consonentStrings.charAt(index)).equals(arrOfChars[i])) {
                                 noOfTimes += 1;
                                 if (noOfTimes == 2) {
-                                    if (bag.takeConsonentString().isEmpty()) {
+                                    if (letterElement.takeConsonentString().isEmpty()) {
                                         rBtnconsonent.setDisable(false);
                                     } else {
-                                        bag.removeExistsConsonents(arrOfChars[index]);
-                                        System.out.println("" + bag.takeConsonentString());
+                                        letterElement.removeExistsConsonents(arrOfChars[index]);
+                                        System.out.println("" + letterElement.takeConsonentString());
                                     }
                                 }
                             }
@@ -765,16 +753,16 @@ public class GameController implements Initializable {
         } else if (!txt_1.getText().isEmpty() && txt_1.isPressed()) {
             if (ConstantElement.isSwap) {
                 String keyEle = txt_1.getText();
-                if (bag.isVowel(keyEle) && !ConstantElement.isEditVowel) {
+                if (letterElement.isVowel(keyEle) && !ConstantElement.isEditVowel) {
                     txt_1.setText(null);
-                    bag.replaceVowelString(keyEle);
-                    txt_1.setText(Character.toString(bag.takeVowelsRandomically()));
+                    letterElement.replaceVowelString(keyEle);
+                    txt_1.setText(Character.toString(letterElement.takeVowelsRandomically()));
                     commonBehaviour("Vowel");
                     commonBehaviour("avoidConstAndVowel");
-                } else if (bag.isConstant(keyEle) && !ConstantElement.isEditConstant) {
+                } else if (letterElement.isConstant(keyEle) && !ConstantElement.isEditConstant) {
                     txt_1.setText(null);
-                    bag.removeExistsConsonents(keyEle);
-                    txt_1.setText(Character.toString(bag.takeConsonentsDinamiically()));
+                    letterElement.removeExistsConsonents(keyEle);
+                    txt_1.setText(Character.toString(letterElement.takeConsonentsDinamiically()));
                     commonBehaviour("Constant");
                     commonBehaviour("avoidConstAndVowel");
                 }
@@ -787,16 +775,16 @@ public class GameController implements Initializable {
         } else if (!txt_2.getText().isEmpty() && txt_2.isPressed()) {
             if (ConstantElement.isSwap) {
                 String keyEle = txt_2.getText();
-                if (bag.isVowel(keyEle) && !ConstantElement.isEditVowel) {
+                if (letterElement.isVowel(keyEle) && !ConstantElement.isEditVowel) {
                     txt_2.setText(null);
-                    bag.replaceVowelString(keyEle);
-                    txt_2.setText(Character.toString(bag.takeVowelsRandomically()));
+                    letterElement.replaceVowelString(keyEle);
+                    txt_2.setText(Character.toString(letterElement.takeVowelsRandomically()));
                     commonBehaviour("Vowel");
                     commonBehaviour("avoidConstAndVowel");
-                } else if (bag.isConstant(keyEle) && !ConstantElement.isEditConstant) {
+                } else if (letterElement.isConstant(keyEle) && !ConstantElement.isEditConstant) {
                     txt_2.setText(null);
-                    bag.removeExistsConsonents(keyEle);
-                    txt_2.setText(Character.toString(bag.takeConsonentsDinamiically()));
+                    letterElement.removeExistsConsonents(keyEle);
+                    txt_2.setText(Character.toString(letterElement.takeConsonentsDinamiically()));
                     commonBehaviour("Constant");
                     commonBehaviour("avoidConstAndVowel");
                 }
@@ -809,16 +797,16 @@ public class GameController implements Initializable {
         } else if (!txt_3.getText().isEmpty() && txt_3.isPressed()) {
             if (ConstantElement.isSwap) {
                 String keyEle = txt_3.getText();
-                if (bag.isVowel(keyEle) && !ConstantElement.isEditVowel) {
+                if (letterElement.isVowel(keyEle) && !ConstantElement.isEditVowel) {
                     txt_3.setText(null);
-                    bag.replaceVowelString(keyEle);
-                    txt_3.setText(Character.toString(bag.takeVowelsRandomically()));
+                    letterElement.replaceVowelString(keyEle);
+                    txt_3.setText(Character.toString(letterElement.takeVowelsRandomically()));
                     commonBehaviour("Vowel");
                     commonBehaviour("avoidConstAndVowel");
-                } else if (bag.isConstant(keyEle) && !ConstantElement.isEditConstant) {
+                } else if (letterElement.isConstant(keyEle) && !ConstantElement.isEditConstant) {
                     txt_3.setText(null);
-                    bag.removeExistsConsonents(keyEle);
-                    txt_3.setText(Character.toString(bag.takeConsonentsDinamiically()));
+                    letterElement.removeExistsConsonents(keyEle);
+                    txt_3.setText(Character.toString(letterElement.takeConsonentsDinamiically()));
                     commonBehaviour("Constant");
                     commonBehaviour("avoidConstAndVowel");
                 }
@@ -831,16 +819,16 @@ public class GameController implements Initializable {
         } else if (!txt_4.getText().isEmpty() && txt_4.isPressed()) {
             if (ConstantElement.isSwap) {
                 String keyEle = txt_4.getText();
-                if (bag.isVowel(keyEle) && !ConstantElement.isEditVowel) {
+                if (letterElement.isVowel(keyEle) && !ConstantElement.isEditVowel) {
                     txt_4.setText(null);
-                    bag.replaceVowelString(keyEle);
-                    txt_4.setText(Character.toString(bag.takeVowelsRandomically()));
+                    letterElement.replaceVowelString(keyEle);
+                    txt_4.setText(Character.toString(letterElement.takeVowelsRandomically()));
                     commonBehaviour("Vowel");
                     commonBehaviour("avoidConstAndVowel");
-                } else if (bag.isConstant(keyEle) && !ConstantElement.isEditConstant) {
+                } else if (letterElement.isConstant(keyEle) && !ConstantElement.isEditConstant) {
                     txt_4.setText(null);
-                    bag.removeExistsConsonents(keyEle);
-                    txt_4.setText(Character.toString(bag.takeConsonentsDinamiically()));
+                    letterElement.removeExistsConsonents(keyEle);
+                    txt_4.setText(Character.toString(letterElement.takeConsonentsDinamiically()));
                     commonBehaviour("Constant");
                     commonBehaviour("avoidConstAndVowel");
                 }
@@ -853,16 +841,16 @@ public class GameController implements Initializable {
         } else if (!txt_5.getText().isEmpty() && txt_5.isPressed()) {
             if (ConstantElement.isSwap) {
                 String keyEle = txt_5.getText();
-                if (bag.isVowel(keyEle) && !ConstantElement.isEditVowel) {
+                if (letterElement.isVowel(keyEle) && !ConstantElement.isEditVowel) {
                     txt_5.setText(null);
-                    bag.replaceVowelString(keyEle);
-                    txt_5.setText(Character.toString(bag.takeVowelsRandomically()));
+                    letterElement.replaceVowelString(keyEle);
+                    txt_5.setText(Character.toString(letterElement.takeVowelsRandomically()));
                     commonBehaviour("Vowel");
                     commonBehaviour("avoidConstAndVowel");
-                } else if (bag.isConstant(keyEle) && !ConstantElement.isEditConstant) {
+                } else if (letterElement.isConstant(keyEle) && !ConstantElement.isEditConstant) {
                     txt_5.setText(null);
-                    bag.removeExistsConsonents(keyEle);
-                    txt_5.setText(Character.toString(bag.takeConsonentsDinamiically()));
+                    letterElement.removeExistsConsonents(keyEle);
+                    txt_5.setText(Character.toString(letterElement.takeConsonentsDinamiically()));
                     commonBehaviour("Constant");
                     commonBehaviour("avoidConstAndVowel");
                 }
@@ -875,16 +863,16 @@ public class GameController implements Initializable {
         } else if (!txt_6.getText().isEmpty() && txt_6.isPressed()) {
             if (ConstantElement.isSwap) {
                 String keyEle = txt_6.getText();
-                if (bag.isVowel(keyEle) && !ConstantElement.isEditVowel) {
+                if (letterElement.isVowel(keyEle) && !ConstantElement.isEditVowel) {
                     txt_6.setText(null);
-                    bag.replaceVowelString(keyEle);
-                    txt_6.setText(Character.toString(bag.takeVowelsRandomically()));
+                    letterElement.replaceVowelString(keyEle);
+                    txt_6.setText(Character.toString(letterElement.takeVowelsRandomically()));
                     commonBehaviour("Vowel");
                     commonBehaviour("avoidConstAndVowel");
-                } else if (bag.isConstant(keyEle) && !ConstantElement.isEditConstant) {
+                } else if (letterElement.isConstant(keyEle) && !ConstantElement.isEditConstant) {
                     txt_6.setText(null);
-                    bag.removeExistsConsonents(keyEle);
-                    txt_6.setText(Character.toString(bag.takeConsonentsDinamiically()));
+                    letterElement.removeExistsConsonents(keyEle);
+                    txt_6.setText(Character.toString(letterElement.takeConsonentsDinamiically()));
                     commonBehaviour("Constant");
                     commonBehaviour("avoidConstAndVowel");
                 }
@@ -897,16 +885,16 @@ public class GameController implements Initializable {
         } else if (!txt_7.getText().isEmpty() && txt_7.isPressed()) {
             if (ConstantElement.isSwap) {
                 String keyEle = txt_7.getText();
-                if (bag.isVowel(keyEle) && !ConstantElement.isEditVowel) {
+                if (letterElement.isVowel(keyEle) && !ConstantElement.isEditVowel) {
                     txt_7.setText(null);
-                    bag.replaceVowelString(keyEle);
-                    txt_7.setText(Character.toString(bag.takeVowelsRandomically()));
+                    letterElement.replaceVowelString(keyEle);
+                    txt_7.setText(Character.toString(letterElement.takeVowelsRandomically()));
                     commonBehaviour("Vowel");
                     commonBehaviour("avoidConstAndVowel");
-                } else if (bag.isConstant(keyEle) && !ConstantElement.isEditConstant) {
+                } else if (letterElement.isConstant(keyEle) && !ConstantElement.isEditConstant) {
                     txt_7.setText(null);
-                    bag.removeExistsConsonents(keyEle);
-                    txt_7.setText(Character.toString(bag.takeConsonentsDinamiically()));
+                    letterElement.removeExistsConsonents(keyEle);
+                    txt_7.setText(Character.toString(letterElement.takeConsonentsDinamiically()));
                     commonBehaviour("Constant");
                     commonBehaviour("avoidConstAndVowel");
                 }
@@ -919,16 +907,16 @@ public class GameController implements Initializable {
         } else if (!txt_8.getText().isEmpty() && txt_8.isPressed()) {
             if (ConstantElement.isSwap) {
                 String keyEle = txt_8.getText();
-                if (bag.isVowel(keyEle) && !ConstantElement.isEditVowel) {
+                if (letterElement.isVowel(keyEle) && !ConstantElement.isEditVowel) {
                     txt_8.setText(null);
-                    bag.replaceVowelString(keyEle);
-                    txt_8.setText(Character.toString(bag.takeVowelsRandomically()));
+                    letterElement.replaceVowelString(keyEle);
+                    txt_8.setText(Character.toString(letterElement.takeVowelsRandomically()));
                     commonBehaviour("Vowel");
                     commonBehaviour("avoidConstAndVowel");
-                } else if (bag.isConstant(keyEle) && !ConstantElement.isEditConstant) {
+                } else if (letterElement.isConstant(keyEle) && !ConstantElement.isEditConstant) {
                     txt_8.setText(null);
-                    bag.removeExistsConsonents(keyEle);
-                    txt_8.setText(Character.toString(bag.takeConsonentsDinamiically()));
+                    letterElement.removeExistsConsonents(keyEle);
+                    txt_8.setText(Character.toString(letterElement.takeConsonentsDinamiically()));
                     commonBehaviour("Constant");
                     commonBehaviour("avoidConstAndVowel");
                 }
@@ -1160,7 +1148,7 @@ public class GameController implements Initializable {
                                     public void run() {
                                         if (counter == 10) {
                                             try {
-                                                bag.resetVowelConstants();
+                                                letterElement.resetVowelConstants();
                                                 subCheckBoxAncher.setVisible(false);
                                                 if (ConstantElement.roundId == 6) {
                                                     ConstantElement.roundId = 1;
@@ -1250,9 +1238,9 @@ public class GameController implements Initializable {
 
     public void setInitialLetter() {
         try {
-            characters[0] = Character.toString(bag.randomGen());
-            characters[1] = Character.toString(bag.randomGen());
-            characters[2] = Character.toString(bag.randomGen());
+            characters[0] = Character.toString(letterElement.randomGen());
+            characters[1] = Character.toString(letterElement.randomGen());
+            characters[2] = Character.toString(letterElement.randomGen());
 
             globalSubChars.append(characters[0]);
             globalSubChars.append(characters[1]);

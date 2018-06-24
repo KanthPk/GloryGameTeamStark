@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="596.0" prefWidth="1071.0" styleClass="login-background" stylesheets="@../Common/css/home.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.WinnerScreenController">
+<AnchorPane id="AnchorPane" prefHeight="596.0" prefWidth="1071.0" styleClass="game-background" stylesheets="@../Common/css/common.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.WinnerScreenController">
    <children>
       <Button fx:id="btnHome" layoutX="891.0" layoutY="523.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="150.0" style="-fx-cursor: HAND;" text="HOME">
          <font>
@@ -18,7 +18,7 @@
             <DropShadow spread="0.24" />
          </effect>
       </Button>
-      <Label layoutX="14.0" layoutY="14.0" prefHeight="39.0" prefWidth="357.0" text="GAME ROUND SUMMRY" textFill="WHITE" underline="true">
+      <Label layoutX="14.0" layoutY="14.0" prefHeight="39.0" prefWidth="357.0" text="GAME ROUND SUMMARY" textFill="WHITE" underline="true">
          <font>
             <Font name="System Bold" size="27.0" />
          </font>
@@ -71,7 +71,7 @@
             <DropShadow spread="0.56" />
          </effect>
       </ImageView>
-      <Label fx:id="firstPlace" layoutX="404.0" layoutY="88.0" prefHeight="35.0" prefWidth="150.0" text="FIRST PLACE">
+      <Label fx:id="firstPlace" layoutX="404.0" layoutY="88.0" prefHeight="35.0" prefWidth="150.0" text="FIRST ">
          <font>
             <Font size="24.0" />
          </font>
@@ -79,7 +79,7 @@
             <DropShadow blurType="TWO_PASS_BOX" color="WHITE" spread="1.0" />
          </effect>
       </Label>
-      <Label fx:id="secondPlace" layoutX="401.0" layoutY="197.0" prefHeight="35.0" prefWidth="176.0" text="SECOND PLACE">
+      <Label fx:id="secondPlace" layoutX="401.0" layoutY="197.0" prefHeight="35.0" prefWidth="176.0" text="SECOND">
          <font>
             <Font size="24.0" />
          </font>
@@ -87,7 +87,7 @@
             <DropShadow blurType="TWO_PASS_BOX" color="WHITE" spread="1.0" />
          </effect>
       </Label>
-      <Label fx:id="thirdPlace" layoutX="404.0" layoutY="320.0" prefHeight="35.0" prefWidth="150.0" text="THIRD PLACE">
+      <Label fx:id="thirdPlace" layoutX="404.0" layoutY="320.0" prefHeight="35.0" prefWidth="150.0" text="THIRD">
          <font>
             <Font size="24.0" />
          </font>
@@ -95,7 +95,7 @@
             <DropShadow blurType="TWO_PASS_BOX" color="WHITE" spread="1.0" />
          </effect>
       </Label>
-      <Label fx:id="fourthPlace" layoutX="404.0" layoutY="429.0" prefHeight="35.0" prefWidth="184.0" text="FOURTH PLACE">
+      <Label fx:id="fourthPlace" layoutX="404.0" layoutY="429.0" prefHeight="35.0" prefWidth="184.0" text="FOURTH">
          <font>
             <Font size="24.0" />
          </font>
