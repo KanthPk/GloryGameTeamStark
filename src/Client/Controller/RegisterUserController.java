@@ -34,7 +34,7 @@ import java.io.IOException;
 /**
  * FXML Controller class
  *
- * @author AshanPerera
+ * @author TeamStark
  */
 public class RegisterUserController implements Initializable {
 
