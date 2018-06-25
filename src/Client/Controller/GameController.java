@@ -240,7 +240,13 @@ public class GameController implements Initializable {
 
     @FXML
     private Label lbl_total_score;
-
+    @FXML
+    private Label user1_online;
+    @FXML
+    private Label user2_online;
+    @FXML
+    private Label user3_online;
+    
     public int roundVal = 1;
     protected String pause = "Stop";
     StringBuffer globalSubChars;
@@ -1214,7 +1220,7 @@ public class GameController implements Initializable {
                     String Scoren = (String) userJsonObjects.get("Score");
                     String Level = (String) userJsonObjects.get("Level");
                     if (UserName.equals(ConstantElement.GlobalUserName)) {
-                        lbl_live_user_1.setText(ConstantElement.GlobalUserName);
+                        //lbl_live_user_1.setText(ConstantElement.GlobalUserName);
                         user_1.setText(UserName);
                         user_1_score.setText(Scoren);
                     } else {
@@ -1291,16 +1297,19 @@ public class GameController implements Initializable {
                         if (!user.equals(ConstantElement.GlobalUserName)) {
                             if (user_1_txt_1.getText().isEmpty() && user_1_txt_2.getText().isEmpty() && user_1_txt_3.getText().isEmpty()) {
                                 lbl_live_user_1.setText(user);
+                                user1_online.setText("Online");
                                 user_1_txt_1.setText(Letter1);
                                 user_1_txt_2.setText(Letter2);
                                 user_1_txt_3.setText(Letter3);
                             } else if (user_2_txt_1.getText().isEmpty() && user_2_txt_2.getText().isEmpty() && user_2_txt_3.getText().isEmpty()) {
                                 lbl_live_user_2.setText(user);
+                                user2_online.setText("Online");
                                 user_2_txt_1.setText(Letter1);
                                 user_2_txt_2.setText(Letter2);
                                 user_2_txt_3.setText(Letter3);
                             } else if (user_3_txt_1.getText().isEmpty() && user_3_txt_2.getText().isEmpty() && user_3_txt_3.getText().isEmpty()) {
                                 lbl_live_user_3.setText(user);
+                                user3_online.setText("Online");
                                 user_3_txt_1.setText(Letter1);
                                 user_3_txt_2.setText(Letter2);
                                 user_3_txt_3.setText(Letter3);
@@ -1358,10 +1367,16 @@ public class GameController implements Initializable {
                         if (!user.equals(ConstantElement.GlobalUserName)) {
                             if (user_1_global.getText().isEmpty() && user.equals(lbl_live_user_1.getText())) {
                                 user_1_global.setText(Score);
+                                if(Score.isEmpty()){
+                                    user1_online.setText("Offline");}
                             } else if (user_2_global.getText().isEmpty() && user.equals(lbl_live_user_2.getText())) {
                                 user_2_global.setText(Score);
+                                if(Score.isEmpty()){
+                                    user2_online.setText("Offline");}
                             } else if (user_3_global.getText().isEmpty() && user.equals(lbl_live_user_3.getText())) {
                                 user_3_global.setText(Score);
+                                if(Score.isEmpty()){
+                                    user2_online.setText("Offline");}
                             }
                         }
                     }
