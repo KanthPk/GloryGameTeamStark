@@ -84,7 +84,7 @@ public class RegisterUserController implements Initializable {
                     }
                      else
                     {
-                        validatorService.validateConditionErrors("EMAIL ERROR", "Please enter a valid emil", false, false, true, false, false);
+                        validatorService.validateConditionErrors("INVALID EMAIL", "Please enter a valid email", false, false, true, false, false);
                     }
             }
                
