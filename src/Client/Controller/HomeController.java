@@ -199,7 +199,7 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        btnSend.setOnAction((event) -> { 
+        btnSend.setOnAction((event) -> {
             ConstantElement.message = null;
             ConstantElement.chatReciever = null;
             try {
@@ -210,9 +210,13 @@ public class HomeController implements Initializable {
                     chatThreadInject.start();
                     if (ConstantElement.isSend) {
                         ServerCall.sendMessage(ConstantElement.GlobalUserName, ConstantElement.message, ConstantElement.chatReciever);
+                        ConstantElement.message = "";
+                        ConstantElement.chatReciever = "";
                         chatThreadInject.stop();
                     }
-            }}catch(Exception ex){}
+                }
+            } catch (Exception ex) {
+            }
         });
 
         for (int i = 2; i <= 4; i++) {
@@ -719,12 +723,15 @@ public class HomeController implements Initializable {
                     userList.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
-                            String value = userList.getSelectionModel().getSelectedItems().toString();
-                            value = value.substring(value.indexOf("'"));
-                            value = value.replaceAll("']", "'");
-                            value = value.replaceFirst("'", "");
-                            value = value.replaceFirst("'", "");
-                            Chatreciver = value;
+                            try {
+                                String value = userList.getSelectionModel().getSelectedItems().toString();
+                                value = value.substring(value.indexOf("'"));
+                                value = value.replaceAll("']", "'");
+                                value = value.replaceFirst("'", "");
+                                value = value.replaceFirst("'", "");
+                                Chatreciver = value;
+                            } catch (Exception e) {
+                            }
                         }
                     });
                 }
