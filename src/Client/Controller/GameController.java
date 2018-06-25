@@ -1001,8 +1001,10 @@ public class GameController implements Initializable {
                     if (isAutoBuildUsed) {
                         if (NoOfDiamonds > 0) {
                             NoOfDiamonds = NoOfDiamonds - 1;
+                            xpPoints = xpPoints -500;
                             lbl_diamond.setText("" + NoOfDiamonds);
                         } else {
+                         
                             int panaltyScore = PenaltyElement.calculateRoundPanalty(RoundScore);
                             RoundScore = panaltyScore;
                         }
