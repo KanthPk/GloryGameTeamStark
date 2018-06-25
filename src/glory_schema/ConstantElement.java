@@ -28,7 +28,7 @@ public class ConstantElement {
     public static boolean prepareToSave = false;
     public static String playerExist;
     public static MediaPlayer mediaPlayer;
-    public static final int ExtraPointsForWord = 8;
+    public static final int ExtraPointsForWord = 50;
     public static int UnusedLetters;
     public static String GlobalUserName;
     public static String GlobalPassowrd;

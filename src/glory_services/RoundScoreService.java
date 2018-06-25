@@ -8,13 +8,8 @@ package glory_services;
 import glory_schema.ConstantElement;
 import glory_schema.ScoreElement;
 
-/**
- *
- * @author AshanPerera
- */
 public class RoundScoreService {
 
-    //this service will manage all 5 rounds
     public int getScoreFromEachRound(int round, String fullQualifiedEnglishWord) {
         try {
 
