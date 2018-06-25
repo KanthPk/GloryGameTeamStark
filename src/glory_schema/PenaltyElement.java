@@ -6,7 +6,7 @@ public class PenaltyElement  {
     public static int calculateRoundPanalty(int RoundScore)
     {
         
-        if(RoundScore>0)
+        if(RoundScore>=3)
         {
          return RoundScore - 3;
         }
@@ -18,7 +18,7 @@ public class PenaltyElement  {
             }
             else
             {
-                ConstantElement.GlobalScore = ConstantElement.GlobalScore -3;
+                ConstantElement.GlobalScore = ConstantElement.GlobalScore + RoundScore - 3;
             }
                 return 0;            
         }   
