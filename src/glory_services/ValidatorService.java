@@ -9,6 +9,7 @@ import glory_schema.ConstantElement;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -40,7 +41,7 @@ public class ValidatorService {
             stage = new Stage();
             stage.centerOnScreen();
             stage.setScene(new Scene(layout));
-            stage.setResizable(false);
+            stage.setResizable(false);            
             stage.initStyle(StageStyle.UNDECORATED);
             stage.show();
         } catch (Exception e) {
@@ -78,7 +79,7 @@ public class ValidatorService {
 
             String header = heading;
             String body = value;
-            
+
             ConstantElement.forEmailConfirmation = confirmation;
             ConstantElement.visiblityForTextField = textVisibility;
             ConstantElement.isNeedBtnOK = isNeedOkButton;
@@ -95,28 +96,4 @@ public class ValidatorService {
         } catch (Exception e) {
         }
     }
-    
-//    public void getValidaterMessage(String heading, String value, boolean confirmation, boolean textVisi, boolean force) {
-//        try {
-//            layout = null;
-//            stage = null;
-//
-//            String header = heading;
-//            String body = value;
-//            
-//            ConstantElement.forEmailConfirmation = confirmation;
-//            ConstantElement.visiblityForTextField = textVisi;
-//            MessageService.setMakeMessageUI("mail", header, body);
-//            layout = FXMLLoader.load(getClass().getResource("/UI/CommenMessage.fxml"));
-//            stage = new Stage();
-//            stage.centerOnScreen();
-//            stage.setScene(new Scene(layout));
-//            stage.setResizable(false);
-//            stage.initStyle(StageStyle.UNDECORATED);
-//            stage.show();
-//
-//        } catch (Exception e) {
-//        }
-//    }
-
 }
