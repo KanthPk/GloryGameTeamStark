@@ -5,12 +5,8 @@
  */
 package animation;
 
-import java.awt.Color;
 import javafx.animation.FadeTransition;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Node;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
@@ -49,8 +45,8 @@ public class TransitionService {
         }
         return null;
     }
-    
-     public FadeTransition MakeFadeOutInLiveGame(AnchorPane layout) {
+
+    public FadeTransition MakeFadeOutInLiveGame(AnchorPane layout) {
         try {
             fadeTransition.setDuration(Duration.millis(550.0));
             fadeTransition.setNode((Node) layout);
@@ -61,13 +57,37 @@ public class TransitionService {
         }
         return null;
     }
-     
-     public FadeTransition MakeFadeInLiveGame(AnchorPane layout) {
+
+    public FadeTransition MakeFadeInLiveGame(AnchorPane layout) {
         try {
             fadeTransition.setDuration(Duration.millis(550.0));
             fadeTransition.setNode((Node) layout);
             fadeTransition.setFromValue(.0);
             fadeTransition.setToValue(0.58);
+            return fadeTransition;
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public FadeTransition MakeFadeOutForAutoGen(AnchorPane layout) {
+        try {
+            fadeTransition.setDuration(Duration.millis(200.0));
+            fadeTransition.setNode((Node) layout);
+            fadeTransition.setFromValue(1);
+            fadeTransition.setToValue(.6);
+            return fadeTransition;
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public FadeTransition MakeFadeInForAutoGen(AnchorPane layout) {
+        try {
+            fadeTransition.setDuration(Duration.millis(200.0));
+            fadeTransition.setNode((Node) layout);
+            fadeTransition.setFromValue(.0);
+            fadeTransition.setToValue(1);
             return fadeTransition;
         } catch (Exception e) {
         }

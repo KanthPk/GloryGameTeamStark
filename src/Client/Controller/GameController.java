@@ -248,6 +248,9 @@ public class GameController implements Initializable {
     @FXML
     private Label user3_online;
     
+    @FXML
+    private AnchorPane anchorAutoSearch;
+
     public int roundVal = 1;
     protected String pause = "Stop";
     StringBuffer globalSubChars;
@@ -303,13 +306,12 @@ public class GameController implements Initializable {
                 WordAutoGenerate v = new WordAutoGenerate(ary);
                 v.Autogenerator();
                 System.out.println("Autogenrate word" + v.getLongestWord());
-                isAutoBuildUsed= true;
+                isAutoBuildUsed = true;
                 txtWordFIeld.setText(v.getLongestWord());
             }
         } catch (Exception e) {
         }
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -502,7 +504,7 @@ public class GameController implements Initializable {
                 rBtnVowel.setSelected(true);
                 validate("V", liveValue);
             }
-        } catch (Exception e) {           
+        } catch (Exception e) {
         }
     }
 
@@ -995,26 +997,27 @@ public class GameController implements Initializable {
 
                 if (result == true) {
                     System.out.println("this is a word");
-                    int RoundScore = roundScoreService.getScoreFromEachRound(1, txtWordFIeld.getText());     
-                    if(isAutoBuildUsed)
-                    {
-                        if(NoOfDiamonds>0)
-                        {   
-                            NoOfDiamonds =  NoOfDiamonds -1;
+                    int RoundScore = roundScoreService.getScoreFromEachRound(1, txtWordFIeld.getText());
+                    if (isAutoBuildUsed) {
+                        if (NoOfDiamonds > 0) {
+                            NoOfDiamonds = NoOfDiamonds - 1;
                             lbl_diamond.setText("" + NoOfDiamonds);
-                        }
-                        else
-                        {                       
-                           int panaltyScore = PenaltyElement.calculateRoundPanalty(RoundScore);
-                          RoundScore= panaltyScore;                         
+                        } else {
+                            int panaltyScore = PenaltyElement.calculateRoundPanalty(RoundScore);
+                            RoundScore = panaltyScore;
                         }
                     }
                     txtScore.setText(Integer.toString(RoundScore));
-                    ConstantElement.GlobalScore= Integer.parseInt(txtScore.getText())+ConstantElement.GlobalScore;
+                    ConstantElement.GlobalScore = Integer.parseInt(txtScore.getText()) + ConstantElement.GlobalScore;
                     lbl_total_score.setText(Integer.toString(ConstantElement.GlobalScore));
                     //Set xpPointsStart   
                     xpPoints = xpPoints + gameAwards.GetxpPoints(elapsed, txtWordFIeld.getText());
                     NoOfDiamonds = gameAwards.GetDiamonds(xpPoints);
+                    if (NoOfDiamonds >= 1) {
+                        transitionService.MakeFadeOutForAutoGen(anchorAutoSearch);
+                        Thread.sleep(30);
+                        transitionService.MakeFadeInForAutoGen(anchorAutoSearch);
+                    }
                     System.out.println("############### : xp Points" + xpPoints);
                     System.out.println("############### : Diamonds:  " + NoOfDiamonds);
                 } else {
@@ -1176,7 +1179,7 @@ public class GameController implements Initializable {
                                                 subCheckBoxAncher.setVisible(false);
                                                 if (ConstantElement.roundId == 6) {
                                                     ConstantElement.roundId = 1;
-                                                    ConstantElement.GlobalScore=0;
+                                                    ConstantElement.GlobalScore = 0;
                                                     Thread.sleep(10000);
                                                     try {
                                                         Stage stageGame = (Stage) txtRandom_1.getScene().getWindow();
@@ -1383,16 +1386,19 @@ public class GameController implements Initializable {
                         if (!user.equals(ConstantElement.GlobalUserName)) {
                             if (user_1_global.getText().isEmpty() && user.equals(lbl_live_user_1.getText())) {
                                 user_1_global.setText(Score);
-                                if(Score.isEmpty()){
-                                    user1_online.setText("Offline");}
+                                if (Score.isEmpty()) {
+                                    user1_online.setText("Offline");
+                                }
                             } else if (user_2_global.getText().isEmpty() && user.equals(lbl_live_user_2.getText())) {
                                 user_2_global.setText(Score);
-                                if(Score.isEmpty()){
-                                    user2_online.setText("Offline");}
+                                if (Score.isEmpty()) {
+                                    user2_online.setText("Offline");
+                                }
                             } else if (user_3_global.getText().isEmpty() && user.equals(lbl_live_user_3.getText())) {
                                 user_3_global.setText(Score);
-                                if(Score.isEmpty()){
-                                    user2_online.setText("Offline");}
+                                if (Score.isEmpty()) {
+                                    user2_online.setText("Offline");
+                                }
                             }
                         }
                     }
@@ -1445,7 +1451,7 @@ public class GameController implements Initializable {
                                 try {
                                     btnHome.setDisable(false);
                                     timeline = new Timeline(new KeyFrame(Duration.minutes(1), ev -> {
-                                        ConstantElement.pause = ServerCall.getpauseGame();                                       
+                                        ConstantElement.pause = ServerCall.getpauseGame();
                                         if (ConstantElement.pause.equals(pause)) {
                                             timeline.stop();
                                         }
