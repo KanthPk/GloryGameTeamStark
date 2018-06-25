@@ -199,16 +199,18 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        btnSend.setOnAction((event) -> {
-            ConstantElement.isSend = false;
-            if (!txtmessage.getText().isEmpty() && btnSend.isPressed()) {              
+        btnSend.setOnAction((event) -> {           
+            try{           
+            if (!txtmessage.getText().isEmpty()) {              
                 ConstantElement.message = txtmessage.getText();
                 ConstantElement.chatReciever = Chatreciver;
+                System.out.println("message"+ConstantElement.GlobalUserName+ ConstantElement.message+ ConstantElement.chatReciever);
                 chatThreadInject.start();
                 if (ConstantElement.isSend) {
+                    ServerCall.sendMessage(ConstantElement.GlobalUserName, ConstantElement.message, ConstantElement.chatReciever);
                     chatThreadInject.stop();
                 }
-            }
+            }}catch(Exception ex){}
         });
 
         for (int i = 2; i <= 4; i++) {
