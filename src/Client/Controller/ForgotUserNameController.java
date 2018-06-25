@@ -18,6 +18,7 @@ import java.util.Random;
 import glory_schema.ConstantElement;
 import glory_services.SendEmailService;
 import glory_services.ValidatorService;
+import org.apache.commons.validator.routines.EmailValidator;
 
 /**
  * FXML Controller class
@@ -56,6 +57,7 @@ public class ForgotUserNameController implements Initializable {
         txtEmail.focusedProperty().addListener((ov, oldV, newV) -> {
             if (!txtEmail.getText().isEmpty()) {
                 if (!newV) {
+                    if(EmailValidator.getInstance().isValid(txtEmail.getText())){
                     try {
                         validatorService.getMailMessageBox("MAIL CONFIRMATION", "Please enter your confirmation code to verify your User name", true, true, true, true, "mail", true);
                         String usarMail = txtEmail.getText();
@@ -70,6 +72,11 @@ public class ForgotUserNameController implements Initializable {
                         userData.UserMail = usarMail;
 
                     } catch (Exception e) {
+                    }
+                    }
+                     else
+                    {
+                        validatorService.validateConditionErrors("EMAIL ERROR", "Please enter a valid emil", false, false, true, false, false);
                     }
                 }
             }

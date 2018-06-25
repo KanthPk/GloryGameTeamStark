@@ -22,6 +22,7 @@ import glory_services.SendEmailService;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import org.apache.commons.validator.routines.EmailValidator;
 
 /**
  * FXML Controller class
@@ -66,7 +67,9 @@ public class RegisterUserController implements Initializable {
 
         txtEmail.focusedProperty().addListener((ov, oldV, newV) -> {
             if (!txtEmail.getText().isEmpty()) {
+               
                 if (!newV) {
+                    if(EmailValidator.getInstance().isValid(txtEmail.getText())){
                     try {
                         validatorService.getMailMessageBox("MAIL CONFIRMATION", "Please enter your confirmation code to verify your email", true, true, true, true, "mail", true);
                         String usarMail = txtEmail.getText().toString().trim();
@@ -78,7 +81,13 @@ public class RegisterUserController implements Initializable {
                         userData.UserMail = usarMail;
                     } catch (Exception e) {
                     }
-                }
+                    }
+                     else
+                    {
+                        validatorService.validateConditionErrors("EMAIL ERROR", "Please enter a valid emil", false, false, true, false, false);
+                    }
+            }
+               
             }
         });
     }
