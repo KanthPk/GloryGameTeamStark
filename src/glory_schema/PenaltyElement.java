@@ -1,9 +1,21 @@
 package glory_schema;
 
-/**
- *
- * @author AshanPerera
- */
-public class PenaltyElement extends GloryElement {
+
+public class PenaltyElement  {
+      
+    public static int calculateRoundPanalty(int RoundScore)
+    {
+        if(RoundScore>0)
+        {
+         return RoundScore - 3;
+        }
+        else
+        {
+                return 0;            
+        }
+        
+        
+    }
     
-}
+ }
+

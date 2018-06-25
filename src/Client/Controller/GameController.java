@@ -7,6 +7,7 @@ import glory_schema.ConstantElement;
 import glory_schema.FunctionElement;
 import glory_schema.GloryAward;
 import glory_schema.LetterValueElement;
+import glory_schema.PenaltyElement;
 import glory_schema.WordElement;
 import glory_services.RoundScoreService;
 import glory_services.ValidatorService;
@@ -277,6 +278,8 @@ public class GameController implements Initializable {
     long m;
     long h;
     private String[] randomLetter;
+    //store autoBuild usage
+    private boolean isAutoBuildUsed = false;
 
     /**
      * Initializes the controller class.
@@ -300,6 +303,7 @@ public class GameController implements Initializable {
                 WordAutoGenerate v = new WordAutoGenerate(ary);
                 v.Autogenerator();
                 System.out.println("Autogenrate word" + v.getLongestWord());
+                isAutoBuildUsed= true;
                 txtWordFIeld.setText(v.getLongestWord());
             }
         } catch (Exception e) {
@@ -992,8 +996,21 @@ public class GameController implements Initializable {
 
                 if (result == true) {
                     System.out.println("this is a word");
-                    int test = roundScoreService.getScoreFromEachRound(1, txtWordFIeld.getText());
-                    txtScore.setText(Integer.toString(test));
+                    int RoundScore = roundScoreService.getScoreFromEachRound(1, txtWordFIeld.getText());     
+                    if(isAutoBuildUsed)
+                    {
+                        if(NoOfDiamonds>0)
+                        {   
+                            NoOfDiamonds =  NoOfDiamonds -1;
+                            lbl_diamond.setText("" + NoOfDiamonds);
+                        }
+                        else
+                        {                       
+                           int panaltyScore = PenaltyElement.calculateRoundPanalty(RoundScore);
+                          RoundScore= panaltyScore;                         
+                        }
+                    }
+                    txtScore.setText(Integer.toString(RoundScore));
                     ConstantElement.GlobalScore= Integer.parseInt(txtScore.getText())+ConstantElement.GlobalScore;
                     lbl_total_score.setText(Integer.toString(ConstantElement.GlobalScore));
                     //Set xpPointsStart   
@@ -1120,6 +1137,7 @@ public class GameController implements Initializable {
             //ServerCall.deleteEachRound(ConstantElement.GroupName, ConstantElement.GlobalUserName);
             roundVal = roundVal + 1;
             lbl_diamond.setText("" + NoOfDiamonds);
+            isAutoBuildUsed = false;
             ConstantElement.roundId = roundVal;
             if (ConstantElement.roundId != 6) {
                 roundid.setText(Integer.toString(roundVal));
