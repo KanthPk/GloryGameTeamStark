@@ -199,9 +199,8 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        btnSend.setOnAction((event) -> {   
-            ConstantElement.message =null;
-            ConstantElement.chatReciever =null;
+        btnSend.setOnAction((event) -> {              
+            Chatreciver="";
             try{           
             if (!txtmessage.getText().isEmpty()) {              
                 ConstantElement.message = txtmessage.getText();
