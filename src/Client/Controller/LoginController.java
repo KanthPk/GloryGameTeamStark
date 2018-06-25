@@ -172,9 +172,6 @@ public class LoginController implements Initializable {
                     
                     
                     //SaveLoginCredentials Start                
-                    File f = new File(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "AccountSettings.txt");
-                    f.deleteOnExit();
-                    
                     if(chkCheckBox.isSelected()){
                         String Userdata = txtUserName.getText()+"\n"+pwdPassword.getText();       
                         byte[] buffer = Userdata.getBytes();
@@ -185,7 +182,11 @@ public class LoginController implements Initializable {
                             System.out.println("Error writing file '" + "AccountSettings" + "'");
                         } catch (Exception e) {
                             System.out.println("Error Connection ");
-                    }  
+                    }                      
+                    }
+                    else{
+                      File f = new File(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "AccountSettings.txt");;
+                      f.deleteOnExit();
                     
                     }
                     //SaveLoginCredentials End
