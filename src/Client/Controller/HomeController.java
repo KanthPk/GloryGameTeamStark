@@ -205,13 +205,11 @@ public class HomeController implements Initializable {
                     ConstantElement.message = txtmessage.getText();
                     ConstantElement.chatReciever = Chatreciver;
                     System.out.println("message" + ConstantElement.GlobalUserName + ConstantElement.message + ConstantElement.chatReciever);
-                    chatThreadInject.start();
-                    if (ConstantElement.isSend) {
+                    //chatThreadInject.start();                   
                         ServerCall.sendMessage(ConstantElement.GlobalUserName, ConstantElement.message, ConstantElement.chatReciever);
                         ConstantElement.message = "";
                         ConstantElement.chatReciever = "";
-                        chatThreadInject.stop();
-                    }
+                       // chatThreadInject.stop();                    
                 }
             } catch (Exception ex) {
             }
