@@ -199,9 +199,7 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        btnSend.setOnAction((event) -> {
-            ConstantElement.message = null;
-            ConstantElement.chatReciever = null;
+        btnSend.setOnAction((event) -> {            
             try {
                 if (!txtmessage.getText().isEmpty()) {
                     ConstantElement.message = txtmessage.getText();
@@ -745,8 +743,7 @@ public class HomeController implements Initializable {
         users = new ArrayList<String>();
         try {
             JSONArray array = ServerCall.getChatMessage(ConstantElement.GlobalUserName);
-            int cou = array.size();
-            System.out.println("ssaas" + cou);
+            int cou = array.size();           
             txtmessage.clear();
             if (!array.isEmpty()) {
                 for (int i = 0; i < cou; i++) {

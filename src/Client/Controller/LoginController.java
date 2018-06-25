@@ -169,8 +169,7 @@ public class LoginController implements Initializable {
                     Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     app_stage.setScene(home_page_scene);
                     app_stage.show();
-                    
-                    
+                                        
                     //SaveLoginCredentials Start                
                     if(chkCheckBox.isSelected()){
                         String Userdata = txtUserName.getText()+"\n"+pwdPassword.getText();       
