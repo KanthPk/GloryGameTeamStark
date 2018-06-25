@@ -98,8 +98,7 @@ public class WinnerScreenController implements Initializable {
         btnHome.setOnAction(event -> {
             ConstantElement.isFinished = false;
             //navigate
-            try {
-                ServerCall.Logout(ConstantElement.GlobalUserName, ConstantElement.GroupName);
+            try {                
                 ServerCall.leaveGroup(ConstantElement.GroupName, ConstantElement.GlobalUserName);
                 ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
                 ServerCall.deleteRound(ConstantElement.GroupName, ConstantElement.GlobalUserName);
