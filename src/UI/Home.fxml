@@ -74,7 +74,7 @@
                 <Image url="@../resources/minimize.png" />
             </image>
         </ImageView>
-      <AnchorPane id="AnchorPane" fx:id="GroupAncher" layoutX="14.0" layoutY="85.0" opacity="0.79" prefHeight="148.0" prefWidth="406.0" style="-fx-background-color: #263364;">
+      <AnchorPane id="AnchorPane" fx:id="GroupAncher" layoutX="14.0" layoutY="85.0" opacity="0.79" prefHeight="148.0" prefWidth="406.0" style="-fx-background-color: #263364;" visible="false">
          <stylesheets>
             <URL value="@/Common/css/common.css" />
          </stylesheets>
@@ -148,7 +148,7 @@
             <DropShadow spread="0.24" />
          </effect>
       </AnchorPane>
-      <AnchorPane id="AnchorPane" fx:id="ancherGroupView" layoutX="23.0" layoutY="85.0" opacity="0.79" prefHeight="350.0" prefWidth="535.0" style="-fx-background-color: #263364;" visible="false">
+      <AnchorPane id="AnchorPane" fx:id="ancherGroupView" layoutX="23.0" layoutY="85.0" opacity="0.79" prefHeight="357.0" prefWidth="529.0" style="-fx-background-color: #263364;" visible="false">
          <children>
             <Label fx:id="lblGroupViewHeading" layoutX="14.0" layoutY="14.0" prefHeight="40.0" prefWidth="264.0" text="GROUP NAME" textFill="WHITE">
                <font>
@@ -156,11 +156,6 @@
                </font>
             </Label>
             <ListView fx:id="listGroupViewMembers" layoutX="10.0" layoutY="59.0" prefHeight="254.0" prefWidth="387.0" />
-            <Label fx:id="lblGroupViewSubHeading" layoutX="10.0" layoutY="313.0" prefHeight="31.0" prefWidth="415.0" text="Please wait for other players" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="21.0" />
-               </font>
-            </Label>
             <Button fx:id="btnProceed" alignment="CENTER" layoutX="407.0" layoutY="59.0" mnemonicParsing="false" onAction="#btnProceedClicked" prefHeight="49.0" prefWidth="117.0" style="-fx-cursor: HAND;" text="PROCEED">
                <font>
                   <Font name="System Bold" size="16.0" />
@@ -177,6 +172,11 @@
                   <DropShadow spread="0.37" />
                </effect>
             </Button>
+            <Label fx:id="lblGroupViewSubHeading" layoutX="11.0" layoutY="320.0" prefHeight="31.0" prefWidth="387.0" text="Please wait for other players" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+            </Label>
          </children>
          <effect>
             <DropShadow spread="0.24" />
