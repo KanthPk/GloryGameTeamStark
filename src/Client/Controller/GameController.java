@@ -988,6 +988,8 @@ public class GameController implements Initializable {
                     System.out.println("this is a word");
                     int test = roundScoreService.getScoreFromEachRound(1, txtWordFIeld.getText());
                     txtScore.setText(Integer.toString(test));
+                    ConstantElement.GlobalScore= Integer.parseInt(txtScore.getText())+ConstantElement.GlobalScore;
+                    lbl_total_score.setText(Integer.toString(ConstantElement.GlobalScore));
                     //Set xpPointsStart   
                     xpPoints = xpPoints + gameAwards.GetxpPoints(elapsed, txtWordFIeld.getText());
                     NoOfDiamonds = gameAwards.GetDiamonds(xpPoints);

@@ -38,6 +38,7 @@ public class ConstantElement {
     public static String pause;
     public static String message;
     public static String chatReciever;
+    public static int GlobalScore = 0;
     
     //for common message boxes
     public static boolean forEmailConfirmation = false;
