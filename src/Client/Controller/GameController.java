@@ -314,8 +314,8 @@ public class GameController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        System.out.println("*************************" + ConstantElement.roundId);
-        System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$" + roundVal);
+        System.out.println("***********Round ID**************" + ConstantElement.roundId);
+        System.out.println("************Round Value**********************" + roundVal);
         getIntialLetter();
         rBtnVowel.setToggleGroup(group);
         rBtnconsonent.setToggleGroup(group);
@@ -502,8 +502,7 @@ public class GameController implements Initializable {
                 rBtnVowel.setSelected(true);
                 validate("V", liveValue);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception e) {           
         }
     }
 
@@ -1023,7 +1022,6 @@ public class GameController implements Initializable {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -1178,6 +1176,7 @@ public class GameController implements Initializable {
                                                 subCheckBoxAncher.setVisible(false);
                                                 if (ConstantElement.roundId == 6) {
                                                     ConstantElement.roundId = 1;
+                                                    ConstantElement.GlobalScore=0;
                                                     Thread.sleep(10000);
                                                     try {
                                                         Stage stageGame = (Stage) txtRandom_1.getScene().getWindow();
@@ -1238,7 +1237,6 @@ public class GameController implements Initializable {
                     String Scoren = (String) userJsonObjects.get("Score");
                     String Level = (String) userJsonObjects.get("Level");
                     if (UserName.equals(ConstantElement.GlobalUserName)) {
-                        //lbl_live_user_1.setText(ConstantElement.GlobalUserName);
                         user_1.setText(UserName);
                         user_1_score.setText(Scoren);
                     } else {
@@ -1447,11 +1445,8 @@ public class GameController implements Initializable {
                                 try {
                                     btnHome.setDisable(false);
                                     timeline = new Timeline(new KeyFrame(Duration.minutes(1), ev -> {
-
-                                        ConstantElement.pause = ServerCall.getpauseGame();
-                                        System.out.println("Thread 2*****************" + pause);
+                                        ConstantElement.pause = ServerCall.getpauseGame();                                       
                                         if (ConstantElement.pause.equals(pause)) {
-                                            //
                                             timeline.stop();
                                         }
                                     }));
