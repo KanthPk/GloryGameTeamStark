@@ -100,20 +100,8 @@ public class LoginController implements Initializable {
         this.lblSignUp.setOnMouseClicked(event -> {
             this.route("RegisterUser", "/UI/RegisterUser.fxml");
         });
-
-        String path = System.getProperty("user.home") + File.separator + "Documents";
-        path += File.separator + "GloryGameFiles";
-        File CreateGloryDir = new File(path);
-
-        if (CreateGloryDir.exists()) {
-            System.out.println(CreateGloryDir + " already exists");
-        } else if (CreateGloryDir.mkdirs()) {
-            System.out.println(CreateGloryDir + " was created");
-        } else {
-            System.out.println(CreateGloryDir + " was not created");
-        }
-
-        File f = new File(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "AccountSettings.txt");
+        
+        File f = new File("AccountSettings.txt");
         if (f.exists()) {
             chkCheckBox.setSelected(true);
             Scanner file = null;
@@ -169,8 +157,8 @@ public class LoginController implements Initializable {
                     if (chkCheckBox.isSelected()) {
                         String Userdata = txtUserName.getText() + "\n" + pwdPassword.getText();
                         byte[] buffer = Userdata.getBytes();
-                        try {
-                            FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "AccountSettings.txt");
+                        try {                       
+                       FileOutputStream outputStream = new FileOutputStream("AccountSettings.txt");
                             outputStream.write(buffer);
                         } catch (IOException ex) {
                             System.out.println("Error writing file '" + "AccountSettings" + "'");
@@ -178,8 +166,9 @@ public class LoginController implements Initializable {
                             System.out.println("Error Connection ");
                         }
                     } else {
-                        File f = new File(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "AccountSettings.txt");;
-                        f.deleteOnExit();
+                        
+                       File f = new File("AccountSettings.txt");
+                       f.deleteOnExit();
 
                     }
                     //SaveLoginCredentials End

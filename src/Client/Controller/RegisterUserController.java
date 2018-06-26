@@ -107,8 +107,8 @@ public class RegisterUserController implements Initializable {
                 byte[] buffer = bytes.getBytes();
                 try {
                     if (ConstantElement.isVerified) {
-                        ServerCall.registerUser(txtUserName.getText(), txtEmail.getText(), txtPassword.getText(), txtConfirmPassword.getText());
-                        FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "UserSettings.txt");
+                        ServerCall.registerUser(txtUserName.getText(), txtEmail.getText(), txtPassword.getText(), txtConfirmPassword.getText());                      
+                        FileOutputStream outputStream = new FileOutputStream("UserSettings.txt");
                         outputStream.write(buffer);
                         Stage stage = (Stage) btnBack.getScene().getWindow();
                         stage.close();

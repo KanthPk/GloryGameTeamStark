@@ -227,12 +227,14 @@ public class HomeController implements Initializable {
         ConstantElement.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
 
         //writeFileStart if not exsist
-        File f = new File(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "UserSettings.txt");
+        
+        File f = new File("UserSettings.txt");
         if (!f.exists()) {
             String bytes = "on";
             byte[] buffer = bytes.getBytes();
             try {
-                FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "UserSettings.txt");
+               
+               FileOutputStream outputStream = new FileOutputStream("UserSettings.txt");
                 outputStream.write(buffer);
             } catch (IOException ex) {
                 System.out.println("Error writing file '" + "UserSettings" + "'");
@@ -244,7 +246,9 @@ public class HomeController implements Initializable {
 
         Scanner file = null;
         try {
-            file = new Scanner(new File(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "UserSettings.txt"));
+            
+        
+        file = new Scanner(new File("UserSettings.txt"));
         } catch (FileNotFoundException ex) {
 
         }
@@ -258,8 +262,8 @@ public class HomeController implements Initializable {
                 // StartMusicByDefault
                 String stat = "on";
                 byte[] statbuffer = stat.getBytes();
-                try {
-                    FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "UserSettings.txt");
+                try {                   
+                    FileOutputStream outputStream = new FileOutputStream("UserSettings.txt");
                     outputStream.write(statbuffer);
                 } catch (IOException ex) {
                     System.out.println("Error writing file '" + "UserSettings" + "'");
