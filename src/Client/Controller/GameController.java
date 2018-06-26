@@ -1035,6 +1035,7 @@ public class GameController implements Initializable {
     void btnHomeClicked(ActionEvent event) {
         try {
             ConstantElement.isFinished = false;
+            ConstantElement.mediaPlayer.stop();
             commonServerCall();
             //navigate
             try {
@@ -1181,6 +1182,7 @@ public class GameController implements Initializable {
                                                 if (ConstantElement.roundId == 6) {
                                                     ConstantElement.roundId = 1;
                                                     ConstantElement.GlobalScore = 0;
+                                                    ConstantElement.mediaPlayer.stop();
                                                     Thread.sleep(10000);
                                                     try {
                                                         Stage stageGame = (Stage) txtRandom_1.getScene().getWindow();
