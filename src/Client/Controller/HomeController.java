@@ -661,7 +661,7 @@ public class HomeController implements Initializable {
                             @Override
                             public void run() {
                                 try {
-                                    livePlayersTimeLine = new Timeline(new KeyFrame(Duration.seconds(10), ev -> {
+                                    livePlayersTimeLine = new Timeline(new KeyFrame(Duration.seconds(18), ev -> {
                                         //after server call
                                         System.out.println("Calm Thread in home UI ->>>>");
                                         usercount = 0;
