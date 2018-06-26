@@ -123,7 +123,7 @@ public class RegisterUserController implements Initializable {
                     System.out.println("Error Connection ");
                 }
             } else {
-                validatorService.validateConditionErrors("PASSWORD MISSMATCH", "Pleasecheck your confirmation password again", false, false, true, false, false);
+                validatorService.validateConditionErrors("PASSWORD MISS MATCH", "Please check your confirmation password again", false, false, true, false, false);
             }
         } else {
             validatorService.validateConditionErrors("CHECK INPUTS", "Please check your inputs", false, false, true, false, false);
