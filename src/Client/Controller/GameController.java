@@ -64,6 +64,7 @@ public class GameController implements Initializable {
     GloryAward gameAwards = new GloryAward();
     MiddleTier ServerCall = new MiddleTier();
     FunctionElement scoreObj;
+    public int clicks = 0;
     @FXML
     private AnchorPane root;
 
@@ -978,7 +979,8 @@ public class GameController implements Initializable {
 
     @FXML
     void btnCreateClicked(ActionEvent event) {
-        try {
+        try {          
+            clicks++;           
             subCheckBoxAncher.setVisible(false);
 
             String val = txtWordFIeld.getText();
@@ -1008,10 +1010,13 @@ public class GameController implements Initializable {
                             int panaltyScore = PenaltyElement.calculateRoundPanalty(RoundScore);
                             RoundScore = panaltyScore;
                         }
+                    }                   
+                    if (clicks == 1) {
+                        txtScore.setText(Integer.toString(RoundScore));
+                        ConstantElement.GlobalScore = Integer.parseInt(txtScore.getText()) + ConstantElement.GlobalScore;
+                        lbl_total_score.setText(Integer.toString(ConstantElement.GlobalScore));
                     }
-                    txtScore.setText(Integer.toString(RoundScore));
-                    ConstantElement.GlobalScore = Integer.parseInt(txtScore.getText()) + ConstantElement.GlobalScore;
-                    lbl_total_score.setText(Integer.toString(ConstantElement.GlobalScore));
+                    
                     //Set xpPointsStart   
                     xpPoints = xpPoints + gameAwards.GetxpPoints(elapsed, txtWordFIeld.getText());
                     NoOfDiamonds = gameAwards.GetDiamonds(xpPoints);
@@ -1131,6 +1136,7 @@ public class GameController implements Initializable {
 
     private void saveScoreOfLivePlayers() {
         try {
+            clicks = 0;
             UUID uuid = UUID.randomUUID();
             String randomUUIDString = uuid.toString();
             scoreObj.setTotalScore(Integer.parseInt(txtScore.getText()));
