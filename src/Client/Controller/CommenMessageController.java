@@ -106,7 +106,8 @@ public class CommenMessageController implements Initializable {
 
     @FXML
     private void btnCancelClicked(ActionEvent event) {
-        try {
+        try {           
+            ConstantElement.isVerified = false;
             Stage stage = (Stage) btnCancel.getScene().getWindow();
             stage.close();
         } catch (Exception e) {
