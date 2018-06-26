@@ -97,6 +97,7 @@ public class WinnerScreenController implements Initializable {
         getTotalScore();
         btnHome.setOnAction(event -> {
             ConstantElement.isFinished = false;
+            ConstantElement.mediaPlayer.stop();
             //navigate
             try {                
                 ServerCall.leaveGroup(ConstantElement.GroupName, ConstantElement.GlobalUserName);
