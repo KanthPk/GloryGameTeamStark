@@ -12,6 +12,7 @@ public class GloryGame extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         try {
+            //Startup of the Project Application
             Parent root = FXMLLoader.load(getClass().getResource("/UI/Login.fxml"));
             Scene scene = new Scene(root);
             stage.initStyle(StageStyle.UNDECORATED);

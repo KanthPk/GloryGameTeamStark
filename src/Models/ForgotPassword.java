@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /**
  *
- * @author AshanPerera
+ * @author TeamStark
  */
 public class ForgotPassword {
     private String email;

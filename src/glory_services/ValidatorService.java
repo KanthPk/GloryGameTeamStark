@@ -15,7 +15,7 @@ import javafx.stage.StageStyle;
 
 /**
  *
- * @author AshanPerera
+ * @author TeamStark
  */
 public class ValidatorService {
 
@@ -41,7 +41,7 @@ public class ValidatorService {
             stage = new Stage();
             stage.centerOnScreen();
             stage.setScene(new Scene(layout));
-            stage.setResizable(false);            
+            stage.setResizable(false);
             stage.initStyle(StageStyle.UNDECORATED);
             stage.show();
         } catch (Exception e) {
@@ -52,7 +52,6 @@ public class ValidatorService {
         try {
             layout = null;
             stage = null;
-
             String header = heading;
             String body = value;
             ConstantElement.forEmailConfirmation = confirmation;
@@ -76,10 +75,8 @@ public class ValidatorService {
         try {
             layout = null;
             stage = null;
-
             String header = heading;
             String body = value;
-
             ConstantElement.forEmailConfirmation = confirmation;
             ConstantElement.visiblityForTextField = textVisibility;
             ConstantElement.isNeedBtnOK = isNeedOkButton;

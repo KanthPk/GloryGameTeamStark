@@ -68,9 +68,6 @@ public class ForgotPasswordController implements Initializable {
                         validatorService.getMailMessageBox("MAIL CONFIRMATION", "Please enter your confirmation code to verify your User name", true, true, true, true, "mail", true);
                         String usarMail = serverCall.checkEmail(txtUserName.getText());
                         txtEmail.setText(usarMail);
-                        //Set the current genarated code
-                        //setUserRecievedCode(id); 
-                        //Genarate randome number and send email
                         Random random = new Random();
                         String id = String.format("%04d", random.nextInt(10000));
                         SendEmailService sc = new SendEmailService();
@@ -116,40 +113,4 @@ public class ForgotPasswordController implements Initializable {
         } catch (Exception e) {
         }
     }
-
-    /*@FXML omit code
-    void btnSendcodeClicked(ActionEvent event) {
-        try {
-            //validatorService.getValidaterMessage("MAIL CONFIRMATION", "Please enter your confirmation code to verify your email", true, true, false);//AshansCode
-            String usarMail = "";
-            //Set the current genarated code
-            //setUserRecievedCode(id); 
-            //Genarate randome number and send email
-            Random random = new Random();
-            String id = String.format("%04d", random.nextInt(10000));
-            SendEmailService sc = new SendEmailService();
-            sc.sendVerificationCode(id, usarMail);
-
-            AnchorPane layout;
-            Stage stage;
-            String header = "MAIL CONFIRMATION";
-            String body = "Please enter your confirmation code to verify your email";
-            MessageService.setMakeMessageUI("mail", header, body);
-            // layout = FXMLLoader.load(getClass().getResource("/UI/CommenMessage.fxml"));
-            //CommenMessageController cmc = new CommenMessageController();  
-
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/CommenMessage.fxml"));
-            Parent parentHome = (Parent) fxmlLoader.load();
-            CommenMessageController controller = fxmlLoader.<CommenMessageController>getController();
-            controller.setGenaratedCode(id);
-            controller.setRecievermail(usarMail);
-
-            stage = new Stage();
-            stage.setScene(new Scene(parentHome));
-            stage.setResizable(false);
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.show();
-        } catch (Exception e) {
-        }
-    }*/
 }

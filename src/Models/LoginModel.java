@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author AshanPerera
+ * @author TeamStark
  */
 public class LoginModel {
 

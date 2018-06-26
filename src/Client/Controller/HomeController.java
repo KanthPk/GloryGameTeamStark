@@ -199,17 +199,16 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        btnSend.setOnAction((event) -> {            
+        btnSend.setOnAction((event) -> {
             try {
                 if (!txtmessage.getText().isEmpty()) {
                     ConstantElement.message = txtmessage.getText();
-                    ConstantElement.chatReciever = Chatreciver;
-                    System.out.println("message" + ConstantElement.GlobalUserName + ConstantElement.message + ConstantElement.chatReciever);
+                    ConstantElement.chatReciever = Chatreciver;                   
                     //chatThreadInject.start();                   
-                        ServerCall.sendMessage(ConstantElement.GlobalUserName, ConstantElement.message, ConstantElement.chatReciever);
-                        ConstantElement.message = "";
-                        ConstantElement.chatReciever = "";
-                       // chatThreadInject.stop();                    
+                    ServerCall.sendMessage(ConstantElement.GlobalUserName, ConstantElement.message, ConstantElement.chatReciever);
+                    ConstantElement.message = "";
+                    ConstantElement.chatReciever = "";
+                    // chatThreadInject.stop();                    
                 }
             } catch (Exception ex) {
             }
@@ -307,7 +306,7 @@ public class HomeController implements Initializable {
 
     @FXML
     private void imgSettingsOnPress(MouseEvent event) {
-        System.out.println("Hello");
+        System.out.println("imgSettingsOnPress");
     }
 
     @FXML
@@ -464,8 +463,7 @@ public class HomeController implements Initializable {
                 ObservableList items = FXCollections.observableArrayList();
 
                 for (int i = 0; i < ConstantElement.no_of_players; i++) {
-                    if (!users.get(i).isEmpty() && users.get(i) != null) {
-                        System.out.println("" + users.get(i));
+                    if (!users.get(i).isEmpty() && users.get(i) != null) {                      
                         items.add(users.get(i));
                     }
                 }
@@ -596,8 +594,7 @@ public class HomeController implements Initializable {
                 @Override
                 public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                     if (ConstantElement.prepareToSave) {
-                        try {
-                            System.out.println(ConstantElement.GroupName + ConstantElement.GlobalUserName + "" + ConstantElement.prepareToSave + randomGenCharacters[1] + randomGenCharacters[2] + randomGenCharacters[3]);
+                        try {                           
                             ServerCall.setInitialLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName,
                                     randomGenCharacters[1], randomGenCharacters[2],
                                     randomGenCharacters[3]);
@@ -687,8 +684,7 @@ public class HomeController implements Initializable {
         }
     };
 
-    private void getOnlineUsers() {
-        System.out.println("ssssssssssssss" + txtmessage.getText());
+    private void getOnlineUsers() {        
         users = new ArrayList<String>();
         try {
             JSONArray array = obj.onlineUsers();
@@ -741,7 +737,7 @@ public class HomeController implements Initializable {
         users = new ArrayList<String>();
         try {
             JSONArray array = ServerCall.getChatMessage(ConstantElement.GlobalUserName);
-            int cou = array.size();           
+            int cou = array.size();
             txtmessage.clear();
             if (!array.isEmpty()) {
                 for (int i = 0; i < cou; i++) {
@@ -750,7 +746,7 @@ public class HomeController implements Initializable {
                     String sender = (String) userJsonObjects.get("Sender");
                     String Receiver = (String) userJsonObjects.get("Receiver");
                     if (!Message.isEmpty() && Receiver.equals(ConstantElement.GlobalUserName)) {
-                        txtmessage.setText("Message From :-  " + sender + "....." + Message);
+                        txtmessage.setText(sender + ".." + Message);
                     }
                 }
             }

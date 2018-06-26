@@ -112,32 +112,27 @@ public class LoginController implements Initializable {
         } else {
             System.out.println(CreateGloryDir + " was not created");
         }
-        
-        
+
         File f = new File(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "AccountSettings.txt");
-        if(f.exists())
-        { 
+        if (f.exists()) {
             chkCheckBox.setSelected(true);
             Scanner file = null;
-        try {
-            file = new Scanner(f);
-        } catch (FileNotFoundException ex) {
+            try {
+                file = new Scanner(f);
+            } catch (FileNotFoundException ex) {
 
+            }
+            String[] userData = new String[2];
+            int i = 0;
+            while (file.hasNextLine()) {
+                userData[i] = file.nextLine();
+                i++;
+            }
+
+            txtUserName.setText(userData[0]);
+            pwdPassword.setText(userData[1]);
+            file.close();
         }
-         String[] userData = new String[2];
-         int i=0;
-        while (file.hasNextLine()) {
-             userData[i] = file.nextLine(); 
-               i++;
-                }
- 
-         txtUserName.setText(userData[0]);
-         pwdPassword.setText(userData[1]);
-         file.close();
-        }
-       
-        
-        
 
     }
 
@@ -169,24 +164,23 @@ public class LoginController implements Initializable {
                     Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     app_stage.setScene(home_page_scene);
                     app_stage.show();
-                                        
+
                     //SaveLoginCredentials Start                
-                    if(chkCheckBox.isSelected()){
-                        String Userdata = txtUserName.getText()+"\n"+pwdPassword.getText();       
+                    if (chkCheckBox.isSelected()) {
+                        String Userdata = txtUserName.getText() + "\n" + pwdPassword.getText();
                         byte[] buffer = Userdata.getBytes();
                         try {
-                            FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents"+File.separator + "GloryGameFiles"+File.separator+"AccountSettings.txt");
-                            outputStream.write(buffer);          
+                            FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "AccountSettings.txt");
+                            outputStream.write(buffer);
                         } catch (IOException ex) {
                             System.out.println("Error writing file '" + "AccountSettings" + "'");
                         } catch (Exception e) {
                             System.out.println("Error Connection ");
-                    }                      
-                    }
-                    else{
-                      File f = new File(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "AccountSettings.txt");;
-                      f.deleteOnExit();
-                    
+                        }
+                    } else {
+                        File f = new File(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "GloryGameFiles" + File.separator + "AccountSettings.txt");;
+                        f.deleteOnExit();
+
                     }
                     //SaveLoginCredentials End
                 } else if (Check.equals(Denied)) {

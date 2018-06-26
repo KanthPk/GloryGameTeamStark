@@ -45,7 +45,7 @@ import javafx.stage.StageStyle;
 /**
  * FXML Controller class
  *
- * @author Suba
+ * @author TeamStark
  */
 public class UserSettingsController implements Initializable {
 
@@ -69,7 +69,7 @@ public class UserSettingsController implements Initializable {
 
     @FXML
     private TextArea howtoPlaytxt;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 

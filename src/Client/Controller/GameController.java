@@ -247,7 +247,7 @@ public class GameController implements Initializable {
     private Label user2_online;
     @FXML
     private Label user3_online;
-    
+
     @FXML
     private AnchorPane anchorAutoSearch;
 
@@ -1001,10 +1001,10 @@ public class GameController implements Initializable {
                     if (isAutoBuildUsed) {
                         if (NoOfDiamonds > 0) {
                             NoOfDiamonds = NoOfDiamonds - 1;
-                            xpPoints = xpPoints -500;
+                            xpPoints = xpPoints - 500;
                             lbl_diamond.setText("" + NoOfDiamonds);
                         } else {
-                         
+
                             int panaltyScore = PenaltyElement.calculateRoundPanalty(RoundScore);
                             RoundScore = panaltyScore;
                         }
@@ -1020,6 +1020,7 @@ public class GameController implements Initializable {
                         Thread.sleep(30);
                         transitionService.MakeFadeInForAutoGen(anchorAutoSearch);
                     }
+                    //Valid ouput for XP points and diamonds  
                     System.out.println("############### : xp Points" + xpPoints);
                     System.out.println("############### : Diamonds:  " + NoOfDiamonds);
                 } else {
@@ -1137,7 +1138,6 @@ public class GameController implements Initializable {
             ServerCall.deleteLetter(ConstantElement.GroupName, ConstantElement.GlobalUserName);
             Thread.sleep(3000);
             setScore();
-            //ServerCall.deleteEachRound(ConstantElement.GroupName, ConstantElement.GlobalUserName);
             roundVal = roundVal + 1;
             lbl_diamond.setText("" + NoOfDiamonds);
             isAutoBuildUsed = false;
@@ -1154,7 +1154,6 @@ public class GameController implements Initializable {
             getIntialLetter();
             Thread.sleep(2000);
             getTotalScore();
-            System.out.println(" ***** " + Integer.toString(scoreObj.getTotalScore()));
         } catch (Exception e) {
         }
     }
@@ -1197,7 +1196,6 @@ public class GameController implements Initializable {
                                                     } catch (Exception e) {
                                                     }
                                                 } else {
-                                                    System.out.println("" + counter);
                                                     Thread.sleep(4000);
                                                     callBack();
                                                 }
@@ -1225,7 +1223,7 @@ public class GameController implements Initializable {
         JSONObject userJsonObjects = null;
         ArrayList<String> score = new ArrayList<String>();
         try {
-            //temporary clearing need to remove text in game fxml,begin
+            //clearing need to remove text in game fxml,begin
             user_2.setText("");
             user_3.setText("");
             user_4.setText("");
@@ -1261,7 +1259,6 @@ public class GameController implements Initializable {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

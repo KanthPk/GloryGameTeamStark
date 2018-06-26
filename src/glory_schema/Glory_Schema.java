@@ -2,7 +2,7 @@ package glory_schema;
 
 /**
  *
- * @author AshanPerera
+ * @author TeamStark
  */
 
 public class Glory_Schema {

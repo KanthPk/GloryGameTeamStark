@@ -10,7 +10,7 @@ import java.util.Map;
 
 /**
  *
- * @author AshanPerera
+ * @author TeamStark
  */
 public class ScoreElement {
 

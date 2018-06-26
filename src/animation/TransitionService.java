@@ -12,7 +12,7 @@ import javafx.util.Duration;
 
 /**
  *
- * @author AshanPerera
+ * @author TeamStark
  */
 public class TransitionService {
 

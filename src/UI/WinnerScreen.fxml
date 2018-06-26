@@ -23,7 +23,7 @@
             <Font name="System Bold" size="27.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_Gllobal_User" alignment="CENTER" layoutX="202.0" layoutY="98.0" prefHeight="23.0" prefWidth="77.0" text="AVATAR">
+      <Label fx:id="lbl_Gllobal_User" alignment="CENTER" layoutX="202.0" layoutY="98.0" prefHeight="23.0" prefWidth="77.0" text="OFFLINE">
          <font>
             <Font size="14.0" />
          </font>
@@ -39,7 +39,7 @@
             <DropShadow blurType="TWO_PASS_BOX" color="WHITE" spread="1.0" />
          </effect>
       </Label>
-      <Label fx:id="lbl_Gllobal_User2" alignment="CENTER" layoutX="202.0" layoutY="203.0" prefHeight="23.0" prefWidth="77.0" text="AVATAR">
+      <Label fx:id="lbl_Gllobal_User2" alignment="CENTER" layoutX="202.0" layoutY="203.0" prefHeight="23.0" prefWidth="77.0" text="OFFLINE">
          <font>
             <Font size="14.0" />
          </font>
@@ -47,7 +47,7 @@
             <DropShadow blurType="TWO_PASS_BOX" color="WHITE" spread="1.0" />
          </effect>
       </Label>
-      <Label fx:id="lbl_Global_User3" alignment="CENTER" layoutX="202.0" layoutY="311.0" prefHeight="23.0" prefWidth="77.0" text="AVATAR">
+      <Label fx:id="lbl_Global_User3" alignment="CENTER" layoutX="202.0" layoutY="311.0" prefHeight="23.0" prefWidth="77.0" text="OFFLINE">
          <font>
             <Font size="14.0" />
          </font>
@@ -55,7 +55,7 @@
             <DropShadow blurType="TWO_PASS_BOX" color="WHITE" spread="1.0" />
          </effect>
       </Label>
-      <Label fx:id="lbl_Global_User4" alignment="CENTER" layoutX="202.0" layoutY="437.0" prefHeight="23.0" prefWidth="77.0" text="AVATAR">
+      <Label fx:id="lbl_Global_User4" alignment="CENTER" layoutX="202.0" layoutY="437.0" prefHeight="23.0" prefWidth="77.0" text="OFFLINE">
          <font>
             <Font size="14.0" />
          </font>

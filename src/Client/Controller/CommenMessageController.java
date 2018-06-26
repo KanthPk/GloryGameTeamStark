@@ -72,19 +72,16 @@ public class CommenMessageController implements Initializable {
         txtInfo.setVisible(ConstantElement.visiblityForTextField);
         txtInfo.setEditable(ConstantElement.visiblityForTextField);
         lblMsgHeader.setText(MessageService.headerName);
-        lblMsgBody.setText(MessageService.msgValue);
-        //
+        lblMsgBody.setText(MessageService.msgValue);      
         if (!ConstantElement.isNeedBtnOK) {
             btnCancel.setText("OK");
         } else if (ConstantElement.isNeedBtnOK) {
             btnOK.setText("OK");
             btnCancel.setText("Cancel");
         }
-
         if (ConstantElement.isNeedResendButton) {
             btnResend.setText("Resend");
         }
-
         btnOK.setVisible(ConstantElement.isNeedBtnOK);
         btnCancel.setVisible(ConstantElement.isNeedBtnCancel);
         btnResend.setVisible(ConstantElement.isNeedResendButton);
@@ -117,20 +114,17 @@ public class CommenMessageController implements Initializable {
     private void btnOKClicked(ActionEvent event) {
         try {
             if (ConstantElement.forEmailConfirmation) {
-                System.out.println("" + ConstantElement.forEmailConfirmation);
                 try {
                     value = txtInfo.getText();
                     if (!value.isEmpty()) {
                         txtInfo.setStyle("-fx-border-color: BLACK;");
-                        if (value.equals(ce.RandomeNo)) {   
-                             //JOptionPane.showMessageDialog(null, "Email successfully verified", "InfoBox: " + "Email verification", JOptionPane.INFORMATION_MESSAGE);
+                        if (value.equals(ce.RandomeNo)) {                                
                             ConstantElement.isVerified = true;
                             Stage stage = (Stage) btnCancel.getScene().getWindow();
                             stage.close();
                         } else {
                             ConstantElement.isVerified = false;
-                            txtInfo.clear(); 
-                            //JOptionPane.showMessageDialog(null, "Email verification code is incorrect please resend the code", "Error: " + "Email verification", JOptionPane.ERROR_MESSAGE);
+                            txtInfo.clear();                             
                         }
 
                     } else {
@@ -177,8 +171,7 @@ public class CommenMessageController implements Initializable {
                     Logger.getLogger(CommenMessageController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception e) {          
         }
     }
 

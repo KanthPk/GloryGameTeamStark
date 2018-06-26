@@ -10,7 +10,7 @@ import java.sql.Time;
 
 /**
  *
- * @author AshanPerera
+ * @author TeamStark
  */
 public class RewardService {
 

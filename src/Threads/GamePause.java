@@ -10,7 +10,7 @@ import glory_schema.ConstantElement;
 
 /**
  *
- * @author AshanPerera
+ * @author TeamStark
  */
 public class GamePause implements Runnable {
 

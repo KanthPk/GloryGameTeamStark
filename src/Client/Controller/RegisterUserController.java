@@ -67,27 +67,25 @@ public class RegisterUserController implements Initializable {
 
         txtEmail.focusedProperty().addListener((ov, oldV, newV) -> {
             if (!txtEmail.getText().isEmpty()) {
-               
+
                 if (!newV) {
-                    if(EmailValidator.getInstance().isValid(txtEmail.getText())){
-                    try {
-                        validatorService.getMailMessageBox("MAIL CONFIRMATION", "Please enter your confirmation code to verify your email", true, true, true, true, "mail", true);
-                        String usarMail = txtEmail.getText().toString().trim();
-                        Random random = new Random();
-                        String id = String.format("%04d", random.nextInt(10000));
-                        SendEmailService sc = new SendEmailService();
-                        sc.sendVerificationCode(id, usarMail);
-                        userData.RandomeNo = id;
-                        userData.UserMail = usarMail;
-                    } catch (Exception e) {
-                    }
-                    }
-                     else
-                    {
+                    if (EmailValidator.getInstance().isValid(txtEmail.getText())) {
+                        try {
+                            validatorService.getMailMessageBox("MAIL CONFIRMATION", "Please enter your confirmation code to verify your email", true, true, true, true, "mail", true);
+                            String usarMail = txtEmail.getText().toString().trim();
+                            Random random = new Random();
+                            String id = String.format("%04d", random.nextInt(10000));
+                            SendEmailService sc = new SendEmailService();
+                            sc.sendVerificationCode(id, usarMail);
+                            userData.RandomeNo = id;
+                            userData.UserMail = usarMail;
+                        } catch (Exception e) {
+                        }
+                    } else {
                         validatorService.validateConditionErrors("INVALID EMAIL", "Please enter a valid email", false, false, true, false, false);
                     }
-            }
-               
+                }
+
             }
         });
     }

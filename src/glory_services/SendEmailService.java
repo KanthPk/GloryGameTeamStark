@@ -22,44 +22,43 @@ import javax.mail.internet.MimeMessage;
 
 /**
  *
- * @author Suba
+ * @author TeamStark
  */
 public class SendEmailService {
-    
-     protected String genaratedCode;
-   
- public void sendVerificationCode(String Code,String PlayerEmail) {
 
-		final String username = "TeamStarkBatch7@gmail.com";
-		final String password = "TeamStarkBatch7Share";
-                genaratedCode = Code;
+    protected String genaratedCode;
 
-		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "587");
+    public void sendVerificationCode(String Code, String PlayerEmail) {
 
-		Session session = Session.getInstance(props,
-		  new javax.mail.Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(username, password);
-			}
-		  });
+        final String username = "TeamStarkBatch7@gmail.com";
+        final String password = "TeamStarkBatch7Share";
+        genaratedCode = Code;
 
-		try {                   
-                    MimeMessage message = new MimeMessage(session);			
-                    message.setFrom(new InternetAddress("TeamStarkBatch7@gmail.com"));
-                    message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse(PlayerEmail));
-                    message.setSubject("Glory Game Verification Code");
-message.setContent(String.format("<h1>This is your verification Code</h1>"
-                 + "<h2>%s</h2>",Code), "text/html");
-			Transport.send(message);
-			System.out.println("Done");
-		} catch (MessagingException e) {
-			throw new RuntimeException(e);
-		}
-	}
-    
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
+
+        try {
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("TeamStarkBatch7@gmail.com"));
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(PlayerEmail));
+            message.setSubject("Glory Game Verification Code");
+            message.setContent(String.format("<h1>This is your verification Code</h1>"
+                    + "<h2>%s</h2>", Code), "text/html");
+            Transport.send(message);          
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

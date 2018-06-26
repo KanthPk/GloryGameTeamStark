@@ -10,7 +10,7 @@ import javafx.scene.image.ImageView;
 
 /**
  *
- * @author AshanPerera
+ * @author TeamStark
  */
 public class MessageService {
 

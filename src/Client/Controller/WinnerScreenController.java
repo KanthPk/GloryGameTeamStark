@@ -22,7 +22,7 @@ import org.json.simple.JSONObject;
 /**
  * FXML Controller class
  *
- * @author AshanPerera
+ * @author TeamStark
  */
 public class WinnerScreenController implements Initializable {
 
@@ -119,9 +119,7 @@ public class WinnerScreenController implements Initializable {
     }
 
     public void getTotalScore() {
-        try {
-            //tobedeeleteTemporary
-            //ServerCall.deleteRound(ConstantElement.GroupName, ConstantElement.GlobalUserName);
+        try {            
             lbl_Gllobal_User.setText("");
             lbl_Gllobal_User2.setText("");
             lbl_Global_User3.setText("");

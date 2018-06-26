@@ -57,25 +57,20 @@ public class ForgotUserNameController implements Initializable {
         txtEmail.focusedProperty().addListener((ov, oldV, newV) -> {
             if (!txtEmail.getText().isEmpty()) {
                 if (!newV) {
-                    if(EmailValidator.getInstance().isValid(txtEmail.getText())){
-                    try {
-                        validatorService.getMailMessageBox("MAIL CONFIRMATION", "Please enter your confirmation code to verify your User name", true, true, true, true, "mail", true);
-                        String usarMail = txtEmail.getText();
-                        //Set the current genarated code
-                        //setUserRecievedCode(id); 
-                        //Genarate randome number and send email
-                        Random random = new Random();
-                        String id = String.format("%04d", random.nextInt(10000));
-                        SendEmailService sc = new SendEmailService();
-                        sc.sendVerificationCode(id, usarMail);
-                        userData.RandomeNo = id;
-                        userData.UserMail = usarMail;
+                    if (EmailValidator.getInstance().isValid(txtEmail.getText())) {
+                        try {
+                            validatorService.getMailMessageBox("MAIL CONFIRMATION", "Please enter your confirmation code to verify your User name", true, true, true, true, "mail", true);
+                            String usarMail = txtEmail.getText();
+                            Random random = new Random();
+                            String id = String.format("%04d", random.nextInt(10000));
+                            SendEmailService sc = new SendEmailService();
+                            sc.sendVerificationCode(id, usarMail);
+                            userData.RandomeNo = id;
+                            userData.UserMail = usarMail;
 
-                    } catch (Exception e) {
-                    }
-                    }
-                     else
-                    {
+                        } catch (Exception e) {
+                        }
+                    } else {
                         validatorService.validateConditionErrors("INVALID EMAIL", "Please enter a valid email", false, false, true, false, false);
                     }
                 }
@@ -106,7 +101,7 @@ public class ForgotUserNameController implements Initializable {
                         validatorService.validateConditionErrors("USER NAME NOT EXIST", "Invalid Inputs", false, false, true, false, false);
                     }
                 } else {
-                    validatorService.validateConditionErrors("USER NAME MISSMATCH", "Pleasecheck your confirm user name", false, false, true, false, false);
+                    validatorService.validateConditionErrors("USER NAME MISSMATCH", "Please check your confirm user name", false, false, true, false, false);
                 }
             } else {
                 validatorService.validateConditionErrors("CHECK INPUTS", "Please check your inputs", false, false, true, false, false);
