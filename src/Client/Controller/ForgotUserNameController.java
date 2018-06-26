@@ -98,9 +98,13 @@ public class ForgotUserNameController implements Initializable {
         try {
             if (!txtEmail.getText().isEmpty() && !txtConfirmusername.getText().isEmpty() && !txtUsername.getText().isEmpty()) {
                 if (txtUsername.getText().equals(txtConfirmusername.getText()) && txtConfirmusername.getText().length() == txtUsername.getText().length()) {
-                    servercall.updateUsername(txtEmail.getText().toString(), txtConfirmusername.getText().toString());
-                    Stage stage = (Stage) btnBack.getScene().getWindow();
-                    stage.close();
+                    if (ConstantElement.isVerified) {
+                        servercall.updateUsername(txtEmail.getText().toString(), txtConfirmusername.getText().toString());
+                        Stage stage = (Stage) btnBack.getScene().getWindow();
+                        stage.close();
+                    } else {
+                        validatorService.validateConditionErrors("USER NAME NOT EXIST", "Invalid Inputs", false, false, true, false, false);
+                    }
                 } else {
                     validatorService.validateConditionErrors("USER NAME MISSMATCH", "Pleasecheck your confirm user name", false, false, true, false, false);
                 }
